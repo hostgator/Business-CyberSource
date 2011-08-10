@@ -47,6 +47,7 @@ has first_name => (
 		$self->_sdbo->add_elem(
 			name   => 'firstName',
 			value  => $value,
+			parent => $self->_bill_to,
 		);
 	},
 	
@@ -61,6 +62,7 @@ has last_name => (
 		$self->_sdbo->add_elem(
 			name   => 'last_name',
 			value  => $value,
+			parent => $self->_bill_to,
 		);
 	},
 	
