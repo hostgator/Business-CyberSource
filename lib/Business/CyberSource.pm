@@ -14,14 +14,15 @@ has client_version => (
 	is       => 'ro',
 	isa      => 'version',
 	default  => sub {
-		return version->parse( $Business::CyberSource::VERSION );
-	},
-	trigger  => sub {
-		my ( $self, $value ) = @_;
+		my $self = shift;
+		my $value = version->parse( $Business::CyberSource::VERSION );
+
 		$self->_sdbo->add_elem(
 			name   => 'clientLibraryVersion',
 			value  => $value,
 		);
+
+		return $value;
 	},
 );
 
