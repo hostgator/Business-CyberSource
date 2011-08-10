@@ -8,6 +8,7 @@ BEGIN {
 
 use SOAP::Lite ( +trace => [ qw( debug ) ] );
 use Moose;
+use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
 has reference_code => (
@@ -18,7 +19,7 @@ has reference_code => (
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'merchantReferenceCode',
-			value  => $value,
+			value  => $ref_code,
 		);
 	},
 );
