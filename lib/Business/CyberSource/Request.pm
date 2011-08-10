@@ -8,7 +8,6 @@ BEGIN {
 }
 use Moose::Role;
 use SOAP::Data::Builder;
-use Data::Dumper;
 
 has _username_token => (
 	is  => 'rw',
@@ -50,7 +49,6 @@ has username => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $username ) = @_;
 		my $sb = $self->_sdbo;
@@ -61,14 +59,13 @@ has username => (
 			value  => $username,
 		);
 	},
-);	
+);
 
 has password => (
 	documentation => 'your SOAP transaction key',
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
-	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $password ) = @_;
 		$self->_sdbo->add_elem(
