@@ -17,8 +17,7 @@ has client_version => (
 	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
-		my $sb = $self->_sdbo;
-		$sb->add_elem(
+		$self->_sdbo->add_elem(
 			name   => 'clientLibraryVersion',
 			value  => $value,
 		);
