@@ -60,7 +60,7 @@ has username => (
 			value  => $username,
 		);
 	},
-);	
+);
 
 has password => (
 	documentation => 'your SOAP transaction key',
