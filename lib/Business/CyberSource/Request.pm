@@ -20,30 +20,8 @@ has _sdbo => (
 	required => 1,
 	lazy     => 1,
 	is       => 'rw',
-	isa      => 'SOAP::Data::Builder', # sdbo is SOAP::Data::Builder object
-	default  => sub {
-		my $self = shift;
-		my $sb = SOAP::Data::Builder->new;
-		$sb->autotype(0);
-		my $security = $sb->add_elem(
-			header => 1,
-			name   => 'wsse:Security',
-			attributes => {
-				'xmlns:wsse'
-					=> 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
-			}
-		);
-
-		my $username_token = $sb->add_elem(
-			header => 1,
-			parent => $security,
-			name   => 'wsse:UsernameToken',
-		);
-
-		$self->_username_token( $username_token );
-
-		return $sb;
-	},
+	isa      => 'SOAP::Data::Builder',
+	builder  => '_sdbo_build',
 );
 
 has username => (
@@ -78,6 +56,33 @@ has password => (
 		);
 	},
 );
+
+sub _build_sdbo {
+	my $self = shift;
+	my $sb = SOAP::Data::Builder->new;
+	$sb->autotype(0);
+
+	my $security
+		= $sb->add_elem(
+			header => 1,
+			name   => 'wsse:Security',
+			attributes => {
+				'xmlns:wsse'
+					=> 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+			}
+		);
+
+	my $username_token
+		= $sb->add_elem(
+			header => 1,
+			parent => $security,
+			name   => 'wsse:UsernameToken',
+		);
+
+	$self->_username_token( $username_token );
+
+	return $sb;
+}
 
 1;
 
