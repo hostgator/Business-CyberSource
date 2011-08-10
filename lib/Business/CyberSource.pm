@@ -45,7 +45,8 @@ has client_env => (
 	isa      => 'Str',
 	default  => sub {
 		use Config qw( config_vars );
-		return config_vars( qw( versiononly osname osver archname );
+		my $env = config_vars( qw( versiononly osname osver archname );
+		return "$env";
 	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
