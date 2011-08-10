@@ -22,6 +22,7 @@ is( $req->client_version,
 	'check client_version exists'
 );
 is( $req->client_library, 'Business::CyberSource', 'check client_library' );
+ok( $req->client_env, 'client_env' );
 note( $req->client_version );
 note( $req->client_library );
 note( $req->client_env     );
