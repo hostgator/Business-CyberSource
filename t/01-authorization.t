@@ -17,6 +17,7 @@ my $req
 		street     => '100 somewhere rd',
 		city       => 'Houston',
 		state      => 'TX',
+		zip        => '77064',
 		country    => 'US',
 		email      => 'xenoterracide@gmail.com',
 		ip         => '127.0.0.1',
