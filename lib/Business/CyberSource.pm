@@ -45,7 +45,7 @@ has client_env => (
 	isa      => 'Str',
 	default  => sub {
 		use Config;
-		return "$Config{osname} $Config{osvers} $Config{archname}";
+		return "Perl $Config{versiononly} $Config{osname} $Config{osvers} $Config{archname}";
 	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
