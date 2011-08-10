@@ -19,7 +19,7 @@ has reference_code => (
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'merchantReferenceCode',
-			value  => $ref_code,
+			value  => $value,
 		);
 	},
 );
