@@ -12,6 +12,8 @@ my $req
 		username => $CYBS_ID,
 		password => $CYBS_KEY,
 		reference_code => '42',
+		first_name => 'Caleb',
+		last_name  => 'Cushing',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );

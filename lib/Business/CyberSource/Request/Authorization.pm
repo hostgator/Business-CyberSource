@@ -24,6 +24,47 @@ has reference_code => (
 	},
 );
 
+has _bill_to => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		
+		return $self->_sdbo->add_elem(
+			name => 'billTo',
+		);
+	},
+);
+
+has first_name => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'firstName',
+			value  => $value,
+		);
+	},
+	
+);
+
+has last_name => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'last_name',
+			value  => $value,
+		);
+	},
+	
+);
 sub submit {
 	my ( $self ) = shift;
 	
