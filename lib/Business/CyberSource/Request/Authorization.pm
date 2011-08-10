@@ -15,10 +15,10 @@ has reference_code => (
 	is       => 'ro',
 	isa      => 'Str',
 	trigger  => sub {
-		my ( $self, $ref_code ) = @_;
+		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'merchantReferenceCode',
-			value  => $ref_code,
+			value  => $value,
 		);
 	},
 );
