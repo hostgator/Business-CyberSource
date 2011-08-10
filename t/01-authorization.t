@@ -27,6 +27,9 @@ ok( $req->client_env, 'check client_env exists' );
 note( $req->client_version );
 note( $req->client_library );
 note( $req->client_env     );
+is( $req->reference_code, '42',      'check reference_code' );
+is( $req->first_name,     'Caleb',   'check first_name'     );
+is( $req->last_name,      'Cushing', 'check first_name'     );
 
 $req->submit;
 done_testing;
