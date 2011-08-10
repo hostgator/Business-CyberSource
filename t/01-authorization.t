@@ -14,9 +14,13 @@ my $req
 		reference_code => '42',
 	});
 
-is ( $req->username, $CYBS_ID,  'check username' );
-is ( $req->password, $CYBS_KEY, 'check key'      );
-ok ( $req->client_version, 'check client_version exists' );
+is( $req->username, $CYBS_ID,  'check username' );
+is( $req->password, $CYBS_KEY, 'check key'      );
+is( $req->client_version,
+	$Business::CyberSource::VERSION,
+	'check client_version exists'
+);
+is( $req->client_library, 'Business::CyberSource', 'check client_library' );
 note( $req->client_version );
 note( $req->client_library );
 
