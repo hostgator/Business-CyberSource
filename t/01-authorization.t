@@ -26,4 +26,5 @@ note( $req->client_version );
 note( $req->client_library );
 note( $req->client_env     );
 
+$req->submit;
 done_testing;
