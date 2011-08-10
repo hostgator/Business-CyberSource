@@ -176,6 +176,20 @@ has _item => (
 	},
 );
 
+has unit_price => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Number',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'unitPrice',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	
