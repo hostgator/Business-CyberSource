@@ -44,8 +44,8 @@ has client_env => (
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
-		use Config qw( myconfig );
-		return myconfig;
+		use Config qw( config_vars );
+		return 'Perl' . config_vars( qw( versiononly osname osver archname )
 	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
