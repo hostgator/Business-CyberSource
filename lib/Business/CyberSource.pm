@@ -7,6 +7,8 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose::Role;
+use namespace::autoclean;
+use Config;
 
 has client_version => (
 	required => 1,
@@ -44,7 +46,6 @@ has client_env => (
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
-		use Config;
 		my $value = "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
