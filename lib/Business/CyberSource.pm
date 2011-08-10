@@ -16,7 +16,6 @@ has client_version => (
 		return version->parse( $Business::CyberSource::VERSION );
 	},
 	trigger  => sub {
-		croak "I am set";
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'clientLibraryVersion',
@@ -29,14 +28,14 @@ has client_library => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => __PACKAGE__,
-	trigger  => sub {
-		my ( $self, $value ) = @_;
+	default  => sub {
+		my $value = __PACKAGE__;
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
 			name   => 'clientLibrary',
 			value  => $value,
 		);
+		return $value;
 	},
 );
 
@@ -46,16 +45,14 @@ has client_env => (
 	isa      => 'Str',
 	default  => sub {
 		use Config;
-		return "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
-	},
-	trigger  => sub {
-		my ( $self, $value ) = @_;
+		my $value = "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
 			name   => 'clientLibraryEnvironment',
 			value  => $value,
 		);
 	},
+	return $value;
 );
 
 1;
