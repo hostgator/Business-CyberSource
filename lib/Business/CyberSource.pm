@@ -43,7 +43,10 @@ has client_env => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => sub{ %ENV },
+	default  => sub {
+		use English '-no_match_vars';
+		return 1;
+	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
