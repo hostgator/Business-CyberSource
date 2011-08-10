@@ -110,6 +110,12 @@ has state => (
 sub submit {
 	my ( $self ) = shift;
 	
+	$self->_sdbo->add_elem(
+		attributes => { run => 'true' },
+		name       => 'ccAuthService',
+		value      => ' ', # hack to prevent cs side unparseable xml
+	);
+
 	my $req = SOAP::Lite->new(
 		readable   => 1,
 		autotype   => 0,
