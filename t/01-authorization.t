@@ -22,6 +22,7 @@ my $req
 		email      => 'xenoterracide@gmail.com',
 		ip         => '127.0.0.1',
 		unit_price => 5.01,
+		quantity   => 1,
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
