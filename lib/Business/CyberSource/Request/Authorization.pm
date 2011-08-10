@@ -179,7 +179,7 @@ has _item => (
 has unit_price => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => 'PostiveNum',
 	traits   => ['Number'],
 	trigger  => sub {
 		my ( $self, $value ) = @_;
@@ -194,7 +194,7 @@ has unit_price => (
 has quantity => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => 'PostitiveInt',
 	traits   => ['Number'],
 	trigger  => sub {
 		my ( $self, $value ) = @_;
@@ -229,6 +229,33 @@ has currency => (
 			name   => 'currency',
 			value  => $value,
 			parent => $self->_totals,
+		);
+	},
+);
+
+has _card => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'card',
+		);
+	},
+);
+
+has credit_card => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'accountNumber',
+			value  => $value,
+			parent => $self->_card,
 		);
 	},
 );
