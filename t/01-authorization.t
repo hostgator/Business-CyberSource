@@ -11,9 +11,19 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username => $CYBS_ID,
 		password => $CYBS_KEY,
+		reference_code => '42',
 	});
 
-is ( $req->username, $CYBS_ID,  'check username' );
-is ( $req->password, $CYBS_KEY, 'check key'      );
+is( $req->username, $CYBS_ID,  'check username' );
+is( $req->password, $CYBS_KEY, 'check key'      );
+is( $req->client_version,
+	$Business::CyberSource::VERSION,
+	'check client_version exists'
+);
+is( $req->client_library, 'Business::CyberSource', 'check client_library' );
+ok( $req->client_env, 'check client_env exists' );
+note( $req->client_version );
+note( $req->client_library );
+note( $req->client_env     );
 
 done_testing;
