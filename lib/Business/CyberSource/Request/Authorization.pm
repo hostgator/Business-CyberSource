@@ -107,6 +107,62 @@ has state => (
 	},
 );
 
+has country => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'country',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has zip => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'postalCode',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has email => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'email',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has ip => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'ipAddress',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	
