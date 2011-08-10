@@ -179,7 +179,7 @@ has _item => (
 has unit_price => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Number',
+	isa      => 'Num',
 	trigger  => sub {
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
