@@ -37,7 +37,6 @@
       },
       "test" : {
          "requires" : {
-            "Data::Dumper" : 0,
             "English" : 0,
             "Env" : 0,
             "File::Find" : 0,

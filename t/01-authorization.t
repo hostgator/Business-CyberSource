@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-use Data::Dumper;
 
 use Business::CyberSource::Request::Authorization;
 
@@ -22,7 +21,7 @@ is( $req->client_version,
 	'check client_version exists'
 );
 is( $req->client_library, 'Business::CyberSource', 'check client_library' );
-ok( $req->client_env, 'client_env' );
+ok( $req->client_env, 'check client_env exists' );
 note( $req->client_version );
 note( $req->client_library );
 note( $req->client_env     );

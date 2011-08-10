@@ -51,12 +51,11 @@ has client_env => (
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
-			name   => 'clientLibrary',
+			name   => 'clientLibraryEnvironment',
 			value  => $value,
 		);
 	},
 );
-	
 
 1;
 
