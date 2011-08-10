@@ -5,6 +5,16 @@ use warnings;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
+use Moose::Role;
+
+has client_version => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'version',
+	default  => sub {
+		return version->declare( $Business::CyberSource::VERSION );
+	},
+);
 
 1;
 

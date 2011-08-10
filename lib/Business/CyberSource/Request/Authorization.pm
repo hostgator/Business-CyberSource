@@ -10,6 +10,19 @@ use SOAP::Lite ( +trace => [ qw( debug ) ] );
 use Moose;
 with 'Business::CyberSource::Request';
 
+has reference_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $ref_code ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'merchantReferenceCode',
+			value  => $ref_code,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	

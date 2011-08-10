@@ -7,8 +7,8 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose::Role;
+with 'Business::CyberSource';
 use SOAP::Data::Builder;
-use Data::Dumper;
 
 has _username_token => (
 	is  => 'rw',
@@ -50,7 +50,6 @@ has username => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $username ) = @_;
 		my $sb = $self->_sdbo;
@@ -68,7 +67,6 @@ has password => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
-	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $password ) = @_;
 		$self->_sdbo->add_elem(

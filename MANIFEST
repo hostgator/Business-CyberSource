@@ -11,6 +11,7 @@ lib/Business/CyberSource/Request.pm
 lib/Business/CyberSource/Request/Authorization.pm
 perlcritic.rc
 t/00-compile.t
+t/01-authorization.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t
@@ -28,4 +29,3 @@ t/release-portability.t
 t/release-synopsis.t
 t/release-test-version.t
 t/release-unused-vars.t
-test.pl
