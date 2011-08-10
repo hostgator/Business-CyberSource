@@ -16,6 +16,7 @@ has client_version => (
 		return version->parse( $Business::CyberSource::VERSION );
 	},
 	trigger  => sub {
+		carp "I am set";
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'clientLibraryVersion',
