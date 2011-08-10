@@ -49,7 +49,6 @@ has first_name => (
 			parent => $self->_bill_to,
 		);
 	},
-	
 );
 
 has last_name => (
@@ -64,8 +63,50 @@ has last_name => (
 			parent => $self->_bill_to,
 		);
 	},
-	
 );
+
+has street => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'street1',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has city => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'city',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has state => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'state',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	

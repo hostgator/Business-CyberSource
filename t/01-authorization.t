@@ -14,6 +14,9 @@ my $req
 		reference_code => '42',
 		first_name => 'Caleb',
 		last_name  => 'Cushing',
+		street     => '100 somewhere rd',
+		city       => 'Houston',
+		state      => 'TX',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
