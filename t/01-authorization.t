@@ -18,6 +18,7 @@ my $req
 		city       => 'Houston',
 		state      => 'TX',
 		country    => 'US',
+		email      => 'xenoterracide@gmail.com',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
