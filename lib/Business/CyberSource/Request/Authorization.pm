@@ -180,10 +180,26 @@ has unit_price => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
+	traits   => ['Number'],
 	trigger  => sub {
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			name   => 'unitPrice',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
+has quantity => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+	traits   => ['Number'],
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'quantity',
 			value  => $value,
 			parent => $self->_item,
 		);
