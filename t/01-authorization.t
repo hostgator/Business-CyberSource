@@ -16,5 +16,7 @@ my $req
 
 is ( $req->username, $CYBS_ID,  'check username' );
 is ( $req->password, $CYBS_KEY, 'check key'      );
+ok ( $req->client_version, 'check client_version exists' );
+note( $req->client_verson );
 
 done_testing;

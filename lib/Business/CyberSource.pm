@@ -12,7 +12,7 @@ has client_version => (
 	is       => 'ro',
 	isa      => 'version',
 	default  => sub {
-		return version->declare( $Business::CyberSource::VERSION );
+		return version->parse( $Business::CyberSource::VERSION );
 	},
 );
 
