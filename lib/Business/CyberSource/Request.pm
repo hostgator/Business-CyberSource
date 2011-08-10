@@ -21,7 +21,7 @@ has _sdbo => (
 	lazy     => 1,
 	is       => 'rw',
 	isa      => 'SOAP::Data::Builder',
-	builder  => '_sdbo_build',
+	builder  => '_build_sdbo',
 );
 
 has username => (
