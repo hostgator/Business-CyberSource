@@ -52,6 +52,7 @@ has client_env => (
 			value  => $value,
 		);
 	},
+);
 	
 
 1;
