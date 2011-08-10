@@ -12,6 +12,7 @@ my %WriteMakefileArgs = (
   'ABSTRACT' => 'Business::CyberSource',
   'AUTHOR' => 'Caleb Cushing <xenoterracide@gmail.com>',
   'BUILD_REQUIRES' => {
+    'Data::Dumper' => '0',
     'English' => '0',
     'Env' => '0',
     'File::Find' => '0',
