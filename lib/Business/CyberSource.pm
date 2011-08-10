@@ -54,8 +54,8 @@ has client_env => (
 			name   => 'clientLibraryEnvironment',
 			value  => $value,
 		);
+		return $value;
 	},
-	return $value;
 );
 
 1;
