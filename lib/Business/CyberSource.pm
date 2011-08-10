@@ -16,6 +16,13 @@ has client_version => (
 	},
 );
 
+has client_library => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	default  => __PACKAGE__,
+);
+
 1;
 
 # ABSTRACT: Business::CyberSource
