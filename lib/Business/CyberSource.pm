@@ -44,7 +44,7 @@ has client_env => (
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
-		use Config;
+		use Config qw( myconfig );
 		return myconfig;
 	},
 	trigger  => sub {
