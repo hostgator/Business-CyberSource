@@ -17,6 +17,7 @@ my $req
 		street     => '100 somewhere rd',
 		city       => 'Houston',
 		state      => 'TX',
+		country    => 'US',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
