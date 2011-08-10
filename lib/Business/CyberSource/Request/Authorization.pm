@@ -18,7 +18,6 @@ has client_version => (
 		return version->parse( $Business::CyberSource::VERSION );
 	},
 	trigger  => sub {
-		carp "I is built";
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
