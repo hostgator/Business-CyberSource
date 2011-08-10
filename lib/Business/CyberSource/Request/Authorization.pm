@@ -10,22 +10,6 @@ use SOAP::Lite ( +trace => [ qw( debug ) ] );
 use Moose;
 with 'Business::CyberSource::Request';
 
-has client_version => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'version',
-	default  => sub {
-		return version->parse( $Business::CyberSource::VERSION );
-	},
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		my $sb = $self->_sdbo;
-		$sb->add_elem(
-			name   => 'clientLibraryVersion',
-			value  => $value,
-		);
-	},
-);
 has reference_code => (
 	required => 1,
 	is       => 'ro',
