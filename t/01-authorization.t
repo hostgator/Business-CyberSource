@@ -19,6 +19,7 @@ my $req
 		state      => 'TX',
 		country    => 'US',
 		email      => 'xenoterracide@gmail.com',
+		ip         => '127.0.0.1',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
