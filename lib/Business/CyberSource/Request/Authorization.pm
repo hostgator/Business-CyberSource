@@ -163,6 +163,19 @@ has ip => (
 	},
 );
 
+has _item => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'item',
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	
