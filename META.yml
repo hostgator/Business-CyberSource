@@ -4,6 +4,7 @@ author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
 build_requires:
   Data::Dumper: 0
+  English: 0
   Env: 0
   File::Find: 0
   File::Temp: 0
@@ -22,7 +23,7 @@ no_index:
     - perlcritic.rc
 requires:
   Carp: 0
-  English: 0
+  Config: 0
   Moose: 0
   Moose::Role: 0
   SOAP::Data::Builder: 0

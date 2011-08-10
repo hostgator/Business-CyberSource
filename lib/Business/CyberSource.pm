@@ -44,8 +44,8 @@ has client_env => (
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
-		use English '-no_match_vars';
-		return 'Perl ' . $OSNAME;
+		use Config;
+		return myconfig;
 	},
 	trigger  => sub {
 		my ( $self, $value ) = @_;
