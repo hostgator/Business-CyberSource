@@ -18,6 +18,7 @@ has _username_token => (
 has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
+	lazy     => 1,
 	is       => 'rw',
 	isa      => 'SOAP::Data::Builder', # sdbo is SOAP::Data::Builder object
 	default  => sub {
