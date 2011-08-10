@@ -19,7 +19,7 @@ has client_version => (
 
 		$self->_sdbo->add_elem(
 			name   => 'clientLibraryVersion',
-			value  => $value,
+			value  => "$value",
 		);
 
 		return $value;
