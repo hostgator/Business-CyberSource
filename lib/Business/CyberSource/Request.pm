@@ -30,13 +30,13 @@ has username => (
 	is       => 'ro',
 	isa      => 'Str',
 	trigger  => sub {
-		my ( $self, $username ) = @_;
+		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
 			header => 1,
 			parent => $self->_username_token,
 			name   => 'wsse:Username',
-			value  => $username,
+			value  => $value,
 		);
 	},
 );
@@ -47,12 +47,12 @@ has password => (
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
 	trigger  => sub {
-		my ( $self, $password ) = @_;
+		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
 			header => 1,
 			parent => $self->_username_token,
 			name   => 'wsse:Password',
-			value  => $password,
+			value  => $value,
 		);
 	},
 );
