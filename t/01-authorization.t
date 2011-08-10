@@ -24,6 +24,6 @@ is( $req->client_version,
 is( $req->client_library, 'Business::CyberSource', 'check client_library' );
 note( $req->client_version );
 note( $req->client_library );
-note( Dumper { %ENV } );
+note( $req->cleint_env     );
 
 done_testing;
