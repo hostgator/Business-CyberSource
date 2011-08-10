@@ -2,6 +2,7 @@ package Business::CyberSource;
 use 5.006;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
@@ -15,7 +16,7 @@ has client_version => (
 		return version->parse( $Business::CyberSource::VERSION );
 	},
 	trigger  => sub {
-		warn "I is built";
+		carp "I is built";
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
 		$sb->add_elem(
