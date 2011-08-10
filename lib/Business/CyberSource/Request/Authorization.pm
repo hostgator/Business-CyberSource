@@ -31,7 +31,6 @@ has _bill_to => (
 	isa      => 'SOAP::Data::Builder::Element',
 	default  => sub {
 		my $self = shift;
-		
 		return $self->_sdbo->add_elem(
 			name => 'billTo',
 		);
@@ -60,7 +59,7 @@ has last_name => (
 	trigger  => sub {
 		my ( $self, $value ) = @_;
 		$self->_sdbo->add_elem(
-			name   => 'last_name',
+			name   => 'lastName',
 			value  => $value,
 			parent => $self->_bill_to,
 		);
