@@ -7,6 +7,7 @@ BEGIN {
 	# VERSION
 }
 use Moose::Role;
+with 'Business::CyberSource';
 use SOAP::Data::Builder;
 
 has _username_token => (
