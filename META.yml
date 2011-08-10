@@ -1,0 +1,33 @@
+---
+abstract: Business::CyberSource
+author:
+  - 'Caleb Cushing <xenoterracide@gmail.com>'
+build_requires:
+  English: 0
+  File::Find: 0
+  File::Temp: 0
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200014, CPAN::Meta::Converter version 2.112150'
+license: artistic_2
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Business-CyberSource
+no_index:
+  file:
+    - perlcritic.rc
+requires:
+  Carp: 0
+  Data::Dumper: 0
+  Moose: 0
+  Moose::Role: 0
+  SOAP::Data::Builder: 0
+  SOAP::Lite: 0
+  perl: 5.008
+resources:
+  bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
+  repository: git://github.com/xenoterracide/Business-CyberSource.git
+version: v0.1.0
