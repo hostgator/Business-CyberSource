@@ -23,6 +23,7 @@ my $req
 		ip         => '127.0.0.1',
 		unit_price => 5.01,
 		quantity   => 1,
+		currency   => 'USD',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );

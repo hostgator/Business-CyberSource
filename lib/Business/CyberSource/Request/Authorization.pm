@@ -194,7 +194,7 @@ has unit_price => (
 has quantity => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => '',
 	traits   => ['Number'],
 	trigger  => sub {
 		my ( $self, $value ) = @_;
@@ -202,6 +202,33 @@ has quantity => (
 			name   => 'quantity',
 			value  => $value,
 			parent => $self->_item,
+		);
+	},
+);
+
+has _totals => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'purchaseTotals',
+		);
+	},
+);
+
+has currency => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'currency',
+			value  => $value,
+			parent => $self->_totals,
 		);
 	},
 );
