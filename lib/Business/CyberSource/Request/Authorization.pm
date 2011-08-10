@@ -19,8 +19,10 @@ sub submit {
 		proxy      => 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor',
 		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
 	);
-	my $ret = $req->requestMessage( $self->data_builder->to_soap_data )->result;		
-	return $ret;
+
+	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data )->result;
+
+	return 1;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -15,10 +15,11 @@ has _username_token => (
 	isa => 'SOAP::Data::Builder::Element',
 );
 
-has data_builder => (
+has _sdbo => (
+	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
 	is       => 'rw',
-	isa      => 'SOAP::Data::Builder',
+	isa      => 'SOAP::Data::Builder', # sdbo is SOAP::Data::Builder object
 	default  => sub {
 		my $self = shift;
 		my $sb = SOAP::Data::Builder->new;
@@ -45,36 +46,38 @@ has data_builder => (
 );
 
 has username => (
+	documentation => 'your merchantId',
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $username ) = @_;
-		my $sb = $self->data_builder;
+		my $sb = $self->_sdbo;
 		$sb->add_elem(
 			header => 1,
 			parent => $self->_username_token,
 			name   => 'wsse:Username',
 			value  => $username,
 		);
-	}
+	},
 );	
 
 has password => (
+	documentation => 'your SOAP transaction key',
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
 	default  => sub { '' },
 	trigger  => sub {
 		my ( $self, $password ) = @_;
-		$self->data_builder->add_elem(
+		$self->_sdbo->add_elem(
 			header => 1,
 			parent => $self->_username_token,
 			name   => 'wsse:Password',
 			value  => $password,
 		);
-	}
+	},
 );
 
 1;
