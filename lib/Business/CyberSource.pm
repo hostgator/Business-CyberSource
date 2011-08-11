@@ -14,9 +14,7 @@ has client_version => (
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
-		use version 0.77;
-		my $version = version->parse( $Business::CyberSource::VERSION );
-		return "$version";
+		return $Business::CyberSource::VERSION; 
 	},
 );
 
