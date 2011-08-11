@@ -7,15 +7,20 @@ BEGIN {
 }
 use Moose;
 
-has code => (
+has reference_code => (
 	is  => 'ro',
-	isa => 'Num',
+	isa => 'Str',
 );
 
 has decision => (
 	is  => 'ro',
 	isa => 'Str',
 );
+has code => (
+	is  => 'ro',
+	isa => 'Num',
+);
+
 
 has authorization_code => (
 	is  => 'ro',
