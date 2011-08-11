@@ -76,7 +76,7 @@ has unit_price => (
 	is       => 'ro',
 	isa      => 'Str',
 #	isa      => 'Num',
-	traits   => ['Number'],
+#	traits   => ['Number'],
 );
 
 has quantity => (
@@ -95,8 +95,9 @@ has currency => (
 has total => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Num',
-	traits   => ['Number'],
+	isa      => 'Str',
+#	isa      => 'Num',
+#	traits   => ['Number'],
 );
 
 has credit_card => (
