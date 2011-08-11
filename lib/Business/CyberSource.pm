@@ -11,6 +11,8 @@ use namespace::autoclean;
 
 has client_version => (
 	required => 1,
+	lazy     => 1,
+	init_arg => undef,
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub { return $Business::CyberSource::VERSION },
@@ -18,6 +20,8 @@ has client_version => (
 
 has client_name => (
 	required => 1,
+	lazy     => 1,
+	init_arg => undef,
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub { return __PACKAGE__ },
@@ -25,6 +29,8 @@ has client_name => (
 
 has client_env => (
 	required => 1,
+	lazy     => 1,
+	init_arg => undef,
 	is       => 'ro',
 	isa      => 'Str',
 	default  => sub {
