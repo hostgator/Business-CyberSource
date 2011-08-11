@@ -13,10 +13,7 @@ has client_version => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => sub {
-		my $self = shift;
-		return version->parse( $Business::CyberSource::VERSION );
-	},
+	default  => sub { return $Business::CyberSource::VERSION },
 );
 
 has client_name => (
