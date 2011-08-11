@@ -74,9 +74,8 @@ has ip => (
 has unit_price => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
-#	isa      => 'Num',
-#	traits   => ['Number'],
+	isa      => 'Num',
+	traits   => ['Number'],
 );
 
 has quantity => (
@@ -96,8 +95,8 @@ has total => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-#	isa      => 'Num',
-#	traits   => ['Number'],
+	isa      => 'Num',
+	traits   => ['Number'],
 );
 
 has credit_card => (
