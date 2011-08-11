@@ -64,12 +64,8 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 my $ret = $req->submit;
 
-foreach my $i ( @{$ret->parts} ) {
-	note $i->stringify;
-}
-
 use Data::Dumper;
 
-note Dumper $ret->parts;
+note Dumper $ret->result;
 
 done_testing;
