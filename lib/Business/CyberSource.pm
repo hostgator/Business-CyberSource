@@ -26,7 +26,7 @@ has client_version => (
 	},
 );
 
-has client_library => (
+has client => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
