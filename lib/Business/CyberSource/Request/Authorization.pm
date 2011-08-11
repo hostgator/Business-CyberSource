@@ -252,8 +252,8 @@ sub _build_sdbo {
 
 	$sb->add_elem(
 		name   => 'email',
-		parent => $bill_to,
 		value  => $self->email,
+		parent => $bill_to,
 	);
 
 	$sb->add_elem(
@@ -286,43 +286,44 @@ sub _build_sdbo {
 	$sb->add_elem(
 		name   => 'currency',
 		parent => $purchase_totals,
-		value  => 'USD',
+		value  => $self->currency,
 	);
 
 
-$sb->add_elem(
-	name   => 'grandTotalAmount',
-	value  => '5.00',
-	parent => $purchase_totals,
-);
+	$sb->add_elem(
+		name   => 'grandTotalAmount',
+		value  => $self->total,
+		parent => $purchase_totals,
+	);
 
-my $card = $sb->add_elem(
-	name => 'card',
-);
+	my $card = $sb->add_elem(
+		name => 'card',
+	);
 
-$sb->add_elem(
-	name   => 'accountNumber',
-	value  => '4111-1111-1111-1111',
-	parent => $card,
-);
+	$sb->add_elem(
+		name   => 'accountNumber',
+		value  => $self->credit_card,
+		parent => $card,
+	);
 
-$sb->add_elem(
-	name   => 'expirationMonth',
-	value  => '09',
-	parent => $card,
-);
+	$sb->add_elem(
+		name   => 'expirationMonth',
+		value  => $self->cc_exp_month,
+		parent => $card,
+	);
 
-$sb->add_elem(
-	name   => 'expirationYear',
-	value  => '2025',
-	parent => $card,
-);
+	$sb->add_elem(
+		name   => 'expirationYear',
+		value  => $self->cc_exp_year,
+		parent => $card,
+	);
 
-$sb->add_elem(
-	name       => 'ccAuthService',
-	attributes => { run => 'true' },
-	value => ' ',
-);
+	$sb->add_elem(
+		name       => 'ccAuthService',
+		attributes => { run => 'true' },
+		value => ' ',
+	);
+
 	return $sb;
 }
 
