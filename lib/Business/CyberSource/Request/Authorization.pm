@@ -25,16 +25,8 @@ has reference_code => (
 );
 
 has _bill_to => (
-	required => 1,
-	lazy     => 1,
 	is       => 'ro',
 	isa      => 'SOAP::Data::Builder::Element',
-	default  => sub {
-		my $self = shift;
-		return $self->_sdbo->add_elem(
-			name => 'billTo',
-		);
-	},
 );
 
 has first_name => (

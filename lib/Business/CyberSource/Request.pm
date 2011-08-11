@@ -10,11 +10,6 @@ use Moose::Role;
 with 'Business::CyberSource';
 use SOAP::Data::Builder;
 
-has _username_token => (
-	is  => 'rw',
-	isa => 'SOAP::Data::Builder::Element',
-);
-
 has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
@@ -33,17 +28,7 @@ has username => (
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
 
-		$sb->add_elem(
-			header => 1,
-			parent => $self->_username_token,
-			name   => 'wsse:Username',
-			value  => $value,
-		);
 
-		$sb->add_elem(
-			name   => 'merchantID',
-			value  => $value,
-		);
 	},
 );
 
@@ -53,17 +38,6 @@ has password => (
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
 	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			header => 1,
-			parent => $self->_username_token,
-			name   => 'wsse:Password',
-			value  => $value,
-			attributes => {
-				Type =>
-					'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
-			},
-		);
 	},
 );
 
@@ -72,6 +46,7 @@ sub _build_sdbo {
 	my $sb = SOAP::Data::Builder->new;
 	$sb->autotype(0);
 
+## HEADER
 	my $security
 		= $sb->add_elem(
 			header => 1,
@@ -89,7 +64,36 @@ sub _build_sdbo {
 			name   => 'wsse:UsernameToken',
 		);
 
-	$self->_username_token( $username_token );
+	$sb->add_elem(
+		header => 1,
+		parent => $username_token,
+		name   => 'wsse:Username',
+		value  => $self->username,
+	);
+
+	$self->_sdbo->add_elem(
+		header => 1,
+		parent => $username_token,
+		name   => 'wsse:Password',
+		value  => $self->username_token,
+		attributes => {
+			Type =>
+				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
+		},
+	);
+
+## BODY
+	$sb->add_elem(
+		name   => 'merchantID',
+		value  => $self->username,
+	);
+
+	my $bill_to
+		= $sb->add_elem(
+			name => 'billTo',
+		);
+
+	$self->_bill_to( $bill_to );
 
 	return $sb;
 }
