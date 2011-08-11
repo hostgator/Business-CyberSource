@@ -13,7 +13,6 @@ use SOAP::Data::Builder;
 has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
-	lazy     => 1,
 	is       => 'rw',
 	isa      => 'SOAP::Data::Builder',
 	builder  => '_build_sdbo',
@@ -22,7 +21,6 @@ has _sdbo => (
 has username => (
 	documentation => 'your merchantID',
 	required => 1,
-	lazy     => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -30,7 +28,6 @@ has username => (
 has password => (
 	documentation => 'your SOAP transaction key',
 	required => 1,
-	lazy     => 1,
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
 );
