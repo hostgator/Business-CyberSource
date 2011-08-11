@@ -42,5 +42,9 @@ is( $req->reference_code, '42',      'check reference_code' );
 is( $req->first_name,     'Caleb',   'check first_name'     );
 is( $req->last_name,      'Cushing', 'check first_name'     );
 
-$req->submit;
+my $ret = $req->submit;
+
+use Data::Dumper;
+
+note Dumper $ret;
 done_testing;
