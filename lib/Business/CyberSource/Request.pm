@@ -14,7 +14,7 @@ has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
 	lazy     => 1,
-	is       => 'rw',
+	is       => 'ro',
 	isa      => 'SOAP::Data::Builder',
 	builder  => '_build_sdbo',
 );
