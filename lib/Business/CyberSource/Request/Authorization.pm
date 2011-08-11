@@ -25,8 +25,11 @@ has reference_code => (
 );
 
 has _bill_to => (
+	lazy     => 1,
 	is       => 'rw',
 	isa      => 'SOAP::Data::Builder::Element',
+	builder  => '_bill_to',
+	
 );
 
 has first_name => (
@@ -295,8 +298,13 @@ has cc_exp_year => (
 	},
 );
 
+sub _build_bill_to {
+	my ( $self, $value ) = @_;
+	return $value;
+}
+
 sub submit {
-	my ( $self ) = shift;
+	my $self = shift;
 	
 	$self->_sdbo->add_elem(
 		attributes => { run => 'true' },

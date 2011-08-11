@@ -93,7 +93,7 @@ sub _build_sdbo {
 			name => 'billTo',
 		);
 
-	$self->_bill_to( $bill_to );
+	$self->_build_bill_to( $bill_to );
 
 	return $sb;
 }
