@@ -13,6 +13,7 @@ use SOAP::Data::Builder;
 has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
 	required => 1,
+	lazy     => 1,
 	is       => 'rw',
 	isa      => 'SOAP::Data::Builder',
 	builder  => '_build_sdbo',
