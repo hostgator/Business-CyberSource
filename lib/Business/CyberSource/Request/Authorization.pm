@@ -102,14 +102,6 @@ has credit_card => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'accountNumber',
-			value  => $value,
-			parent => $self->_card,
-		);
-	},
 );
 
 has cc_exp_month => (

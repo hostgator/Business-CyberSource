@@ -16,13 +16,6 @@ has client_version => (
 	default  => sub {
 		my $self = shift;
 		return version->parse( $Business::CyberSource::VERSION );
-
-		$self->_sdbo->add_elem(
-			name   => 'clientLibraryVersion',
-			value  => "$value", # quotes to stringify object
-		);
-
-		return $value;
 	},
 );
 
