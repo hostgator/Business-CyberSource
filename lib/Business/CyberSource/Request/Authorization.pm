@@ -24,9 +24,294 @@ has reference_code => (
 	},
 );
 
+has _bill_to => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'billTo',
+		);
+	},
+);
+
+has first_name => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'firstName',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has last_name => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'lastName',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has street => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'street1',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has city => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'city',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has state => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'state',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has country => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'country',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has zip => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'postalCode',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has email => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'email',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has ip => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'ipAddress',
+			value  => $value,
+			parent => $self->_bill_to,
+		);
+	},
+);
+
+has _item => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'item',
+		);
+	},
+);
+
+has unit_price => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+	traits   => ['Number'],
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'unitPrice',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
+has quantity => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Int',
+	traits   => ['Number'],
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'quantity',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
+has _totals => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'purchaseTotals',
+		);
+	},
+);
+
+has currency => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'currency',
+			value  => $value,
+			parent => $self->_totals,
+		);
+	},
+);
+
+has total => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+	traits   => ['Number'],
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'grandTotalAmount',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
+has _card => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder::Element',
+	default  => sub {
+		my $self = shift;
+		return $self->_sdbo->add_elem(
+			name => 'card',
+		);
+	},
+);
+
+has credit_card => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'accountNumber',
+			value  => $value,
+			parent => $self->_card,
+		);
+	},
+);
+
+has cc_exp_month => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'expirationMonth',
+			value  => $value,
+			parent => $self->_card,
+		);
+	},
+);
+
+has cc_exp_year => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'expirationYear',
+			value  => $value,
+			parent => $self->_card,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	
+	$self->_sdbo->add_elem(
+		attributes => { run => 'true' },
+		name       => 'ccAuthService',
+		value      => ' ', # hack to prevent cs side unparseable xml
+	);
+
 	my $req = SOAP::Lite->new(
 		readable   => 1,
 		autotype   => 0,
