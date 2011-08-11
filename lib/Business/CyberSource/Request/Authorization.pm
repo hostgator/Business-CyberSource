@@ -135,7 +135,7 @@ sub submit {
 
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data )->result;
 
-	return 1;
+	return $ret;
 }
 
 sub _build_sdbo {
