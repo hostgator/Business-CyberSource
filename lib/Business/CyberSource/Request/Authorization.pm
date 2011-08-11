@@ -233,6 +233,21 @@ has currency => (
 	},
 );
 
+has total => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+	traits   => ['Number'],
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'grandTotalAmount',
+			value  => $value,
+			parent => $self->_item,
+		);
+	},
+);
+
 has _card => (
 	required => 1,
 	lazy     => 1,

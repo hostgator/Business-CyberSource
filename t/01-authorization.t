@@ -23,6 +23,7 @@ my $req
 		ip             => '127.0.0.1',
 		unit_price     => 5.01,
 		quantity       => 1,
+		total          => 5.01,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
