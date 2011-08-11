@@ -46,5 +46,5 @@ my $ret = $req->submit;
 
 use Data::Dumper;
 
-note Dumper { $ret };
+note Dumper $ret;
 done_testing;
