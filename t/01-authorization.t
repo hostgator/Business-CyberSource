@@ -66,6 +66,6 @@ my $ret = $req->submit;
 
 use Data::Dumper;
 
-note Dumper $ret->result;
+note Dumper $ret->paramsout;
 
 done_testing;
