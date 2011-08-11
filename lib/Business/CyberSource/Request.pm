@@ -75,7 +75,7 @@ sub _build_sdbo {
 		header => 1,
 		parent => $username_token,
 		name   => 'wsse:Password',
-		value  => $self->username_token,
+		value  => $self->username,
 		attributes => {
 			Type =>
 				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
