@@ -33,7 +33,8 @@
             "SOAP::Data::Builder" : 0,
             "SOAP::Lite" : 0,
             "namespace::autoclean" : 0,
-            "perl" : "5.008"
+            "perl" : "5.008",
+            "version" : "0.77"
          }
       },
       "test" : {
