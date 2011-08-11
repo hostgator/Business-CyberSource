@@ -321,12 +321,6 @@ sub _build_sdbo {
 		parent => $card,
 	);
 
-	$sb->add_elem(
-		name       => 'ccAuthService',
-		attributes => { run => 'true' },
-		value => ' ',
-	);
-
 	return $sb;
 }
 
