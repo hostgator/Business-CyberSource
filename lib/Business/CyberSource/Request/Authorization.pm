@@ -250,11 +250,11 @@ sub _build_sdbo {
 		value  => $self->country,
 	);
 
-	$sb->add_elem(
-		name   => 'email',
-		value  => $self->email,
-		parent => $bill_to,
-	);
+#	$sb->add_elem(
+#		name   => 'email',
+#		value  => $self->email,
+#		parent => $bill_to,
+#	);
 
 	$sb->add_elem(
 		name   => 'ipAddress',
