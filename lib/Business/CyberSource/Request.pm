@@ -32,12 +32,14 @@ has username => (
 	trigger  => sub {
 		my ( $self, $value ) = @_;
 		my $sb = $self->_sdbo;
+
 		$sb->add_elem(
 			header => 1,
 			parent => $self->_username_token,
 			name   => 'wsse:Username',
 			value  => $value,
 		);
+
 		$sb->add_elem(
 			name   => 'merchantID',
 			value  => $value,
@@ -59,7 +61,8 @@ has password => (
 			value  => $value,
 			attributes => {
 				Type =>
-					'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText'
+					'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
+			},
 		);
 	},
 );
