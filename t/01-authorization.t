@@ -67,5 +67,6 @@ my $ret = $req->submit;
 use Data::Dumper;
 
 note Dumper [ $ret->paramsout ];
+note $ret->valueof('//c.decision/');
 
 done_testing;
