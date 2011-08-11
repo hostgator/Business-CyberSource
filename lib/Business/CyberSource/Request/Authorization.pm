@@ -210,26 +210,26 @@ sub _build_sdbo {
 
 	$sb->add_elem(
 		name   => 'firstName',
-		parent => $bill_to,
 		value  => $self->first_name,
+		parent => $bill_to,
 	);
 
 	$sb->add_elem(
 		name   => 'lastName',
-		parent => $bill_to,
 		value  => $self->last_name,
+		parent => $bill_to,
 	);
 
 	$sb->add_elem(
 		name   => 'street1',
-		parent => $bill_to,
 		value  => $self->street,
+		parent => $bill_to,
 	);
 
 	$sb->add_elem(
 		name   => 'city',
-		value  => 'Los Angeles',
-		parent => $self->city,
+		value  => $self->city,
+		parent => $bill_to,
 	);
 
 	$sb->add_elem(
@@ -250,17 +250,17 @@ sub _build_sdbo {
 		value  => $self->country,
 	);
 
-#	$sb->add_elem(
-#		name   => 'email',
-#		value  => $self->email,
-#		parent => $bill_to,
-#	);
+	$sb->add_elem(
+		name   => 'email',
+		value  => $self->email,
+		parent => $bill_to,
+	);
 
-#	$sb->add_elem(
-#		name   => 'ipAddress',
-#		value  => '192.168.100.2',
-#		parent => $bill_to,
-#	);
+	$sb->add_elem(
+		name   => 'ipAddress',
+		value  => '192.168.100.2',
+		parent => $bill_to,
+	);
 
 	my $item = $sb->add_elem(
 		name => 'item',
