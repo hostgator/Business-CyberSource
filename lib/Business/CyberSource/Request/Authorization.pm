@@ -269,7 +269,7 @@ sub _build_sdbo {
 
 	$sb->add_elem(
 		name => 'unitPrice',
-		value => $self->unit_price;
+		value => $self->unit_price,
 		parent => $item,
 	);
 
@@ -283,11 +283,11 @@ sub _build_sdbo {
 		name => 'purchaseTotals',
 	);
 
-$sb->add_elem(
-	name   => 'currency',
-	parent => $purchase_totals,
-	value  => 'USD',
-);
+	$sb->add_elem(
+		name   => 'currency',
+		parent => $purchase_totals,
+		value  => 'USD',
+	);
 
 
 $sb->add_elem(
