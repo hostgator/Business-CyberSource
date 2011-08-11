@@ -28,9 +28,6 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		client_name => 'Perl',
-		client_env => 'Linux',
-		client_version => '5.014001',
 	});
 
 is( $req->username, $CYBS_ID,  'check username' );
