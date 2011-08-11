@@ -256,11 +256,11 @@ sub _build_sdbo {
 #		parent => $bill_to,
 #	);
 
-	$sb->add_elem(
-		name   => 'ipAddress',
-		value  => '192.168.100.2',
-		parent => $bill_to,
-	);
+#	$sb->add_elem(
+#		name   => 'ipAddress',
+#		value  => '192.168.100.2',
+#		parent => $bill_to,
+#	);
 
 	my $item = $sb->add_elem(
 		name => 'item',
