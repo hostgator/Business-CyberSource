@@ -316,7 +316,7 @@ sub submit {
 		readable   => 1,
 		autotype   => 0,
 		proxy      => 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor',
-		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
+		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.26',
 	);
 
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data )->result;
