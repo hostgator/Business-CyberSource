@@ -25,10 +25,8 @@ has reference_code => (
 );
 
 has _bill_to => (
-	lazy     => 1,
-	is       => 'ro',
+	is       => 'rw',
 	isa      => 'SOAP::Data::Builder::Element',
-	default  => sub { return SOAP::Data::Builder::Element->new },
 );
 
 has first_name => (
