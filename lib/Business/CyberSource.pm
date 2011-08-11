@@ -12,7 +12,7 @@ use namespace::autoclean;
 has client_version => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'version',
+	isa      => 'Str',
 	default  => sub {
 		my $self = shift;
 		my $value = version->parse( $Business::CyberSource::VERSION );
