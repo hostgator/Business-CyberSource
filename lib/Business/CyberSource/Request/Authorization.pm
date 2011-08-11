@@ -164,21 +164,22 @@ sub _build_sdbo {
 
 	$sb->add_elem(
 		header => 1,
-		parent => $username_token,
-		name   => 'wsse:Username',
-		value  => $self->username,
-	);
-
-	$sb->add_elem(
-		header => 1,
-		parent => $username_token,
 		name   => 'wsse:Password',
-		value  => $self->username,
+		value  => $self->password,
+		parent => $username_token,
 		attributes => {
 			Type =>
 				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
 		},
 	);
+
+	$sb->add_elem(
+		header => 1,
+		name   => 'wsse:Username',
+		value  => $self->username,
+		parent => $username_token,
+	);
+
 
 ## BODY
 	$sb->add_elem(
