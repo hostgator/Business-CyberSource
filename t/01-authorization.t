@@ -39,10 +39,10 @@ is( $req->client_version,
 	$Business::CyberSource::VERSION,
 	'check client_version exists'
 );
-is( $req->client_library, 'Business::CyberSource', 'check client_library' );
+#is( $req->client_library, 'Business::CyberSource', 'check client_library' );
 ok( $req->client_env, 'check client_env exists' );
 note( $req->client_version );
-note( $req->client_library );
+#note( $req->client_library );
 note( $req->client_env     );
 is( $req->reference_code, '42',      'check reference_code' );
 is( $req->first_name,     'Caleb',   'check first_name'     );
