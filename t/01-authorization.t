@@ -48,8 +48,8 @@ is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
 
-is( $req->ip,    '192.168.100.2',          'check ip'      );
-is( $req->email, 'xenoterracid@gmail.com', 'check country' );
+is( $req->ip,    '192.168.100.2',          'check ip'    );
+is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
 is( $req->unit_price, 5, 'check unit_price' );
 is( $req->quantity,   1, 'check quantity'   );
