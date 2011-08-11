@@ -67,4 +67,9 @@ my $ret = $req->submit;
 foreach my $i ( @{$ret->parts} ) {
 	note $i->stringify;
 }
+
+use Data::Dumper;
+
+note Dumper $ret->parts;
+
 done_testing;
