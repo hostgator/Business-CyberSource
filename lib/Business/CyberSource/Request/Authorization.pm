@@ -11,6 +11,20 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
+sub submit {
+	my $self = shift;
+	
+
+	my $req = SOAP::Lite->new(
+		readable   => 1,
+		autotype   => 0,
+		proxy      => 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor',
+		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
+	);
+
+	return $req->requestMessage( $self->_sdbo->to_soap_data );
+}
+
 has reference_code => (
 	required => 1,
 	is       => 'ro',
@@ -116,25 +130,6 @@ has cc_exp_year => (
 	is       => 'ro',
 	isa      => 'Str',
 );
-
-sub submit {
-	my $self = shift;
-	
-	$self->_sdbo->add_elem(
-		attributes => { run => 'true' },
-		name       => 'ccAuthService',
-		value      => ' ', # hack to prevent cs side unparseable xml
-	);
-
-	my $req = SOAP::Lite->new(
-		readable   => 1,
-		autotype   => 0,
-		proxy      => 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor',
-		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
-	);
-
-	return $req->requestMessage( $self->_sdbo->to_soap_data );
-}
 
 sub _build_sdbo {
 	my $self = shift;
@@ -316,6 +311,12 @@ sub _build_sdbo {
 		name   => 'expirationYear',
 		value  => $self->cc_exp_year,
 		parent => $card,
+	);
+
+	$sb->add_elem(
+		attributes => { run => 'true' },
+		name       => 'ccAuthService',
+		value      => ' ', # hack to prevent cs side unparseable xml
 	);
 
 	return $sb;

@@ -66,6 +66,6 @@ my $ret = $req->submit;
 
 use Data::Dumper;
 
-note 'decision' . $ret->valueof('//replyMessage/decision/');
+$ret->valueof('//replyMessage/decision/');
 
 done_testing;
