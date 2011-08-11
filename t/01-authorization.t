@@ -11,15 +11,15 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '1312837296777787',
-		first_name     => 'Amiri',
-		last_name      => 'Barksdale',
-		street         => '15 Top Drive #12',
-		city           => 'Los Angeles',
-		state          => 'CA',
-		zip            => '90064',
-		country        => 'USA',
-		email          => 'amiri@metalabel.com',
+		reference_code => '42',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => 'somewhere',
+		city           => 'Houston',
+		state          => 'TX',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
 		unit_price     => 5.00,
 		quantity       => 1,
@@ -32,18 +32,15 @@ my $req
 
 is( $req->username, $CYBS_ID,  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
-#is( $req->client_version,
-#	$Business::CyberSource::VERSION,
-#	'check client_version exists'
-#);
-#is( $req->client_library, 'Business::CyberSource', 'check client_library' );
-#ok( $req->client_env, 'check client_env exists' );
-#note( $req->client_version );
-#note( $req->client_library );
-#note( $req->client_env     );
-#is( $req->reference_code, '42',      'check reference_code' );
-#is( $req->first_name,     'Caleb',   'check first_name'     );
-#is( $req->last_name,      'Cushing', 'check first_name'     );
+is( $req->client_version,
+	$Business::CyberSource::VERSION,
+	'check client_version valid'
+);
+is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
+ok( $req->client_env,                            'check client_env exists' );
+is( $req->reference_code, '42',      'check reference_code' );
+is( $req->first_name,     'Caleb',   'check first_name'     );
+is( $req->last_name,      'Cushing', 'check first_name'     );
 
 $req->submit;
 done_testing;
