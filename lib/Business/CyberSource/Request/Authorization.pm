@@ -133,9 +133,7 @@ sub submit {
 		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
 	);
 
-	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
-
-	return $ret;
+	return $req->requestMessage( $self->_sdbo->to_soap_data );
 }
 
 sub _build_sdbo {
