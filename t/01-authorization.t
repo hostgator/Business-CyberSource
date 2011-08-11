@@ -64,8 +64,5 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 my $ret = $req->submit;
 
-use Data::Dumper;
-
-$ret->valueof('//replyMessage/decision/');
-
+is( $ret->decision, 'ACCEPT', 'check decision' );
 done_testing;

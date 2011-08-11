@@ -11,9 +11,10 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
+use Business::CyberSource::Response::Authorization;
+
 sub submit {
 	my $self = shift;
-	
 
 	my $req = SOAP::Lite->new(
 		readable   => 1,
@@ -22,7 +23,14 @@ sub submit {
 		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
 	);
 
-	return $req->requestMessage( $self->_sdbo->to_soap_data );
+	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
+
+	my $res
+		= Business::CyberSource::Response::Authorization->new({
+			decision => $ret->valueof('//replyMessage/decision/',)
+		})
+		;
+	return $res;
 }
 
 has reference_code => (

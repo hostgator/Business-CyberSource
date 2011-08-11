@@ -12,7 +12,7 @@ has code => (
 	isa => 'Num',
 );
 
-has status => (
+has decision => (
 	is  => 'ro',
 	isa => 'Str',
 );
