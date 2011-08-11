@@ -24,12 +24,6 @@ has username => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		my $sb = $self->_sdbo;
-
-
-	},
 );
 
 has password => (
@@ -37,64 +31,7 @@ has password => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str', # actually I wonder if I can validate this more
-	trigger  => sub {
-	},
 );
-
-sub _build_sdbo {
-	my $self = shift;
-	my $sb = SOAP::Data::Builder->new;
-	$sb->autotype(0);
-
-## HEADER
-	my $security
-		= $sb->add_elem(
-			header => 1,
-			name   => 'wsse:Security',
-			attributes => {
-				'xmlns:wsse'
-					=> 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
-			}
-		);
-
-	my $username_token
-		= $sb->add_elem(
-			header => 1,
-			parent => $security,
-			name   => 'wsse:UsernameToken',
-		);
-
-	$sb->add_elem(
-		header => 1,
-		parent => $username_token,
-		name   => 'wsse:Username',
-		value  => $self->username,
-	);
-
-	$sb->add_elem(
-		header => 1,
-		parent => $username_token,
-		name   => 'wsse:Password',
-		value  => $self->username,
-		attributes => {
-			Type =>
-				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
-		},
-	);
-
-## BODY
-	$sb->add_elem(
-		name   => 'merchantID',
-		value  => $self->username,
-	);
-
-	my $bill_to
-		= $sb->add_elem(
-			name => 'billTo',
-		);
-
-	return $sb;
-}
 
 1;
 

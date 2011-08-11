@@ -15,160 +15,60 @@ has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'merchantReferenceCode',
-			value  => $value,
-		);
-	},
-);
-
-has _bill_to => (
-	lazy     => 1,
-	is       => 'rw',
-	isa      => 'SOAP::Data::Builder::Element',
-	builder  => '_bill_to',
-	
 );
 
 has first_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'firstName',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has last_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'lastName',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has street => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'street1',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has city => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'city',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has state => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'state',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has country => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'country',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has zip => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'postalCode',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has email => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'email',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
 );
 
 has ip => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'ipAddress',
-			value  => $value,
-			parent => $self->_bill_to,
-		);
-	},
-);
-
-has _item => (
-	required => 1,
-	lazy     => 1,
-	is       => 'ro',
-	isa      => 'SOAP::Data::Builder::Element',
-	default  => sub {
-		my $self = shift;
-		return $self->_sdbo->add_elem(
-			name => 'item',
-		);
-	},
 );
 
 has unit_price => (
@@ -176,14 +76,6 @@ has unit_price => (
 	is       => 'ro',
 	isa      => 'Num',
 	traits   => ['Number'],
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'unitPrice',
-			value  => $value,
-			parent => $self->_item,
-		);
-	},
 );
 
 has quantity => (
@@ -191,41 +83,12 @@ has quantity => (
 	is       => 'ro',
 	isa      => 'Int',
 	traits   => ['Number'],
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'quantity',
-			value  => $value,
-			parent => $self->_item,
-		);
-	},
-);
-
-has _totals => (
-	required => 1,
-	lazy     => 1,
-	is       => 'ro',
-	isa      => 'SOAP::Data::Builder::Element',
-	default  => sub {
-		my $self = shift;
-		return $self->_sdbo->add_elem(
-			name => 'purchaseTotals',
-		);
-	},
 );
 
 has currency => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'currency',
-			value  => $value,
-			parent => $self->_totals,
-		);
-	},
 );
 
 has total => (
@@ -233,27 +96,6 @@ has total => (
 	is       => 'ro',
 	isa      => 'Num',
 	traits   => ['Number'],
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'grandTotalAmount',
-			value  => $value,
-			parent => $self->_item,
-		);
-	},
-);
-
-has _card => (
-	required => 1,
-	lazy     => 1,
-	is       => 'ro',
-	isa      => 'SOAP::Data::Builder::Element',
-	default  => sub {
-		my $self = shift;
-		return $self->_sdbo->add_elem(
-			name => 'card',
-		);
-	},
 );
 
 has credit_card => (
@@ -274,34 +116,13 @@ has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'expirationMonth',
-			value  => $value,
-			parent => $self->_card,
-		);
-	},
 );
 
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-	trigger  => sub {
-		my ( $self, $value ) = @_;
-		$self->_sdbo->add_elem(
-			name   => 'expirationYear',
-			value  => $value,
-			parent => $self->_card,
-		);
-	},
 );
-
-sub _build_bill_to {
-	my ( $self, $value ) = @_;
-	return $value;
-}
 
 sub submit {
 	my $self = shift;
@@ -322,6 +143,195 @@ sub submit {
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data )->result;
 
 	return 1;
+}
+
+sub _build_sdbo {
+	my $self = shift;
+	my $sb = SOAP::Data::Builder->new;
+	$sb->autotype(0);
+
+## HEADER
+	my $security
+		= $sb->add_elem(
+			header => 1,
+			name   => 'wsse:Security',
+			attributes => {
+				'xmlns:wsse'
+					=> 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+			}
+		);
+
+	my $username_token
+		= $sb->add_elem(
+			header => 1,
+			parent => $security,
+			name   => 'wsse:UsernameToken',
+		);
+
+	$sb->add_elem(
+		header => 1,
+		parent => $username_token,
+		name   => 'wsse:Username',
+		value  => $self->username,
+	);
+
+	$sb->add_elem(
+		header => 1,
+		parent => $username_token,
+		name   => 'wsse:Password',
+		value  => $self->username,
+		attributes => {
+			Type =>
+				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
+		},
+	);
+
+## BODY
+	$sb->add_elem(
+		name   => 'merchantID',
+		value  => $self->username,
+	);
+
+	$sb->add_elem(
+		name  => 'merchantReferenceCode',
+		value => $self->reference_code,
+	);
+
+	$sb->add_elem(
+		name  => 'clientLibrary',
+		value => $self->client_name,
+	);
+
+	$sb->add_elem(
+		name  => 'clientLibraryVersion',
+		value => $self->client_version,
+	);
+
+	$sb->add_elem(
+		name  => 'clientEnvironment',
+		value => $self->client_env,
+	);
+
+	my $bill_to = $sb->add_elem(
+		name => 'billTo',
+	);
+
+	$sb->add_elem(
+		name   => 'firstName',
+		parent => $bill_to,
+		value  => $self->first_name,
+	);
+
+	$sb->add_elem(
+		name   => 'lastName',
+		parent => $bill_to,
+		value  => $self->last_name,
+	);
+
+	$sb->add_elem(
+		name   => 'street1',
+		parent => $bill_to,
+		value  => $self->street,
+	);
+
+	$sb->add_elem(
+		name   => 'city',
+		value  => 'Los Angeles',
+		parent => $self->city,
+	);
+
+	$sb->add_elem(
+		name   => 'state',
+		parent => $bill_to,
+		value  => $self->state,
+	);
+
+	$sb->add_elem(
+		name   => 'postalCode',
+		parent => $bill_to,
+		value  => $self->zip,
+	);
+
+	$sb->add_elem(
+		name   => 'country',
+		parent => $bill_to,
+		value  => $self->country,
+	);
+
+	$sb->add_elem(
+		name   => 'email',
+		parent => $bill_to,
+		value  => $self->email,
+	);
+
+	$sb->add_elem(
+		name   => 'ipAddress',
+		value  => '192.168.100.2',
+		parent => $bill_to,
+	);
+
+	my $item = $sb->add_elem(
+		name => 'item',
+		attributes => { id => '0' },
+	);
+
+	$sb->add_elem(
+		name => 'unitPrice',
+		value => $self->unit_price;
+		parent => $item,
+	);
+
+	$sb->add_elem(
+		name => 'quantity',
+		value => $self->quantity,
+		parent => $item,
+	);
+
+	my $purchase_totals = $sb->add_elem(
+		name => 'purchaseTotals',
+	);
+
+$sb->add_elem(
+	name   => 'currency',
+	parent => $purchase_totals,
+	value  => 'USD',
+);
+
+
+$sb->add_elem(
+	name   => 'grandTotalAmount',
+	value  => '5.00',
+	parent => $purchase_totals,
+);
+
+my $card = $sb->add_elem(
+	name => 'card',
+);
+
+$sb->add_elem(
+	name   => 'accountNumber',
+	value  => '4111-1111-1111-1111',
+	parent => $card,
+);
+
+$sb->add_elem(
+	name   => 'expirationMonth',
+	value  => '09',
+	parent => $card,
+);
+
+$sb->add_elem(
+	name   => 'expirationYear',
+	value  => '2025',
+	parent => $card,
+);
+
+$sb->add_elem(
+	name       => 'ccAuthService',
+	attributes => { run => 'true' },
+	value => ' ',
+);
+	return $sb;
 }
 
 __PACKAGE__->meta->make_immutable;
