@@ -71,7 +71,7 @@ sub _build_sdbo {
 		value  => $self->username,
 	);
 
-	$self->_sdbo->add_elem(
+	$sb->add_elem(
 		header => 1,
 		parent => $username_token,
 		name   => 'wsse:Password',
