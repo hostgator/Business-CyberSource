@@ -260,6 +260,34 @@ has credit_card => (
 	},
 );
 
+has cc_exp_month => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'expirationMonth',
+			value  => $value,
+			parent => $self->_card,
+		);
+	},
+);
+
+has cc_exp_year => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+	trigger  => sub {
+		my ( $self, $value ) = @_;
+		$self->_sdbo->add_elem(
+			name   => 'expirationYear',
+			value  => $value,
+			parent => $self->_card,
+		);
+	},
+);
+
 sub submit {
 	my ( $self ) = shift;
 	
