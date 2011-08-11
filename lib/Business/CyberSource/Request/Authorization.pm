@@ -6,7 +6,7 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 
-use SOAP::Lite; # ( +trace => [ qw( debug ) ] );
+use SOAP::Lite ( +trace => [ qw( debug ) ] );
 use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
