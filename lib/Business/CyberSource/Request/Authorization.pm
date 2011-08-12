@@ -34,7 +34,7 @@ sub submit {
 			reference_code => $ret->valueof('merchantReferenceCode'),
 			reason_code    => $ret->valueof('reasonCode'           ),
 			request_token  => $ret->valueof('requestToken'         ),
-		#	amount         => $ret->valueof('//amount'               ),
+			amount         => $ret->valueof('ccAuthReply/amount'   ),
 		#	auth_code      => $ret->valueof('//authorizationCode'    ),
 		#	avs_code_raw   => $ret->valueof('//avsCodeRaw'           ),
 		#	avs_code       => $ret->valueof('//avsCode'              ),
