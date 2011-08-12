@@ -2,6 +2,7 @@ package Business::CyberSource::Request::Authorization;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
