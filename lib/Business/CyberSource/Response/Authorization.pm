@@ -20,7 +20,7 @@ has request_id => (
 );
 
 has decision => (
-	required => 1,
+#	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
