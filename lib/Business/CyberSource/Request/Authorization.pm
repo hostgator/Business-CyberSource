@@ -46,7 +46,7 @@ sub submit {
 		})
 		;
 
-	carp 'fault ' . $ret->fault;
+	carp 'fault ' . $ret->faultcode;
 	return $res;
 }
 
