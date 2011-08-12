@@ -12,7 +12,8 @@ lib/Business/CyberSource/Request/Authorization.pm
 lib/Business/CyberSource/Response/Authorization.pm
 perlcritic.rc
 t/00-compile.t
-t/01-authorization.t
+t/101-authorization.t
+t/102-auth-fault.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t

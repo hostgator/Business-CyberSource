@@ -44,7 +44,12 @@ sub submit {
 			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
 		})
 		;
-	return $res;
+
+	unless ( $ret->fault ) {
+		return $res;
+	}
+	else {
+	}
 }
 
 has reference_code => (
