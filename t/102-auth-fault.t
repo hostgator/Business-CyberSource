@@ -30,7 +30,7 @@ my $req
 		cc_exp_year    => '2025',
 	});
 
-is( $req->username, $CYBS_ID,  'check username' );
+is( $req->username, 'foobar',  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
 is( $req->client_version,
 	$Business::CyberSource::VERSION,
