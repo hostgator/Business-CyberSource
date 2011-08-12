@@ -38,7 +38,7 @@ has request_token => (
 );
 
 has currency => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );

@@ -67,6 +67,7 @@ my $ret = $req->submit;
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '42',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
+is( $ret->currency,       'USD',    'check currency'       );
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
