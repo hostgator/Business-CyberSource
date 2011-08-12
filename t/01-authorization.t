@@ -68,7 +68,7 @@ is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '42',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,          5.00,    'check amount'         );
+is( $ret->amount,         '5.00',    'check amount'         );
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
