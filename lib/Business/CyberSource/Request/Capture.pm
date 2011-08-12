@@ -31,7 +31,7 @@ sub submit {
 
 	#$ret->match('//Body/replyMessage');
 
-	return $res;
+	return 1;
 }
 
 has request_id => (
