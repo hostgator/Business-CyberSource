@@ -26,7 +26,7 @@ has decision => (
 );
 
 has reason_code => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Int',
 );
