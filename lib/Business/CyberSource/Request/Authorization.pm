@@ -29,19 +29,19 @@ sub submit {
 
 	my $res
 		= Business::CyberSource::Response::Authorization->new({
-			request_id     => $ret->valueof('requestID'            ),
-			decision       => $ret->valueof('decision'             ),
-			reference_code => $ret->valueof('merchantReferenceCode'),
-			reason_code    => $ret->valueof('reasonCode'           ),
-			request_token  => $ret->valueof('requestToken'         ),
-			amount         => $ret->valueof('ccAuthReply/amount'   ),
-			auth_code      => $ret->valueof('ccAuthReply/authorizationCode'),
-		#	avs_code_raw   => $ret->valueof('//avsCodeRaw'           ),
-		#	avs_code       => $ret->valueof('//avsCode'              ),
+			request_id     => $ret->valueof('requestID'              ),
+			decision       => $ret->valueof('decision'               ),
+			reference_code => $ret->valueof('merchantReferenceCode'  ),
+			reason_code    => $ret->valueof('reasonCode'             ),
+			request_token  => $ret->valueof('requestToken'           ),
+			amount         => $ret->valueof('ccAuthReply/amount'     ),
+			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
+			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 		#	auth_datetime  => $ret->valueof('//authorizedDateTime'   ),
 		#	auth_record    => $ret->valueof('//authRecord'           ),
 		#	processor_response => $ret->valueof('//processorResponse'),
+			auth_code      => $ret->valueof('ccAuthReply/authorizationCode'),
 		})
 		;
 	return $res;
