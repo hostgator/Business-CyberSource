@@ -27,7 +27,7 @@ sub submit {
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
 
 	if ( $ret->fault ) {
-		my ( $faultstring ) = $ret->faultstring =~ /([[:print:]]*)/xms;
+		my ( $faultstring ) = $ret->faultstring =~ /\s([[:print:]]*)\s/xms;
 		croak 'SOAP Fault: ' . $ret->faultcode . " " . $faultstring ;
 	}
 
