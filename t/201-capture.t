@@ -39,7 +39,7 @@ my $capture
 		password       => $req->password,
 		reference_code => $req->reference_code,
 		request_id     => $res->request_id,
-		total          => $res->total,
+		total          => $res->amount,
 		currency       => $res->currency,
 	})
 	;
