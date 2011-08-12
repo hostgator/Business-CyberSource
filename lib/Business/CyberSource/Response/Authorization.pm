@@ -88,14 +88,14 @@ has auth_record => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Authorizaton Response object
+# ABSTRACT: CyberSource Authorization Response object
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Authorization - CyberSource Authorizaton Response object
+Business::CyberSource::Response::Authorization - CyberSource Authorization Response object
 
 =head1 VERSION
 
