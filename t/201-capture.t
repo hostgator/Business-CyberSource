@@ -37,7 +37,7 @@ my $capture
 	= Business::CyberSource::Request::Capture->new({
 		username       => $req->username,
 		password       => $req->password,
-		reference_code => $req->reference_code
+		reference_code => $req->reference_code,
 		request_id     => $res->request_id,
 		total          => $res->total,
 		currency       => $res->currency,
