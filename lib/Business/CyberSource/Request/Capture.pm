@@ -52,6 +52,12 @@ sub submit {
 	return $res;
 }
 
+has request_id => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
 sub _build_sdbo {
 	my $self = shift;
 
