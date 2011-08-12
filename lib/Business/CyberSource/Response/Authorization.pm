@@ -8,53 +8,81 @@ BEGIN {
 use Moose;
 
 has reference_code => (
-	is  => 'ro',
-	isa => 'Str',
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 has request_id => (
-	is  => 'ro',
-	isa => 'Str',
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 has decision => (
-	is  => 'ro',
-	isa => 'Str',
-);
-has code => (
-	is  => 'ro',
-	isa => 'Num',
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
-
-has authorization_code => (
-	is  => 'ro',
-	isa => 'Num',
+has reason_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Int',
 );
 
-has processor_response => (
-	is  => 'ro',
-	isa => 'Num',
+has request_token => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
-has authorized_timestamp => (
-	is  => 'ro',
-	isa => 'Str', # change later
-);
-
-has auth_record => (
-	is  => 'ro',
-	isa => 'Str',
-);
-
-has avs_code => (
-	is  => 'ro',
-	isa => 'Str',
+has currency => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 has amount => (
-	is  => 'ro',
-	isa => 'Num',
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+);
+
+has auth_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+);
+
+has avs_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has avs_code_raw => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has auth_datetime => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has processor_response => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has auth_record => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 1;

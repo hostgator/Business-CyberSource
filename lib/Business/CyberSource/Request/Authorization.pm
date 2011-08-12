@@ -27,9 +27,14 @@ sub submit {
 
 	my $res
 		= Business::CyberSource::Response::Authorization->new({
-			decision       => $ret->valueof('//decision'),
-			reference_code =>
-				$ret->valueof('//replyMessage/merchantReferenceCode'),
+			reference_code => $ret->valueof('//merchantReferenceCode'),
+			request_id     => $ret->valueof('//requestId'            ),
+			decision       => $ret->valueof('//decision'             ),
+			reason_code    => $ret->valueof('//reasonCode'           ),
+			request_token  => $ret->valueof('//requestToken'         ),
+			amount         => $ret->valueof('//amount'               ),
+			auth_code      => $ret->valueof('//authorizationCode'    ),
+			
 		})
 		;
 	return $res;
