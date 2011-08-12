@@ -6,30 +6,7 @@ BEGIN {
 	# VERSION
 }
 use Moose;
-
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has decision => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has reason_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Int',
-);
+with 'Business::CyberSource::Response';
 
 has request_token => (
 #	required => 1,
