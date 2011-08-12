@@ -85,6 +85,7 @@ has auth_record => (
 	isa      => 'Str',
 );
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 __END__
