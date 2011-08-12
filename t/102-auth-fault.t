@@ -64,6 +64,9 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 my $ret = $req->submit;
 
+use Data::Dumper;
+note Dumper $ret;
+
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '42',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
