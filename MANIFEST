@@ -15,6 +15,7 @@ perlcritic.rc
 t/00-compile.t
 t/101-authorization.t
 t/102-auth-fault.t
+t/201-capture.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t
