@@ -27,7 +27,7 @@ sub submit {
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
 
 	if ( $ret->fault ) {
-		croak 'SOAP Fault: ' . $ret->faultcode . ' ' . $ret->faultstring ;
+		croak 'SOAP Fault: ' . $ret->faultcode . "\b " . $ret->faultstring ;
 	}
 
 	$ret->match('//Body/replyMessage');
