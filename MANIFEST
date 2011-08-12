@@ -7,9 +7,9 @@ Makefile.PL
 README
 docs/SubmittingPatches.pod
 lib/Business/CyberSource.pm
-lib/Business/CyberSource/Error.pm
 lib/Business/CyberSource/Request.pm
 lib/Business/CyberSource/Request/Authorization.pm
+lib/Business/CyberSource/Request/Capture.pm
 lib/Business/CyberSource/Response/Authorization.pm
 perlcritic.rc
 t/00-compile.t

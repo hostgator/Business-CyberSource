@@ -1,33 +1,55 @@
-package Business::CyberSource::Error;
+package Business::CyberSource::Request::Authorization;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose;
+use namespace::autoclean;
+with 'Business::CyberSource::Request';
 
-has faultcode => (
+use SOAP::Lite +trace => [ 'debug' ] ;
+
+sub submit {
+	my $self = shift;
+}
+
+has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has faultstring => (
+has currency => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
+
+has total => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+);
+
+sub _build_sdbo {
+	my $self = shift;
+}
+
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+# ABSTRACT: CyberSource Capture Request Object
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Error
+Business::CyberSource::Request::Authorization - CyberSource Capture Request Object
 
 =head1 VERSION
 

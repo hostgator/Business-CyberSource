@@ -286,22 +286,22 @@ sub _build_sdbo {
 		parent => $bill_to,
 	);
 
-	my $item = $sb->add_elem(
-		name => 'item',
-		attributes => { id => '0' },
-	);
+#	my $item = $sb->add_elem(
+#		name => 'item',
+#		attributes => { id => '0' },
+#	);
 
-	$sb->add_elem(
-		name => 'unitPrice',
-		value => $self->unit_price,
-		parent => $item,
-	);
+#	$sb->add_elem(
+#		name => 'unitPrice',
+#		value => $self->unit_price,
+#		parent => $item,
+#	);
 
-	$sb->add_elem(
-		name => 'quantity',
-		value => $self->quantity,
-		parent => $item,
-	);
+#	$sb->add_elem(
+#		name => 'quantity',
+#		value => $self->quantity,
+#		parent => $item,
+#	);
 
 	my $purchase_totals = $sb->add_elem(
 		name => 'purchaseTotals',

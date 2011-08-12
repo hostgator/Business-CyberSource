@@ -8,6 +8,10 @@ BEGIN {
 }
 use Moose::Role;
 with 'Business::CyberSource';
+
+requires '_build_sdbo';
+requires 'submit';
+
 use SOAP::Data::Builder;
 
 has _sdbo => (
