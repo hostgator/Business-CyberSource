@@ -25,10 +25,12 @@ sub submit {
 
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
 
+	$ret->match('//Body/replyMessage');
+
 	my $res
 		= Business::CyberSource::Response::Authorization->new({
 		#	request_id     => $ret->valueof('//requestId'            ),
-			decision       => $ret->valueof('//decision'             ),
+			decision       => $ret->valueof('decision'             ),
 		#	reference_code => $ret->valueof('//merchantReferenceCode'),
 		#	reason_code    => $ret->valueof('//reasonCode'           ),
 		#	request_token  => $ret->valueof('//requestToken'         ),
