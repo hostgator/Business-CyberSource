@@ -34,6 +34,7 @@ sub submit {
 			request_token  => $ret->valueof('//requestToken'         ),
 			amount         => $ret->valueof('//amount'               ),
 			auth_code      => $ret->valueof('//authorizationCode'    ),
+			avs_code_raw   => $ret->valueof('//avsCodeRaw'           ),
 			
 		})
 		;
