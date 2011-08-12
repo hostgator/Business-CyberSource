@@ -26,6 +26,8 @@ sub submit {
 
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
 
+	carp 'fault ' . $ret->fault->faultcode;
+
 	$ret->match('//Body/replyMessage');
 
 	my $res
@@ -46,7 +48,6 @@ sub submit {
 		})
 		;
 
-	carp 'fault ' . $ret->faultcode;
 	return $res;
 }
 
