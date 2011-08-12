@@ -45,8 +45,8 @@ sub submit {
 			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
 			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
 			auth_datetime  => $ret->valueof('ccAuthReply/authorizedDateTime'),
-			auth_record    => $ret->valueof('ccAuthReply/authRecord' ),
-			auth_code      => $ret->valueof('ccAuthReply/authorizationCode'),
+			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
+			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
 			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
 		})
 		;
