@@ -8,19 +8,19 @@ BEGIN {
 use Moose;
 
 has reference_code => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
 has request_id => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
 has decision => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
