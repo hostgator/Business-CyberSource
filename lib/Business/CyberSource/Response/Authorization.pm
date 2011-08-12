@@ -12,6 +12,11 @@ has reference_code => (
 	isa => 'Str',
 );
 
+has request_id => (
+	is  => 'ro',
+	isa => 'Str',
+);
+
 has decision => (
 	is  => 'ro',
 	isa => 'Str',
