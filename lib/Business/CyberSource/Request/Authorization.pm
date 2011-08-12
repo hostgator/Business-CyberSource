@@ -47,11 +47,7 @@ sub submit {
 		;
 
 	carp 'fault ' . $ret->fault;
-	unless ( $ret->fault ) {
-		return $res;
-	}
-	else {
-	}
+	return $res;
 }
 
 has reference_code => (
