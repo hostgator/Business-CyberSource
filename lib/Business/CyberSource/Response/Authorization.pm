@@ -87,3 +87,5 @@ has auth_record => (
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+# ABSTRACT: CyberSource Authorizaton Response object
