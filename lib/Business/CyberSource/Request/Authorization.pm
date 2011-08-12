@@ -38,6 +38,7 @@ sub submit {
 			avs_code       => $ret->valueof('//avsCode'              ),
 			currency       => $ret->valueof('//currency'             ),
 			auth_datetime  => $ret->valueof('//authorizedDateTime'   ),
+			auth_record    => $ret->valueof('//authRecord'           ),
 			processor_response => $ret->valueof('//processorResponse'),
 			
 		})
