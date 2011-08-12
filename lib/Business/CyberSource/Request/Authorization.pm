@@ -54,12 +54,6 @@ sub submit {
 	return $res;
 }
 
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 has first_name => (
 	required => 1,
 	is       => 'ro',
@@ -112,20 +106,6 @@ has ip => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
-);
-
-has currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has total => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-	isa      => 'Num',
-	traits   => ['Number'],
 );
 
 has credit_card => (

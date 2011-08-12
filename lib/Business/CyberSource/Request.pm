@@ -37,6 +37,24 @@ has password => (
 	isa      => 'Str', # actually I wonder if I can validate this more
 );
 
+has reference_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has currency => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has total => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+);
+
 1;
 
 # ABSTRACT: Request Role
