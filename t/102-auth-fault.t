@@ -22,8 +22,6 @@ my $req
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
-		unit_price     => 5.00,
-		quantity       => 1,
 		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
@@ -52,8 +50,6 @@ is( $req->country,        'US',        'check country'        );
 is( $req->ip,    '192.168.100.2',          'check ip'    );
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
-is( $req->unit_price, 5, 'check unit_price' );
-is( $req->quantity,   1, 'check quantity'   );
 is( $req->total,      5, 'check total'      );
 
 is( $req->currency, 'USD', 'check currency' );

@@ -114,20 +114,6 @@ has ip => (
 	isa      => 'Str',
 );
 
-has unit_price => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Num',
-	traits   => ['Number'],
-);
-
-has quantity => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Int',
-	traits   => ['Number'],
-);
-
 has currency => (
 	required => 1,
 	is       => 'ro',
@@ -284,23 +270,6 @@ sub _build_sdbo {
 		name   => 'ipAddress',
 		value  => '192.168.100.2',
 		parent => $bill_to,
-	);
-
-	my $item = $sb->add_elem(
-		name => 'item',
-		attributes => { id => '0' },
-	);
-
-	$sb->add_elem(
-		name => 'unitPrice',
-		value => $self->unit_price,
-		parent => $item,
-	);
-
-	$sb->add_elem(
-		name => 'quantity',
-		value => $self->quantity,
-		parent => $item,
 	);
 
 	my $purchase_totals = $sb->add_elem(
