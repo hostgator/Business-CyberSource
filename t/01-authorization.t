@@ -72,4 +72,5 @@ is( $ret->amount,         '5.00',    'check amount'         );
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
+ok( $ret->auth_code,     'check auth_code exists'     );
 done_testing;
