@@ -45,4 +45,8 @@ my $capture
 	})
 	;
 
+my $cres = $capture->submit;
+
+ok( $cres, 'capture response exists' );
+
 done_testing;
