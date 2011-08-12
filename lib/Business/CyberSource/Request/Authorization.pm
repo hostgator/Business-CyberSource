@@ -33,7 +33,7 @@ sub submit {
 			decision       => $ret->valueof('decision'             ),
 			reference_code => $ret->valueof('merchantReferenceCode'),
 			reason_code    => $ret->valueof('reasonCode'           ),
-		#	request_token  => $ret->valueof('//requestToken'         ),
+			request_token  => $ret->valueof('requestToken'         ),
 		#	amount         => $ret->valueof('//amount'               ),
 		#	auth_code      => $ret->valueof('//authorizationCode'    ),
 		#	avs_code_raw   => $ret->valueof('//avsCodeRaw'           ),
