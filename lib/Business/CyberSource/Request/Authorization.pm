@@ -2,11 +2,12 @@ package Business::CyberSource::Request::Authorization;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	# VERSION
 }
 
-use SOAP::Lite ; # +trace => [ 'debug' ] ;
+use SOAP::Lite +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
@@ -25,6 +26,11 @@ sub submit {
 
 	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
 
+	if ( $ret->fault ) {
+		my ( $faultstring ) = $ret->faultstring =~ /\s([[:print:]]*)\s/xms;
+		croak 'SOAP Fault: ' . $ret->faultcode . " " . $faultstring ;
+	}
+
 	$ret->match('//Body/replyMessage');
 
 	my $res
@@ -39,11 +45,12 @@ sub submit {
 			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
 			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
 			auth_datetime  => $ret->valueof('ccAuthReply/authorizedDateTime'),
-			auth_record    => $ret->valueof('ccAuthReply/authRecord' ),
-			auth_code      => $ret->valueof('ccAuthReply/authorizationCode'),
+			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
+			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
 			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
 		})
 		;
+
 	return $res;
 }
 
