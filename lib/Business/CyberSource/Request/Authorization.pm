@@ -6,10 +6,12 @@ BEGIN {
 	# VERSION
 }
 
-use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite ; # +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
+
+use Business::CyberSource::Response::Authorization;
 
 sub submit {
 	my $self = shift;
@@ -21,7 +23,28 @@ sub submit {
 		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
 	);
 
-	return $req->requestMessage( $self->_sdbo->to_soap_data );
+	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
+
+	$ret->match('//Body/replyMessage');
+
+	my $res
+		= Business::CyberSource::Response::Authorization->new({
+			request_id     => $ret->valueof('requestID'              ),
+			decision       => $ret->valueof('decision'               ),
+			reference_code => $ret->valueof('merchantReferenceCode'  ),
+			reason_code    => $ret->valueof('reasonCode'             ),
+			request_token  => $ret->valueof('requestToken'           ),
+			currency       => $ret->valueof('purchaseTotals/currency'),
+			amount         => $ret->valueof('ccAuthReply/amount'     ),
+			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
+			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
+			auth_datetime  => $ret->valueof('ccAuthReply/authorizedDateTime'),
+			auth_record    => $ret->valueof('ccAuthReply/authRecord' ),
+			auth_code      => $ret->valueof('ccAuthReply/authorizationCode'),
+			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
+		})
+		;
+	return $res;
 }
 
 has reference_code => (
