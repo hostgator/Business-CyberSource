@@ -40,7 +40,6 @@ sub submit {
 			auth_datetime  => $ret->valueof('//authorizedDateTime'   ),
 			auth_record    => $ret->valueof('//authRecord'           ),
 			processor_response => $ret->valueof('//processorResponse'),
-			
 		})
 		;
 	return $res;
