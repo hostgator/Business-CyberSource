@@ -14,6 +14,7 @@ use SOAP::Lite +trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;
+	return 1;
 }
 
 has reference_code => (
@@ -36,6 +37,7 @@ has total => (
 
 sub _build_sdbo {
 	my $self = shift;
+	return 1;
 }
 
 
