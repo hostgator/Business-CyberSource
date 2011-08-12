@@ -28,7 +28,7 @@ sub submit {
 
 	if ( $req->fault ) {
 		
-		croak $req->faultcode . ' ' . $req->faultstring;
+		croak $req->fault->faultcode . ' ' . $req->fault->faultstring;
 	}
 
 	$ret->match('//Body/replyMessage');
