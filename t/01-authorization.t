@@ -77,4 +77,5 @@ ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
 ok( $ret->auth_code,     'check auth_code exists'     );
 ok( $ret->auth_datetime, 'check datetime exists'      );
+ok( $ret->auth_record,   'check auth_record'          );
 done_testing;
