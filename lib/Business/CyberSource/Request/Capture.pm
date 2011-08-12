@@ -104,6 +104,10 @@ sub _build_sdbo {
 		value => $self->reference_code,
 	);
 
+	my $purchase_totals = $sb->add_elem(
+		name => 'purchaseTotals',
+	);
+
 	$sb->add_elem(
 		name   => 'currency',
 		parent => $purchase_totals,
