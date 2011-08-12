@@ -63,5 +63,5 @@ is( $req->credit_card,  '4111-1111-1111-1111', 'check credit card number' );
 is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
 is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
-throws_ok({ $req->submit }, qr/SOAP Fault/, 'submit threw exception ok');
+throws_ok { $req->submit } qr/SOAP Fault/, 'submit threw exception ok';
 done_testing;
