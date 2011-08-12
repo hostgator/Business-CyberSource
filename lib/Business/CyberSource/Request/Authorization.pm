@@ -45,6 +45,7 @@ sub submit {
 		})
 		;
 
+	carp 'fault ' . $ret->fault;
 	unless ( $ret->fault ) {
 		return $res;
 	}
