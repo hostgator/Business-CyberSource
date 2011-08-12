@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Authorization;
+package Business::CyberSource::Request::Capture;
 use 5.008;
 use strict;
 use warnings;
@@ -51,7 +51,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request::Authorization - CyberSource Capture Request Object
+Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 
 =head1 VERSION
 
