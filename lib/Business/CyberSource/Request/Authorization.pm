@@ -7,7 +7,7 @@ BEGIN {
 	# VERSION
 }
 
-use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite; # +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
