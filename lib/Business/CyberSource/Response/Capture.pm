@@ -22,3 +22,5 @@ has capture_reason_code => (
 
 __PACKAGE__->meta->make_immutable;
 1;
+
+# ABSTRACT: CyberSource Capture Response Object
