@@ -10,6 +10,8 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
+use Business::CyberSource::Response::Capture;
+
 use SOAP::Lite +trace => [ 'debug' ] ;
 
 sub submit {
@@ -29,9 +31,22 @@ sub submit {
 		croak 'SOAP Fault: ' . $ret->faultcode . " " . $faultstring ;
 	}
 
-	#$ret->match('//Body/replyMessage');
+	$ret->match('//Body/replyMessage');
 
-	return 1;
+	my $res
+		= Business::CyberSource::Response::Capture->new({
+			reference_code => $ret->valueof('merchantReferenceCode'  ),
+			request_id     => $ret->valueof('requestID'              ),
+			decision       => $ret->valueof('decision'               ),
+			reason_code    => $ret->valueof('reasonCode'             ),
+			currency       => $ret->valueof('purchaseTotals/currency'),
+			amount         => $ret->valueof('ccCaptureReply/amount'  ),
+			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
+			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
+		})
+		;
+
+	return $res;
 }
 
 has request_id => (
