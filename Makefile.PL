@@ -31,6 +31,7 @@ my %WriteMakefileArgs = (
     'Config' => '0',
     'Moose' => '0',
     'Moose::Role' => '0',
+    'MooseX::Types::Email' => '0',
     'SOAP::Data::Builder' => '0',
     'SOAP::Lite' => '0',
     'namespace::autoclean' => '0'
