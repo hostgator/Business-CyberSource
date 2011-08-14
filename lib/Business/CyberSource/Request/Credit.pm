@@ -16,10 +16,13 @@ use SOAP::Lite +trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;
+	return 1;
 }
 
 sub _build_sdbo {
 	my $self = shift;
+
+	return
 }
 
 __PACKAGE__->meta->make_immutable;
