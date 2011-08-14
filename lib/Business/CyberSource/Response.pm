@@ -32,6 +32,11 @@ has reason_code => (
 	isa      => 'Int',
 );
 
+has currency => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
 1;
 
 # ABSTRACT: Response Role
