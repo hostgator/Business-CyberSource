@@ -54,7 +54,7 @@ has zip => (
 has email => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'EmailAddress',
+	isa      => EmailAddress,
 );
 
 has ip => (
