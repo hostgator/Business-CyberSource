@@ -9,7 +9,7 @@ use Moose;
 with 'Business::CyberSource::Response';
 
 has request_token => (
-#	required => 1,
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
