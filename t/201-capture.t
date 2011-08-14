@@ -22,8 +22,6 @@ my $req
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
-		unit_price     => 5.00,
-		quantity       => 1,
 		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
@@ -48,5 +46,14 @@ my $capture
 my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
+
+is( $cres->reference_code, '69', 'check reference_code' );
+is( $cres->request_id, $res->request_id, 'check request_id' );
+is( $cres->decision, 'ACCEPT', 'check decision' );
+is( $cres->reason_code, 100, 'check reason_code' );
+is( $cres->currency, 'USD', 'check currency' );
+is( $cres->amount, '5.00', 'check amount' );
+is( $cres->capture_reason_code, 100, 'check capture_reason_code' );
+ok( $cres->reconciliation_id, 'reconciliation_id exists' );
 
 done_testing;
