@@ -10,7 +10,10 @@ BEGIN {
 use SOAP::Lite; # +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
-with 'Business::CyberSource::Request';
+with qw(
+	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::Billing
+);
 
 use Business::CyberSource::Response::Authorization;
 
@@ -53,60 +56,6 @@ sub submit {
 
 	return $res;
 }
-
-has first_name => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has last_name => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has street => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has city => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has state => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has country => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has zip => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has email => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has ip => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
 
 has credit_card => (
 	required => 1,
