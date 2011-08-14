@@ -1,4 +1,4 @@
-package Business::CyberSource::Request;
+package Business::CyberSource::Response;
 use 5.008;
 use strict;
 use warnings;
