@@ -10,6 +10,8 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
+use Business::CyberSource::Response::Capture;
+
 use SOAP::Lite +trace => [ 'debug' ] ;
 
 sub submit {
