@@ -1,78 +1,47 @@
-package Business::CyberSource::Response::Authorization;
+package Business::CyberSource::Request;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose;
-with 'Business::CyberSource::Response';
+use Moose::Role;
 
-has request_token => (
-#	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has currency => (
+has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has amount => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Num',
-);
-
-has auth_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Num',
-);
-
-has avs_code => (
+has request_id => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has avs_code_raw => (
+has decision => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has auth_datetime => (
+has reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Int',
 );
 
-has processor_response => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has auth_record => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-__PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Authorization Response object
+# ABSTRACT: Response Role
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Authorization - CyberSource Authorization Response object
+Business::CyberSource::Request - Response Role
 
 =head1 VERSION
 

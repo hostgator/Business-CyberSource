@@ -10,7 +10,9 @@ lib/Business/CyberSource.pm
 lib/Business/CyberSource/Request.pm
 lib/Business/CyberSource/Request/Authorization.pm
 lib/Business/CyberSource/Request/Capture.pm
+lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Authorization.pm
+lib/Business/CyberSource/Response/Capture.pm
 perlcritic.rc
 t/00-compile.t
 t/101-authorization.t
