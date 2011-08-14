@@ -7,7 +7,7 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose::Role;
-use MooseX::Types::Email qw(EmailAddress);
+use MooseX::Types::Email;
 
 has first_name => (
 	required => 1,
@@ -54,7 +54,7 @@ has zip => (
 has email => (
 	required => 1,
 	is       => 'ro',
-	isa      => EmailAddress,
+	isa      => 'EmailAddress',
 );
 
 has ip => (
