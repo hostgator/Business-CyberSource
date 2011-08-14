@@ -14,12 +14,6 @@ has request_token => (
 	isa      => 'Str',
 );
 
-has amount => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Num',
-);
-
 has auth_code => (
 	required => 1,
 	is       => 'ro',
