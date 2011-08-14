@@ -1,4 +1,4 @@
-package Business::CyberSource::Request;
+package Business::CyberSource::Response;
 use 5.008;
 use strict;
 use warnings;
@@ -41,7 +41,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request - Response Role
+Business::CyberSource::Response - Response Role
 
 =head1 VERSION
 
