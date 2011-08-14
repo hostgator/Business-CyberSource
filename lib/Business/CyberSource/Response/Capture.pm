@@ -23,12 +23,14 @@ has capture_reason_code => (
 __PACKAGE__->meta->make_immutable;
 1;
 
+# ABSTRACT: CyberSource Capture Response Object
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Capture
+Business::CyberSource::Response::Capture - CyberSource Capture Response Object
 
 =head1 VERSION
 
