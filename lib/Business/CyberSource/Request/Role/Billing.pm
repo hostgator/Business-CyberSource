@@ -1,4 +1,4 @@
-package Business::CyberSource::Response;
+package Business::CyberSource::Response::Role::Billing;
 use 5.008;
 use strict;
 use warnings;
@@ -71,7 +71,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Response - Role for requests that require "bill to" information
+Business::CyberSource::Response::Role::Billing - Role for requests that require "bill to" information
 
 =head1 VERSION
 
