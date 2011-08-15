@@ -8,6 +8,12 @@ BEGIN {
 use Moose;
 with 'Business::CyberSource::Response';
 
+has reconciliation_id => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
 1;
 
 __END__

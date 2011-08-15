@@ -46,13 +46,10 @@ sub submit {
 			reason_code    => $ret->valueof('reasonCode'             ),
 			request_token  => $ret->valueof('requestToken'           ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
-			amount         => $ret->valueof('ccAuthReply/amount'     ),
-			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
-			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
-			auth_datetime  => $ret->valueof('ccAuthReply/authorizedDateTime'),
-			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
-			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
-			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
+			amount         => $ret->valueof('ccCreditReply/amount'     ),
+			datetime       => $ret->valueof('ccCreditReply/authorizedDateTime'),
+			reconciliation_id  => $ret->valueof('ccCreditReply/reconciliationID'),
+			credit_reason_code => $ret->valueof('ccCreditReply/reasonCode'),
 		})
 		;
 
