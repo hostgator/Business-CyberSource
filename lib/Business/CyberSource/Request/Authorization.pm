@@ -7,7 +7,7 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 
-use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite; # +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with qw(
@@ -82,7 +82,6 @@ sub _build_sdbo {
 	$sb = $self->_build_bill_to_info    ( $sb );
 	$sb = $self->_build_purchase_info   ( $sb );
 	$sb = $self->_build_credit_card_info( $sb );
-
 
 	$sb->add_elem(
 		attributes => { run => 'true' },
