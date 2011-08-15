@@ -49,7 +49,16 @@
       }
    },
    "release_status" : "stable",
-   "resources" : {},
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/xenoterracide/Business-CyberSource/issues"
+      },
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/xenoterracide/Business-CyberSource.git",
+         "web" : "https://github.com/xenoterracide/Business-CyberSource"
+      }
+   },
    "version" : "v0.1.0"
 }
 

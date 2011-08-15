@@ -31,5 +31,7 @@ requires:
   SOAP::Lite: 0
   namespace::autoclean: 0
   perl: 5.008
-resources: {}
+resources:
+  bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
+  repository: git://github.com/xenoterracide/Business-CyberSource.git
 version: v0.1.0
