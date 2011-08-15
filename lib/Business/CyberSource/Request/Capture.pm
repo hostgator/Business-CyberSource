@@ -12,7 +12,7 @@ with 'Business::CyberSource::Request';
 
 use Business::CyberSource::Response::Capture;
 
-use SOAP::Lite; # +trace => [ 'debug' ] ;
+use SOAP::Lite +trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;
