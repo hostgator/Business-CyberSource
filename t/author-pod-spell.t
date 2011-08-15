@@ -28,7 +28,7 @@ CyberSource
 Num
 Str
 datetime
-merchantId
+merchantID
 ip
 Caleb
 Cushing
