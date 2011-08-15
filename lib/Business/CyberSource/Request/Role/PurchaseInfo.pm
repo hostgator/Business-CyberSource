@@ -43,4 +43,5 @@ sub _build_purchase_info {
 }
 
 1;
-# CyberSource PurchaseTotals information Role
+
+# ABSTRACT: CyberSource PurchaseTotals information Role
