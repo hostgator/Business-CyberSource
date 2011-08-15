@@ -64,7 +64,6 @@ is( $res->currency,       'USD',    'check currency'       );
 is( $res->amount,         '5.00',    'check amount'        );
 
 ok( $res->request_id,    'check request_id exists'    );
-ok( $res->request_token, 'check request_token exists' );
 ok( $res->datetime,      'check datetime exists'      );
 
 done_testing;
