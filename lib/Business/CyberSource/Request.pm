@@ -7,6 +7,8 @@ BEGIN {
 	# VERSION
 }
 use Moose::Role;
+use MooseX::Types::URI qw( Uri );
+
 with qw(
 	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
@@ -16,6 +18,23 @@ requires '_build_sdbo';
 requires 'submit';
 
 use SOAP::Data::Builder;
+
+has production => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'Bool',
+	default  => 0,
+);
+
+has server => (
+	required => 1,
+	lazy     => 1,
+	coerce   => 1,
+	is       => 'ro',
+	isa      => Uri,
+	builder => '_build_server',
+);
 
 has _sdbo => (
 	documentation => 'SOAP::Data::Builder Object',
@@ -98,6 +117,17 @@ sub _build_sdbo_header {
 	);
 
 	return $sb;
+}
+
+sub _build_server {
+	my $self = shift;
+
+	unless ( $self->production ) {
+		return 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor';
+	}
+	else {
+		return 'https://ics2ws.ic3.com/commerce/1.x/transactionProcessor';
+	}
 }
 
 1;
