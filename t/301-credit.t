@@ -57,4 +57,13 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 ok( $res, 'request response exists' );
 
+is( $res->reference_code, '360', 'check response reference code' );
+is( $res->decision,       'ACCEPT', 'check decision'       );
+is( $res->reason_code,     100,     'check reason_code'    );
+is( $res->currency,       'USD',    'check currency'       );
+is( $res->amount,         '5.00',    'check amount'        );
+
+ok( $res->request_id,    'check request_id exists'    );
+ok( $res->datetime,      'check datetime exists'      );
+
 done_testing;
