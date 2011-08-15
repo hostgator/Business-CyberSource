@@ -58,7 +58,7 @@ has request_id => (
 sub _build_sdbo {
 	my $self = shift;
 
-	my $sb = $self->_sdbo_header;
+	my $sb = $self->_build_sdbo_header;
 
 	$sb->add_elem(
 		name  => 'merchantReferenceCode',

@@ -23,14 +23,6 @@ has _sdbo => (
 	builder  => '_build_sdbo',
 );
 
-has _sdbo_header => (
-	required => 1,
-	lazy     => 1,
-	is       => 'ro',
-	isa      => 'SOAP::Data::Builder',
-	builder  => '_build_sdbo_header',
-);
-
 has username => (
 	documentation => 'your merchantID',
 	required => 1,
