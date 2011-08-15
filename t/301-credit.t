@@ -35,7 +35,7 @@ is( $req->username, $CYBS_ID,  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
 
 # check billing info
-is( $req->reference_code, '42',        'check reference_code' );
+is( $req->reference_code, '360',        'check reference_code' );
 is( $req->first_name,     'Caleb',     'check first_name'     );
 is( $req->last_name,      'Cushing',   'check first_name'     );
 is( $req->street,         'somewhere', 'check street'         );
