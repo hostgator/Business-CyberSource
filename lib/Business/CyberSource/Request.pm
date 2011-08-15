@@ -7,7 +7,10 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose::Role;
-with 'Business::CyberSource';
+with qw(
+	Business::CyberSource
+	Business::CyberSource::Request::Role::PurchaseInfo
+); 
 
 requires '_build_sdbo';
 requires 'submit';
@@ -43,17 +46,6 @@ has reference_code => (
 	isa      => 'Str',
 );
 
-has currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has total => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Num',
-);
 
 sub _build_sdbo_header {
 	my $self = shift;
