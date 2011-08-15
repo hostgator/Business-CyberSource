@@ -120,7 +120,7 @@ sub _build_bill_to_info {
 
 	$sb->add_elem(
 		name   => 'ipAddress',
-		value  => '192.168.100.2',
+		value  => $self->ip,
 		parent => $bill_to,
 	);
 
