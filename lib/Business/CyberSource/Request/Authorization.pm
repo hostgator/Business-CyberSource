@@ -13,6 +13,8 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request
 	Business::CyberSource::Request::Role::BillingInfo
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Busienss::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response::Authorization;

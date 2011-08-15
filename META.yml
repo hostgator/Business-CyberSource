@@ -22,6 +22,7 @@ no_index:
   file:
     - perlcritic.rc
 requires:
+  Busienss::CyberSource::Request::Role::CreditCardInfo: 0
   Carp: 0
   Config: 0
   Moose: 0
