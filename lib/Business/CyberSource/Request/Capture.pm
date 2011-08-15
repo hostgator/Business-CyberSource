@@ -75,7 +75,6 @@ sub _build_sdbo {
 		value  => $self->currency,
 	);
 
-
 	$sb->add_elem(
 		name   => 'grandTotalAmount',
 		value  => $self->total,
