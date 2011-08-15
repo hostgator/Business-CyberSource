@@ -58,7 +58,7 @@ has request_id => (
 sub _build_sdbo {
 	my $self = shift;
 
-	my $sb = $sb->_sdbo_header;
+	my $sb = $self->_sdbo_header;
 
 	$sb->add_elem(
 		name   => 'merchantID',
