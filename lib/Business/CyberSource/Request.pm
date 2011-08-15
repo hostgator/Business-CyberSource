@@ -104,6 +104,11 @@ sub _build_sdbo_header {
 		parent => $username_token,
 	);
 
+	$sb->add_elem(
+		name   => 'merchantID',
+		value  => $self->username,
+	);
+
 	return $sb;
 }
 

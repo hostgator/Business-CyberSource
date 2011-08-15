@@ -61,11 +61,6 @@ sub _build_sdbo {
 	my $sb = $self->_sdbo_header;
 
 	$sb->add_elem(
-		name   => 'merchantID',
-		value  => $self->username,
-	);
-
-	$sb->add_elem(
 		name  => 'merchantReferenceCode',
 		value => $self->reference_code,
 	);
