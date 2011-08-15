@@ -8,7 +8,10 @@ BEGIN {
 }
 use Moose;
 use namespace::autoclean;
-with 'Business::CyberSource::Request';
+with qw(
+	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::Billing
+);
 
 use Business::CyberSource::Response::Capture;
 
