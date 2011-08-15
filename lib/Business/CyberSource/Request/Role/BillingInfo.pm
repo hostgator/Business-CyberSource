@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Role::Billing;
+package Business::CyberSource::Request::Role::BillingInfo;
 use 5.008;
 use strict;
 use warnings;
@@ -136,7 +136,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::Billing - Role for requests that require "bill to" information
+Business::CyberSource::Request::Role::BillingInfo - Role for requests that require "bill to" information
 
 =head1 VERSION
 

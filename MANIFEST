@@ -11,7 +11,7 @@ lib/Business/CyberSource/Request.pm
 lib/Business/CyberSource/Request/Authorization.pm
 lib/Business/CyberSource/Request/Capture.pm
 lib/Business/CyberSource/Request/Credit.pm
-lib/Business/CyberSource/Request/Role/Billing.pm
+lib/Business/CyberSource/Request/Role/BillingInfo.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Authorization.pm
 lib/Business/CyberSource/Response/Capture.pm

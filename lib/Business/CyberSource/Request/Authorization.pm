@@ -12,7 +12,7 @@ use Moose;
 use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request
-	Business::CyberSource::Request::Role::Billing
+	Business::CyberSource::Request::Role::BillingInfo
 );
 
 use Business::CyberSource::Response::Authorization;
