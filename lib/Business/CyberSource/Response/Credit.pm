@@ -16,12 +16,14 @@ has reconciliation_id => (
 
 1;
 
+# ABSTRACT: CyberSource Credit Response object
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Credit
+Business::CyberSource::Response::Credit - CyberSource Credit Response object
 
 =head1 VERSION
 
