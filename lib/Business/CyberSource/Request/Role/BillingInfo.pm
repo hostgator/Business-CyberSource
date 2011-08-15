@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Role::Billing;
+package Business::CyberSource::Request::Role::BillingInfo;
 use 5.008;
 use strict;
 use warnings;
