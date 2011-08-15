@@ -15,7 +15,7 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
-use Business::CyberSource::Response::Capture;
+use Business::CyberSource::Response::Credit;
 
 use SOAP::Lite +trace => [ 'debug' ] ;
 
@@ -39,7 +39,7 @@ sub submit {
 	$ret->match('//Body/replyMessage');
 
 	my $res
-		= Business::CyberSource::Response::Authorization->new({
+		= Business::CyberSource::Response::Credit->new({
 			request_id     => $ret->valueof('requestID'              ),
 			decision       => $ret->valueof('decision'               ),
 			reference_code => $ret->valueof('merchantReferenceCode'  ),
