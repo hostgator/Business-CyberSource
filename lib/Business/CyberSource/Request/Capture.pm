@@ -41,8 +41,8 @@ sub submit {
 			reason_code    => $ret->valueof('reasonCode'             ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
-			amount         => $ret->valueof('ccCaptureReply/amount'  ),
 			datetime       => $ret->valueof('ccCaptureReply/responseDateTime'),
+			amount         => $ret->valueof('ccCaptureReply/amount'  ),
 			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
 		})
 		;
