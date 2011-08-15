@@ -32,7 +32,7 @@ has avs_code_raw => (
 	isa      => 'Str',
 );
 
-has auth_datetime => (
+has datetime => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
