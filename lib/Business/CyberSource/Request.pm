@@ -46,7 +46,6 @@ has reference_code => (
 	isa      => 'Str',
 );
 
-
 sub _build_sdbo_header {
 	my $self = shift;
 

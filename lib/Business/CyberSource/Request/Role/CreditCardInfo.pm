@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Role::PurchaseInfo;
+package Business::CyberSource::Request::Role::CreditCardInfo;
 use 5.008;
 use strict;
 use warnings;
@@ -8,49 +8,62 @@ BEGIN {
 }
 use Moose::Role;
 
-has currency => (
+has credit_card => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has total => (
+has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => 'Str',
 );
 
-sub _build_sdbo_purchase_info {
+has cc_exp_year => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+sub _build_credit_card_info {
 	my ( $self, $sb ) = @_;
 
-	my $purchase_totals = $sb->add_elem(
-		name => 'purchaseTotals',
+	my $card = $sb->add_elem(
+		name => 'card',
 	);
 
 	$sb->add_elem(
-		name   => 'currency',
-		parent => $purchase_totals,
-		value  => $self->currency,
+		name   => 'accountNumber',
+		value  => $self->credit_card,
+		parent => $card,
 	);
 
 	$sb->add_elem(
-		name   => 'grandTotalAmount',
-		value  => $self->total,
-		parent => $purchase_totals,
+		name   => 'expirationMonth',
+		value  => $self->cc_exp_month,
+		parent => $card,
+	);
+
+	$sb->add_elem(
+		name   => 'expirationYear',
+		value  => $self->cc_exp_year,
+		parent => $card,
 	);
 
 	return $sb;
 }
 
 1;
-# CyberSource PurchaseTotals information Role
+
+# ABSTRACT: credit card info role
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::PurchaseInfo
+Business::CyberSource::Request::Role::CreditCardInfo - credit card info role
 
 =head1 VERSION
 
