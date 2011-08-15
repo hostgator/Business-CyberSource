@@ -20,7 +20,7 @@ has total => (
 	isa      => 'Num',
 );
 
-sub _build_sdbo_purchase_info {
+sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
 
 	my $purchase_totals = $sb->add_elem(
