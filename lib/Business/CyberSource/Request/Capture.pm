@@ -60,11 +60,6 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
-	$sb->add_elem(
-		name  => 'merchantReferenceCode',
-		value => $self->reference_code,
-	);
-
 	my $purchase_totals = $sb->add_elem(
 		name => 'purchaseTotals',
 	);
@@ -74,7 +69,6 @@ sub _build_sdbo {
 		parent => $purchase_totals,
 		value  => $self->currency,
 	);
-
 
 	$sb->add_elem(
 		name   => 'grandTotalAmount',

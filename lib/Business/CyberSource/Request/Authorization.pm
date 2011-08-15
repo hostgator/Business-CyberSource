@@ -81,11 +81,6 @@ sub _build_sdbo {
 	my $sb = $self->_build_sdbo_header;
 
 	$sb->add_elem(
-		name  => 'merchantReferenceCode',
-		value => $self->reference_code,
-	);
-
-	$sb->add_elem(
 		name  => 'clientLibrary',
 		value => $self->client_name,
 	);
@@ -100,63 +95,7 @@ sub _build_sdbo {
 		value => $self->client_env,
 	);
 
-	my $bill_to = $sb->add_elem(
-		name => 'billTo',
-	);
-
-	$sb->add_elem(
-		name   => 'firstName',
-		value  => $self->first_name,
-		parent => $bill_to,
-	);
-
-	$sb->add_elem(
-		name   => 'lastName',
-		value  => $self->last_name,
-		parent => $bill_to,
-	);
-
-	$sb->add_elem(
-		name   => 'street1',
-		value  => $self->street,
-		parent => $bill_to,
-	);
-
-	$sb->add_elem(
-		name   => 'city',
-		value  => $self->city,
-		parent => $bill_to,
-	);
-
-	$sb->add_elem(
-		name   => 'state',
-		parent => $bill_to,
-		value  => $self->state,
-	);
-
-	$sb->add_elem(
-		name   => 'postalCode',
-		parent => $bill_to,
-		value  => $self->zip,
-	);
-
-	$sb->add_elem(
-		name   => 'country',
-		parent => $bill_to,
-		value  => $self->country,
-	);
-
-	$sb->add_elem(
-		name   => 'email',
-		value  => $self->email,
-		parent => $bill_to,
-	);
-
-	$sb->add_elem(
-		name   => 'ipAddress',
-		value  => '192.168.100.2',
-		parent => $bill_to,
-	);
+	$sb = $self->_build_bill_to_info( $sb );
 
 	my $purchase_totals = $sb->add_elem(
 		name => 'purchaseTotals',

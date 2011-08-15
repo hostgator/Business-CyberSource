@@ -101,6 +101,11 @@ sub _build_sdbo_header {
 		value  => $self->username,
 	);
 
+	$sb->add_elem(
+		name  => 'merchantReferenceCode',
+		value => $self->reference_code,
+	);
+
 	return $sb;
 }
 
