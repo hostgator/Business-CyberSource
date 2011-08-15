@@ -134,61 +134,61 @@ This documentation was automatically generated.
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 new
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 reference_code
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 datetime
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 currency
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 request_id
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 decision
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 capture_reason_code
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 reason_code
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 amount
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head1 BUGS
 

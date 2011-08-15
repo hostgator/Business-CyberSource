@@ -307,145 +307,145 @@ This documentation was automatically generated.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 client_env
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 state
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 email
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 password
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 server
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 new
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 total
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 username
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 credit_card
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 zip
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 reference_code
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 ip
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 submit
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 last_name
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 currency
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 city
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 production
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 country
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 cc_exp_year
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 client_name
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 client_version
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head2 first_name
 
 Method originates in Business::CyberSource::Request::Credit.
 
-This documentation was automaticaly generated.
+This documentation was automatically generated.
 
 =head1 BUGS
 
