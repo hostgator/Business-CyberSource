@@ -15,3 +15,5 @@ has reconciliation_id => (
 );
 
 1;
+
+# ABSTRACT: CyberSource Credit Response object
