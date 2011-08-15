@@ -65,6 +65,28 @@ has reference_code => (
 	isa      => 'Str',
 );
 
+sub _build_soap_request {
+	my $self = shift;
+
+	my $req = SOAP::Lite->new(
+		readable   => 1,
+		autotype   => 0,
+		proxy      => $self->server,
+		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
+	);
+
+	my $ret = $req->requestMessage( $self->_sdbo->to_soap_data );
+
+	if ( $ret->fault ) {
+		my ( $faultstring ) = $ret->faultstring =~ /\s([[:print:]]*)\s/xms;
+		croak 'SOAP Fault: ' . $ret->faultcode . " " . $faultstring ;
+	}
+
+	$ret->match('//Body/replyMessage');
+
+	return $ret;
+}
+
 sub _build_sdbo_header {
 	my $self = shift;
 
