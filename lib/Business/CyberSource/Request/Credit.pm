@@ -11,6 +11,8 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request
 	Business::CyberSource::Request::Role::BillingInfo
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response::Capture;
