@@ -17,6 +17,7 @@ lib/Business/CyberSource/Request/Role/PurchaseInfo.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Authorization.pm
 lib/Business/CyberSource/Response/Capture.pm
+lib/Business/CyberSource/Response/Credit.pm
 perlcritic.rc
 t/00-compile.t
 t/101-authorization.t
