@@ -61,6 +61,224 @@ Business::CyberSource::Response::Authorization - CyberSource Authorization Respo
 
 version v0.1.0
 
+=head1 ATTRIBUTES
+
+=head2 avs_code_raw
+
+Reader: avs_code_raw
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 avs_code
+
+Reader: avs_code
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 datetime
+
+Reader: datetime
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 auth_code
+
+Reader: auth_code
+
+Type: Num
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 currency
+
+Reader: currency
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 processor_response
+
+Reader: processor_response
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 auth_record
+
+Reader: auth_record
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 decision
+
+Reader: decision
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: Int
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 request_token
+
+Reader: request_token
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 amount
+
+Reader: amount
+
+Type: Num
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head1 METHODS
+
+=head2 avs_code_raw
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 avs_code
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 new
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 reference_code
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 datetime
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 auth_code
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 currency
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 request_id
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 processor_response
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 auth_record
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 decision
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 reason_code
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 request_token
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
+=head2 amount
+
+Method originates in Business::CyberSource::Response::Authorization.
+
+This documentation was automaticaly generated.
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website

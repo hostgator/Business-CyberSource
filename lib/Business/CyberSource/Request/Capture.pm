@@ -93,6 +93,202 @@ Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 
 version v0.1.0
 
+=head1 ATTRIBUTES
+
+=head2 client_env
+
+Reader: client_env
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 currency
+
+Reader: currency
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 password
+
+Reader: password
+
+Type: Str
+
+This attribute is required.
+
+Additional documentation: your SOAP transaction key
+
+This documentation was automatically generated.
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 server
+
+Reader: server
+
+Type: MooseX::Types::URI::Uri
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 total
+
+Reader: total
+
+Type: Num
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 username
+
+Reader: username
+
+Type: Str
+
+This attribute is required.
+
+Additional documentation: your merchantID
+
+This documentation was automatically generated.
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 client_version
+
+Reader: client_version
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head1 METHODS
+
+=head2 client_env
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 password
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 server
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 new
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 total
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 username
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 reference_code
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 submit
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 currency
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 production
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 request_id
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 client_name
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
+=head2 client_version
+
+Method originates in Business::CyberSource::Request::Capture.
+
+This documentation was automaticaly generated.
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website

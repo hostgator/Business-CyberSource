@@ -29,6 +29,138 @@ Business::CyberSource::Response::Credit - CyberSource Credit Response object
 
 version v0.1.0
 
+=head1 ATTRIBUTES
+
+=head2 reconciliation_id
+
+Reader: reconciliation_id
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 datetime
+
+Reader: datetime
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 currency
+
+Reader: currency
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 decision
+
+Reader: decision
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: Int
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 amount
+
+Reader: amount
+
+Type: Num
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: Str
+
+This attribute is required.
+
+This documentation was automatically generated.
+
+=head1 METHODS
+
+=head2 reconciliation_id
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 reference_code
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 datetime
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 currency
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 request_id
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 decision
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 reason_code
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
+=head2 amount
+
+Method originates in Business::CyberSource::Response::Credit.
+
+This documentation was automaticaly generated.
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website

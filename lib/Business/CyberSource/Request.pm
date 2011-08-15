@@ -31,6 +31,7 @@ has server => (
 	required => 1,
 	lazy     => 1,
 	coerce   => 1,
+	init_arg => undef,
 	is       => 'ro',
 	isa      => Uri,
 	builder => '_build_server',
