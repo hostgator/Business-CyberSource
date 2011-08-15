@@ -13,6 +13,8 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request
 	Business::CyberSource::Request::Role::BillingInfo
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response::Authorization;
@@ -57,24 +59,6 @@ sub submit {
 	return $res;
 }
 
-has credit_card => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has cc_exp_month => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has cc_exp_year => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 sub _build_sdbo {
 	my $self = shift;
 
@@ -95,46 +79,10 @@ sub _build_sdbo {
 		value => $self->client_env,
 	);
 
-	$sb = $self->_build_bill_to_info( $sb );
+	$sb = $self->_build_bill_to_info    ( $sb );
+	$sb = $self->_build_purchase_info   ( $sb );
+	$sb = $self->_build_credit_card_info( $sb );
 
-	my $purchase_totals = $sb->add_elem(
-		name => 'purchaseTotals',
-	);
-
-	$sb->add_elem(
-		name   => 'currency',
-		parent => $purchase_totals,
-		value  => $self->currency,
-	);
-
-
-	$sb->add_elem(
-		name   => 'grandTotalAmount',
-		value  => $self->total,
-		parent => $purchase_totals,
-	);
-
-	my $card = $sb->add_elem(
-		name => 'card',
-	);
-
-	$sb->add_elem(
-		name   => 'accountNumber',
-		value  => $self->credit_card,
-		parent => $card,
-	);
-
-	$sb->add_elem(
-		name   => 'expirationMonth',
-		value  => $self->cc_exp_month,
-		parent => $card,
-	);
-
-	$sb->add_elem(
-		name   => 'expirationYear',
-		value  => $self->cc_exp_year,
-		parent => $card,
-	);
 
 	$sb->add_elem(
 		attributes => { run => 'true' },
