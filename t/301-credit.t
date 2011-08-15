@@ -57,4 +57,6 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 ok( $res, 'request response exists' );
 
+is( $res->reference_code, '360', 'check response reference code' );
+
 done_testing;
