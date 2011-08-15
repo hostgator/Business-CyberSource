@@ -43,14 +43,15 @@ sub _build_purchase_info {
 }
 
 1;
-# CyberSource PurchaseTotals information Role
+
+# ABSTRACT: CyberSource PurchaseTotals information Role
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::PurchaseInfo
+Business::CyberSource::Request::Role::PurchaseInfo - CyberSource PurchaseTotals information Role
 
 =head1 VERSION
 
