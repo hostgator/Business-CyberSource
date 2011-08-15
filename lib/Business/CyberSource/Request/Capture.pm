@@ -12,7 +12,7 @@ with 'Business::CyberSource::Request';
 
 use Business::CyberSource::Response::Capture;
 
-use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite; #+trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;
@@ -41,6 +41,7 @@ sub submit {
 			reason_code    => $ret->valueof('reasonCode'             ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			amount         => $ret->valueof('ccCaptureReply/amount'  ),
+			datetime       => $ret->valueof('ccCaptureReply/responseDateTime');
 			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
 			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
 		})
