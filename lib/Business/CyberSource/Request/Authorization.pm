@@ -104,8 +104,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 ip
 
 Reader: ip
@@ -113,8 +111,6 @@ Reader: ip
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 client_env
 
@@ -124,8 +120,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 last_name
 
 Reader: last_name
@@ -133,8 +127,6 @@ Reader: last_name
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 state
 
@@ -144,8 +136,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 email
 
 Reader: email
@@ -153,8 +143,6 @@ Reader: email
 Type: MooseX::Types::Email::EmailAddress
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 currency
 
@@ -164,8 +152,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 city
 
 Reader: city
@@ -173,8 +159,6 @@ Reader: city
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 password
 
@@ -186,8 +170,6 @@ This attribute is required.
 
 Additional documentation: your SOAP transaction key
 
-This documentation was automatically generated.
-
 =head2 production
 
 Reader: production
@@ -195,8 +177,6 @@ Reader: production
 Type: Bool
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 server
 
@@ -206,8 +186,6 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 country
 
 Reader: country
@@ -215,8 +193,6 @@ Reader: country
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 total
 
@@ -226,8 +202,6 @@ Type: Num
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -236,8 +210,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 cc_exp_year
 
 Reader: cc_exp_year
@@ -245,8 +217,6 @@ Reader: cc_exp_year
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 username
 
@@ -258,8 +228,6 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
-This documentation was automatically generated.
-
 =head2 credit_card
 
 Reader: credit_card
@@ -267,8 +235,6 @@ Reader: credit_card
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 zip
 
@@ -278,8 +244,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 client_name
 
 Reader: client_name
@@ -287,8 +251,6 @@ Reader: client_name
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 reference_code
 
@@ -298,8 +260,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 client_version
 
 Reader: client_version
@@ -307,8 +267,6 @@ Reader: client_version
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 first_name
 
@@ -318,153 +276,103 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head1 METHODS
 
 =head2 street
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 client_env
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 state
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 email
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 password
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 server
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 new
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 total
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 username
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 credit_card
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 zip
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 reference_code
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 ip
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 submit
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 last_name
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 currency
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 city
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 production
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 country
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 cc_exp_year
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 client_name
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head2 client_version
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-This documentation was automatically generated.
-
 =head2 first_name
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-This documentation was automatically generated.
 
 =head1 BUGS
 

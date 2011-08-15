@@ -46,8 +46,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 datetime
 
 Reader: datetime
@@ -55,8 +53,6 @@ Reader: datetime
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 currency
 
@@ -66,8 +62,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 request_id
 
 Reader: request_id
@@ -75,8 +69,6 @@ Reader: request_id
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 decision
 
@@ -86,8 +78,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 capture_reason_code
 
 Reader: capture_reason_code
@@ -95,8 +85,6 @@ Reader: capture_reason_code
 Type: Num
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 reason_code
 
@@ -106,8 +94,6 @@ Type: Int
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 amount
 
 Reader: amount
@@ -115,8 +101,6 @@ Reader: amount
 Type: Num
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 reference_code
 
@@ -126,69 +110,47 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head1 METHODS
 
 =head2 reconciliation_id
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automatically generated.
-
 =head2 new
 
 Method originates in Business::CyberSource::Response::Capture.
-
-This documentation was automatically generated.
 
 =head2 reference_code
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automatically generated.
-
 =head2 datetime
 
 Method originates in Business::CyberSource::Response::Capture.
-
-This documentation was automatically generated.
 
 =head2 currency
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automatically generated.
-
 =head2 request_id
 
 Method originates in Business::CyberSource::Response::Capture.
-
-This documentation was automatically generated.
 
 =head2 decision
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automatically generated.
-
 =head2 capture_reason_code
 
 Method originates in Business::CyberSource::Response::Capture.
-
-This documentation was automatically generated.
 
 =head2 reason_code
 
 Method originates in Business::CyberSource::Response::Capture.
 
-This documentation was automatically generated.
-
 =head2 amount
 
 Method originates in Business::CyberSource::Response::Capture.
-
-This documentation was automatically generated.
 
 =head1 BUGS
 

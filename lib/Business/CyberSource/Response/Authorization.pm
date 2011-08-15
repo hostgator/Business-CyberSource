@@ -71,8 +71,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 avs_code
 
 Reader: avs_code
@@ -80,8 +78,6 @@ Reader: avs_code
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 datetime
 
@@ -91,8 +87,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 auth_code
 
 Reader: auth_code
@@ -100,8 +94,6 @@ Reader: auth_code
 Type: Num
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 currency
 
@@ -111,8 +103,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 request_id
 
 Reader: request_id
@@ -120,8 +110,6 @@ Reader: request_id
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 processor_response
 
@@ -131,8 +119,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 auth_record
 
 Reader: auth_record
@@ -140,8 +126,6 @@ Reader: auth_record
 Type: Str
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 decision
 
@@ -151,8 +135,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 reason_code
 
 Reader: reason_code
@@ -160,8 +142,6 @@ Reader: reason_code
 Type: Int
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 request_token
 
@@ -171,8 +151,6 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head2 amount
 
 Reader: amount
@@ -180,8 +158,6 @@ Reader: amount
 Type: Num
 
 This attribute is required.
-
-This documentation was automatically generated.
 
 =head2 reference_code
 
@@ -191,93 +167,63 @@ Type: Str
 
 This attribute is required.
 
-This documentation was automatically generated.
-
 =head1 METHODS
 
 =head2 avs_code_raw
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 avs_code
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 new
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 reference_code
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 datetime
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 auth_code
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 currency
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 request_id
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 processor_response
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 auth_record
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 decision
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 reason_code
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head2 request_token
 
 Method originates in Business::CyberSource::Response::Authorization.
 
-This documentation was automatically generated.
-
 =head2 amount
 
 Method originates in Business::CyberSource::Response::Authorization.
-
-This documentation was automatically generated.
 
 =head1 BUGS
 
