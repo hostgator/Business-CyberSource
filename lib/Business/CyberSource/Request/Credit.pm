@@ -17,7 +17,7 @@ with qw(
 
 use Business::CyberSource::Response::Credit;
 
-use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite #+trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;
