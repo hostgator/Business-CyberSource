@@ -32,11 +32,6 @@ has avs_code_raw => (
 	isa      => 'Str',
 );
 
-has datetime => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
 
 has processor_response => (
 	required => 1,

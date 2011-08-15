@@ -40,6 +40,7 @@ sub submit {
 			decision       => $ret->valueof('decision'               ),
 			reason_code    => $ret->valueof('reasonCode'             ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
+			datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
 			amount         => $ret->valueof('ccCaptureReply/amount'  ),
 			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
 			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),

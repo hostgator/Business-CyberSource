@@ -44,6 +44,12 @@ has amount => (
 	isa      => 'Num',
 );
 
+has datetime => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
 1;
 
 # ABSTRACT: Response Role
