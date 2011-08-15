@@ -20,7 +20,7 @@ sub submit {
 	my $req = SOAP::Lite->new(
 		readable   => 1,
 		autotype   => 0,
-		proxy      => 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor',
+		proxy      => $self->server,
 		default_ns => 'urn:schemas-cybersource-com:transaction-data-1.61',
 	);
 
