@@ -48,8 +48,8 @@ sub submit {
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			amount         => $ret->valueof('ccCreditReply/amount'     ),
 			datetime       => $ret->valueof('ccCreditReply/authorizedDateTime'),
-			reconciliation_id  => $ret->valueof('ccCreditReply/reconciliationID'),
 			credit_reason_code => $ret->valueof('ccCreditReply/reasonCode'),
+			reconciliation_id  => $ret->valueof('ccCreditReply/reconciliationID'),
 		})
 		;
 
