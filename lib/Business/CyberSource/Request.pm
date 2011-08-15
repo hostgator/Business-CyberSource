@@ -122,10 +122,10 @@ sub _build_server {
 	my $self = shift;
 
 	unless ( $self->production ) {
-		return 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor'
+		return 'https://ics2wstest.ic3.com/commerce/1.x/transactionProcessor';
 	}
 	else {
-		return 'https://ics2ws.ic3.com/commerce/1.x/transactionProcessor'
+		return 'https://ics2ws.ic3.com/commerce/1.x/transactionProcessor';
 	}
 }
 
