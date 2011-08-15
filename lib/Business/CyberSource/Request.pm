@@ -23,6 +23,14 @@ has _sdbo => (
 	builder  => '_build_sdbo',
 );
 
+has _sdbo_header => (
+	required => 1,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => 'SOAP::Data::Builder',
+	builder  => '_build_sdbo_header',
+);
+
 has username => (
 	documentation => 'your merchantID',
 	required => 1,
@@ -54,6 +62,55 @@ has total => (
 	is       => 'ro',
 	isa      => 'Num',
 );
+
+sub _build_sdbo_header {
+	my $self = shift;
+
+	my $sb = SOAP::Data::Builder->new;
+	$sb->autotype(0);
+
+	my $security
+		= $sb->add_elem(
+			header => 1,
+			name   => 'wsse:Security',
+			attributes => {
+				'xmlns:wsse'
+					=> 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd'
+			}
+		);
+
+	my $username_token
+		= $sb->add_elem(
+			header => 1,
+			parent => $security,
+			name   => 'wsse:UsernameToken',
+		);
+
+	$sb->add_elem(
+		header => 1,
+		name   => 'wsse:Password',
+		value  => $self->password,
+		parent => $username_token,
+		attributes => {
+			Type =>
+				'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText',
+		},
+	);
+
+	$sb->add_elem(
+		header => 1,
+		name   => 'wsse:Username',
+		value  => $self->username,
+		parent => $username_token,
+	);
+
+	$sb->add_elem(
+		name   => 'merchantID',
+		value  => $self->username,
+	);
+
+	return $sb;
+}
 
 1;
 
