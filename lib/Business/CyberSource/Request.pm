@@ -10,7 +10,7 @@ use Moose::Role;
 with qw(
 	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
-); 
+);
 
 requires '_build_sdbo';
 requires 'submit';
