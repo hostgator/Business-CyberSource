@@ -33,8 +33,8 @@ sub submit {
 			request_token  => $ret->valueof('requestToken'           ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			amount         => $ret->valueof('ccAuthReply/amount'     ),
-#			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
-#			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
+			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
+			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
 			datetime       => $ret->valueof('ccAuthReply/authorizedDateTime'),
 			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
 			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
@@ -373,15 +373,6 @@ Method originates in Business::CyberSource::Request::Authorization.
 =head2 first_name
 
 Method originates in Business::CyberSource::Request::Authorization.
-
-=head1 BUGS
-
-Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Business-CyberSource/issues
-
-When submitting a bug or request, please include a test-file or a
-patch to an existing test-file that illustrates the bug or desired
-feature.
 
 =head1 AUTHOR
 
