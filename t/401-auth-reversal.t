@@ -57,6 +57,6 @@ is( $rev->amount, '5.00', 'check amount' );
 is( $rev->reversal_reason_code, 100, 'check capture_reason_code' );
 
 note( $rev->datetime );
-note( $ref->datetime->ymd );
+note( $rev->datetime->ymd );
 
 done_testing;
