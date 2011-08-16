@@ -225,6 +225,15 @@ Method originates in Business::CyberSource::Response::Authorization.
 
 Method originates in Business::CyberSource::Response::Authorization.
 
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/xenoterracide/Business-CyberSource/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
 =head1 AUTHOR
 
 Caleb Cushing <xenoterracide@gmail.com>

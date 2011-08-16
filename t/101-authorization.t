@@ -16,7 +16,7 @@ my $req
 		last_name      => 'Cushing',
 		street         => 'somewhere',
 		city           => 'Houston',
-#		state          => 'TX',
+		state          => 'TX',
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
