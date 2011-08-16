@@ -31,6 +31,7 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::Capture
 			})
 			->new({
 				request_id     => $request_id,

@@ -1,11 +1,11 @@
-package Business::CyberSource::Response::Capture;
+package Business::CyberSource::Response::Role::Capture;
 use 5.008;
 use strict;
 use warnings;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose;
+use Moose::Role;
 
 has reconciliation_id => (
 	is       => 'ro',
@@ -17,7 +17,6 @@ has capture_reason_code => (
 	isa      => 'Num',
 );
 
-__PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource Capture Response Object
@@ -27,39 +26,11 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Response::Capture - CyberSource Capture Response Object
+Business::CyberSource::Response::Role::Capture - CyberSource Capture Response Object
 
 =head1 VERSION
 
 version v0.1.0
-
-=head1 ATTRIBUTES
-
-=head2 reconciliation_id
-
-Reader: reconciliation_id
-
-Type: Str
-
-=head2 capture_reason_code
-
-Reader: capture_reason_code
-
-Type: Num
-
-=head1 METHODS
-
-=head2 reconciliation_id
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 new
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 capture_reason_code
-
-Method originates in Business::CyberSource::Response::Capture.
 
 =head1 BUGS
 
