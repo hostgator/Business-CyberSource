@@ -60,8 +60,6 @@ Reader: currency
 
 Type: Str
 
-This attribute is required.
-
 =head2 request_id
 
 Reader: request_id
