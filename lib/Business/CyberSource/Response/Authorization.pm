@@ -15,7 +15,6 @@ has request_token => (
 );
 
 has auth_code => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
 );
@@ -92,8 +91,6 @@ This attribute is required.
 Reader: auth_code
 
 Type: Num
-
-This attribute is required.
 
 =head2 currency
 
