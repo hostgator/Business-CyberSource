@@ -38,7 +38,7 @@ ok( $auth, 'authorization response exists' );
 my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		username       => $auth_req->username,
 		password       => $auth_req->password,
-		reference_code => $auth_req->reference_code,
+		reference_code => '84',
 		request_id     => '42',
 		total          => $auth->amount,
 		currency       => $auth->currency,
@@ -49,7 +49,7 @@ my $rev = $rev_req->submit;
 
 ok( $rev, 'reversal response exists' );
 
-is( $rev->reference_code, '404', 'check reference_code' );
+is( $rev->reference_code, '829', 'check reference_code' );
 is( $rev->decision, 'ACCEPT', 'check decision' );
 is( $rev->reason_code, 100, 'check reason_code' );
 is( $rev->currency, 'USD', 'check currency' );
