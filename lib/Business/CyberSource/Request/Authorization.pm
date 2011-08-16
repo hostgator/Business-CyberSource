@@ -50,21 +50,6 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
-	$sb->add_elem(
-		name  => 'clientLibrary',
-		value => $self->client_name,
-	);
-
-	$sb->add_elem(
-		name  => 'clientLibraryVersion',
-		value => $self->client_version,
-	);
-
-	$sb->add_elem(
-		name  => 'clientEnvironment',
-		value => $self->client_env,
-	);
-
 	$sb = $self->_build_bill_to_info    ( $sb );
 	$sb = $self->_build_purchase_info   ( $sb );
 	$sb = $self->_build_credit_card_info( $sb );
