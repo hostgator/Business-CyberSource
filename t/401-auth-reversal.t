@@ -6,6 +6,7 @@ use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 
 use Business::CyberSource::Request::Authorization;
+use Business::CyberSource::Request::AuthReversal;
 use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $req
