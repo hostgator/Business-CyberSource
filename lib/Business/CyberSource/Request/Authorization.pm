@@ -7,7 +7,7 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 
-use SOAP::Lite; # +trace => [ 'debug' ] ;
+use SOAP::Lite  +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with qw(
@@ -33,8 +33,8 @@ sub submit {
 			request_token  => $ret->valueof('requestToken'           ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			amount         => $ret->valueof('ccAuthReply/amount'     ),
-			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
-			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
+#			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
+#			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
 			datetime       => $ret->valueof('ccAuthReply/authorizedDateTime'),
 			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
 			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
