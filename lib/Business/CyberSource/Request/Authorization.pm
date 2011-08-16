@@ -134,8 +134,6 @@ Reader: state
 
 Type: Str
 
-This attribute is required.
-
 =head2 email
 
 Reader: email

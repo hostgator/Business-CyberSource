@@ -37,7 +37,6 @@ has city => (
 );
 
 has state => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
