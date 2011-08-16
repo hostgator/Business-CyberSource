@@ -16,8 +16,8 @@ my $req
 		last_name      => 'Cushing',
 		street         => 'somewhere',
 		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
+#		state          => 'TX',
+#		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
@@ -45,7 +45,7 @@ is( $req->first_name,     'Caleb',     'check first_name'     );
 is( $req->last_name,      'Cushing',   'check first_name'     );
 is( $req->street,         'somewhere', 'check street'         );
 is( $req->city,           'Houston',   'check city'           );
-is( $req->state,          'TX',        'check state'          );
+#is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
 
 is( $req->ip,    '192.168.100.2',          'check ip'    );

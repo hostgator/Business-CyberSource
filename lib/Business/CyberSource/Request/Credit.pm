@@ -91,8 +91,6 @@ Reader: ip
 
 Type: Str
 
-This attribute is required.
-
 =head2 client_env
 
 Reader: client_env
@@ -226,8 +224,6 @@ This attribute is required.
 Reader: zip
 
 Type: Str
-
-This attribute is required.
 
 =head2 client_name
 

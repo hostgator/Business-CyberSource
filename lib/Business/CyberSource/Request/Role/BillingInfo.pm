@@ -51,7 +51,6 @@ has country => (
 );
 
 has zip => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -63,7 +62,6 @@ has email => (
 );
 
 has ip => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -99,17 +97,21 @@ sub _build_bill_to_info {
 		parent => $bill_to,
 	);
 
-	$sb->add_elem(
-		name   => 'state',
-		parent => $bill_to,
-		value  => $self->state,
-	);
+	if ( $self->state ) {
+		$sb->add_elem(
+			name   => 'state',
+			parent => $bill_to,
+			value  => $self->state,
+		);
+	}
 
-	$sb->add_elem(
-		name   => 'postalCode',
-		parent => $bill_to,
-		value  => $self->zip,
-	);
+	if ( $self->zip ) {
+		$sb->add_elem(
+			name   => 'postalCode',
+			parent => $bill_to,
+			value  => $self->zip,
+		);
+	}
 
 	$sb->add_elem(
 		name   => 'country',
