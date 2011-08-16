@@ -39,7 +39,6 @@ has processor_response => (
 );
 
 has auth_record => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -121,8 +120,6 @@ This attribute is required.
 Reader: auth_record
 
 Type: Str
-
-This attribute is required.
 
 =head2 decision
 
