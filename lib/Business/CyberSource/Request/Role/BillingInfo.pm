@@ -13,12 +13,14 @@ has first_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'Card Holder\'s first name',
 );
 
 has last_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'Card Holder\'s last name',
 );
 
 has street => (
