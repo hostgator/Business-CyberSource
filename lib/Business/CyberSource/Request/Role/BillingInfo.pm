@@ -8,6 +8,7 @@ BEGIN {
 }
 use Moose::Role;
 use MooseX::Types::Email qw( EmailAddress );
+use MooseX::Types::Locale::Country qw( Alpha2Country );
 
 has first_name => (
 	required => 1,
@@ -43,8 +44,9 @@ has state => (
 
 has country => (
 	required => 1,
+	coerce   => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Alpha2Country,
 );
 
 has zip => (
