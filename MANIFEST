@@ -8,6 +8,7 @@ README
 docs/SubmittingPatches.pod
 lib/Business/CyberSource.pm
 lib/Business/CyberSource/Request.pm
+lib/Business/CyberSource/Request/AuthReversal.pm
 lib/Business/CyberSource/Request/Authorization.pm
 lib/Business/CyberSource/Request/Capture.pm
 lib/Business/CyberSource/Request/Credit.pm
@@ -28,6 +29,7 @@ t/103-rejected-request.t
 t/201-capture.t
 t/202-capture-reject.t
 t/301-credit.t
+t/401-auth-reversal.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t
