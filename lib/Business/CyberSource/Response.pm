@@ -39,7 +39,6 @@ has currency => (
 );
 
 has amount => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
 );

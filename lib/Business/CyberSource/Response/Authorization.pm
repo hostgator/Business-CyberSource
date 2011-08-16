@@ -157,8 +157,6 @@ Reader: amount
 
 Type: Num
 
-This attribute is required.
-
 =head2 reference_code
 
 Reader: reference_code
