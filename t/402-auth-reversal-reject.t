@@ -38,8 +38,8 @@ ok( $auth, 'authorization response exists' );
 my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		username       => $auth_req->username,
 		password       => $auth_req->password,
-		reference_code => '84',
-		request_id     => '42',
+		reference_code => '92',
+		request_id     => '739',
 		total          => $auth->amount,
 		currency       => $auth->currency,
 	})
