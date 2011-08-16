@@ -196,6 +196,8 @@ Type: MooseX::Types::Locale::Country::Alpha2Country
 
 This attribute is required.
 
+Additional documentation: ISO 2 character country code
+
 =head2 total
 
 Reader: total
