@@ -22,7 +22,7 @@ my $req
 		email          => 'foobar@example.com',
 		total          => 15.95,
 		currency       => 'USD',
-		credit_card    => '5595-5690-0180-3810',
+		credit_card    => '1111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
 	});
