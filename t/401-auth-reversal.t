@@ -9,7 +9,7 @@ use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::AuthReversal;
 use SOAP::Lite +trace => [ 'debug' ] ;
 
-my $req
+my $auth_req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
@@ -31,22 +31,22 @@ my $req
 		cc_exp_year    => '2025',
 	});
 
-my $res = $req->submit;
+my $auth = $auth_req->submit;
 
-ok( $res, 'authorization response exists' );
+ok( $auth, 'authorization response exists' );
 
-my $rev = Business::CyberSource::Request::AuthReversal->new({
-		username       => $req->username,
-		password       => $req->password,
-		reference_code => $req->reference_code,
-		request_id     => $res->request_id,
-		total          => $res->amount,
-		currency       => $res->currency,
+my $rev_req = Business::CyberSource::Request::AuthReversal->new({
+		username       => $auth_req->username,
+		password       => $auth_req->password,
+		reference_code => $auth_req->reference_code,
+		request_id     => $auth->request_id,
+		total          => $auth->amount,
+		currency       => $auth->currency,
 	})
 	;
 
-my $rev_res = $res->submit;
+my $rev = $rev_req->submit;
 
-ok( $rev_res, 'reversal response exists' );
+ok( $rev, 'reversal response exists' );
 
 done_testing;
