@@ -30,9 +30,9 @@ my $req
 
 my $ret = $req->submit;
 
-is( $ret->decision,       'ACCEPT', 'check decision'       );
+is( $ret->decision,       'REJECT', 'check decision'       );
 is( $ret->reference_code, '99',     'check reference_code' );
-is( $ret->reason_code,     100,     'check reason_code'    );
+is( $ret->reason_code,     203,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '15.95',    'check amount'        );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
