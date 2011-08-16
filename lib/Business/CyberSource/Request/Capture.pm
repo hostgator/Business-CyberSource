@@ -21,10 +21,10 @@ sub submit {
 
 	my $res
 		= Business::CyberSource::Response::Capture->new({
-			reference_code => $ret->valueof('merchantReferenceCode'  ),
 			request_id     => $ret->valueof('requestID'              ),
 			decision       => $ret->valueof('decision'               ),
 			reason_code    => $ret->valueof('reasonCode'             ),
+			reference_code => $ret->valueof('merchantReferenceCode'  ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
 			amount         => $ret->valueof('ccCaptureReply/amount'  ),
