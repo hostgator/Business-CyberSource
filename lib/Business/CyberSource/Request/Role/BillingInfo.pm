@@ -47,6 +47,7 @@ has country => (
 	coerce   => 1,
 	is       => 'ro',
 	isa      => Alpha2Country,
+	documentation => 'ISO 2 character country code',
 );
 
 has zip => (
