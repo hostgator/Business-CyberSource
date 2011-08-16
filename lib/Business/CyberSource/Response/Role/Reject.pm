@@ -1,4 +1,4 @@
-package Business::CyberSource::Response;
+package Business::CyberSource::Response::Role::Reject;
 use 5.008;
 use strict;
 use warnings;
