@@ -1,12 +1,11 @@
-package Business::CyberSource::Response::Authorization;
+package Business::CyberSource::Response::Role::Authorization;
 use 5.008;
 use strict;
 use warnings;
 BEGIN {
 	# VERSION
 }
-use Moose;
-with 'Business::CyberSource::Response';
+use Moose::Role;
 
 has request_token => (
 	required => 1,
@@ -15,8 +14,15 @@ has request_token => (
 );
 
 has auth_code => (
+	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
+);
+
+has auth_record => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 has avs_code => (
@@ -31,19 +37,12 @@ has avs_code_raw => (
 	isa      => 'Str',
 );
 
-
 has processor_response => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
-has auth_record => (
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-__PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource Authorization Response object
