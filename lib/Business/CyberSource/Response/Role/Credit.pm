@@ -1,12 +1,11 @@
-package Business::CyberSource::Response::Credit;
+package Business::CyberSource::Response::Role::Credit;
 use 5.008;
 use strict;
 use warnings;
 BEGIN {
 	# VERSION
 }
-use Moose;
-with 'Business::CyberSource::Response';
+use Moose::Role;
 
 has reconciliation_id => (
 	required => 1,

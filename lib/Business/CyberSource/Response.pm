@@ -6,13 +6,10 @@ use Carp;
 BEGIN {
 	# VERSION
 }
-use Moose::Role;
+use Moose;
+use namespace::autoclean;
 
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
+with qw( MooseX::Traits );
 
 has request_id => (
 	required => 1,
@@ -30,22 +27,6 @@ has reason_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Int',
-);
-
-has currency => (
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has amount => (
-	is       => 'ro',
-	isa      => 'Num',
-);
-
-has datetime => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
 );
 
 1;
