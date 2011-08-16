@@ -7,13 +7,13 @@ use Test::More;
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::AuthReversal;
-#use SOAP::Lite +trace => [ 'debug' ] ;
+use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $auth_req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '829',
+		reference_code => '404',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -39,10 +39,9 @@ my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		username       => $auth_req->username,
 		password       => $auth_req->password,
 		reference_code => $auth_req->reference_code,
-		request_id     => $auth->request_id,
+		request_id     => '834',
 		total          => $auth->amount,
 		currency       => $auth->currency,
-		production     => 1,
 	})
 	;
 
@@ -50,7 +49,7 @@ my $rev = $rev_req->submit;
 
 ok( $rev, 'reversal response exists' );
 
-is( $rev->reference_code, '829', 'check reference_code' );
+is( $rev->reference_code, '404', 'check reference_code' );
 is( $rev->decision, 'ACCEPT', 'check decision' );
 is( $rev->reason_code, 100, 'check reason_code' );
 is( $rev->currency, 'USD', 'check currency' );
