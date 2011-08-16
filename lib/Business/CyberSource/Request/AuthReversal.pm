@@ -32,6 +32,7 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::AuthReversal
 			})
 			->new({
 				request_id     => $request_id,
@@ -41,7 +42,10 @@ sub submit {
 				currency       => $ret->valueof('purchaseTotals/currency'),
 				datetime       => $ret->valueof('ccAuthReversalReply/requestDateTime'),
 				amount         => $ret->valueof('ccAuthReversalReply/amount'  ),
-				reference_code => $ret->valueof('merchantReferenceCode'  ),
+				reversal_reason_code
+					=> $ret->valueof('ccAuthReversalReply/reasonCode'),
+				processor_response
+					=> $ret->valueof('ccAuthReversalReply/processorResponse'),
 			})
 			;
 	}

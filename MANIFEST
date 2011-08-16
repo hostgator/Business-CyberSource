@@ -17,6 +17,7 @@ lib/Business/CyberSource/Request/Role/CreditCardInfo.pm
 lib/Business/CyberSource/Request/Role/PurchaseInfo.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Role/Accept.pm
+lib/Business/CyberSource/Response/Role/AuthReversal.pm
 lib/Business/CyberSource/Response/Role/Authorization.pm
 lib/Business/CyberSource/Response/Role/Capture.pm
 lib/Business/CyberSource/Response/Role/Credit.pm
