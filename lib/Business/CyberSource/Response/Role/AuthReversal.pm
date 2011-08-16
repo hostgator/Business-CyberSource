@@ -21,12 +21,14 @@ has reversal_reason_code => (
 
 1;
 
+# ABSTRACT: Role for AuthReversal responses
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::AuthReversal
+Business::CyberSource::Response::Role::AuthReversal - Role for AuthReversal responses
 
 =head1 VERSION
 

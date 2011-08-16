@@ -49,4 +49,12 @@ my $rev = $rev_req->submit;
 
 ok( $rev, 'reversal response exists' );
 
+is( $rev->reference_code, '404', 'check reference_code' );
+is( $cres->decision, 'ACCEPT', 'check decision' );
+is( $cres->reason_code, 100, 'check reason_code' );
+is( $cres->currency, 'USD', 'check currency' );
+is( $cres->amount, '5.00', 'check amount' );
+is( $cres->reversal_reason_code, 100, 'check capture_reason_code' );
+
+
 done_testing;
