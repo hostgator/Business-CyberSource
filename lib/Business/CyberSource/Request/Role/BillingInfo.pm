@@ -8,17 +8,20 @@ BEGIN {
 }
 use Moose::Role;
 use MooseX::Types::Email qw( EmailAddress );
+use MooseX::Types::Locale::Country qw( Alpha2Country );
 
 has first_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'Card Holder\'s first name',
 );
 
 has last_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'Card Holder\'s last name',
 );
 
 has street => (
@@ -41,8 +44,9 @@ has state => (
 
 has country => (
 	required => 1,
+	coerce   => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Alpha2Country',
 );
 
 has zip => (

@@ -109,6 +109,8 @@ Type: Str
 
 This attribute is required.
 
+Additional documentation: Card Holder's last name
+
 =head2 state
 
 Reader: state
@@ -171,7 +173,7 @@ This attribute is required.
 
 Reader: country
 
-Type: Str
+Type: Alpha2Country
 
 This attribute is required.
 
@@ -256,6 +258,8 @@ Reader: first_name
 Type: Str
 
 This attribute is required.
+
+Additional documentation: Card Holder's first name
 
 =head1 METHODS
 
