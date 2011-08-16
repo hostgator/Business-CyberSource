@@ -15,7 +15,6 @@ has reconciliation_id => (
 );
 
 has capture_reason_code => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
 );
@@ -81,8 +80,6 @@ This attribute is required.
 Reader: capture_reason_code
 
 Type: Num
-
-This attribute is required.
 
 =head2 reason_code
 
