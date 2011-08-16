@@ -44,8 +44,9 @@ has state => (
 
 has country => (
 	required => 1,
+	coerce   => 1,
 	is       => 'ro',
-	isa      => 'Alpha2Country',
+	isa      => Alpha2Country,
 );
 
 has zip => (

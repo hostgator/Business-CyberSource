@@ -192,7 +192,7 @@ This attribute is required.
 
 Reader: country
 
-Type: Alpha2Country
+Type: MooseX::Types::Locale::Country::Alpha2Country
 
 This attribute is required.
 
