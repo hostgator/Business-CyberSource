@@ -7,7 +7,7 @@ use Test::More;
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::AuthReversal;
-use SOAP::Lite +trace => [ 'debug' ] ;
+#use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $auth_req
 	= Business::CyberSource::Request::Authorization->new({
