@@ -51,17 +51,18 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/xenoterracide/Business-CyberSource/issues"
       },
+      "homepage" : "http://search.cpan.org/dist/Business-CyberSource/",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/xenoterracide/Business-CyberSource.git",
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "v0.1.0"
+   "version" : "v0.1.1"
 }
 

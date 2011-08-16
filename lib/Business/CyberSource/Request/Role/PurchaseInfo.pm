@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.0'; # VERSION
+	our $VERSION = 'v0.1.1'; # VERSION
 }
 use Moose::Role;
 
@@ -55,7 +55,7 @@ Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Inform
 
 =head1 VERSION
 
-version v0.1.0
+version v0.1.1
 
 =head1 BUGS
 

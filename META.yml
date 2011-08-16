@@ -36,5 +36,6 @@ requires:
   perl: 5.008
 resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
+  homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: v0.1.0
+version: v0.1.1
