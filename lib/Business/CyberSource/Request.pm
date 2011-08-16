@@ -139,6 +139,21 @@ sub _build_sdbo_header {
 		value => $self->reference_code,
 	);
 
+	$sb->add_elem(
+		name  => 'clientLibrary',
+		value => $self->client_name,
+	);
+
+	$sb->add_elem(
+		name  => 'clientLibraryVersion',
+		value => $self->client_version,
+	);
+
+	$sb->add_elem(
+		name  => 'clientEnvironment',
+		value => $self->client_env,
+	);
+
 	return $sb;
 }
 
