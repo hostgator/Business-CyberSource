@@ -31,14 +31,7 @@ my $req
 my $ret = $req->submit;
 
 is( $ret->decision,       'REJECT', 'check decision'       );
-is( $ret->reference_code, '99',     'check reference_code' );
 is( $ret->reason_code,     203,     'check reason_code'    );
-is( $ret->amount,         undef,     'check amount'        );
-is( $ret->avs_code,       'U',       'check avs_code'      );
-is( $ret->avs_code_raw,   'U',       'check avs_code_raw'  );
-is( $ret->processor_response, '51',  'check processor_response');
-
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
-ok( $ret->datetime,      'check datetime exists'      );
 done_testing;
