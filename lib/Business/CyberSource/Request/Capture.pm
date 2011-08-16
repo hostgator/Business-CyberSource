@@ -10,7 +10,7 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
-use Business::CyberSource::Response::Capture;
+use Business::CyberSource::Response;
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
 
@@ -19,19 +19,50 @@ sub submit {
 
 	my $ret = $self->_build_soap_request;
 
-	my $res
-		= Business::CyberSource::Response::Capture->new({
-			reference_code => $ret->valueof('merchantReferenceCode'  ),
-			request_id     => $ret->valueof('requestID'              ),
-			decision       => $ret->valueof('decision'               ),
-			reason_code    => $ret->valueof('reasonCode'             ),
-			currency       => $ret->valueof('purchaseTotals/currency'),
-			datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
-			amount         => $ret->valueof('ccCaptureReply/amount'  ),
-			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
-			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
-		})
-		;
+	my $decision    = $ret->valueof('decision'  );
+	my $request_id  = $ret->valueof('requestID' );
+	my $reason_code = $ret->valueof('reasonCode');
+
+	croak 'no decision from CyberSource' unless $decision;
+
+	my $res;
+	if ( $decision eq 'ACCEPT' ) {
+		$res
+			= Business::CyberSource::Response
+			->with_traits(qw{
+				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::Capture
+			})
+			->new({
+				request_id     => $request_id,
+				decision       => $decision,
+				reason_code    => $reason_code,
+				currency       => $ret->valueof('purchaseTotals/currency'),
+				datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
+				amount         => $ret->valueof('ccCaptureReply/amount'  ),
+				reference_code => $ret->valueof('merchantReferenceCode'  ),
+				reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
+				capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
+			})
+			;
+	}
+	elsif ( $decision eq 'REJECT' ) {
+		$res
+			= Business::CyberSource::Response
+			->with_traits(qw{
+				Business::CyberSource::Response::Role::Reject
+			})
+			->new({
+				decision      => $decision,
+				request_id    => $request_id,
+				reason_code   => $reason_code,
+				request_token => $ret->valueof('requestToken'),
+			})
+			;
+	}
+	else {
+		croak 'decision defined, but not sane: ' . $decision;
+	}
 
 	return $res;
 }
