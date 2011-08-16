@@ -20,7 +20,6 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-#		ip             => '192.168.100.2',
 		unit_price     => 5.00,
 		quantity       => 1,
 		total          => 5.00,
@@ -48,7 +47,6 @@ is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
 
-#is( $req->ip,    '192.168.100.2',          'check ip'    );
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
 is( $req->total,      5, 'check total'      );
