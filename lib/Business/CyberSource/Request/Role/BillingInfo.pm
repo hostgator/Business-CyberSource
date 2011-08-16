@@ -63,7 +63,6 @@ has email => (
 );
 
 has ip => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -123,11 +122,13 @@ sub _build_bill_to_info {
 		parent => $bill_to,
 	);
 
-	$sb->add_elem(
-		name   => 'ipAddress',
-		value  => $self->ip,
-		parent => $bill_to,
-	);
+	if ( $self->ip ) {
+		$sb->add_elem(
+			name   => 'ipAddress',
+			value  => $self->ip,
+			parent => $bill_to,
+		);
+	}
 
 	return $sb;
 }
