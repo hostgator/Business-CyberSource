@@ -7,6 +7,7 @@ BEGIN {
 	our $VERSION = 'v0.1.1'; # VERSION
 }
 use Moose::Role;
+use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
 has amount => (
 	required => 1,
@@ -22,8 +23,9 @@ has currency => (
 
 has datetime => (
 	required => 1,
+	coerce   => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => DateTimeW3C,
 );
 
 has reference_code => (
