@@ -62,6 +62,13 @@ sub submit {
 	return $res;
 }
 
+has request_id => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+
 sub _build_sdbo {
 	my $self = shift;
 
@@ -69,10 +76,15 @@ sub _build_sdbo {
 
 	$sb = $self->_build_purchase_info   ( $sb );
 
-	$sb->add_elem(
+	my $auth_reversal = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccAuthReversalService',
-		value      => ' ', # hack to prevent cs side unparseable xml
+	);
+
+	$sb->add_elem(
+		name   => 'authRequestID',
+		value  => $self->request_id,
+		parent => $auth_reversal,
 	);
 
 	return $sb;
@@ -135,6 +147,14 @@ This attribute is required.
 Reader: server
 
 Type: MooseX::Types::URI::Uri
+
+This attribute is required.
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
 
 This attribute is required.
 
@@ -219,6 +239,10 @@ Method originates in Business::CyberSource::Request::AuthReversal.
 Method originates in Business::CyberSource::Request::AuthReversal.
 
 =head2 production
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
+=head2 request_id
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
