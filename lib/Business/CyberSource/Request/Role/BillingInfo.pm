@@ -37,6 +37,7 @@ has city => (
 );
 
 has state => (
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -50,6 +51,7 @@ has country => (
 );
 
 has zip => (
+	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -96,21 +98,17 @@ sub _build_bill_to_info {
 		parent => $bill_to,
 	);
 
-	if ( $self->state ) {
-		$sb->add_elem(
-			name   => 'state',
-			parent => $bill_to,
-			value  => $self->state,
-		);
-	}
+	$sb->add_elem(
+		name   => 'state',
+		parent => $bill_to,
+		value  => $self->state,
+	);
 
-	if ( $self->zip ) {
-		$sb->add_elem(
-			name   => 'postalCode',
-			parent => $bill_to,
-			value  => $self->zip,
-		);
-	}
+	$sb->add_elem(
+		name   => 'postalCode',
+		parent => $bill_to,
+		value  => $self->zip,
+	);
 
 	$sb->add_elem(
 		name   => 'country',

@@ -7,7 +7,7 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 
-use SOAP::Lite  +trace => [ 'debug' ] ;
+use SOAP::Lite; # +trace => [ 'debug' ] ;
 use Moose;
 use namespace::autoclean;
 with qw(
@@ -134,6 +134,8 @@ Reader: state
 
 Type: Str
 
+This attribute is required.
+
 =head2 email
 
 Reader: email
@@ -241,6 +243,8 @@ This attribute is required.
 Reader: zip
 
 Type: Str
+
+This attribute is required.
 
 =head2 client_name
 
