@@ -33,7 +33,7 @@ my $req
 
 my $res = $req->submit;
 
-ok( $res, 'response exists' );
+ok( $res, 'authorization response exists' );
 
 my $rev = Business::CyberSource::Request::AuthReversal->new({
 		username       => $req->username,
@@ -44,5 +44,9 @@ my $rev = Business::CyberSource::Request::AuthReversal->new({
 		currency       => $res->currency,
 	})
 	;
+
+my $rev_res = $res->submit;
+
+ok( $rev_res, 'reversal response exists' );
 
 done_testing;
