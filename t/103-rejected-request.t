@@ -35,13 +35,11 @@ is( $ret->reference_code, '99',     'check reference_code' );
 is( $ret->reason_code,     203,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '15.95',    'check amount'        );
-is( $ret->avs_code,       'Y',       'check avs_code'      );
-is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-is( $ret->processor_response, '00',  'check processor_response');
+is( $ret->avs_code,       'U',       'check avs_code'      );
+is( $ret->avs_code_raw,   'U',       'check avs_code_raw'  );
+is( $ret->processor_response, '51',  'check processor_response');
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
-ok( $ret->auth_code,     'check auth_code exists'     );
 ok( $ret->datetime,      'check datetime exists'      );
-ok( $ret->auth_record,   'check auth_record exists'   );
 done_testing;
