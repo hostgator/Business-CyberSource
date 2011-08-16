@@ -17,30 +17,46 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
-use Business::CyberSource::Response::Authorization;
+use Business::CyberSource::Response;
 
 sub submit {
 	my $self = shift;
 
 	my $ret = $self->_build_soap_request;
 
-	my $res
-		= Business::CyberSource::Response::Authorization->new({
-			request_id     => $ret->valueof('requestID'              ),
-			decision       => $ret->valueof('decision'               ),
-			reference_code => $ret->valueof('merchantReferenceCode'  ),
-			reason_code    => $ret->valueof('reasonCode'             ),
-			request_token  => $ret->valueof('requestToken'           ),
-			currency       => $ret->valueof('purchaseTotals/currency'),
-			amount         => $ret->valueof('ccAuthReply/amount'     ),
-			avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
-			avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
-			datetime       => $ret->valueof('ccAuthReply/authorizedDateTime'),
-			auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
-			auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
-			processor_response => $ret->valueof('ccAuthReply/processorResponse'),
-		})
-		;
+
+	my $decision = $ret->valueof('decision');
+
+	croak 'no decision from CyberSource' unless $decision;
+
+	my $res = 'Business::CyberSource::Response';
+	if ( $decision eq 'ACCEPT' ) {
+			$res->with_traits(qw{
+					Business::CyberSource::Response::Role::Accept
+					Busienss::CyberSource::Response::Role::Authorization
+				})
+			->new({
+				request_id     => $ret->valueof('requestID'              ),
+				decision       => $ret->valueof('decision'               ),
+				reference_code => $ret->valueof('merchantReferenceCode'  ),
+				reason_code    => $ret->valueof('reasonCode'             ),
+				request_token  => $ret->valueof('requestToken'           ),
+				currency       => $ret->valueof('purchaseTotals/currency'),
+				amount         => $ret->valueof('ccAuthReply/amount'     ),
+				avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
+				avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
+				datetime       => $ret->valueof('ccAuthReply/authorizedDateTime'),
+				auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
+				auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
+				processor_response => $ret->valueof('ccAuthReply/processorResponse'),
+			})
+			;
+	}
+	elsif ( $decision eq 'REJECT' ) {
+	}
+	else {
+		croak 'decision defined, but not sane: ' . $decision;
+	}
 
 	return $res;
 }

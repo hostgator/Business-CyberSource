@@ -6,7 +6,6 @@ BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
 use Moose;
-with 'Business::CyberSource::Response';
 
 has reconciliation_id => (
 	is       => 'ro',
@@ -42,63 +41,11 @@ Reader: reconciliation_id
 
 Type: Str
 
-=head2 datetime
-
-Reader: datetime
-
-Type: Str
-
-This attribute is required.
-
-=head2 currency
-
-Reader: currency
-
-Type: Str
-
-=head2 request_id
-
-Reader: request_id
-
-Type: Str
-
-This attribute is required.
-
-=head2 decision
-
-Reader: decision
-
-Type: Str
-
-This attribute is required.
-
 =head2 capture_reason_code
 
 Reader: capture_reason_code
 
 Type: Num
-
-=head2 reason_code
-
-Reader: reason_code
-
-Type: Int
-
-This attribute is required.
-
-=head2 amount
-
-Reader: amount
-
-Type: Num
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: Str
-
-This attribute is required.
 
 =head1 METHODS
 
@@ -110,35 +57,7 @@ Method originates in Business::CyberSource::Response::Capture.
 
 Method originates in Business::CyberSource::Response::Capture.
 
-=head2 reference_code
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 datetime
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 currency
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 request_id
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 decision
-
-Method originates in Business::CyberSource::Response::Capture.
-
 =head2 capture_reason_code
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 reason_code
-
-Method originates in Business::CyberSource::Response::Capture.
-
-=head2 amount
 
 Method originates in Business::CyberSource::Response::Capture.
 

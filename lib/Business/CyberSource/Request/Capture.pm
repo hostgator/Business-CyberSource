@@ -10,7 +10,7 @@ use Moose;
 use namespace::autoclean;
 with 'Business::CyberSource::Request';
 
-use Business::CyberSource::Response::Capture;
+use Business::CyberSource::Response;
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
 
@@ -20,7 +20,7 @@ sub submit {
 	my $ret = $self->_build_soap_request;
 
 	my $res
-		= Business::CyberSource::Response::Capture->new({
+		= Business::CyberSource::Response->new({
 			request_id     => $ret->valueof('requestID'              ),
 			decision       => $ret->valueof('decision'               ),
 			reason_code    => $ret->valueof('reasonCode'             ),

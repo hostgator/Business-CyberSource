@@ -15,7 +15,7 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
-use Business::CyberSource::Response::Credit;
+use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
 
@@ -25,7 +25,7 @@ sub submit {
 	my $ret = $self->_build_soap_request;
 
 	my $res
-		= Business::CyberSource::Response::Credit->new({
+		= Business::CyberSource::Response->new({
 			request_id     => $ret->valueof('requestID'              ),
 			decision       => $ret->valueof('decision'               ),
 			reference_code => $ret->valueof('merchantReferenceCode'  ),

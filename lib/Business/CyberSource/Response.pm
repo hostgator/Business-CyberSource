@@ -6,13 +6,10 @@ use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose::Role;
+use Moose;
+use namespace::autoclean;
 
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
+with qw( MooseX::Traits );
 
 has request_id => (
 	required => 1,
@@ -32,22 +29,6 @@ has reason_code => (
 	isa      => 'Int',
 );
 
-has currency => (
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has amount => (
-	is       => 'ro',
-	isa      => 'Num',
-);
-
-has datetime => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 1;
 
 # ABSTRACT: Response Role
@@ -62,6 +43,58 @@ Business::CyberSource::Response - Response Role
 =head1 VERSION
 
 version v0.1.0
+
+=head1 ATTRIBUTES
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
+
+This attribute is required.
+
+=head2 decision
+
+Reader: decision
+
+Type: Str
+
+This attribute is required.
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: Int
+
+This attribute is required.
+
+=head1 METHODS
+
+=head2 with_traits
+
+Method originates in MooseX::Traits.
+
+=head2 request_id
+
+Method originates in Business::CyberSource::Response.
+
+=head2 new_with_traits
+
+Method originates in MooseX::Traits.
+
+=head2 decision
+
+Method originates in Business::CyberSource::Response.
+
+=head2 reason_code
+
+Method originates in Business::CyberSource::Response.
+
+=head2 apply_traits
+
+Method originates in MooseX::Traits.
 
 =head1 BUGS
 

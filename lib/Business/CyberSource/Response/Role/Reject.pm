@@ -1,13 +1,14 @@
-package Business::CyberSource::Response::Credit;
+package Business::CyberSource::Response::Role::Reject;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose;
+use Moose::Role;
 
-has reconciliation_id => (
+has request_token => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
@@ -15,34 +16,18 @@ has reconciliation_id => (
 
 1;
 
-# ABSTRACT: CyberSource Credit Response object
+# ABSTRACT: role for handling rejected transactions
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Credit - CyberSource Credit Response object
+Business::CyberSource::Response::Role::Reject - role for handling rejected transactions
 
 =head1 VERSION
 
 version v0.1.0
-
-=head1 ATTRIBUTES
-
-=head2 reconciliation_id
-
-Reader: reconciliation_id
-
-Type: Str
-
-This attribute is required.
-
-=head1 METHODS
-
-=head2 reconciliation_id
-
-Method originates in Business::CyberSource::Response::Credit.
 
 =head1 BUGS
 

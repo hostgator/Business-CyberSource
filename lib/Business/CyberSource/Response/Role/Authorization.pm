@@ -1,13 +1,43 @@
-package Business::CyberSource::Response::Credit;
+package Business::CyberSource::Response::Role::Authorization;
 use 5.008;
 use strict;
 use warnings;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose;
+use Moose::Role;
 
-has reconciliation_id => (
+has request_token => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has auth_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Num',
+);
+
+has auth_record => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has avs_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has avs_code_raw => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has processor_response => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
@@ -15,34 +45,18 @@ has reconciliation_id => (
 
 1;
 
-# ABSTRACT: CyberSource Credit Response object
+# ABSTRACT: CyberSource Authorization Response object
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Credit - CyberSource Credit Response object
+Business::CyberSource::Response::Role::Authorization - CyberSource Authorization Response object
 
 =head1 VERSION
 
 version v0.1.0
-
-=head1 ATTRIBUTES
-
-=head2 reconciliation_id
-
-Reader: reconciliation_id
-
-Type: Str
-
-This attribute is required.
-
-=head1 METHODS
-
-=head2 reconciliation_id
-
-Method originates in Business::CyberSource::Response::Credit.
 
 =head1 BUGS
 
