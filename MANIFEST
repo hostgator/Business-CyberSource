@@ -21,7 +21,8 @@ lib/Business/CyberSource/Response/Credit.pm
 perlcritic.rc
 t/00-compile.t
 t/101-authorization.t
-t/102-auth-fault.t
+t/102-auth-bad-auth-credentials.t
+t/103-rejected-request.t
 t/201-capture.t
 t/301-credit.t
 t/author-critic.t
