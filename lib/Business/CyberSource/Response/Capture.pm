@@ -9,7 +9,6 @@ use Moose;
 with 'Business::CyberSource::Response';
 
 has reconciliation_id => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
@@ -42,8 +41,6 @@ version v0.1.0
 Reader: reconciliation_id
 
 Type: Str
-
-This attribute is required.
 
 =head2 datetime
 
