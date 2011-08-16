@@ -35,14 +35,14 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-					Business::CyberSource::Response::Role::Accept
-					Business::CyberSource::Response::Role::Authorization
-				})
+				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::Authorization
+			})
 			->new({
 				request_id     => $request_id,
 				decision       => $decision,
+				reason_code    => $reason_code,
 				reference_code => $ret->valueof('merchantReferenceCode'  ),
-				reason_code    => $ret->valueof('reasonCode'             ),
 				request_token  => $ret->valueof('requestToken'           ),
 				currency       => $ret->valueof('purchaseTotals/currency'),
 				amount         => $ret->valueof('ccAuthReply/amount'     ),
@@ -59,8 +59,8 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-					Business::CyberSource::Response::Role::Reject
-				})
+				Business::CyberSource::Response::Role::Reject
+			})
 			->new({
 				decision      => $decision,
 				request_id    => $request_id,
