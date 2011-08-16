@@ -41,8 +41,8 @@ sub submit {
 			->new({
 				request_id     => $request_id,
 				decision       => $decision,
-				reason_code    => $reason_code,
 				reference_code => $ret->valueof('merchantReferenceCode'  ),
+				reason_code    => $ret->valueof('reasonCode'             ),
 				request_token  => $ret->valueof('requestToken'           ),
 				currency       => $ret->valueof('purchaseTotals/currency'),
 				amount         => $ret->valueof('ccAuthReply/amount'     ),
