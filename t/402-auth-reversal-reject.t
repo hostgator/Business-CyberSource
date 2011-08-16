@@ -49,11 +49,9 @@ my $rev = $rev_req->submit;
 
 ok( $rev, 'reversal response exists' );
 
-is( $rev->reference_code, '404', 'check reference_code' );
-is( $rev->decision, 'ACCEPT', 'check decision' );
-is( $rev->reason_code, 100, 'check reason_code' );
-is( $rev->currency, 'USD', 'check currency' );
-is( $rev->amount, '5.00', 'check amount' );
-is( $rev->reversal_reason_code, 100, 'check capture_reason_code' );
+is( $rev->decision, 'REJECT', 'check decision' );
+is( $rev->reason_code, 102, 'check reason_code' );
+
+ok( $rev->request_token, 'request token exists' );
 
 done_testing;
