@@ -40,7 +40,7 @@ sub submit {
 				reference_code => $ret->valueof('merchantReferenceCode'  ),
 				currency       => $ret->valueof('purchaseTotals/currency'),
 				datetime       => $ret->valueof('ccAuthReversalReply/requestDateTime'),
-				amount         => $ret->valueof('ccAuthReversal/amount'  ),
+				amount         => $ret->valueof('ccAuthReversalReply/amount'  ),
 				reference_code => $ret->valueof('merchantReferenceCode'  ),
 			})
 			;
