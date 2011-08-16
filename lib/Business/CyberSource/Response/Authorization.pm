@@ -15,7 +15,6 @@ has request_token => (
 );
 
 has auth_code => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
 );
@@ -40,7 +39,6 @@ has processor_response => (
 );
 
 has auth_record => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );

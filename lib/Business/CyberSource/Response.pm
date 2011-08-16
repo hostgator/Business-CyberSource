@@ -33,13 +33,11 @@ has reason_code => (
 );
 
 has currency => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
 );
 
 has amount => (
-	required => 1,
 	is       => 'ro',
 	isa      => 'Num',
 );
