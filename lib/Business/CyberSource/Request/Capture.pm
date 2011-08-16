@@ -24,10 +24,10 @@ sub submit {
 			request_id     => $ret->valueof('requestID'              ),
 			decision       => $ret->valueof('decision'               ),
 			reason_code    => $ret->valueof('reasonCode'             ),
-			reference_code => $ret->valueof('merchantReferenceCode'  ),
 			currency       => $ret->valueof('purchaseTotals/currency'),
 			datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
 			amount         => $ret->valueof('ccCaptureReply/amount'  ),
+			reference_code => $ret->valueof('merchantReferenceCode'  ),
 			reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
 			capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
 		})

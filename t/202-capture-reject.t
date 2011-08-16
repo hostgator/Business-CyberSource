@@ -49,7 +49,6 @@ my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
 
-is( $cres->reference_code, '69', 'check reference_code' );
 is( $cres->decision, 'REJECT', 'check decision' );
 is( $cres->reason_code, 102, 'check reason_code' );
 
