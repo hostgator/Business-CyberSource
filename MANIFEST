@@ -31,6 +31,7 @@ t/201-capture.t
 t/202-capture-reject.t
 t/301-credit.t
 t/401-auth-reversal.t
+t/402-auth-reversal-reject.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t

@@ -13,7 +13,7 @@ my $auth_req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '404',
+		reference_code => '829',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -39,7 +39,7 @@ my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		username       => $auth_req->username,
 		password       => $auth_req->password,
 		reference_code => $auth_req->reference_code,
-		request_id     => $auth->request_id,
+		request_id     => '42',
 		total          => $auth->amount,
 		currency       => $auth->currency,
 	})
