@@ -1,11 +1,11 @@
-package Business::CyberSource::Response::Credit;
+package Business::CyberSource::Response::Role::Credit;
 use 5.008;
 use strict;
 use warnings;
 BEGIN {
 	our $VERSION = 'v0.1.0'; # VERSION
 }
-use Moose;
+use Moose::Role;
 
 has reconciliation_id => (
 	required => 1,
@@ -22,27 +22,11 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Response::Credit - CyberSource Credit Response object
+Business::CyberSource::Response::Role::Credit - CyberSource Credit Response object
 
 =head1 VERSION
 
 version v0.1.0
-
-=head1 ATTRIBUTES
-
-=head2 reconciliation_id
-
-Reader: reconciliation_id
-
-Type: Str
-
-This attribute is required.
-
-=head1 METHODS
-
-=head2 reconciliation_id
-
-Method originates in Business::CyberSource::Response::Credit.
 
 =head1 BUGS
 
