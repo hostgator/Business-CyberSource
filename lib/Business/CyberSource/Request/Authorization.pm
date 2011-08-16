@@ -33,7 +33,7 @@ sub submit {
 	if ( $decision eq 'ACCEPT' ) {
 			$res->with_traits(qw{
 					Business::CyberSource::Response::Role::Accept
-					Busienss::CyberSource::Response::Role::Authorization
+					Business::CyberSource::Response::Role::Authorization
 				})
 			->new({
 				request_id     => $ret->valueof('requestID'              ),
