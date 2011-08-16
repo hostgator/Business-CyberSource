@@ -35,9 +35,9 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-					Business::CyberSource::Response::Role::Accept
-					Business::CyberSource::Response::Role::Authorization
-				})
+				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::Authorization
+			})
 			->new({
 				request_id     => $request_id,
 				decision       => $decision,
@@ -59,8 +59,8 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-					Business::CyberSource::Response::Role::Reject
-				})
+				Business::CyberSource::Response::Role::Reject
+			})
 			->new({
 				decision      => $decision,
 				request_id    => $request_id,
