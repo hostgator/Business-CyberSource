@@ -23,7 +23,6 @@ has currency => (
 
 has datetime => (
 	required => 1,
-	coerce   => 1,
 	is       => 'ro',
 	isa      => DateTimeW3C,
 );
