@@ -79,6 +79,7 @@ sub _build_sdbo {
 	my $capture_service = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccDCCService',
+		value      => ' ',
 	);
 
 	return $sb;
