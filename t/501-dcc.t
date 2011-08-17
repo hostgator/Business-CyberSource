@@ -25,7 +25,7 @@ my $dcc_req
 		cc_exp_year    => '2025',
 		item           => 1,
 		unit_price     => 2.01,
-		quantity       => 1
+		quantity       => 1,
 		foreign_currency => 'AUD',
 	});
 
