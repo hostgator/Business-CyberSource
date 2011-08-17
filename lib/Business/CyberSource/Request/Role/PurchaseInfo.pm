@@ -46,8 +46,8 @@ sub _build_purchase_info {
 
 	if ( $self->foreign_currency ) {
 		$sb->add_elem(
-			name   => 'grandTotalAmount',
-			value  => $self->total,
+			name   => 'foreignCurrency',
+			value  => $self->foriegn_currency,
 			parent => $purchase_totals,
 		);
 	}
