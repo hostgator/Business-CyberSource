@@ -30,7 +30,6 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '1998',
-		production     => 1,
 	});
 
 my $ret = $req->submit;
