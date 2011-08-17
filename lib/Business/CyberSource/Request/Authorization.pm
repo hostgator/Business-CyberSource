@@ -126,6 +126,12 @@ Reader: ip
 
 Type: Str
 
+=head2 item
+
+Reader: item
+
+Type: Bool
+
 =head2 client_env
 
 Reader: client_env
@@ -152,19 +158,19 @@ Type: Str
 
 This attribute is required.
 
-=head2 email
-
-Reader: email
-
-Type: MooseX::Types::Email::EmailAddress
-
-This attribute is required.
-
 =head2 currency
 
 Reader: currency
 
 Type: Str
+
+This attribute is required.
+
+=head2 email
+
+Reader: email
+
+Type: MooseX::Types::Email::EmailAddress
 
 This attribute is required.
 
@@ -303,6 +309,10 @@ Additional documentation: Card Holder's first name
 =head1 METHODS
 
 =head2 street
+
+Method originates in Business::CyberSource::Request::Authorization.
+
+=head2 item
 
 Method originates in Business::CyberSource::Request::Authorization.
 

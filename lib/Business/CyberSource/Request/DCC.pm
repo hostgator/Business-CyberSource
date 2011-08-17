@@ -103,6 +103,12 @@ version v0.1.2
 
 =head1 ATTRIBUTES
 
+=head2 item
+
+Reader: item
+
+Type: Bool
+
 =head2 client_env
 
 Reader: client_env
@@ -145,23 +151,15 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
-=head2 cc_exp_month
-
-Reader: cc_exp_month
-
-Type: Str
-
-This attribute is required.
-
 =head2 total
 
 Reader: total
 
 Type: Num
 
-=head2 cc_exp_year
+=head2 cc_exp_month
 
-Reader: cc_exp_year
+Reader: cc_exp_month
 
 Type: Str
 
@@ -177,23 +175,17 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
-=head2 credit_card
+=head2 cc_exp_year
 
-Reader: credit_card
+Reader: cc_exp_year
 
 Type: Str
 
 This attribute is required.
 
-=head2 foreign_currency
+=head2 credit_card
 
-Reader: foreign_currency
-
-Type: Str
-
-=head2 client_name
-
-Reader: client_name
+Reader: credit_card
 
 Type: Str
 
@@ -207,6 +199,20 @@ Type: Str
 
 This attribute is required.
 
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
+This attribute is required.
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: Str
+
 =head2 client_version
 
 Reader: client_version
@@ -216,6 +222,10 @@ Type: Str
 This attribute is required.
 
 =head1 METHODS
+
+=head2 item
+
+Method originates in Business::CyberSource::Request::DCC.
 
 =head2 client_env
 
@@ -233,11 +243,11 @@ Method originates in Business::CyberSource::Request::DCC.
 
 Method originates in Business::CyberSource::Request::DCC.
 
-=head2 total
+=head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::DCC.
 
-=head2 cc_exp_month
+=head2 total
 
 Method originates in Business::CyberSource::Request::DCC.
 

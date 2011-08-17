@@ -116,6 +116,12 @@ version v0.1.2
 
 =head1 ATTRIBUTES
 
+=head2 item
+
+Reader: item
+
+Type: Bool
+
 =head2 client_env
 
 Reader: client_env
@@ -215,6 +221,10 @@ This attribute is required.
 =head1 METHODS
 
 =head2 submit
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
+=head2 item
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 

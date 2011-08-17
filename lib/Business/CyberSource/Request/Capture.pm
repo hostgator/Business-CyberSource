@@ -120,6 +120,12 @@ Type: Str
 
 This attribute is required.
 
+=head2 item
+
+Reader: item
+
+Type: Bool
+
 =head2 currency
 
 Reader: currency
@@ -211,6 +217,10 @@ This attribute is required.
 =head1 METHODS
 
 =head2 client_env
+
+Method originates in Business::CyberSource::Request::Capture.
+
+=head2 item
 
 Method originates in Business::CyberSource::Request::Capture.
 
