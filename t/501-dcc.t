@@ -12,7 +12,7 @@ plan skip_all
 
 use Business::CyberSource::Request::DCC;
 use Business::CyberSource::Request::Authorization;
-use SOAP::Lite +trace => 'all'; # => [ 'debug' ] ;
+use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $dcc_req
 	= Business::CyberSource::Request::DCC->new({
