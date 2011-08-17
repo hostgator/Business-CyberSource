@@ -33,22 +33,24 @@ sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
 
 	if ( $self->item ) {
-		my $item = $sb->add_elem(
-			name => 'item',
-			attributes => { 'id' => '0' },
-		);
 
-		$sb->add_elem(
-			name => 'unitPrice',
-			value => '2.00',
-			parent => $item,
-		);
-	
-		$sb->add_elem(
-			name => 'quantity',
-			value => 1,
-			parent => $item,
-		);
+       my $item = $sb->add_elem(
+               name => 'item',
+               attributes => { id => '0' },
+       );
+
+       $sb->add_elem(
+               name => 'unitPrice',
+               value => $self->unit_price,
+               parent => $item,
+       );
+
+       $sb->add_elem(
+               name => 'quantity',
+               value => $self->quantity,
+               parent => $item,
+       );
+
 	}
 
 	my $purchase_totals = $sb->add_elem(
