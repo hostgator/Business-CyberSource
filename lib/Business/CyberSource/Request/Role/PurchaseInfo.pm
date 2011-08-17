@@ -20,6 +20,11 @@ has total => (
 	isa      => 'Num',
 );
 
+has foreign_currency => (
+	is  => 'ro',
+	isa => 'Num',
+);
+
 sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
 
@@ -38,6 +43,14 @@ sub _build_purchase_info {
 		value  => $self->total,
 		parent => $purchase_totals,
 	);
+
+	if ( $self->foreign_currency ) {
+		$sb->add_elem(
+			name   => 'grandTotalAmount',
+			value  => $self->total,
+			parent => $purchase_totals,
+		);
+	}
 
 	return $sb;
 }
