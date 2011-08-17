@@ -44,9 +44,8 @@ my $capture
 		password       => $req->password,
 		reference_code => $req->reference_code,
 		request_id     => $res->request_id,
-		total          => $res->amount,
+		total          => -1,
 		currency       => $res->currency,
-		production     => 1,
 	})
 	;
 
