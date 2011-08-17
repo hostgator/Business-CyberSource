@@ -31,7 +31,6 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::Capture
 			})
 			->new({
 				request_id     => $request_id,
@@ -41,8 +40,6 @@ sub submit {
 				datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
 				amount         => $ret->valueof('ccCaptureReply/amount'  ),
 				reference_code => $ret->valueof('merchantReferenceCode'  ),
-				reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
-				capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
 			})
 			;
 	}
