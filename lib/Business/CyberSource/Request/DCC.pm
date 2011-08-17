@@ -67,28 +67,30 @@ sub submit {
 	return $res;
 }
 
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 sub _build_sdbo {
 	my $self = shift;
 
 	my $sb = $self->_build_sdbo_header;
 
-	$sb = $self->_build_purchase_info( $sb );
-
-	my $capture_service = $sb->add_elem(
-		attributes => { run => 'true' },
-		name       => 'ccCaptureService',
+	my $purchase_totals = $sb->add_elem(
+		name => 'purchaseTotals',
 	);
 
 	$sb->add_elem(
-		name   => 'authRequestID',
-		value  => $self->request_id,
-		parent => $capture_service,
+		name   => 'currency',
+		parent => $purchase_totals,
+		value  => $self->currency,
+	);
+
+	$sb->add_elem(
+		name   => 'grandTotalAmount',
+		value  => $self->total,
+		parent => $purchase_totals,
+	);
+
+	my $capture_service = $sb->add_elem(
+		attributes => { run => 'true' },
+		name       => 'ccDCCService',
 	);
 
 	return $sb;
@@ -97,14 +99,14 @@ sub _build_sdbo {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Capture Request Object
+# ABSTRACT: CyberSource DCC Request Object
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Capture - CyberSource Capture Request Object
+Business::CyberSource::Request::Capture - CyberSource DCC Request Object
 
 =head1 VERSION
 

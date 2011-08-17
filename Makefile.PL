@@ -40,7 +40,7 @@ my %WriteMakefileArgs = (
     'SOAP::Lite' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => 'v0.1.1',
+  'VERSION' => 'v0.1.2',
   'test' => {
     'TESTS' => 't/*.t'
   }

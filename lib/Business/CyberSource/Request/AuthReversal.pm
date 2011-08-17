@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.1'; # VERSION
+	our $VERSION = 'v0.1.2'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -112,7 +112,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.1.1
+version v0.1.2
 
 =head1 ATTRIBUTES
 
@@ -184,17 +184,23 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
-=head2 reference_code
+=head2 foreign_currency
 
-Reader: reference_code
+Reader: foreign_currency
+
+Type: Num
+
+=head2 client_name
+
+Reader: client_name
 
 Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
@@ -210,7 +216,15 @@ This attribute is required.
 
 =head1 METHODS
 
+=head2 submit
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
 =head2 client_env
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
+=head2 currency
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
@@ -218,7 +232,15 @@ Method originates in Business::CyberSource::Request::AuthReversal.
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
+=head2 production
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
 =head2 server
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
+=head2 request_id
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
@@ -238,23 +260,11 @@ Method originates in Business::CyberSource::Request::AuthReversal.
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
-=head2 submit
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 currency
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 production
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 request_id
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
 =head2 client_name
+
+Method originates in Business::CyberSource::Request::AuthReversal.
+
+=head2 foreign_currency
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.1'; # VERSION
+	our $VERSION = 'v0.1.2'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -108,7 +108,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization reques
 
 =head1 VERSION
 
-version v0.1.1
+version v0.1.2
 
 =head1 ATTRIBUTES
 
@@ -262,17 +262,23 @@ Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 foreign_currency
 
-Reader: client_name
+Reader: foreign_currency
+
+Type: Num
+
+=head2 reference_code
+
+Reader: reference_code
 
 Type: Str
 
 This attribute is required.
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
@@ -383,6 +389,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 Method originates in Business::CyberSource::Request::Authorization.
 
 =head2 client_name
+
+Method originates in Business::CyberSource::Request::Authorization.
+
+=head2 foreign_currency
 
 Method originates in Business::CyberSource::Request::Authorization.
 
