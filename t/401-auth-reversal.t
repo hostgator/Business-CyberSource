@@ -56,7 +56,7 @@ is( $rev->currency, 'USD', 'check currency' );
 is( $rev->amount, '5.00', 'check amount' );
 is( $rev->reversal_reason_code, 100, 'check capture_reason_code' );
 
-note( $rev->datetime );
+ok( $rev->datetime, 'datetime exists' );
 note( $rev->datetime );
 
 done_testing;
