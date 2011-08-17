@@ -3,7 +3,6 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-our @CARP_NOT = __PACKAGE__;
 BEGIN {
 	our $VERSION = 'v0.1.2'; # VERSION
 }
