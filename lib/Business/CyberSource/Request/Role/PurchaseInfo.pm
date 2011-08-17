@@ -22,7 +22,7 @@ has total => (
 
 has foreign_currency => (
 	is  => 'ro',
-	isa => 'Num',
+	isa => 'Str',
 );
 
 sub _build_purchase_info {

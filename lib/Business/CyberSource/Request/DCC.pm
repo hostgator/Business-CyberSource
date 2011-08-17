@@ -190,7 +190,7 @@ This attribute is required.
 
 Reader: foreign_currency
 
-Type: Num
+Type: Str
 
 =head2 client_name
 

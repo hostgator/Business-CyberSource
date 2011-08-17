@@ -188,7 +188,7 @@ Additional documentation: your merchantID
 
 Reader: foreign_currency
 
-Type: Num
+Type: Str
 
 =head2 client_name
 

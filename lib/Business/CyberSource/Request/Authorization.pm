@@ -266,7 +266,7 @@ This attribute is required.
 
 Reader: foreign_currency
 
-Type: Num
+Type: Str
 
 =head2 reference_code
 
