@@ -8,7 +8,11 @@ BEGIN {
 }
 use Moose;
 use namespace::autoclean;
-with 'Business::CyberSource::Request';
+with qw(
+	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::CreditCardInfo
+);
 
 use Business::CyberSource::Response;
 
@@ -69,25 +73,13 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
-	my $purchase_totals = $sb->add_elem(
-		name => 'purchaseTotals',
-	);
-
-	$sb->add_elem(
-		name   => 'currency',
-		parent => $purchase_totals,
-		value  => $self->currency,
-	);
-
-	$sb->add_elem(
-		name   => 'grandTotalAmount',
-		value  => $self->total,
-		parent => $purchase_totals,
-	);
+	$sb = $self->_build_purchase_info   ( $sb );
+	$sb = $self->_build_credit_card_info( $sb );
 
 	my $capture_service = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccDCCService',
+		value      => ' ',
 	);
 
 	return $sb;
