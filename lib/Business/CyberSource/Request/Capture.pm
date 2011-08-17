@@ -78,21 +78,7 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
-	my $purchase_totals = $sb->add_elem(
-		name => 'purchaseTotals',
-	);
-
-	$sb->add_elem(
-		name   => 'currency',
-		parent => $purchase_totals,
-		value  => $self->currency,
-	);
-
-	$sb->add_elem(
-		name   => 'grandTotalAmount',
-		value  => $self->total,
-		parent => $purchase_totals,
-	);
+	$sb = $self->_build_purchase_info( $sb );
 
 	my $capture_service = $sb->add_elem(
 		attributes => { run => 'true' },
