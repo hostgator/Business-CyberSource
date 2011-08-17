@@ -6,6 +6,11 @@ use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
 
+plan skip_all
+	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
+	unless $CYBS_ID and $CYBS_KEY
+	;
+
 use Business::CyberSource::Request::Authorization;
 
 my $req
