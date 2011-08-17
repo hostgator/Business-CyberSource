@@ -8,7 +8,11 @@ BEGIN {
 }
 use Moose;
 use namespace::autoclean;
-with 'Business::CyberSource::Request';
+with qw(
+	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::CreditCardInfo
+);
 
 use Business::CyberSource::Response;
 
@@ -69,21 +73,8 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
-	my $purchase_totals = $sb->add_elem(
-		name => 'purchaseTotals',
-	);
-
-	$sb->add_elem(
-		name   => 'currency',
-		parent => $purchase_totals,
-		value  => $self->currency,
-	);
-
-	$sb->add_elem(
-		name   => 'grandTotalAmount',
-		value  => $self->total,
-		parent => $purchase_totals,
-	);
+	$sb = $self->_build_purchase_info   ( $sb );
+	$sb = $self->_build_credit_card_info( $sb );
 
 	my $capture_service = $sb->add_elem(
 		attributes => { run => 'true' },
@@ -153,11 +144,27 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
+=head2 cc_exp_month
+
+Reader: cc_exp_month
+
+Type: Str
+
+This attribute is required.
+
 =head2 total
 
 Reader: total
 
 Type: Num
+
+This attribute is required.
+
+=head2 cc_exp_year
+
+Reader: cc_exp_year
+
+Type: Str
 
 This attribute is required.
 
@@ -171,23 +178,31 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
+=head2 credit_card
+
+Reader: credit_card
+
+Type: Str
+
+This attribute is required.
+
 =head2 foreign_currency
 
 Reader: foreign_currency
 
 Type: Num
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
@@ -223,7 +238,15 @@ Method originates in Business::CyberSource::Request::DCC.
 
 Method originates in Business::CyberSource::Request::DCC.
 
+=head2 cc_exp_month
+
+Method originates in Business::CyberSource::Request::DCC.
+
 =head2 username
+
+Method originates in Business::CyberSource::Request::DCC.
+
+=head2 credit_card
 
 Method originates in Business::CyberSource::Request::DCC.
 
@@ -240,6 +263,10 @@ Method originates in Business::CyberSource::Request::DCC.
 Method originates in Business::CyberSource::Request::DCC.
 
 =head2 production
+
+Method originates in Business::CyberSource::Request::DCC.
+
+=head2 cc_exp_year
 
 Method originates in Business::CyberSource::Request::DCC.
 
