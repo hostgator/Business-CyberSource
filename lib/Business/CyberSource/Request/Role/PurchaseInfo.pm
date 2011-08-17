@@ -36,6 +36,7 @@ sub _build_purchase_info {
 		my $item = $sb->add_elem(
 			name => 'item',
 			attributes => { id => '0' },
+			value => '',
 		);
 
 		$sb->add_elem(
