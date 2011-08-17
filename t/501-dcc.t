@@ -19,7 +19,7 @@ my $dcc_req
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		reference_code => '500',
-#		total          => 5.00,
+		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
