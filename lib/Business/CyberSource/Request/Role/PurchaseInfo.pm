@@ -40,7 +40,7 @@ sub _build_purchase_info {
 
 		$sb->add_elem(
 			name => 'unitPrice',
-			value => 2.00,
+			value => '2.00',
 			parent => $item,
 		);
 	
