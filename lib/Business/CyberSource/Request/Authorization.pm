@@ -218,8 +218,6 @@ Reader: total
 
 Type: Num
 
-This attribute is required.
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month

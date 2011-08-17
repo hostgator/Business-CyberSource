@@ -172,8 +172,6 @@ Reader: total
 
 Type: Num
 
-This attribute is required.
-
 =head2 username
 
 Reader: username
