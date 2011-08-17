@@ -32,3 +32,5 @@ my $dcc_req
 my $dcc = $dcc_req->submit;
 
 ok( $dcc, 'authorization response exists' );
+
+done_testing;
