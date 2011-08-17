@@ -168,6 +168,18 @@ Type: Str
 
 This attribute is required.
 
+=head2 unit_price
+
+Reader: unit_price
+
+Type: Num
+
+=head2 quantity
+
+Reader: quantity
+
+Type: Int
+
 =head2 total
 
 Reader: total
@@ -190,17 +202,17 @@ Reader: foreign_currency
 
 Type: Str
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
@@ -236,6 +248,10 @@ Method originates in Business::CyberSource::Request::Capture.
 
 Method originates in Business::CyberSource::Request::Capture.
 
+=head2 unit_price
+
+Method originates in Business::CyberSource::Request::Capture.
+
 =head2 total
 
 Method originates in Business::CyberSource::Request::Capture.
@@ -264,11 +280,15 @@ Method originates in Business::CyberSource::Request::Capture.
 
 Method originates in Business::CyberSource::Request::Capture.
 
-=head2 client_name
+=head2 quantity
 
 Method originates in Business::CyberSource::Request::Capture.
 
 =head2 foreign_currency
+
+Method originates in Business::CyberSource::Request::Capture.
+
+=head2 client_name
 
 Method originates in Business::CyberSource::Request::Capture.
 

@@ -29,6 +29,16 @@ has item => (
 	isa => 'Bool',
 );
 
+has unit_price => (
+	is  => 'ro',
+	isa => 'Num',
+);
+
+has quantity => (
+	is  => 'ro',
+	isa => 'Int',
+);
+
 sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
 

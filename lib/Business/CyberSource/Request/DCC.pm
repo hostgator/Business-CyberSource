@@ -151,6 +151,18 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
+=head2 unit_price
+
+Reader: unit_price
+
+Type: Num
+
+=head2 quantity
+
+Reader: quantity
+
+Type: Int
+
 =head2 total
 
 Reader: total
@@ -191,17 +203,17 @@ Type: Str
 
 This attribute is required.
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
@@ -243,11 +255,15 @@ Method originates in Business::CyberSource::Request::DCC.
 
 Method originates in Business::CyberSource::Request::DCC.
 
-=head2 cc_exp_month
+=head2 unit_price
 
 Method originates in Business::CyberSource::Request::DCC.
 
 =head2 total
+
+Method originates in Business::CyberSource::Request::DCC.
+
+=head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::DCC.
 
@@ -272,6 +288,10 @@ Method originates in Business::CyberSource::Request::DCC.
 Method originates in Business::CyberSource::Request::DCC.
 
 =head2 production
+
+Method originates in Business::CyberSource::Request::DCC.
+
+=head2 quantity
 
 Method originates in Business::CyberSource::Request::DCC.
 

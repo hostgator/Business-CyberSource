@@ -204,6 +204,12 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
+=head2 unit_price
+
+Reader: unit_price
+
+Type: Num
+
 =head2 country
 
 Reader: country
@@ -214,11 +220,11 @@ This attribute is required.
 
 Additional documentation: ISO 2 character country code
 
-=head2 total
+=head2 quantity
 
-Reader: total
+Reader: quantity
 
-Type: Num
+Type: Int
 
 =head2 cc_exp_month
 
@@ -227,6 +233,12 @@ Reader: cc_exp_month
 Type: Str
 
 This attribute is required.
+
+=head2 total
+
+Reader: total
+
+Type: Num
 
 =head2 cc_exp_year
 
@@ -336,6 +348,10 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
+=head2 unit_price
+
+Method originates in Business::CyberSource::Request::Credit.
+
 =head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::Credit.
@@ -385,6 +401,10 @@ Method originates in Business::CyberSource::Request::Credit.
 Method originates in Business::CyberSource::Request::Credit.
 
 =head2 country
+
+Method originates in Business::CyberSource::Request::Credit.
+
+=head2 quantity
 
 Method originates in Business::CyberSource::Request::Credit.
 
