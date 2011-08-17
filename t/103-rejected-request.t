@@ -29,14 +29,14 @@ my $req
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
-		cc_exp_year    => '2025',
+		cc_exp_year    => '1998',
 		production     => 1,
 	});
 
 my $ret = $req->submit;
 
 is( $ret->decision,       'REJECT', 'check decision'       );
-is( $ret->reason_code,     203,     'check reason_code'    );
+is( $ret->reason_code,     202,     'check reason_code'    );
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
 done_testing;
