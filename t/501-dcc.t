@@ -23,7 +23,7 @@ my $dcc_req
 		credit_card    => '4111111111111111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		item           => 2,
+		item           => 1,
 		unit_price     => 2.01,
 		quantity       => 1,
 		foreign_currency => 'AUD',
