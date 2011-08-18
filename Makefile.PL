@@ -38,7 +38,9 @@ my %WriteMakefileArgs = (
     'MooseX::Types::URI' => '0',
     'SOAP::Data::Builder' => '0',
     'SOAP::Lite' => '0',
-    'namespace::autoclean' => '0'
+    'namespace::autoclean' => '0',
+    'strict' => '0',
+    'warnings' => '0'
   },
   'VERSION' => 'v0.1.2',
   'test' => {

@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200016, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Dist::Zilla version 4.200018, CPAN::Meta::Converter version 2.112150",
    "license" : [
       "artistic_2"
    ],
@@ -38,7 +38,9 @@
             "SOAP::Data::Builder" : 0,
             "SOAP::Lite" : 0,
             "namespace::autoclean" : 0,
-            "perl" : "5.008"
+            "perl" : "5.008",
+            "strict" : 0,
+            "warnings" : 0
          }
       },
       "test" : {

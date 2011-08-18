@@ -12,7 +12,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200016, CPAN::Meta::Converter version 2.112150'
+generated_by: 'Dist::Zilla version 4.200018, CPAN::Meta::Converter version 2.112150'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -35,6 +35,8 @@ requires:
   SOAP::Lite: 0
   namespace::autoclean: 0
   perl: 5.008
+  strict: 0
+  warnings: 0
 resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
