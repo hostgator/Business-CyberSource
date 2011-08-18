@@ -50,18 +50,16 @@ sub _build_purchase_info {
        );
 
 		$sb->add_elem(
-			name => 'foo',
+			name => 'unitPrice',
+			value => $self->unit_price,
 			parent => $item,
-#               name => 'unitPrice',
-#               value => $self->unit_price,
-#               parent => $item,
-       );
+		);
 
-#       $sb->add_elem(
-#               name => 'quantity',
-#               value => $self->quantity,
-#               parent => $item,
-#       );
+		$sb->add_elem(
+			name => 'quantity',
+			value => $self->quantity,
+			parent => $item,
+		);
 
 	}
 
