@@ -116,12 +116,6 @@ version v0.1.2
 
 =head1 ATTRIBUTES
 
-=head2 item
-
-Reader: item
-
-Type: Bool
-
 =head2 client_env
 
 Reader: client_env
@@ -172,18 +166,6 @@ Type: Str
 
 This attribute is required.
 
-=head2 unit_price
-
-Reader: unit_price
-
-Type: Num
-
-=head2 quantity
-
-Reader: quantity
-
-Type: Int
-
 =head2 total
 
 Reader: total
@@ -200,14 +182,6 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
-=head2 reference_code
-
-Reader: reference_code
-
-Type: Str
-
-This attribute is required.
-
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -217,6 +191,14 @@ Type: Str
 =head2 client_name
 
 Reader: client_name
+
+Type: Str
+
+This attribute is required.
+
+=head2 reference_code
+
+Reader: reference_code
 
 Type: Str
 
@@ -233,10 +215,6 @@ This attribute is required.
 =head1 METHODS
 
 =head2 submit
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 item
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
@@ -265,14 +243,6 @@ Method originates in Business::CyberSource::Request::AuthReversal.
 Method originates in Business::CyberSource::Request::AuthReversal.
 
 =head2 new
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 unit_price
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 quantity
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 

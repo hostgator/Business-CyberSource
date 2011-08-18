@@ -126,12 +126,6 @@ Reader: ip
 
 Type: Str
 
-=head2 item
-
-Reader: item
-
-Type: Bool
-
 =head2 client_env
 
 Reader: client_env
@@ -158,19 +152,19 @@ Type: Str
 
 This attribute is required.
 
-=head2 currency
-
-Reader: currency
-
-Type: Str
-
-This attribute is required.
-
 =head2 email
 
 Reader: email
 
 Type: MooseX::Types::Email::EmailAddress
+
+This attribute is required.
+
+=head2 currency
+
+Reader: currency
+
+Type: Str
 
 This attribute is required.
 
@@ -208,12 +202,6 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
-=head2 unit_price
-
-Reader: unit_price
-
-Type: Num
-
 =head2 country
 
 Reader: country
@@ -224,11 +212,11 @@ This attribute is required.
 
 Additional documentation: ISO 2 character country code
 
-=head2 quantity
+=head2 total
 
-Reader: quantity
+Reader: total
 
-Type: Int
+Type: Num
 
 =head2 cc_exp_month
 
@@ -237,12 +225,6 @@ Reader: cc_exp_month
 Type: Str
 
 This attribute is required.
-
-=head2 total
-
-Reader: total
-
-Type: Num
 
 =head2 cc_exp_year
 
@@ -324,10 +306,6 @@ Additional documentation: Card Holder's first name
 
 Method originates in Business::CyberSource::Request::Authorization.
 
-=head2 item
-
-Method originates in Business::CyberSource::Request::Authorization.
-
 =head2 client_env
 
 Method originates in Business::CyberSource::Request::Authorization.
@@ -349,10 +327,6 @@ Method originates in Business::CyberSource::Request::Authorization.
 Method originates in Business::CyberSource::Request::Authorization.
 
 =head2 new
-
-Method originates in Business::CyberSource::Request::Authorization.
-
-=head2 unit_price
 
 Method originates in Business::CyberSource::Request::Authorization.
 
@@ -405,10 +379,6 @@ Method originates in Business::CyberSource::Request::Authorization.
 Method originates in Business::CyberSource::Request::Authorization.
 
 =head2 country
-
-Method originates in Business::CyberSource::Request::Authorization.
-
-=head2 quantity
 
 Method originates in Business::CyberSource::Request::Authorization.
 

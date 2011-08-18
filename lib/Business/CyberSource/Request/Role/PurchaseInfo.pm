@@ -24,43 +24,8 @@ has foreign_currency => (
 	isa => 'Str',
 );
 
-has item => (
-	is  => 'ro',
-	isa => 'Bool',
-);
-
-has unit_price => (
-	is  => 'ro',
-	isa => 'Num',
-);
-
-has quantity => (
-	is  => 'ro',
-	isa => 'Int',
-);
-
 sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
-
-	if ( $self->item ) {
-		my $item = $sb->add_elem(
-			name => 'item',
-			attributes => { id => '0' },
-		);
-
-		$sb->add_elem(
-			name => 'unitPrice',
-			value => $self->unit_price,
-			parent => $item,
-		);
-
-		$sb->add_elem(
-			name => 'quantity',
-			value => $self->quantity,
-			parent => $item,
-		);
-
-	}
 
 	my $purchase_totals = $sb->add_elem(
 		name => 'purchaseTotals',
@@ -72,13 +37,11 @@ sub _build_purchase_info {
 		value  => $self->currency,
 	);
 
-	if ( $self->total ) {
-		$sb->add_elem(
-			name   => 'grandTotalAmount',
-			value  => $self->total,
-			parent => $purchase_totals,
-		);
-	}
+	$sb->add_elem(
+		name   => 'grandTotalAmount',
+		value  => $self->total,
+		parent => $purchase_totals,
+	);
 
 	if ( $self->foreign_currency ) {
 		$sb->add_elem(
@@ -87,7 +50,6 @@ sub _build_purchase_info {
 			parent => $purchase_totals,
 		);
 	}
-
 
 	return $sb;
 }

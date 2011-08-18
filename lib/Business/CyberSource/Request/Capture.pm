@@ -120,12 +120,6 @@ Type: Str
 
 This attribute is required.
 
-=head2 item
-
-Reader: item
-
-Type: Bool
-
 =head2 currency
 
 Reader: currency
@@ -168,18 +162,6 @@ Type: Str
 
 This attribute is required.
 
-=head2 unit_price
-
-Reader: unit_price
-
-Type: Num
-
-=head2 quantity
-
-Reader: quantity
-
-Type: Int
-
 =head2 total
 
 Reader: total
@@ -202,17 +184,17 @@ Reader: foreign_currency
 
 Type: Str
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
 This attribute is required.
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
@@ -232,10 +214,6 @@ This attribute is required.
 
 Method originates in Business::CyberSource::Request::Capture.
 
-=head2 item
-
-Method originates in Business::CyberSource::Request::Capture.
-
 =head2 password
 
 Method originates in Business::CyberSource::Request::Capture.
@@ -245,10 +223,6 @@ Method originates in Business::CyberSource::Request::Capture.
 Method originates in Business::CyberSource::Request::Capture.
 
 =head2 new
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 unit_price
 
 Method originates in Business::CyberSource::Request::Capture.
 
@@ -280,15 +254,11 @@ Method originates in Business::CyberSource::Request::Capture.
 
 Method originates in Business::CyberSource::Request::Capture.
 
-=head2 quantity
+=head2 client_name
 
 Method originates in Business::CyberSource::Request::Capture.
 
 =head2 foreign_currency
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 client_name
 
 Method originates in Business::CyberSource::Request::Capture.
 

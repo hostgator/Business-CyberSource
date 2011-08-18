@@ -9,8 +9,8 @@ BEGIN {
 use Moose;
 use namespace::autoclean;
 with qw(
+	MooseX::Traits
 	Business::CyberSource::Request
-	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
@@ -18,6 +18,11 @@ with qw(
 use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
+
+has capture_request_id => (
+	is  => 'ro',
+	isa => 'Str',
+);
 
 sub submit {
 	my $self = shift;
@@ -81,11 +86,19 @@ sub _build_sdbo {
 	$sb = $self->_build_purchase_info   ( $sb );
 	$sb = $self->_build_credit_card_info( $sb );
 
-	$sb->add_elem(
+	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccCreditService',
 		value      => ' ', # hack to prevent cs side unparseable xml
 	);
+
+	if ( $self->capture_request_id ) {
+		$sb->add_elem(
+			name   => 'captureRequestID',
+			value  => $self->capture_request_id,
+			parent => $credit,
+		)
+	}
 
 	return $sb;
 }
@@ -108,26 +121,6 @@ version v0.1.2
 
 =head1 ATTRIBUTES
 
-=head2 street
-
-Reader: street
-
-Type: Str
-
-This attribute is required.
-
-=head2 ip
-
-Reader: ip
-
-Type: Str
-
-=head2 item
-
-Reader: item
-
-Type: Bool
-
 =head2 client_env
 
 Reader: client_env
@@ -136,43 +129,9 @@ Type: Str
 
 This attribute is required.
 
-=head2 last_name
-
-Reader: last_name
-
-Type: Str
-
-This attribute is required.
-
-Additional documentation: Card Holder's last name
-
-=head2 state
-
-Reader: state
-
-Type: Str
-
-This attribute is required.
-
 =head2 currency
 
 Reader: currency
-
-Type: Str
-
-This attribute is required.
-
-=head2 email
-
-Reader: email
-
-Type: MooseX::Types::Email::EmailAddress
-
-This attribute is required.
-
-=head2 city
-
-Reader: city
 
 Type: Str
 
@@ -204,27 +163,11 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
-=head2 unit_price
+=head2 capture_request_id
 
-Reader: unit_price
+Reader: capture_request_id
 
-Type: Num
-
-=head2 country
-
-Reader: country
-
-Type: MooseX::Types::Locale::Country::Alpha2Country
-
-This attribute is required.
-
-Additional documentation: ISO 2 character country code
-
-=head2 quantity
-
-Reader: quantity
-
-Type: Int
+Type: Str
 
 =head2 cc_exp_month
 
@@ -266,31 +209,23 @@ Type: Str
 
 This attribute is required.
 
-=head2 zip
-
-Reader: zip
-
-Type: Str
-
-This attribute is required.
-
 =head2 foreign_currency
 
 Reader: foreign_currency
 
 Type: Str
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
 Type: Str
 
 This attribute is required.
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
 Type: Str
 
@@ -304,35 +239,9 @@ Type: Str
 
 This attribute is required.
 
-=head2 first_name
-
-Reader: first_name
-
-Type: Str
-
-This attribute is required.
-
-Additional documentation: Card Holder's first name
-
 =head1 METHODS
 
-=head2 street
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 item
-
-Method originates in Business::CyberSource::Request::Credit.
-
 =head2 client_env
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 state
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 email
 
 Method originates in Business::CyberSource::Request::Credit.
 
@@ -348,9 +257,13 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 unit_price
+=head2 capture_request_id
 
 Method originates in Business::CyberSource::Request::Credit.
+
+=head2 with_traits
+
+Method originates in MooseX::Traits.
 
 =head2 cc_exp_month
 
@@ -368,15 +281,7 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 zip
-
-Method originates in Business::CyberSource::Request::Credit.
-
 =head2 reference_code
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 ip
 
 Method originates in Business::CyberSource::Request::Credit.
 
@@ -384,15 +289,7 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 last_name
-
-Method originates in Business::CyberSource::Request::Credit.
-
 =head2 currency
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 city
 
 Method originates in Business::CyberSource::Request::Credit.
 
@@ -400,17 +297,17 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 country
+=head2 new_with_traits
 
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 quantity
-
-Method originates in Business::CyberSource::Request::Credit.
+Method originates in MooseX::Traits.
 
 =head2 cc_exp_year
 
 Method originates in Business::CyberSource::Request::Credit.
+
+=head2 apply_traits
+
+Method originates in MooseX::Traits.
 
 =head2 client_name
 
@@ -421,10 +318,6 @@ Method originates in Business::CyberSource::Request::Credit.
 Method originates in Business::CyberSource::Request::Credit.
 
 =head2 client_version
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 first_name
 
 Method originates in Business::CyberSource::Request::Credit.
 
