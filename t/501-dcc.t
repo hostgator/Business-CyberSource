@@ -12,21 +12,25 @@ plan skip_all
 
 use Business::CyberSource::Request::DCC;
 use Business::CyberSource::Request::Authorization;
-use SOAP::Lite +trace => [ 'debug' ] ;
+#use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $dcc_req
 	= Business::CyberSource::Request::DCC->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		reference_code => '500',
-		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
+		item           => 1,
+		unit_price     => 2.01,
+		quantity       => 1,
 		foreign_currency => 'AUD',
 	});
 
 my $dcc = $dcc_req->submit;
 
 ok( $dcc, 'authorization response exists' );
+
+done_testing;
