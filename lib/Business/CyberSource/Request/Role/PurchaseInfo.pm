@@ -43,11 +43,10 @@ sub _build_purchase_info {
 	my ( $self, $sb ) = @_;
 
 	if ( $self->item ) {
-
-       my $item = $sb->add_elem(
-               name => 'item',
-               attributes => { ID => '0' },
-       );
+		my $item = $sb->add_elem(
+			name => 'item',
+			attributes => { id => '0' },
+		);
 
 		$sb->add_elem(
 			name => 'unitPrice',
