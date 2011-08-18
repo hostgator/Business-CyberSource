@@ -9,8 +9,8 @@ BEGIN {
 use Moose;
 use namespace::autoclean;
 with qw(
+	MooseX::Traits
 	Business::CyberSource::Request
-	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
@@ -18,6 +18,11 @@ with qw(
 use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
+
+has capture_request_id => (
+	is  => 'ro',
+	isa => 'Str',
+);
 
 sub submit {
 	my $self = shift;
@@ -81,11 +86,19 @@ sub _build_sdbo {
 	$sb = $self->_build_purchase_info   ( $sb );
 	$sb = $self->_build_credit_card_info( $sb );
 
-	$sb->add_elem(
+	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccCreditService',
 		value      => ' ', # hack to prevent cs side unparseable xml
 	);
+
+	if ( $self->capture_request_id ) {
+		$sb->add_elem(
+			name   => 'captureRequestID',
+			value  => $self->capture_request_id,
+			parent => $credit,
+		)
+	}
 
 	return $sb;
 }
