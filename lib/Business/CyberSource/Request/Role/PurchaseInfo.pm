@@ -49,10 +49,11 @@ sub _build_purchase_info {
                attributes => { 'id' => '0' },
        );
 
-       $sb->add_elem(
-               name => 'unitPrice',
-               value => $self->unit_price,
-               parent => $item,
+		$sb->add_elem(
+			name => 'foo'	
+#               name => 'unitPrice',
+#               value => $self->unit_price,
+#               parent => $item,
        );
 
 #       $sb->add_elem(
