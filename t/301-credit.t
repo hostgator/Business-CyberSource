@@ -13,7 +13,7 @@ plan skip_all
 use Business::CyberSource::Request::Credit;
 
 my $req
-	= Business::CyberSource::Request::Credit->
+	= Business::CyberSource::Request::Credit
 	->with_traits(qw{
 		Business::CyberSource::Request::Role::BillingInfo
 		Business::CyberSource::Request::Role::CreditCardInfo
