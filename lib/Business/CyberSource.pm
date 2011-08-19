@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.2'; # VERSION
+	our $VERSION = 'v0.1.3'; # VERSION
 }
 use Moose::Role;
 use namespace::autoclean;
@@ -52,7 +52,7 @@ Business::CyberSource - Business::CyberSource
 
 =head1 VERSION
 
-version v0.1.2
+version v0.1.3
 
 =head1 BUGS
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.2'; # VERSION
+	our $VERSION = 'v0.1.3'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -85,14 +85,11 @@ sub _build_sdbo {
 	$sb = $self->_build_purchase_info   ( $sb );
 
 	my $auth_reversal = $sb->add_elem(
-		attributes => { run => 'true' },
 		name       => 'ccAuthReversalService',
-	);
-
-	$sb->add_elem(
-		name   => 'authRequestID',
-		value  => $self->request_id,
-		parent => $auth_reversal,
+		attributes => {
+			run => 'true',
+			authRequestID => $self->request_id,
+		},
 	);
 
 	return $sb;
@@ -112,7 +109,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.1.2
+version v0.1.3
 
 =head1 ATTRIBUTES
 

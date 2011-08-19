@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.2'; # VERSION
+	our $VERSION = 'v0.1.3'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -108,7 +108,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization reques
 
 =head1 VERSION
 
-version v0.1.2
+version v0.1.3
 
 =head1 ATTRIBUTES
 
