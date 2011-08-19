@@ -92,10 +92,12 @@ sub _build_sdbo {
 		$sb = $self->_build_credit_card_info( $sb );
 	}
 
+	my $value = $self->request_id ? undef : ' ';
+
 	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccCreditService',
-		value      => ' ', # hack to prevent cs side unparseable xml
+		value      => $value, # hack to prevent cs side unparseable xml
 	);
 
 	if ( $self->request_id ) {
