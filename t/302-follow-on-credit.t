@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use SOAP::Lite +trace => [ 'debug' ] ;
 
 plan skip_all
 	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
@@ -12,12 +13,13 @@ plan skip_all
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::Capture;
+use Business::CyberSource::Request::Credit;
 
 my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '69',
+		reference_code => '420',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -52,4 +54,18 @@ my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
 
+my $credit_req
+	= Business::CyberSource::Request::Credit->new({
+		username       => $CYBS_ID,
+		password       => $CYBS_KEY,
+		reference_code => $req->reference_code,
+		total          => 5.00,
+		currency       => 'USD',
+		request_id     => $cres->request_id,
+	})
+	;
+
+my $credit = $credit_req->submit;
+
+ok( $credit, 'credit response exists' );
 done_testing;
