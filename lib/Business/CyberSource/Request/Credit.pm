@@ -18,7 +18,7 @@ use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
 
-has capture_request_id => (
+has request_id => (
 	is  => 'ro',
 	isa => 'Str',
 );
@@ -98,10 +98,10 @@ sub _build_sdbo {
 		value      => ' ', # hack to prevent cs side unparseable xml
 	);
 
-	if ( $self->capture_request_id ) {
+	if ( $self->request_id ) {
 		$sb->add_elem(
 			name   => 'captureRequestID',
-			value  => $self->capture_request_id,
+			value  => $self->request_id,
 			parent => $credit,
 		)
 	}
@@ -169,9 +169,9 @@ Type: MooseX::Types::URI::Uri
 
 This attribute is required.
 
-=head2 capture_request_id
+=head2 request_id
 
-Reader: capture_request_id
+Reader: request_id
 
 Type: Str
 
@@ -247,11 +247,11 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 new
+=head2 request_id
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 capture_request_id
+=head2 new
 
 Method originates in Business::CyberSource::Request::Credit.
 
