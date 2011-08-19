@@ -69,7 +69,7 @@ my $credit = $credit_req->submit;
 
 ok( $credit, 'credit response exists' );
 
-is( $credit->reference_code, '360', 'check response reference code' );
+is( $credit->reference_code, '420', 'check response reference code' );
 is( $credit->decision,       'ACCEPT', 'check decision'       );
 is( $credit->reason_code,     100,     'check reason_code'    );
 is( $credit->currency,       'USD',    'check currency'       );
