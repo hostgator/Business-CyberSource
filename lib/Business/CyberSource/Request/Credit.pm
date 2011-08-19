@@ -84,7 +84,7 @@ sub _build_sdbo {
 
 	$sb = $self->_build_purchase_info   ( $sb );
 
-	if ( $self->capture_request_id ) { # should probably introspec
+	if ( not $self->capture_request_id ) { # should probably introspec
 		$sb = $self->_build_bill_to_info    ( $sb );
 		$sb = $self->_build_credit_card_info( $sb );
 	}
