@@ -92,7 +92,7 @@ sub _build_sdbo {
 		$sb = $self->_build_credit_card_info( $sb );
 	}
 
-	my $value = ' ' unless $self->request_id;
+	my $value = $self->request_id ? ' ' : undef;
 
 	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
