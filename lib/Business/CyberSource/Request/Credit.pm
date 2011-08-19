@@ -18,7 +18,7 @@ use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
 
-has capture_request_id => (
+has request_id => (
 	is  => 'ro',
 	isa => 'Str',
 );
@@ -98,10 +98,10 @@ sub _build_sdbo {
 		value      => ' ', # hack to prevent cs side unparseable xml
 	);
 
-	if ( $self->capture_request_id ) {
+	if ( $self->request_id ) {
 		$sb->add_elem(
 			name   => 'captureRequestID',
-			value  => $self->capture_request_id,
+			value  => $self->request_id,
 			parent => $credit,
 		)
 	}
