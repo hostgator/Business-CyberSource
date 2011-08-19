@@ -39,6 +39,7 @@ my $auth_req
 my $auth = $auth_req->submit;
 
 ok( $auth, 'authorization response exists' );
+note( 'request_id: ' . $auth->request_id );
 
 my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		username       => $auth_req->username,
