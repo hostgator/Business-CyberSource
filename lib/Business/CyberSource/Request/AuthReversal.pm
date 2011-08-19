@@ -85,11 +85,14 @@ sub _build_sdbo {
 	$sb = $self->_build_purchase_info   ( $sb );
 
 	my $auth_reversal = $sb->add_elem(
+		attributes => { run => 'true' },
 		name       => 'ccAuthReversalService',
-		attributes => {
-			run => 'true',
-			authRequestID => $self->request_id,
-		},
+	);
+
+	$sb->add_elem(
+		name   => 'authRequestID',
+		value  => $self->request_id,
+		parent => $auth_reversal,
 	);
 
 	return $sb;
