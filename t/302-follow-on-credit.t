@@ -52,7 +52,6 @@ my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
 
-
 my $credit_req
 	= Business::CyberSource::Request::Credit->new({
 		username       => $CYBS_ID,
@@ -60,7 +59,7 @@ my $credit_req
 		reference_code => $req->reference_code,
 		total          => 5.00,
 		currency       => 'USD',
-		request_id     => $cres->request_id;
+		request_id     => $cres->request_id,
 	})
 	;
 
