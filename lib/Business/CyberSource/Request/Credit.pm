@@ -12,7 +12,6 @@ with qw(
 	MooseX::Traits
 	Business::CyberSource::Request
 	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response;
@@ -82,9 +81,13 @@ sub _build_sdbo {
 	my $self = shift;
 
 	my $sb = $self->_build_sdbo_header;
-	$sb = $self->_build_bill_to_info    ( $sb );
+
 	$sb = $self->_build_purchase_info   ( $sb );
-	$sb = $self->_build_credit_card_info( $sb );
+
+	if ( $self->capture_request_id ) { # should probably introspec
+		$sb = $self->_build_bill_to_info    ( $sb );
+		$sb = $self->_build_credit_card_info( $sb );
+	}
 
 	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
@@ -169,27 +172,11 @@ Reader: capture_request_id
 
 Type: Str
 
-=head2 cc_exp_month
-
-Reader: cc_exp_month
-
-Type: Str
-
-This attribute is required.
-
 =head2 total
 
 Reader: total
 
 Type: Num
-
-=head2 cc_exp_year
-
-Reader: cc_exp_year
-
-Type: Str
-
-This attribute is required.
 
 =head2 username
 
@@ -200,14 +187,6 @@ Type: Str
 This attribute is required.
 
 Additional documentation: your merchantID
-
-=head2 credit_card
-
-Reader: credit_card
-
-Type: Str
-
-This attribute is required.
 
 =head2 foreign_currency
 
@@ -241,11 +220,23 @@ This attribute is required.
 
 =head1 METHODS
 
+=head2 submit
+
+Method originates in Business::CyberSource::Request::Credit.
+
 =head2 client_env
 
 Method originates in Business::CyberSource::Request::Credit.
 
+=head2 currency
+
+Method originates in Business::CyberSource::Request::Credit.
+
 =head2 password
+
+Method originates in Business::CyberSource::Request::Credit.
+
+=head2 production
 
 Method originates in Business::CyberSource::Request::Credit.
 
@@ -265,9 +256,9 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in MooseX::Traits.
 
-=head2 cc_exp_month
+=head2 new_with_traits
 
-Method originates in Business::CyberSource::Request::Credit.
+Method originates in MooseX::Traits.
 
 =head2 total
 
@@ -277,37 +268,13 @@ Method originates in Business::CyberSource::Request::Credit.
 
 Method originates in Business::CyberSource::Request::Credit.
 
-=head2 credit_card
+=head2 apply_traits
 
-Method originates in Business::CyberSource::Request::Credit.
+Method originates in MooseX::Traits.
 
 =head2 reference_code
 
 Method originates in Business::CyberSource::Request::Credit.
-
-=head2 submit
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 currency
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 production
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 new_with_traits
-
-Method originates in MooseX::Traits.
-
-=head2 cc_exp_year
-
-Method originates in Business::CyberSource::Request::Credit.
-
-=head2 apply_traits
-
-Method originates in MooseX::Traits.
 
 =head2 client_name
 
