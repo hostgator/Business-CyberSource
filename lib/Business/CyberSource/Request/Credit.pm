@@ -12,7 +12,6 @@ with qw(
 	MooseX::Traits
 	Business::CyberSource::Request
 	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response;
@@ -82,9 +81,13 @@ sub _build_sdbo {
 	my $self = shift;
 
 	my $sb = $self->_build_sdbo_header;
-	$sb = $self->_build_bill_to_info    ( $sb );
+
 	$sb = $self->_build_purchase_info   ( $sb );
-	$sb = $self->_build_credit_card_info( $sb );
+
+	if ( $self->capture_request_id ) { # should probably introspec
+		$sb = $self->_build_bill_to_info    ( $sb );
+		$sb = $self->_build_credit_card_info( $sb );
+	}
 
 	my $credit = $sb->add_elem(
 		attributes => { run => 'true' },
