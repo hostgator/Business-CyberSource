@@ -17,7 +17,7 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '69',
+		reference_code => '420',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -52,4 +52,19 @@ my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
 
+
+my $credit_req
+	= Business::CyberSource::Request::Credit->new({
+		username       => $CYBS_ID,
+		password       => $CYBS_KEY,
+		reference_code => $req->reference_code,
+		total          => 5.00,
+		currency       => 'USD',
+		request_id     => $cres->request_id;
+	})
+	;
+
+my $credit = $credit_req->submit;
+
+ok( $credit, 'credit response exists' );
 done_testing;
