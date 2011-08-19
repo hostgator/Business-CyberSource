@@ -68,4 +68,13 @@ my $credit_req
 my $credit = $credit_req->submit;
 
 ok( $credit, 'credit response exists' );
+
+is( $credit->reference_code, '420', 'check response reference code' );
+is( $credit->decision,       'ACCEPT', 'check decision'       );
+is( $credit->reason_code,     100,     'check reason_code'    );
+is( $credit->currency,       'USD',    'check currency'       );
+is( $credit->amount,         '5.00',    'check amount'        );
+
+ok( $credit->request_id,    'check request_id exists'    );
+ok( $credit->datetime,      'check datetime exists'      );
 done_testing;
