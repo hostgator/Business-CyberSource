@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use SOAP::Lite +trace => [ 'debug' ] ;
 
 plan skip_all
 	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
@@ -13,7 +14,12 @@ plan skip_all
 use Business::CyberSource::Request::Credit;
 
 my $req
-	= Business::CyberSource::Request::Credit->new({
+	= Business::CyberSource::Request::Credit
+	->with_traits(qw{
+		Business::CyberSource::Request::Role::BillingInfo
+		Business::CyberSource::Request::Role::CreditCardInfo
+	})
+	->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		reference_code => '360',
