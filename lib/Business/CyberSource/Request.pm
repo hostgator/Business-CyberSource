@@ -3,6 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
+our @CARP_NOT = qw( SOAP::Lite );
 BEGIN {
 	# VERSION
 }
