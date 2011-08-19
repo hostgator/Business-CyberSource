@@ -82,10 +82,13 @@ sub _build_sdbo {
 
 	my $sb = $self->_build_sdbo_header;
 
+	unless ( $self->capture_request_id ) { # should probably introspec
+		$sb = $self->_build_bill_to_info    ( $sb );
+	}
+
 	$sb = $self->_build_purchase_info   ( $sb );
 
 	unless ( $self->capture_request_id ) { # should probably introspec
-		$sb = $self->_build_bill_to_info    ( $sb );
 		$sb = $self->_build_credit_card_info( $sb );
 	}
 
