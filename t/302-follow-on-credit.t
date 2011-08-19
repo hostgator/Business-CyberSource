@@ -12,6 +12,7 @@ plan skip_all
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::Capture;
+use Business::CyberSource::Request::Credit;
 
 my $req
 	= Business::CyberSource::Request::Authorization->new({
