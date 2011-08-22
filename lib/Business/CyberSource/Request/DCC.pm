@@ -76,7 +76,7 @@ sub _build_sdbo {
 	$sb = $self->_build_purchase_info   ( $sb );
 	$sb = $self->_build_credit_card_info( $sb );
 
-	my $capture_service = $sb->add_elem(
+	$sb->add_elem(
 		attributes => { run => 'true' },
 		name       => 'ccDCCService',
 		value      => ' ',
