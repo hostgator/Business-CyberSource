@@ -31,6 +31,10 @@ datetime
 merchantID
 ip
 DCC
+cid
+cvn
+cvc
+cvv
 Caleb
 Cushing
 Caleb
