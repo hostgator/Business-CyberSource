@@ -40,7 +40,7 @@ is( $req->cvn, 123, 'check cvn' );
 my $ret = $req->submit;
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, '42',     'check reference_code' );
+is( $ret->reference_code, '1984',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '5.00',    'check amount'        );
