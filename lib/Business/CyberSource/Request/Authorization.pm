@@ -212,6 +212,12 @@ This attribute is required.
 
 Additional documentation: ISO 2 character country code
 
+=head2 cvn
+
+Reader: cvn
+
+Type: Num
+
 =head2 total
 
 Reader: total
@@ -330,6 +336,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 
 Method originates in Business::CyberSource::Request::Authorization.
 
+=head2 cvn
+
+Method originates in Business::CyberSource::Request::Authorization.
+
 =head2 cc_exp_month
 
 Method originates in Business::CyberSource::Request::Authorization.
@@ -350,6 +360,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 
 Method originates in Business::CyberSource::Request::Authorization.
 
+=head2 cid
+
+Method originates in Business::CyberSource::Request::Authorization.
+
 =head2 reference_code
 
 Method originates in Business::CyberSource::Request::Authorization.
@@ -363,6 +377,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 Method originates in Business::CyberSource::Request::Authorization.
 
 =head2 last_name
+
+Method originates in Business::CyberSource::Request::Authorization.
+
+=head2 cvc2
 
 Method originates in Business::CyberSource::Request::Authorization.
 
@@ -386,6 +404,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 
 Method originates in Business::CyberSource::Request::Authorization.
 
+=head2 cvv2
+
+Method originates in Business::CyberSource::Request::Authorization.
+
 =head2 client_name
 
 Method originates in Business::CyberSource::Request::Authorization.
@@ -399,6 +421,10 @@ Method originates in Business::CyberSource::Request::Authorization.
 Method originates in Business::CyberSource::Request::Authorization.
 
 =head2 first_name
+
+Method originates in Business::CyberSource::Request::Authorization.
+
+=head2 cvv
 
 Method originates in Business::CyberSource::Request::Authorization.
 
