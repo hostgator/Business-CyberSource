@@ -61,7 +61,7 @@ sub _build_credit_card_info {
 
 	if ( $self->cvn ) {
 		$sb->add_elem(
-			name   => 'cvNumber',
+			name   => 'cvCode',
 			value  => $self->cvn,
 			parent => $card,
 		);
