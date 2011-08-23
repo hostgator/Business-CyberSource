@@ -29,3 +29,5 @@ has password => (
 );
 
 1;
+
+# ABSTRACT: CyberSource login credentials
