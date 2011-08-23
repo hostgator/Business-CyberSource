@@ -139,7 +139,6 @@ sub _build_sdbo_header {
 		name  => 'merchantReferenceCode',
 		value => $self->reference_code,
 	);
-oseX::AbstractFactory
 
 	$sb->add_elem(
 		name  => 'clientLibrary',
