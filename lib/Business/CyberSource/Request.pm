@@ -15,3 +15,5 @@ with qw(
 use MooseX::AbstractFactory;
 
 1;
+
+# ABSTRACT: CyberSource request factory
