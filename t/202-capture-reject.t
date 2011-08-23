@@ -47,6 +47,7 @@ my $capture
 		request_id     => $res->request_id,
 		total          => -1,
 		currency       => $res->currency,
+		production     => 0,
 	})
 	;
 
