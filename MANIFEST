@@ -5,6 +5,7 @@ META.json
 META.yml
 Makefile.PL
 README
+'\\'
 docs/SubmittingPatches.pod
 lib/Business/CyberSource.pm
 lib/Business/CyberSource/Request.pm

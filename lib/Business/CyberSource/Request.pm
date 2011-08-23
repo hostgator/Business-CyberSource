@@ -17,11 +17,13 @@ use MooseX::AbstractFactory;
 around 'create' => sub {
 	my $orig = shift;
 	my $self = shift;
-	use Data::Dumper;
+	my ( $imp, $args ) = @_;
 	
-	warn Dumper { @_ };
+	$args->{username}   = $self->username;
+	$args->{password}   = $self->password;
+	$args->{production} = $self->production;
 
-	$self->orig(@_);
+	$self->orig( $imp, $args );
 };
 
 1;
