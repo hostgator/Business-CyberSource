@@ -23,7 +23,6 @@ around 'create' => sub {
 	
 	use Data::Dumper;
 
-	croak Dumper $args;
 
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   = $self->username;
@@ -34,6 +33,7 @@ around 'create' => sub {
 		croak 'not a hashref';
 	}
 
+	croak Dumper $args;
 	$self->$orig( $imp, $args, @_ );
 };
 
