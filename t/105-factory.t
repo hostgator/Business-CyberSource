@@ -15,7 +15,7 @@ use Business::CyberSource::Request;
 
 
 my $factory
-	= Business::CyberSource::Request->new( 'Authorization', {
+	= Business::CyberSource::Request->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		production     => 0,
