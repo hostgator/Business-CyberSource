@@ -180,12 +180,6 @@ This attribute is required.
 
 Additional documentation: your merchantID
 
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: Str
-
 =head2 reference_code
 
 Reader: reference_code
@@ -193,6 +187,12 @@ Reader: reference_code
 Type: Str
 
 This attribute is required.
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: Str
 
 =head2 client_name
 

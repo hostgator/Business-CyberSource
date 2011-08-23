@@ -4,29 +4,22 @@ use strict;
 use warnings;
 use Carp;
 our @CARP_NOT = qw( SOAP::Lite );
-BEGIN {
-	our $VERSION = 'v0.1.4'; # VERSION
-}
+
+our $VERSION = 'v0.1.4'; # VERSION
+
 use Moose::Role;
 use MooseX::Types::URI qw( Uri );
 
 with qw(
 	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::Credentials
 );
 
 requires '_build_sdbo';
 requires 'submit';
 
 use SOAP::Data::Builder;
-
-has production => (
-	required => 1,
-	lazy     => 1,
-	is       => 'ro',
-	isa      => 'Bool',
-	default  => 0,
-);
 
 has server => (
 	required => 1,
@@ -45,20 +38,6 @@ has _sdbo => (
 	is       => 'ro',
 	isa      => 'SOAP::Data::Builder',
 	builder  => '_build_sdbo',
-);
-
-has username => (
-	documentation => 'your merchantID',
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has password => (
-	documentation => 'your SOAP transaction key',
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str', # actually I wonder if I can validate this more
 );
 
 has reference_code => (

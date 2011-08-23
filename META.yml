@@ -22,11 +22,11 @@ no_index:
   file:
     - perlcritic.rc
 requires:
-  Business::CyberSource::Request: 0
   Carp: 0
   Config: 0
   Moose: 0
   Moose::Role: 0
+  MooseX::AbstractFactory: 0
   MooseX::Aliases: 0
   MooseX::Traits: 0
   MooseX::Types::DateTime::W3C: 0
