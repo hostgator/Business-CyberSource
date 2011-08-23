@@ -1,4 +1,4 @@
-package Business::CyberSource::Request;
+package Business::CyberSource::Request::Role::Common;
 use 5.008;
 use strict;
 use warnings;
@@ -139,6 +139,7 @@ sub _build_sdbo_header {
 		name  => 'merchantReferenceCode',
 		value => $self->reference_code,
 	);
+oseX::AbstractFactory
 
 	$sb->add_elem(
 		name  => 'clientLibrary',
@@ -178,7 +179,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request - Request Role
+Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
