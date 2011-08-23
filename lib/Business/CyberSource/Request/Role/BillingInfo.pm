@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.3'; # VERSION
+	our $VERSION = 'v0.1.4'; # VERSION
 }
 use Moose::Role;
 use MooseX::Types::Email qw( EmailAddress );
@@ -146,7 +146,7 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 
 =head1 VERSION
 
-version v0.1.3
+version v0.1.4
 
 =head1 BUGS
 

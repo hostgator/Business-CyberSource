@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.3'; # VERSION
+	our $VERSION = 'v0.1.4'; # VERSION
 }
 use Moose;
 use namespace::autoclean;
@@ -42,7 +42,7 @@ Business::CyberSource::Response - Response Role
 
 =head1 VERSION
 
-version v0.1.3
+version v0.1.4
 
 =head1 ATTRIBUTES
 

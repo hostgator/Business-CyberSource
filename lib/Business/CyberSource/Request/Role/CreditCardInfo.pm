@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.3'; # VERSION
+	our $VERSION = 'v0.1.4'; # VERSION
 }
 use Moose::Role;
 use MooseX::Aliases;
@@ -18,20 +18,20 @@ has credit_card => (
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Int',
 );
 
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Int',
 );
 
 has cvn => (
 	required => 0,
 	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => 'Int',
 );
 
 sub _build_credit_card_info {
@@ -83,7 +83,7 @@ Business::CyberSource::Request::Role::CreditCardInfo - credit card info role
 
 =head1 VERSION
 
-version v0.1.3
+version v0.1.4
 
 =head1 BUGS
 

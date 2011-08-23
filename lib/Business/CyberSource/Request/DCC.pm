@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.3'; # VERSION
+	our $VERSION = 'v0.1.4'; # VERSION
 }
 use Moose;
 use namespace::autoclean;
@@ -99,7 +99,7 @@ Business::CyberSource::Request::DCC - CyberSource DCC Request Object
 
 =head1 VERSION
 
-version v0.1.3
+version v0.1.4
 
 =head1 ATTRIBUTES
 
@@ -149,7 +149,7 @@ This attribute is required.
 
 Reader: cvn
 
-Type: Num
+Type: Int
 
 =head2 total
 
@@ -161,7 +161,7 @@ Type: Num
 
 Reader: cc_exp_month
 
-Type: Str
+Type: Int
 
 This attribute is required.
 
@@ -179,7 +179,7 @@ Additional documentation: your merchantID
 
 Reader: cc_exp_year
 
-Type: Str
+Type: Int
 
 This attribute is required.
 
