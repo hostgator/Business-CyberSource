@@ -16,7 +16,10 @@ with qw(
 use MooseX::AbstractFactory;
 
 around 'create' => sub {
-	my ( $orig, $self, $imp, $args ) = @_;
+	my $orig = shift;
+	my $self = shift;
+	my $imp  = shift;
+	my $args = shift;
 	
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   = $self->username;
@@ -27,7 +30,7 @@ around 'create' => sub {
 		croak 'args are not a hashref';
 	}
 
-	$self->orig( $imp, $args );
+	$self->orig( $imp, $args, @_ );
 };
 
 1;
