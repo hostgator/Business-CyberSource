@@ -6,8 +6,9 @@ use Carp;
 
 our $VERSION = 'v0.1.4'; # VERSION
 
+use Moose;
 use MooseX::AbstractFactory;
-use namespace::autoclean;
+#use namespace::autoclean;
 
 with qw(
 	Business::CyberSource::Request::Role::Credentials
