@@ -16,12 +16,14 @@ use MooseX::AbstractFactory;
 
 1;
 
+# ABSTRACT: CyberSource request factory
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request
+Business::CyberSource::Request - CyberSource request factory
 
 =head1 VERSION
 
