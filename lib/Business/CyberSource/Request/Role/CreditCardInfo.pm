@@ -18,20 +18,20 @@ has credit_card => (
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Int',
 );
 
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'Int',
 );
 
 has cvn => (
 	required => 0,
 	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => 'Int',
 );
 
 sub _build_credit_card_info {
