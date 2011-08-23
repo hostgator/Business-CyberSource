@@ -13,7 +13,6 @@ with qw(
 	Business::CyberSource::Request::Role::Credentials
 );
 
-use Moose;
 
 around 'create' => sub {
 	my $orig = shift;
