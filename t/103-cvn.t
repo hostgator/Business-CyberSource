@@ -32,6 +32,7 @@ my $req
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		cvn            => 123,
+		production     => 0,
 	});
 
 # check billing info
