@@ -25,9 +25,6 @@ around 'create' => sub {
 		$args->{password}   = $self->password;
 		$args->{production} = $self->production;
 	}
-	else {
-		croak 'args are not a hashref';
-	}
 
 	$self->orig( $imp, $args, @_ );
 };
