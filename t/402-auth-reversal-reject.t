@@ -34,6 +34,7 @@ my $auth_req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
+		production     => 0,
 	});
 
 my $auth = $auth_req->submit;
@@ -47,6 +48,7 @@ my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 		request_id     => '834',
 		total          => $auth->amount,
 		currency       => $auth->currency,
+		production     => 0,
 	})
 	;
 
