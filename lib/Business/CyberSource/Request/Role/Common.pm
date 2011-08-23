@@ -1,4 +1,4 @@
-package Business::CyberSource::Request;
+package Business::CyberSource::Request::Role::Common;
 use 5.008;
 use strict;
 use warnings;

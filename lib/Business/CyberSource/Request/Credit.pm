@@ -10,7 +10,7 @@ use Moose;
 use namespace::autoclean;
 with qw(
 	MooseX::Traits
-	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 );
 
