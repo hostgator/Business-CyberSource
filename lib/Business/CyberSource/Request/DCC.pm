@@ -9,7 +9,7 @@ BEGIN {
 use Moose;
 use namespace::autoclean;
 with qw(
-	Business::CyberSource::Request
+	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
