@@ -16,13 +16,8 @@ with qw(
 use MooseX::AbstractFactory;
 
 around 'create' => sub {
-	my $orig = shift;
-	my $self = shift;
-	my $imp  = shift;
-	my $args = shift;
-	
+	my ( $orig, $self, $imp, $args ) = @_;
 	use Data::Dumper;
-
 
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   = $self->username;
@@ -30,9 +25,8 @@ around 'create' => sub {
 		$args->{production} = $self->production;
 	}
 	else {
-		croak 'not a hashref';
+		croak 'args not a hashref';
 	}
-	croak Dumper @_;
 
 	$self->$orig( $imp, $args, @_ );
 };
