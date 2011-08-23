@@ -15,10 +15,12 @@ use Business::CyberSource::Request;
 
 
 my $factory
-	= Business::CyberSource::Request->new({
+	= Business::CyberSource::Request->new( 'Authorization', {
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		production     => 0,
 	});
+
+ok( $factory, 'factory exists' );
 
 done_testing;
