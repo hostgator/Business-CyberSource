@@ -32,7 +32,7 @@ around 'create' => sub {
 	else {
 		croak 'not a hashref';
 	}
-	croak Dumper $imp;
+	croak Dumper @_;
 
 	$self->$orig( $imp, $args, @_ );
 };
