@@ -21,6 +21,10 @@ around 'create' => sub {
 	my $imp  = shift;
 	my $args = shift;
 	
+	use Data::Dumper;
+
+	croak Dumper $args;
+
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   = $self->username;
 		$args->{password}   = $self->password;
