@@ -14,6 +14,16 @@ with qw(
 
 use MooseX::AbstractFactory;
 
+around 'create' => sub {
+	my $orig = shift;
+	my $self = shift;
+	use Data::Dumper;
+	
+	warn Dumper { @_ };
+
+	$self->orig(@_);
+};
+
 1;
 
 # ABSTRACT: CyberSource request factory
