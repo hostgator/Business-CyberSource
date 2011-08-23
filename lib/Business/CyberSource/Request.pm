@@ -2,6 +2,7 @@ package Business::CyberSource::Request;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 
 our $VERSION = 'v0.1.4'; # VERSION
 
@@ -15,13 +16,16 @@ with qw(
 use MooseX::AbstractFactory;
 
 around 'create' => sub {
-	my $orig = shift;
-	my $self = shift;
-	my ( $imp, $args ) = @_;
+	my ( $orig, $self, $imp, $args ) = @_;
 	
-	$args->{username}   = $self->username;
-	$args->{password}   = $self->password;
-	$args->{production} = $self->production;
+	if ( ref($args) eq 'HASH' ) {
+		$args->{username}   = $self->username;
+		$args->{password}   = $self->password;
+		$args->{production} = $self->production;
+	}
+	else {
+		croak 'args are not a hashref';
+	}
 
 	$self->orig( $imp, $args );
 };
