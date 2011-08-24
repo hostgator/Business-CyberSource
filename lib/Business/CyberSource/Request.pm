@@ -28,7 +28,7 @@ around 'create' => sub {
 		croak 'args not a hashref';
 	}
 
-	$self->$orig( $imp, { %{$args} } );
+	$self->$orig( $imp, $args );
 };
 
 1;
