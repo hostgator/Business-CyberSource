@@ -36,3 +36,42 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource request factory
+
+=head1 SYNOPSIS
+
+	my $CYBS_ID = 'myMerchantID';
+	my $CYBS_KEY = 'transaction key generated with cybersource';
+
+	use Business::CyberSource::Request;
+
+	my $request_factory
+		= Business::CyberSource::Request->new({
+			username       => $CYBS_ID,
+			password       => $CYBS_KEY,
+			production     => 0,
+		})
+		;
+
+	my $request_obj = $factory->create(
+		'Authorization',
+		{
+			reference_code => '42',
+			first_name     => 'Caleb',
+			last_name      => 'Cushing',
+			street         => 'somewhere',
+			city           => 'Houston',
+			state          => 'TX',
+			zip            => '77064',
+			country        => 'US',
+			email          => 'xenoterracide@gmail.com',
+			unit_price     => 5.00,
+			quantity       => 1,
+			total          => 5.00,
+			currency       => 'USD',
+			credit_card    => '4111-1111-1111-1111',
+			cc_exp_month   => '09',
+			cc_exp_year    => '2013',
+		}
+	);
+
+=cut
