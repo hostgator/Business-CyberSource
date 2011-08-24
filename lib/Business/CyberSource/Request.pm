@@ -35,7 +35,7 @@ around 'create' => sub {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource request factory
+# ABSTRACT: CyberSource Request factory
 
 
 __END__
@@ -43,7 +43,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request - CyberSource request factory
+Business::CyberSource::Request - CyberSource Request factory
 
 =head1 VERSION
 
@@ -78,11 +78,48 @@ version v0.1.5
 			email          => 'xenoterracide@gmail.com',
 			total          => 5.00,
 			currency       => 'USD',
-			credit_card    => '4111-1111-1111-1111',
+			credit_card    => '4111111111111111',
 			cc_exp_month   => '09',
 			cc_exp_year    => '2013',
 		}
 	);
+
+=head1 DESCRIPTION
+
+This library provides a generic factory interface to creating request objects.
+It also allows us to not repeat ourselves when specifying attributes that are
+common to all requests such as authentication, and server destination.
+
+=head1 METHODS
+
+=head2 new([{ hashref }])
+
+=head2 create( $implementation, { hashref for new } )
+
+Create a new request object. C<create> takes a request implementation and a hashref to pass to the
+implementation's C<new> method. The implementation string accepts any
+implemntation whose package name is prefixed by
+C<Business::CyberSource::Request::>.
+
+	my $req = $factory->create(
+			'Capture',
+			{
+				first_name => 'John',
+				last_name  => 'Smith',
+				...
+			}
+		);
+
+Please see the following packages for
+implementation and required attributes
+
+=over 4
+
+=item * L<Authorization|Business::CyberSource::Request::Authorization>
+
+=item * L<Capture|Business::CyberSource::Request::Capture>
+
+=back
 
 =head1 ATTRIBUTES
 
@@ -129,6 +166,8 @@ Method originates in MooseX::AbstractFactory::Role.
 =head2 username
 
 Method originates in Business::CyberSource::Request.
+
+=head1 METHODS
 
 =head1 BUGS
 
