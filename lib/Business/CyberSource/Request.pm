@@ -98,7 +98,7 @@ common to all requests such as authentication, and server destination.
 
 Create a new request object. C<create> takes a request implementation and a hashref to pass to the
 implementation's C<new> method. The implementation string accepts any
-implemntation whose package name is prefixed by
+implementation whose package name is prefixed by
 C<Business::CyberSource::Request::>.
 
 	my $req = $factory->create(
