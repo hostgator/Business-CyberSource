@@ -64,7 +64,7 @@ version v0.1.5
 		})
 		;
 
-	my $request_obj = $factory->create(
+	my $request_obj = $request_factory->create(
 		'Authorization',
 		{
 			reference_code => '42',
