@@ -76,7 +76,7 @@ sub _build_reason_text {
 			,
 		210 => 'The card has reached the credit limit',
 		211 => 'Invalid CVN',
-		221 => 'The customer matched an entry on the processor’s negative '
+		221 => 'The customer matched an entry on the processor\'s negative '
 			. 'file'
 			,
 		230 => 'The authorization request was approved by the issuing bank '
