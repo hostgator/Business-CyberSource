@@ -21,9 +21,9 @@ around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
 
 	if ( ref($args) eq 'HASH' ) {
-		$args->{username} ||= $self->_username;
-		$args->{password} ||= $self->_password;
-		$args->{production} = $self->_production unless defined $args->{production};
+		$args->{username} ||= $self->username;
+		$args->{password} ||= $self->password;
+		$args->{production} = $self->production unless defined $args->{production};
 	}
 	else {
 		croak 'args not a hashref';
@@ -112,8 +112,8 @@ C<Business::CyberSource::Request::>.
 			}
 		);
 
-Please see the following packages for
-implementation and required attributes
+Please see the following C<Business::CyberSource::Request::> packages for
+implementation and required attributes:
 
 =over
 
@@ -122,6 +122,10 @@ implementation and required attributes
 =item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
 
 =item * L<Capture|Business::CyberSource::Request::Capture>
+
+=item * L<Credit|Business::CyberSource::Request::Credit>
+
+=item * L<DCC|Business::CyberSource::Request::DCC>
 
 =back
 
