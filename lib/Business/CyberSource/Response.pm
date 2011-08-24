@@ -119,8 +119,7 @@ sub _build_reason_text {
 			,
 	};
 
-	my $reason_text = $reason->{$self->reason_code};
-	return $reason_text;
+	return $reason->{$self->reason_code};
 }
 
 __PACKAGE__->meta->make_immutable;
