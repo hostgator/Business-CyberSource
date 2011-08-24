@@ -6,10 +6,8 @@ use Carp;
 
 our $VERSION = 'v0.1.4'; # VERSION
 
-use Moose;
-use namespace::autoclean;
-
 use MooseX::AbstractFactory;
+use namespace::autoclean;
 
 has production => (
 	is       => 'ro',
