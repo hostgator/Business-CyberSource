@@ -115,7 +115,7 @@ C<Business::CyberSource::Request::>.
 Please see the following packages for
 implementation and required attributes
 
-=over 4
+=over
 
 =item * L<Authorization|Business::CyberSource::Request::Authorization>
 
@@ -170,6 +170,14 @@ Method originates in MooseX::AbstractFactory::Role.
 =head2 username
 
 Method originates in Business::CyberSource::Request.
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<MooseX::AbstractFactory>
+
+=back
 
 =head1 BUGS
 
