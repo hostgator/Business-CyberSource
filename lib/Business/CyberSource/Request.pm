@@ -9,11 +9,22 @@ our $VERSION = 'v0.1.4'; # VERSION
 use Moose;
 use namespace::autoclean;
 
-with qw(
-	Business::CyberSource::Request::Role::Credentials
+use MooseX::AbstractFactory;
+
+has production => (
+	is       => 'ro',
+	isa      => 'Bool',
 );
 
-use MooseX::AbstractFactory;
+has username => (
+	is       => 'ro',
+	isa      => 'Str',
+);
+
+has password => (
+	is       => 'ro',
+	isa      => 'Str', # actually I wonder if I can validate this more
+);
 
 around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
@@ -54,27 +65,17 @@ Reader: password
 
 Type: Str
 
-This attribute is required.
-
-Additional documentation: your SOAP transaction key
-
 =head2 production
 
 Reader: production
 
 Type: Bool
 
-This attribute is required.
-
 =head2 username
 
 Reader: username
 
 Type: Str
-
-This attribute is required.
-
-Additional documentation: your merchantID
 
 =head1 METHODS
 
