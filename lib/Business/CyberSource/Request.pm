@@ -9,20 +9,13 @@ use Carp;
 use MooseX::AbstractFactory;
 use namespace::autoclean;
 
-has production => (
-	is       => 'ro',
-	isa      => 'Bool',
+with qw(
+	 Business::CyberSource::Request::Role::Credentials
 );
 
-has username => (
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has password => (
-	is       => 'ro',
-	isa      => 'Str', # actually I wonder if I can validate this more
-);
+has '+production' => ( required => 0 );
+has '+username'   => ( required => 0 );
+has '+password'   => ( required => 0 );
 
 around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
@@ -39,6 +32,7 @@ around 'create' => sub {
 	$self->$orig( $imp, $args );
 };
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource request factory
