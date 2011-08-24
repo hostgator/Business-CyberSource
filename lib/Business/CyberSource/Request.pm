@@ -21,9 +21,9 @@ around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
 
 	if ( ref($args) eq 'HASH' ) {
-		$args->{username} ||= $self->username;
-		$args->{password} ||= $self->password;
-		$args->{production} = $self->production unless defined $args->{production};
+		$args->{username} ||= $self->_username;
+		$args->{password} ||= $self->_password;
+		$args->{production} = $self->_production unless defined $args->{production};
 	}
 	else {
 		croak 'args not a hashref';
@@ -94,6 +94,8 @@ common to all requests such as authentication, and server destination.
 
 =head2 new([{ hashref }])
 
+supports passing L<the attributes listed below|/ATTRIBUTES> as a hashref.
+
 =head2 create( $implementation, { hashref for new } )
 
 Create a new request object. C<create> takes a request implementation and a hashref to pass to the
@@ -116,6 +118,8 @@ implementation and required attributes
 =over 4
 
 =item * L<Authorization|Business::CyberSource::Request::Authorization>
+
+=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
 
 =item * L<Capture|Business::CyberSource::Request::Capture>
 
@@ -166,8 +170,6 @@ Method originates in MooseX::AbstractFactory::Role.
 =head2 username
 
 Method originates in Business::CyberSource::Request.
-
-=head1 METHODS
 
 =head1 BUGS
 
