@@ -21,9 +21,9 @@ around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
 
 	if ( ref($args) eq 'HASH' ) {
-		$args->{username}   = $self->username;
-		$args->{password}   = $self->password;
-		$args->{production} = $self->production;
+		$args->{username} ||= $self->username;
+		$args->{password} ||= $self->password;
+		$args->{production} = $self->production unless defined $args->{production};
 	}
 	else {
 		croak 'args not a hashref';
