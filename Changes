@@ -1,5 +1,6 @@
 Revision history for Business-CyberSource
 v0.1.5    2011-08-24
+	- Document Business::CyberSource::Request
 
 v0.1.4    2011-08-23
 	- turn Business::CyberSource::Request into an abstract factory for request
