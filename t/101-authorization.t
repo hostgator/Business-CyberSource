@@ -75,6 +75,7 @@ is( $ret->amount,         '5.00',    'check amount'        );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
+is( $ret->reason_text, 'Successful transaction', 'check reason_text' );
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
