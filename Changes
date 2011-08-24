@@ -1,5 +1,10 @@
 Revision history for Business-CyberSource
 v0.1.4    2011-08-23
+	- turn Business::CyberSource::Request into an abstract factory for request
+	  objects.
+	- production attribute no longer has a default, so it must always be
+	  created.
+	- credit card expiration month/year most now be an integer
 
 v0.1.3    2011-08-22
 	- experimental CVN and DCC support
