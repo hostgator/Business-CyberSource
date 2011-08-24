@@ -76,8 +76,6 @@ version v0.1.5
 			zip            => '77064',
 			country        => 'US',
 			email          => 'xenoterracide@gmail.com',
-			unit_price     => 5.00,
-			quantity       => 1,
 			total          => 5.00,
 			currency       => 'USD',
 			credit_card    => '4111-1111-1111-1111',
