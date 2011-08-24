@@ -26,7 +26,6 @@ has password => (
 
 around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
-	use Data::Dumper;
 
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   = $self->username;

@@ -30,12 +30,14 @@ has password => (
 
 1;
 
+# ABSTRACT: CyberSource login credentials
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::Credentials
+Business::CyberSource::Request::Role::Credentials - CyberSource login credentials
 
 =head1 VERSION
 
