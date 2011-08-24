@@ -49,7 +49,7 @@ ok( $req, 'request exists' );
 
 my $res = $req->submit;
 
-ok( $res = 'response exists' );
+ok( $res, 'response exists' );
 
 is( $res->decision, 'ACCEPT', 'response is ACCEPT' );
 
