@@ -35,7 +35,7 @@ around 'create' => sub {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource request factory
+# ABSTRACT: CyberSource Request factory
 
 =head1 SYNOPSIS
 
@@ -66,10 +66,61 @@ __PACKAGE__->meta->make_immutable;
 			email          => 'xenoterracide@gmail.com',
 			total          => 5.00,
 			currency       => 'USD',
-			credit_card    => '4111-1111-1111-1111',
+			credit_card    => '4111111111111111',
 			cc_exp_month   => '09',
 			cc_exp_year    => '2013',
 		}
 	);
+
+=head1 DESCRIPTION
+
+This library provides a generic factory interface to creating request objects.
+It also allows us to not repeat ourselves when specifying attributes that are
+common to all requests such as authentication, and server destination.
+
+=method new([{ hashref }])
+
+supports passing L<the attributes listed below|/ATTRIBUTES> as a hashref.
+
+=method create( $implementation, { hashref for new } )
+
+Create a new request object. C<create> takes a request implementation and a hashref to pass to the
+implementation's C<new> method. The implementation string accepts any
+implementation whose package name is prefixed by
+C<Business::CyberSource::Request::>.
+
+	my $req = $factory->create(
+			'Capture',
+			{
+				first_name => 'John',
+				last_name  => 'Smith',
+				...
+			}
+		);
+
+Please see the following C<Business::CyberSource::Request::> packages for
+implementation and required attributes:
+
+=over
+
+=item * L<Authorization|Business::CyberSource::Request::Authorization>
+
+=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+
+=item * L<Capture|Business::CyberSource::Request::Capture>
+
+=item * L<Credit|Business::CyberSource::Request::Credit>
+
+=item * L<DCC|Business::CyberSource::Request::DCC>
+
+=back
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<MooseX::AbstractFactory>
+
+=back
 
 =cut
