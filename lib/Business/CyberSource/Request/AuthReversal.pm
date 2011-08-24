@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.4'; # VERSION
+	our $VERSION = 'v0.1.5'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -112,7 +112,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.1.4
+version v0.1.5
 
 =head1 ATTRIBUTES
 

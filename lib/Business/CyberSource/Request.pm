@@ -4,25 +4,18 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.1.4'; # VERSION
+our $VERSION = 'v0.1.5'; # VERSION
 
 use MooseX::AbstractFactory;
 use namespace::autoclean;
 
-has production => (
-	is       => 'ro',
-	isa      => 'Bool',
+with qw(
+	 Business::CyberSource::Request::Role::Credentials
 );
 
-has username => (
-	is       => 'ro',
-	isa      => 'Str',
-);
-
-has password => (
-	is       => 'ro',
-	isa      => 'Str', # actually I wonder if I can validate this more
-);
+has '+production' => ( required => 0 );
+has '+username'   => ( required => 0 );
+has '+password'   => ( required => 0 );
 
 around 'create' => sub {
 	my ( $orig, $self, $imp, $args ) = @_;
@@ -39,6 +32,7 @@ around 'create' => sub {
 	$self->$orig( $imp, $args );
 };
 
+__PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource request factory
@@ -52,7 +46,7 @@ Business::CyberSource::Request - CyberSource request factory
 
 =head1 VERSION
 
-version v0.1.4
+version v0.1.5
 
 =head1 ATTRIBUTES
 
@@ -61,6 +55,8 @@ version v0.1.4
 Reader: password
 
 Type: Str
+
+Additional documentation: your SOAP transaction key
 
 =head2 production
 
@@ -74,6 +70,8 @@ Reader: username
 
 Type: Str
 
+Additional documentation: your merchantID
+
 =head1 METHODS
 
 =head2 password
@@ -81,6 +79,10 @@ Type: Str
 Method originates in Business::CyberSource::Request.
 
 =head2 production
+
+Method originates in Business::CyberSource::Request.
+
+=head2 new
 
 Method originates in Business::CyberSource::Request.
 
