@@ -37,6 +37,14 @@ my $ret = $req->submit;
 
 is( $ret->decision,       'REJECT', 'check decision'       );
 is( $ret->reason_code,     202,     'check reason_code'    );
+is(
+	$ret->reason_text,
+	'Expired card. You might also receive this if the expiration date you '
+		. 'provided does not match the date the issuing bank has on file'
+		,
+	'check reason_text',
+);
+
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
 done_testing;
