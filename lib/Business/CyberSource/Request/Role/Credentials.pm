@@ -9,6 +9,7 @@ use Moose::Role;
 use namespace::autoclean;
 
 has production => (
+	documentation => '0: test server. 1: production server',
 	required => 1,
 	is       => 'ro',
 	isa      => 'Bool',

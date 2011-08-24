@@ -163,6 +163,8 @@ Type: Bool
 
 This attribute is required.
 
+Additional documentation: 0: test server. 1: production server
+
 =head2 server
 
 Reader: server
