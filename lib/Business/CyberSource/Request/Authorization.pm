@@ -127,6 +127,8 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
+This allows you to create an authorization request.
+
 =method new
 
 Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>

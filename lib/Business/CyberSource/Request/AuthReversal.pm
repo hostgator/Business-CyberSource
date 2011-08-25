@@ -119,6 +119,8 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
+This allows you to reverse an authorization request.
+
 =method new
 
 Instantiates a authorization reversal request object, see
