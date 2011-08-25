@@ -90,6 +90,7 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource DCC Request Object
 
+
 __END__
 =pod
 
@@ -100,6 +101,10 @@ Business::CyberSource::Request::DCC - CyberSource DCC Request Object
 =head1 VERSION
 
 version 0.1.7
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
 
 =head1 ATTRIBUTES
 
@@ -308,6 +313,14 @@ Method originates in Business::CyberSource::Request::DCC.
 =head2 cvv
 
 Method originates in Business::CyberSource::Request::DCC.
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
 
 =head1 BUGS
 

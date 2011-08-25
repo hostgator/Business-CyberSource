@@ -101,6 +101,7 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource Capture Request Object
 
+
 __END__
 =pod
 
@@ -111,6 +112,10 @@ Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 =head1 VERSION
 
 version 0.1.7
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
 
 =head1 ATTRIBUTES
 
@@ -269,6 +274,14 @@ Method originates in Business::CyberSource::Request::Capture.
 =head2 client_version
 
 Method originates in Business::CyberSource::Request::Capture.
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
 
 =head1 BUGS
 

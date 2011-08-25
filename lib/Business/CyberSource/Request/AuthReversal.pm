@@ -304,6 +304,14 @@ Method originates in Business::CyberSource::Request::AuthReversal.
 
 Method originates in Business::CyberSource::Request::AuthReversal.
 
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
