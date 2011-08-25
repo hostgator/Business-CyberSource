@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.7'; # VERSION
+	our $VERSION = '0.1.7'; # VERSION
 }
 use Moose;
 use namespace::autoclean;
@@ -126,9 +126,11 @@ Business::CyberSource::Request::Credit - CyberSource Credit Request Object
 
 =head1 VERSION
 
-version v0.1.7
+version 0.1.7
 
 =head1 SYNOPSIS
+
+	use Business::CyberSource::Request::Credit;
 
 	my $req = Business::CyberSource::Request::Credit
 		->with_traits(qw{
@@ -159,7 +161,25 @@ version v0.1.7
 
 =head1 DESCRIPTION
 
-This allows you to create a request for a credit.
+This object allows you to create a request for a credit. Their are two types
+of credits, a standalone credit, and a follow on credit.
+
+=head1 METHODS
+
+=head2 with_traits
+
+For standalone credit requests requests you need to apply C<BillingInfo> and
+C<CreditCardInfo> roles. This is not necessary for follow on credits.
+
+=head2 new
+
+Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -328,6 +348,14 @@ Method originates in Business::CyberSource::Request::Credit.
 =head2 client_version
 
 Method originates in Business::CyberSource::Request::Credit.
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
 
 =head1 BUGS
 

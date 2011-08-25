@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = 'v0.1.7'; # VERSION
+	our $VERSION = '0.1.7'; # VERSION
 }
 use Moose::Role;
 
@@ -26,7 +26,7 @@ Business::CyberSource::Response::Role::Credit - CyberSource Credit Response obje
 
 =head1 VERSION
 
-version v0.1.7
+version 0.1.7
 
 =head1 BUGS
 

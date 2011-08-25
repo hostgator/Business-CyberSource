@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.7'; # VERSION
+	our $VERSION = '0.1.7'; # VERSION
 }
 use Moose::Role;
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
@@ -46,7 +46,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version v0.1.7
+version 0.1.7
 
 =head1 BUGS
 
