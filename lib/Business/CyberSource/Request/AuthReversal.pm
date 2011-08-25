@@ -132,4 +132,12 @@ which are optional.
 Actually sends the required data to CyberSource for processing and returns a
 L<Business::CyberSource::Response> object.
 
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
+
 =cut

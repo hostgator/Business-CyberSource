@@ -100,3 +100,17 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource Capture Request Object
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
+
+=cut
