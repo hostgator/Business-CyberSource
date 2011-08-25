@@ -139,6 +139,8 @@ version v0.1.7
 
 =head1 DESCRIPTION
 
+This allows you to create an authorization request.
+
 =head1 METHODS
 
 =head2 new
