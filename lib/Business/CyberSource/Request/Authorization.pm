@@ -161,11 +161,15 @@ Type: Str
 
 This attribute is required.
 
+Additional documentation: Street address on credit card billing statement
+
 =head2 ip
 
 Reader: ip
 
 Type: Str
+
+Additional documentation: IP address that customer submitted transaction from
 
 =head2 client_env
 
@@ -193,6 +197,8 @@ Type: Str
 
 This attribute is required.
 
+Additional documentation: State on credit card billing statement
+
 =head2 email
 
 Reader: email
@@ -216,6 +222,8 @@ Reader: city
 Type: Str
 
 This attribute is required.
+
+Additional documentation: City on credit card billing statement
 
 =head2 password
 
@@ -253,7 +261,7 @@ Type: MooseX::Types::Locale::Country::Alpha2Country
 
 This attribute is required.
 
-Additional documentation: ISO 2 character country code
+Additional documentation: ISO 2 character country code (as it would apply to a credit card billing statement)
 
 =head2 cvn
 
@@ -308,6 +316,8 @@ Reader: zip
 Type: Str
 
 This attribute is required.
+
+Additional documentation: postal code on credit card billing statement
 
 =head2 foreign_currency
 

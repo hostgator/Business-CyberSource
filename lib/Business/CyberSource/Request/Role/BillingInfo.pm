@@ -28,18 +28,21 @@ has street => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'Street address on credit card billing statement',
 );
 
 has city => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'City on credit card billing statement',
 );
 
 has state => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'State on credit card billing statement',
 );
 
 has country => (
@@ -47,13 +50,15 @@ has country => (
 	coerce   => 1,
 	is       => 'ro',
 	isa      => Alpha2Country,
-	documentation => 'ISO 2 character country code',
+	documentation => 'ISO 2 character country code '
+		. '(as it would apply to a credit card billing statement)',
 );
 
 has zip => (
 	required => 1,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'postal code on credit card billing statement',
 );
 
 has email => (
@@ -63,8 +68,10 @@ has email => (
 );
 
 has ip => (
+	required => 0,
 	is       => 'ro',
 	isa      => 'Str',
+	documentation => 'IP address that customer submitted transaction from',
 );
 
 sub _build_bill_to_info {
