@@ -173,7 +173,8 @@ of credits, a standalone credit, and a follow on credit.
 =head2 with_traits
 
 For standalone credit requests requests you need to apply C<BillingInfo> and
-C<CreditCardInfo> roles. This is not necessary for follow on credits.
+C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
+on credits require that you specify a C<request_id> in order to work.
 
 =head2 new
 
