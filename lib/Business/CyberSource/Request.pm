@@ -155,28 +155,6 @@ Type: Str
 
 Additional documentation: your merchantID
 
-=head1 METHODS
-
-=head2 password
-
-Method originates in Business::CyberSource::Request.
-
-=head2 production
-
-Method originates in Business::CyberSource::Request.
-
-=head2 new
-
-Method originates in Business::CyberSource::Request.
-
-=head2 create
-
-Method originates in MooseX::AbstractFactory::Role.
-
-=head2 username
-
-Method originates in Business::CyberSource::Request.
-
 =head1 SEE ALSO
 
 =over

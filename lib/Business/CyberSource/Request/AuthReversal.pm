@@ -246,64 +246,6 @@ Type: Str
 
 This attribute is required.
 
-=head1 METHODS
-
-=head2 submit
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 client_env
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 currency
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 password
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 production
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 server
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 request_id
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 new
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 total
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 username
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 reference_code
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 client_name
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 foreign_currency
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
-=head2 client_version
-
-Method originates in Business::CyberSource::Request::AuthReversal.
-
 =head1 SEE ALSO
 
 =over

@@ -115,7 +115,32 @@ version 0.1.7
 
 =head1 SYNOPSIS
 
+	my $capture = Business::CyberSource::Request::Capture->new({
+		username       => 'merchantID',
+		password       => 'transaction key',
+		production     => 0,
+		reference_code => 'merchant reference code',
+		request_id     => 'authorization response request_id',
+		total          => 5.01,  # same amount as in authorization
+		currency       => 'USD', # same currency as in authorization
+	});
+
 =head1 DESCRIPTION
+
+This object allows you to create a request for a capture.
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a authorization reversal request object, see
+L<the attributes listed below|/ATTRIBUTES> for which ones are required and
+which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -216,64 +241,6 @@ Reader: client_version
 Type: Str
 
 This attribute is required.
-
-=head1 METHODS
-
-=head2 client_env
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 password
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 server
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 new
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 total
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 username
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 reference_code
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 submit
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 currency
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 production
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 request_id
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 client_name
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 foreign_currency
-
-Method originates in Business::CyberSource::Request::Capture.
-
-=head2 client_version
-
-Method originates in Business::CyberSource::Request::Capture.
 
 =head1 SEE ALSO
 

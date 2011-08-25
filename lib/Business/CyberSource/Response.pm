@@ -172,40 +172,6 @@ Type: Int
 
 This attribute is required.
 
-=head1 METHODS
-
-=head2 new
-
-Method originates in Business::CyberSource::Response.
-
-=head2 reason_text
-
-Method originates in Business::CyberSource::Response.
-
-=head2 with_traits
-
-Method originates in MooseX::Traits.
-
-=head2 request_id
-
-Method originates in Business::CyberSource::Response.
-
-=head2 new_with_traits
-
-Method originates in MooseX::Traits.
-
-=head2 decision
-
-Method originates in Business::CyberSource::Response.
-
-=head2 reason_code
-
-Method originates in Business::CyberSource::Response.
-
-=head2 apply_traits
-
-Method originates in MooseX::Traits.
-
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
