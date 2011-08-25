@@ -102,9 +102,21 @@ Business::CyberSource::Request::DCC - CyberSource DCC Request Object
 
 version 0.1.7
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
+
+This object allows you to create a request for Direct Currency Conversion.
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a DCC request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
