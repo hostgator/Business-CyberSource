@@ -18,6 +18,10 @@ use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
 
+has '+_trait_namespace' => (
+	default => 'Business::CyberSource::Request::Role',
+);
+
 has request_id => (
 	is  => 'ro',
 	isa => 'Str',
