@@ -18,6 +18,10 @@ use Business::CyberSource::Response;
 
 use SOAP::Lite; #+trace => [ 'debug' ] ;
 
+has '+_trait_namespace' => (
+	default => 'Business::CyberSource::Request::Role',
+);
+
 has request_id => (
 	is  => 'ro',
 	isa => 'Str',
@@ -118,10 +122,12 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
+	use Business::CyberSource::Request::Credit;
+
 	my $req = Business::CyberSource::Request::Credit
 		->with_traits(qw{
-			Business::CyberSource::Request::Role::BillingInfo
-			Business::CyberSource::Request::Role::CreditCardInfo
+			BillingInfo
+			CreditCardInfo
 		})
 		->new({
 			username       => 'merchantID',
@@ -147,7 +153,13 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This allows you to create a request for a credit.
+This object allows you to create a request for a credit. Their are two types
+of credits, a standalone credit, and a follow on credit.
+
+=method with_traits
+
+For standalone credit requests requests you need to apply C<BillingInfo> and
+C<CreditCardInfo> roles. This is not necessary for follow on credits.
 
 =method new
 
