@@ -116,6 +116,7 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource Credit Request Object
 
+
 __END__
 =pod
 
@@ -126,6 +127,39 @@ Business::CyberSource::Request::Credit - CyberSource Credit Request Object
 =head1 VERSION
 
 version v0.1.7
+
+=head1 SYNOPSIS
+
+	my $req = Business::CyberSource::Request::Credit
+		->with_traits(qw{
+			Business::CyberSource::Request::Role::BillingInfo
+			Business::CyberSource::Request::Role::CreditCardInfo
+		})
+		->new({
+			username       => 'merchantID',
+			password       => 'transaction key',
+			production     => 0,
+			reference_code => 'merchant reference code',
+			first_name     => 'Caleb',
+			last_name      => 'Cushing',
+			street         => 'somewhere',
+			city           => 'Houston',
+			state          => 'TX',
+			zip            => '77064',
+			country        => 'US',
+			email          => 'xenoterracide@gmail.com',
+			total          => 5.00,
+			currency       => 'USD',
+			credit_card    => '4111-1111-1111-1111',
+			cc_exp_month   => '09',
+			cc_exp_year    => '2025',
+		});
+
+	my $res = $req->submit;
+
+=head1 DESCRIPTION
+
+This allows you to create a request for a credit.
 
 =head1 ATTRIBUTES
 
