@@ -103,6 +103,7 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource Reverse Authorization request object
 
+
 __END__
 =pod
 
@@ -113,6 +114,35 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 =head1 VERSION
 
 version v0.1.7
+
+=head1 SYNOPSIS
+
+	my $req = Business::CyberSource::Request::AuthReversal->new({
+		username       => 'merchantID',
+		password       => 'transaction key',
+		production     => 0,
+		reference_code => 'orignal authorization merchant reference code',
+		request_id     => 'request id returned in original authorization response',
+		total          => 5.00, # same as original authorization amount
+		currency       => 'USD', # same as original currency
+	});
+
+	my $res = $req->submit;
+
+=head1 DESCRIPTION
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a authorization reversal request object, see
+L<the attributes listed below|/ATTRIBUTES> for which ones are required and
+which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
