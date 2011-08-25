@@ -90,9 +90,19 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource DCC Request Object
 
-=head1 SYNOPSIS
-
 =head1 DESCRIPTION
+
+This object allows you to create a request for Direct Currency Conversion.
+
+=method new
+
+Instantiates a DCC request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=method submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 
