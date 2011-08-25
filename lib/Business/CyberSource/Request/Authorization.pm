@@ -143,7 +143,7 @@ version v0.1.7
 
 =head2 new
 
-Instantiates a request object, see L<the attributes listed below/ATTRIBUTES>
+Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>
 for which ones are required and which are optional.
 
 =head2 submit
