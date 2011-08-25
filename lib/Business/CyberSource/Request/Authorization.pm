@@ -97,4 +97,52 @@ sub _build_sdbo {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Authorization request object
+# ABSTRACT: CyberSource Authorization Request object
+
+=head1 SYNOPSIS
+
+	use Business::CyberSource::Request::Authorization;
+
+	my $req = Business::CyberSource::Request::Authorization->new({
+		username       => 'merchantID',
+		password       => 'transaction key',
+		production     => 0,
+		reference_code => '42',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => '100 somewhere st',
+		city           => 'Houston',
+		state          => 'TX',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'xenoterracide@gmail.com',
+		total          => 5.00,
+		currency       => 'USD',
+		credit_card    => '4111111111111111',
+		cc_exp_month   => '09',
+		cc_exp_year    => '2025',
+	});
+
+	my $response = $req->submit;
+
+=head1 DESCRIPTION
+
+=method new
+
+Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=method submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Business::CyberSource::Request>
+
+=back
+
+=cut
