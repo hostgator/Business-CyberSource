@@ -138,8 +138,8 @@ version 0.1.7
 
 	my $req = Business::CyberSource::Request::Credit
 		->with_traits(qw{
-			Business::CyberSource::Request::Role::BillingInfo
-			Business::CyberSource::Request::Role::CreditCardInfo
+			BillingInfo
+			CreditCardInfo
 		})
 		->new({
 			username       => 'merchantID',
