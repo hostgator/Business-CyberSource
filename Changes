@@ -1,6 +1,11 @@
 Revision history for Business-CyberSource
 {{$NEXT}}
 
+0.1.7     2011-08-25
+	- add basic documentation for requests
+	- disable method documentation generation
+	- change how traits are applied on credit requests
+
 v0.1.6    2011-08-24
 	- provide reason_text attribute on responses
 
