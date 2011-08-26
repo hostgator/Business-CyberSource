@@ -138,7 +138,7 @@ Additional documentation: Flag that indicates whether a CVN code was sent
 
 Reader: currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 This attribute is required.
 
@@ -240,7 +240,7 @@ This attribute is required.
 
 Reader: foreign_currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 =head2 client_version
 

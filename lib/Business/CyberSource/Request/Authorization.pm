@@ -211,7 +211,7 @@ Additional documentation: State on credit card billing statement
 
 Reader: currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 This attribute is required.
 
@@ -347,7 +347,7 @@ Additional documentation: Second line of the billing street address.
 
 Reader: foreign_currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 =head2 reference_code
 

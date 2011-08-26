@@ -158,7 +158,7 @@ Type: Str
 
 Reader: currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 This attribute is required.
 
@@ -224,7 +224,7 @@ Type: Str
 
 Reader: foreign_currency
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[5]
 
 =head2 reference_code
 
