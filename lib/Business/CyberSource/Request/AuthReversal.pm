@@ -3,11 +3,9 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-BEGIN {
-	# VERSION
-}
 
-use SOAP::Lite; # +trace => [ 'debug' ] ;
+# VERSION
+
 use Moose;
 use namespace::autoclean;
 with qw(

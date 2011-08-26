@@ -3,9 +3,9 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-BEGIN {
-	# VERSION
-}
+
+# VERSION
+
 use Moose;
 use namespace::autoclean;
 with qw(
@@ -15,8 +15,6 @@ with qw(
 );
 
 use Business::CyberSource::Response;
-
-use SOAP::Lite; #+trace => [ 'debug' ] ;
 
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
