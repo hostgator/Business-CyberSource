@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.1.9'; # VERSION
+our $VERSION = 'v0.1.10'; # VERSION
 
 use MooseX::AbstractFactory;
 use namespace::autoclean;
@@ -47,7 +47,7 @@ Business::CyberSource::Request - CyberSource Request factory
 
 =head1 VERSION
 
-version v0.1.9
+version v0.1.10
 
 =head1 SYNOPSIS
 

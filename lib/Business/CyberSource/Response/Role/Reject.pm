@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.9'; # VERSION
+	our $VERSION = 'v0.1.10'; # VERSION
 }
 use Moose::Role;
 
@@ -27,7 +27,7 @@ Business::CyberSource::Response::Role::Reject - role for handling rejected trans
 
 =head1 VERSION
 
-version v0.1.9
+version v0.1.10
 
 =head1 BUGS
 
