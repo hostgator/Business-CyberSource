@@ -76,6 +76,8 @@ has email => (
 	required => 1,
 	is       => 'ro',
 	isa      => EmailAddress,
+	documentation => 'Customer\'s email address, including the full domain '
+		. 'name',
 );
 
 has ip => (
