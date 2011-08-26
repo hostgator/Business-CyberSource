@@ -56,6 +56,7 @@ is( $req->street2,        '#514',      'check street2'        );
 is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
+is( $req->ip,             '192.168.42.39', 'check ip address' );
 
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
@@ -71,7 +72,7 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 my $ret = $req->submit;
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, '42',     'check reference_code' );
+is( $ret->reference_code, '36',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '5.00',    'check amount'        );
