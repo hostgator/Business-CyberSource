@@ -32,6 +32,7 @@ requires:
   MooseX::AbstractFactory: 0
   MooseX::Aliases: 0
   MooseX::Traits: 0
+  MooseX::Types::CreditCard: 0
   MooseX::Types::DateTime::W3C: 0
   MooseX::Types::Email: 0
   MooseX::Types::Locale::Country: 0
@@ -46,4 +47,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.1.7
+version: v0.1.8

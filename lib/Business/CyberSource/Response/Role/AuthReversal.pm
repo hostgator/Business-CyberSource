@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = '0.1.7'; # VERSION
+	our $VERSION = 'v0.1.8'; # VERSION
 }
 use Moose::Role;
 
@@ -32,7 +32,7 @@ Business::CyberSource::Response::Role::AuthReversal - Role for Authorization Rev
 
 =head1 VERSION
 
-version 0.1.7
+version v0.1.8
 
 =head1 BUGS
 
