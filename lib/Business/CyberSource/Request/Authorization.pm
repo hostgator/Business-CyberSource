@@ -277,7 +277,7 @@ Additional documentation: ISO 2 character country code (as it would apply to a c
 
 Reader: cvn
 
-Type: Int
+Type: MooseX::Types::CreditCard::CardSecurityCode
 
 =head2 total
 

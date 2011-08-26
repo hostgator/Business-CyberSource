@@ -11,7 +11,7 @@ use namespace::autoclean;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
-use MooseX::Types::CreditCard qw( CreditCard );
+use MooseX::Types::CreditCard qw( CreditCard CardSecurityCode );
 
 has credit_card => (
 	required => 1,
@@ -51,7 +51,7 @@ has cvn => (
 	required => 0,
 	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
 	is       => 'ro',
-	isa      => Int,
+	isa      => CardSecurityCode,
 );
 
 sub _build_credit_card_info {

@@ -174,7 +174,7 @@ This attribute is required.
 
 Reader: cvn
 
-Type: Int
+Type: MooseX::Types::CreditCard::CardSecurityCode
 
 =head2 cc_exp_month
 
