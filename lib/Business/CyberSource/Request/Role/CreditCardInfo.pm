@@ -14,7 +14,8 @@ use MooseX::Types::CreditCard;
 has credit_card => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => 'CreditCard',
+	coerce   => 1,
 );
 
 has cc_exp_month => (

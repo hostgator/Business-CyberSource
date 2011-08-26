@@ -206,7 +206,7 @@ This attribute is required.
 
 Reader: credit_card
 
-Type: Str
+Type: CreditCard
 
 This attribute is required.
 
