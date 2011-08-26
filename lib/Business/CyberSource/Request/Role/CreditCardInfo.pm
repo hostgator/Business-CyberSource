@@ -81,14 +81,14 @@ sub _build_credit_card_info {
 
 	if ( $self->cvn ) {
 		$sb->add_elem(
-			name   => 'cvNumber',
-			value  => $self->cvn,
+			name   => 'cvIndicator',
+			value  => $self->cv_indicator,
 			parent => $card,
 		);
 
 		$sb->add_elem(
-			name   => 'cvIndicator',
-			value  => $self->cv_indicator,
+			name   => 'cvNumber',
+			value  => $self->cvn,
 			parent => $card,
 		);
 	}
