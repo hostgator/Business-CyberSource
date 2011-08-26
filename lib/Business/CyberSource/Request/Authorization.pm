@@ -223,6 +223,8 @@ Type: MooseX::Types::Email::EmailAddress
 
 This attribute is required.
 
+Additional documentation: Customer's email address, including the full domain name
+
 =head2 city
 
 Reader: city
@@ -303,11 +305,11 @@ This attribute is required.
 
 Reader: username
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[30]
 
 This attribute is required.
 
-Additional documentation: your merchantID
+Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head2 credit_card
 

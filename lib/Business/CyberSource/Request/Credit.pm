@@ -246,11 +246,11 @@ Type: Num
 
 Reader: username
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[30]
 
 This attribute is required.
 
-Additional documentation: your merchantID
+Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head2 client_name
 

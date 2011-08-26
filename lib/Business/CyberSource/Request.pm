@@ -151,9 +151,9 @@ Additional documentation: 0: test server. 1: production server
 
 Reader: username
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[30]
 
-Additional documentation: your merchantID
+Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head1 SEE ALSO
 
