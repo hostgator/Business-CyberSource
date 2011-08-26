@@ -21,6 +21,7 @@ with qw(
 requires '_build_sdbo';
 requires 'submit';
 
+use SOAP::Lite 0.714;
 use SOAP::Data::Builder;
 
 has server => (

@@ -3,9 +3,9 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-BEGIN {
-	our $VERSION = 'v0.1.10'; # VERSION
-}
+
+our $VERSION = 'v0.1.10'; # VERSION
+
 use Moose;
 use namespace::autoclean;
 with qw(
@@ -13,8 +13,6 @@ with qw(
 );
 
 use Business::CyberSource::Response;
-
-use SOAP::Lite; # +trace => [ 'debug' ] ;
 
 sub submit {
 	my $self = shift;

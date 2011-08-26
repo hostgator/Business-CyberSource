@@ -40,7 +40,7 @@ requires:
   MooseX::Types::URI: 0
   MooseX::Types::Varchar: 0
   SOAP::Data::Builder: 0
-  SOAP::Lite: 0
+  SOAP::Lite: 0.714
   namespace::autoclean: 0
   perl: 5.008
   strict: 0
