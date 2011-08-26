@@ -48,10 +48,11 @@ is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
 # check billing info
-is( $req->reference_code, '42',        'check reference_code' );
+is( $req->reference_code, '36',        'check reference_code' );
 is( $req->first_name,     'Caleb',     'check first_name'     );
 is( $req->last_name,      'Cushing',   'check first_name'     );
-is( $req->street,         'somewhere', 'check street'         );
+is( $req->street1,        '100 somewhere blvd', 'check street1');
+is( $req->street2,        '#514',      'check street2'        );
 is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
