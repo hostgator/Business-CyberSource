@@ -10,6 +10,7 @@ use Moose::Role;
 use namespace::autoclean;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
+use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard qw( CreditCard );
 
 has credit_card => (
@@ -35,6 +36,15 @@ has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
 	isa      => Int,
+);
+
+has cv_indicator => (
+	required => 0,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => Varchar[1],
+	default  => '1',
+	documentation => 'Flag that indicates whether a CVN code was sent'
 );
 
 has cvn => (
@@ -70,6 +80,12 @@ sub _build_credit_card_info {
 	);
 
 	if ( $self->cvn ) {
+		$sb->add_elem(
+			name   => 'cvIndicator',
+			value  => $self->cv_indicator,
+			parent => $card,
+		);
+
 		$sb->add_elem(
 			name   => 'cvNumber',
 			value  => $self->cvn,
