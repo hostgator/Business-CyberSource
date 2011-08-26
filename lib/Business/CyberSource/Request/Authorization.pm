@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.8'; # VERSION
+	our $VERSION = 'v0.1.9'; # VERSION
 }
 
 use SOAP::Lite; # +trace => [ 'debug' ] ;
@@ -109,7 +109,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.1.8
+version v0.1.9
 
 =head1 SYNOPSIS
 
@@ -159,7 +159,7 @@ L<Business::CyberSource::Response> object.
 
 Reader: street
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
@@ -169,7 +169,7 @@ Additional documentation: Street address on credit card billing statement
 
 Reader: ip
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[15]
 
 Additional documentation: IP address that customer submitted transaction from
 
@@ -185,7 +185,7 @@ This attribute is required.
 
 Reader: last_name
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
@@ -195,7 +195,7 @@ Additional documentation: Card Holder's last name
 
 Reader: state
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[2]
 
 This attribute is required.
 
@@ -221,7 +221,7 @@ This attribute is required.
 
 Reader: city
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
 
@@ -315,7 +315,7 @@ This attribute is required.
 
 Reader: zip
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[10]
 
 This attribute is required.
 
@@ -355,7 +355,7 @@ This attribute is required.
 
 Reader: first_name
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 

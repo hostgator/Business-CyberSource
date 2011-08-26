@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.1.8'; # VERSION
+	our $VERSION = 'v0.1.9'; # VERSION
 }
 use Moose;
 use namespace::autoclean;
@@ -111,7 +111,7 @@ Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 
 =head1 VERSION
 
-version v0.1.8
+version v0.1.9
 
 =head1 SYNOPSIS
 

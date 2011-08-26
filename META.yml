@@ -38,6 +38,7 @@ requires:
   MooseX::Types::Locale::Country: 0
   MooseX::Types::Moose: 0
   MooseX::Types::URI: 0
+  MooseX::Types::Varchar: 0
   SOAP::Data::Builder: 0
   SOAP::Lite: 0
   namespace::autoclean: 0
@@ -48,4 +49,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: v0.1.8
+version: v0.1.9
