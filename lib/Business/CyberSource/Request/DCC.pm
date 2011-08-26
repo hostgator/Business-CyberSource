@@ -126,6 +126,14 @@ Reader: client_env
 
 Type: Str
 
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::Varchar::Varchar[1]
+
+Additional documentation: Flag that indicates whether a CVN code was sent
+
 =head2 currency
 
 Reader: currency
@@ -168,12 +176,6 @@ Reader: cvn
 
 Type: Int
 
-=head2 total
-
-Reader: total
-
-Type: Num
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -181,6 +183,12 @@ Reader: cc_exp_month
 Type: Int
 
 This attribute is required.
+
+=head2 total
+
+Reader: total
+
+Type: Num
 
 =head2 username
 
@@ -208,6 +216,18 @@ Type: MooseX::Types::CreditCard::CreditCard
 
 This attribute is required.
 
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::Varchar::Varchar[3]
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
 =head2 reference_code
 
 Reader: reference_code
@@ -215,12 +235,6 @@ Reader: reference_code
 Type: Str
 
 This attribute is required.
-
-=head2 client_name
-
-Reader: client_name
-
-Type: Str
 
 =head2 foreign_currency
 

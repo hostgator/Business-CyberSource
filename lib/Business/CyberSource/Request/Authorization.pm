@@ -179,6 +179,14 @@ Reader: client_env
 
 Type: Str
 
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::Varchar::Varchar[1]
+
+Additional documentation: Flag that indicates whether a CVN code was sent
+
 =head2 last_name
 
 Reader: last_name
@@ -199,19 +207,19 @@ This attribute is required.
 
 Additional documentation: State on credit card billing statement
 
-=head2 email
-
-Reader: email
-
-Type: MooseX::Types::Email::EmailAddress
-
-This attribute is required.
-
 =head2 currency
 
 Reader: currency
 
 Type: Str
+
+This attribute is required.
+
+=head2 email
+
+Reader: email
+
+Type: MooseX::Types::Email::EmailAddress
 
 This attribute is required.
 
@@ -308,6 +316,12 @@ Reader: credit_card
 Type: MooseX::Types::CreditCard::CreditCard
 
 This attribute is required.
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::Varchar::Varchar[3]
 
 =head2 zip
 
