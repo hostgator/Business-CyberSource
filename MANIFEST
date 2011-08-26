@@ -27,6 +27,7 @@ lib/Business/CyberSource/Response/Role/Credit.pm
 lib/Business/CyberSource/Response/Role/Reject.pm
 perlcritic.rc
 t/00-compile.t
+t/000-report-versions-tiny.t
 t/101-authorization.t
 t/102-auth-bad-auth-credentials.t
 t/103-rejected-request.t
