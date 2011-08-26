@@ -38,6 +38,7 @@ my %WriteMakefileArgs = (
     "MooseX::Types::DateTime::W3C" => 0,
     "MooseX::Types::Email" => 0,
     "MooseX::Types::Locale::Country" => 0,
+    "MooseX::Types::Moose" => 0,
     "MooseX::Types::URI" => 0,
     "SOAP::Data::Builder" => 0,
     "SOAP::Lite" => 0,

@@ -9,32 +9,33 @@ BEGIN {
 use Moose::Role;
 use namespace::autoclean;
 use MooseX::Aliases;
-use MooseX::Types::CreditCard;
+use MooseX::Types::Moose      qw( Int        );
+use MooseX::Types::CreditCard qw( CreditCard );
 
 has credit_card => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'CreditCard',
+	isa      => CreditCard,
 	coerce   => 1,
 );
 
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => Int,
 );
 
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => Int,
 );
 
 has cvn => (
 	required => 0,
 	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => Int,
 );
 
 sub _build_credit_card_info {

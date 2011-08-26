@@ -307,7 +307,7 @@ Additional documentation: your merchantID
 
 Reader: credit_card
 
-Type: CreditCard
+Type: MooseX::Types::CreditCard::CreditCard
 
 This attribute is required.
 
