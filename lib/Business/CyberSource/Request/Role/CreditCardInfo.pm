@@ -19,6 +19,12 @@ has credit_card => (
 	coerce   => 1,
 );
 
+has card_type => (
+	required => 0,
+	is       => 'ro',
+	isa      => Varchar[3],
+);
+
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
