@@ -150,8 +150,6 @@ Reader: client_env
 
 Type: Str
 
-This attribute is required.
-
 =head2 currency
 
 Reader: currency
@@ -232,15 +230,11 @@ Reader: client_name
 
 Type: Str
 
-This attribute is required.
-
 =head2 client_version
 
 Reader: client_version
 
 Type: Str
-
-This attribute is required.
 
 =head1 SEE ALSO
 

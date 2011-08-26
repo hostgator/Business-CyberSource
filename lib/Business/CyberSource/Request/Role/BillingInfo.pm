@@ -110,7 +110,7 @@ sub _build_bill_to_info {
 		parent => $bill_to,
 	);
 
-	if ( $self->street2 ) { 
+	if ( $self->street2 ) {
 		$sb->add_elem(
 			name   => 'street2',
 			value  => $self->street2,

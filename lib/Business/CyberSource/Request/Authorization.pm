@@ -179,8 +179,6 @@ Reader: client_env
 
 Type: Str
 
-This attribute is required.
-
 =head2 last_name
 
 Reader: last_name
@@ -349,15 +347,11 @@ Reader: client_name
 
 Type: Str
 
-This attribute is required.
-
 =head2 client_version
 
 Reader: client_version
 
 Type: Str
-
-This attribute is required.
 
 =head2 first_name
 
