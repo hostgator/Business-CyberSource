@@ -321,6 +321,14 @@ This attribute is required.
 
 Additional documentation: postal code on credit card billing statement
 
+=head2 street2
+
+Reader: street2
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: Second line of the billing street address.
+
 =head2 foreign_currency
 
 Reader: foreign_currency

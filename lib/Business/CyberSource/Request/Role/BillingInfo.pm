@@ -35,6 +35,13 @@ has street => (
 	documentation => 'Street address on credit card billing statement',
 );
 
+has street2 => (
+	required => 0,
+	is       => 'ro',
+	isa      => Varchar[60],
+	documentation => 'Second line of the billing street address.',
+);
+
 has city => (
 	required => 1,
 	is       => 'ro',
@@ -99,9 +106,17 @@ sub _build_bill_to_info {
 
 	$sb->add_elem(
 		name   => 'street1',
-		value  => $self->street,
+		value  => $self->street1,
 		parent => $bill_to,
 	);
+
+	if ( $self->street2 ) { 
+		$sb->add_elem(
+			name   => 'street2',
+			value  => $self->street2,
+			parent => $bill_to,
+		);
+	}
 
 	$sb->add_elem(
 		name   => 'city',
