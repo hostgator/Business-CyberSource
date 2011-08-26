@@ -8,7 +8,9 @@ our @CARP_NOT = qw( SOAP::Lite );
 # VERSION
 
 use Moose::Role;
-use MooseX::Types::URI qw( Uri );
+use namespace::autoclean;
+use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::URI     qw( Uri     );
 
 with qw(
 	Business::CyberSource
@@ -43,7 +45,7 @@ has _sdbo => (
 has reference_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[50],
 );
 
 sub _build_soap_request {
