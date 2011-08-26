@@ -230,7 +230,7 @@ Type: Str
 
 Reader: reference_code
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
 
