@@ -15,7 +15,13 @@ has client_version => (
 	init_arg => undef,
 	is       => 'ro',
 	isa      => 'Str',
-	default  => sub { return $Business::CyberSource::VERSION },
+	default  => sub {
+		my $version
+			= $Business::CyberSource::VERSION ? $Business::CyberSource::VERSION
+			                                  : 'v0.0.0'
+			;
+		return $version;
+	},
 );
 
 has client_name => (
