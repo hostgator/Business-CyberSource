@@ -42,7 +42,7 @@ my $auth_req = $factory->create(
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
+		total          => 9.95,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
@@ -55,7 +55,7 @@ my $auth = $auth_req->submit;
 my %args = (
 	request_id     => $auth->request_id,
 	reference_code => '74',
-	total          => 5.00,
+	total          => 9.95,
 	currency       => 'USD',
 );
 
