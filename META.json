@@ -37,7 +37,7 @@
             "MooseX::AbstractFactory" : 0,
             "MooseX::Aliases" : 0,
             "MooseX::Traits" : 0,
-            "MooseX::Types::CreditCard" : 0,
+            "MooseX::Types::CreditCard" : "v0.1.1",
             "MooseX::Types::DateTime::W3C" : 0,
             "MooseX::Types::Email" : 0,
             "MooseX::Types::Locale::Country" : 0,
