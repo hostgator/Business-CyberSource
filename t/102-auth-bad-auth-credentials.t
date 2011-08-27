@@ -37,10 +37,6 @@ my $req
 
 is( $req->username, 'foobar',  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
-is( $req->client_version,
-	$Business::CyberSource::VERSION,
-	'check client_version valid'
-);
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
