@@ -49,15 +49,18 @@ my $auth_req = $factory->create(
 
 my $auth = $auth_req->submit;
 
+my %args = (
+	request_id     => $auth->request_id,
+	reference_code => '74',
+	total          => 5.00,
+	currency       => 'USD',
+)
+
+
 $req_type = 'AuthReversal';
 my $req = $factory->create(
 	$req_type,
-	{
-		request_id     => $auth->request_id,
-		reference_code => '74',
-		total          => 5.00,
-		currency       => 'USD',
-	}
+	\%args,
 );
 
 ok( $req, 'request exists' );
