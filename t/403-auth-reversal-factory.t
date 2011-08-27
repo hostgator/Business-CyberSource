@@ -21,11 +21,11 @@ my $api_info = {
 };
 
 my $factory
-	= Business::CyberSource::Request->new({
+	= Business::CyberSource::Request->new(
 		username       => $api_info->{username},
 		password       => $api_info->{password},
-		production     => 0,
-	});
+		production     => 0
+	);
 
 ok( $factory, 'factory exists' );
 
