@@ -23,6 +23,31 @@ my $factory
 
 ok( $factory, 'factory exists' );
 
+my $auth_req = $factory->create(
+	'Authorization',
+	{
+		reference_code => '74',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => 'somewhere',
+		city           => 'Houston',
+		state          => 'TX',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'xenoterracide@gmail.com',
+		unit_price     => 5.00,
+		quantity       => 1,
+		total          => 5.00,
+		currency       => 'USD',
+		credit_card    => '4111-1111-1111-1111',
+		cc_exp_month   => '09',
+		cc_exp_year    => '2025',
+		production     => 0,
+	}
+);
+
+my $auth = $auth_req->submit;
+
 my $req = $factory->create(
 	'AuthReversal',
 	{
