@@ -40,6 +40,7 @@ t/301-credit.t
 t/302-follow-on-credit.t
 t/401-auth-reversal.t
 t/402-auth-reversal-reject.t
+t/403-auth-reversal-factory.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t
