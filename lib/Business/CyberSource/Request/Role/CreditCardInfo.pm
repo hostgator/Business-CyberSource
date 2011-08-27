@@ -11,7 +11,7 @@ use namespace::autoclean;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
-use MooseX::Types::CreditCard v0.1.1 qw( CreditCard CardSecurityCode );
+use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
 
 has credit_card => (
 	required => 1,
