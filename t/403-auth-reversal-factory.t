@@ -15,10 +15,15 @@ use Business::CyberSource::Request;
 
 my $req_type;
 
+my $api_info = {
+	username => $CYBS_ID,
+	password => $CYBS_KEY,
+};
+
 my $factory
 	= Business::CyberSource::Request->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $api_info->{username},
+		password       => $api_info->{password},
 		production     => 0,
 	});
 
