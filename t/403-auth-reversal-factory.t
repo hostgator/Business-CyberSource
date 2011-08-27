@@ -54,8 +54,7 @@ my %args = (
 	reference_code => '74',
 	total          => 5.00,
 	currency       => 'USD',
-)
-
+);
 
 $req_type = 'AuthReversal';
 my $req = $factory->create(
