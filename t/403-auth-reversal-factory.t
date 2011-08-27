@@ -13,6 +13,7 @@ plan skip_all
 
 use Business::CyberSource::Request;
 
+my $req_type;
 
 my $factory
 	= Business::CyberSource::Request->new({
@@ -23,8 +24,9 @@ my $factory
 
 ok( $factory, 'factory exists' );
 
+$req_type = 'Authorization';
 my $auth_req = $factory->create(
-	'Authorization',
+	$req_type,
 	{
 		reference_code => '74',
 		first_name     => 'Caleb',
@@ -47,8 +49,9 @@ my $auth_req = $factory->create(
 
 my $auth = $auth_req->submit;
 
+$req_type = 'AuthReversal';
 my $req = $factory->create(
-	'AuthReversal',
+	$req_type,
 	{
 		request_id     => $auth->request_id,
 		reference_code => '74',
