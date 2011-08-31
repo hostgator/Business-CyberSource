@@ -11,6 +11,8 @@ use namespace::autoclean;
 
 with qw( MooseX::Traits );
 
+use MooseX::Types::CyberSource qw( Decision );
+
 has request_id => (
 	required => 1,
 	is       => 'ro',
@@ -20,7 +22,7 @@ has request_id => (
 has decision => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Decision,
 );
 
 has reason_code => (
