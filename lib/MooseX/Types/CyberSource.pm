@@ -18,6 +18,7 @@ enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
 	{
 		package My::CyberSource::Response;
+		use Moose;
 		use MooseX::Types::CyberSource qw( Decision );
 
 		has decision => (
@@ -26,7 +27,7 @@ enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 		);
 		__PACKAGE__->meta->make_immutable;
 	}
-	
+
 	my $response = My::CyberSource::Response->new({
 		decison => 'ACCEPT'
 	});
