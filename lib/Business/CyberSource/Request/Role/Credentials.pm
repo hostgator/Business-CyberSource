@@ -7,8 +7,9 @@ use warnings;
 
 use Moose::Role;
 use namespace::autoclean;
-use MooseX::Types::Varchar qw( Varchar );
-use MooseX::Types::Moose   qw( Bool Str );
+use MooseX::Types::Varchar        qw( Varchar  );
+use MooseX::Types::Moose          qw( Bool Str );
+use MooseX::Types::Common::String qw( Password );
 
 has production => (
 	documentation => '0: test server. 1: production server',
@@ -29,7 +30,7 @@ has password => (
 	documentation => 'your SOAP transaction key',
 	required => 1,
 	is       => 'ro',
-	isa      => Str, # actually I wonder if I can validate this more
+	isa      => Password,
 );
 
 1;
