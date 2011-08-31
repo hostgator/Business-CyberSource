@@ -6,6 +6,7 @@ use warnings;
 our $VERSION = 'v0.1.10'; # VERSION
 
 use MooseX::Types -declare => [ qw( Decision ) ];
+use namespace::autoclean;
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
