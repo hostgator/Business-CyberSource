@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 our @CARP_NOT = qw( SOAP::Lite );
 
-our $VERSION = 'v0.1.10'; # VERSION
+our $VERSION = 'v0.1.11'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
@@ -164,7 +164,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.1.10
+version v0.1.11
 
 =head1 BUGS
 
