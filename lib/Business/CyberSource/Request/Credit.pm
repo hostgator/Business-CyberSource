@@ -196,7 +196,7 @@ Type: Str
 
 Reader: currency
 
-Type: MooseX::Types::Varchar::Varchar[5]
+Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 This attribute is required.
 
@@ -260,7 +260,7 @@ Type: Str
 
 Reader: foreign_currency
 
-Type: MooseX::Types::Varchar::Varchar[5]
+Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 =head2 reference_code
 

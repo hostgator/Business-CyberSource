@@ -1,6 +1,6 @@
 Revision history for Business-CyberSource
 
-v0.1.10   2011-08-26
+v0.1.10   2011-08-31
 
 v0.1.9    2011-08-26
 	- use MooseX::Types and Varchar to make attributes stricter and better

@@ -64,6 +64,7 @@ eval { $v .= pmver('MooseX::Types::CreditCard','0.001001') };
 eval { $v .= pmver('MooseX::Types::DateTime::W3C','any version') };
 eval { $v .= pmver('MooseX::Types::Email','any version') };
 eval { $v .= pmver('MooseX::Types::Locale::Country','any version') };
+eval { $v .= pmver('MooseX::Types::Locale::Currency','any version') };
 eval { $v .= pmver('MooseX::Types::Moose','any version') };
 eval { $v .= pmver('MooseX::Types::URI','any version') };
 eval { $v .= pmver('MooseX::Types::Varchar','any version') };

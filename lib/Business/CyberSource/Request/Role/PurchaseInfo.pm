@@ -9,11 +9,12 @@ use Moose::Role;
 use namespace::autoclean;
 use MooseX::Types::Moose   qw( Num     );
 use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Locale::Currency qw( CurrencyCode );
 
 has currency => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[5],
+	isa      => CurrencyCode,
 );
 
 has total => (
@@ -23,7 +24,7 @@ has total => (
 
 has foreign_currency => (
 	is  => 'ro',
-	isa => Varchar[5],
+	isa => CurrencyCode,
 );
 
 sub _build_purchase_info {
