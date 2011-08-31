@@ -34,6 +34,7 @@ my %WriteMakefileArgs = (
     "MooseX::AbstractFactory" => 0,
     "MooseX::Aliases" => 0,
     "MooseX::Traits" => 0,
+    "MooseX::Types" => 0,
     "MooseX::Types::CreditCard" => "0.001001",
     "MooseX::Types::DateTime::W3C" => 0,
     "MooseX::Types::Email" => 0,

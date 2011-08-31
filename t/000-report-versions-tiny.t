@@ -60,6 +60,7 @@ eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('MooseX::AbstractFactory','any version') };
 eval { $v .= pmver('MooseX::Aliases','any version') };
 eval { $v .= pmver('MooseX::Traits','any version') };
+eval { $v .= pmver('MooseX::Types','any version') };
 eval { $v .= pmver('MooseX::Types::CreditCard','0.001001') };
 eval { $v .= pmver('MooseX::Types::DateTime::W3C','any version') };
 eval { $v .= pmver('MooseX::Types::Email','any version') };
