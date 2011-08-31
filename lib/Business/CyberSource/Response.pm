@@ -2,21 +2,21 @@ package Business::CyberSource::Response;
 use 5.008;
 use strict;
 use warnings;
-use Carp;
-BEGIN {
-	# VERSION
-}
+
+# VERSION
+
 use Moose;
 use namespace::autoclean;
 
 with qw( MooseX::Traits );
 
+use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::CyberSource qw( Decision );
 
 has request_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Str,
 );
 
 has decision => (
@@ -28,14 +28,14 @@ has decision => (
 has reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => Int,
 );
 
 has reason_text => (
 	required => 1,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Str,
 	builder  => '_build_reason_text',
 );
 
