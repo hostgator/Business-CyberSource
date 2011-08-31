@@ -30,6 +30,7 @@ version v0.1.10
 
 	{
 		package My::CyberSource::Response;
+		use Moose;
 		use MooseX::Types::CyberSource qw( Decision );
 
 		has decision => (
