@@ -38,7 +38,7 @@ version v0.1.10
 		);
 		__PACKAGE__->meta->make_immutable;
 	}
-	
+
 	my $response = My::CyberSource::Response->new({
 		decison => 'ACCEPT'
 	});
