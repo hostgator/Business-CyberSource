@@ -2,6 +2,10 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.1.10   2011-08-31
+	- use more MooseX::Types
+	- fix subtle missing use Business::CyberSource::Response
+
 v0.1.9    2011-08-26
 	- use MooseX::Types and Varchar to make attributes stricter and better
 	  documented accross the board
