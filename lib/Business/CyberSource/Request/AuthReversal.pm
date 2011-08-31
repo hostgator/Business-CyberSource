@@ -13,6 +13,8 @@ with qw(
 	Business::CyberSource::Request::Role::PurchaseInfo
 );
 
+use Business::CyberSource::Response;
+
 sub submit {
 	my $self = shift;
 
