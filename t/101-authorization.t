@@ -62,6 +62,9 @@ is( $req->credit_card,  '4111111111111111', 'check credit card number' );
 is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
 is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
+ok( $req->cybs_wsdl->stringify, 'check for wsdl' );
+ok( $req->cybs_xsd->stringify,  'check for xsd' );
+
 my $ret = $req->submit;
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
