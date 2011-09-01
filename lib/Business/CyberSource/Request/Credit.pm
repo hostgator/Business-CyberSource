@@ -54,9 +54,9 @@ sub submit {
 			currency         => $self->currency,
 			grandTotalAmount => $self->total,
 		},
-		ccAuthReversalService => {
+		ccCreditService => {
 			run => 'true',
-			authRequestID => $self->request_id,
+			captureRequestID => $self->request_id,
 		},
 	);
 
