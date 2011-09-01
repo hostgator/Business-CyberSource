@@ -2,12 +2,11 @@ package Business::CyberSource::Request::Role::CreditCardInfo;
 use 5.008;
 use strict;
 use warnings;
-use Carp;
-BEGIN {
-	# VERSION
-}
-use Moose::Role;
 use namespace::autoclean;
+
+# VERSION
+
+use Moose::Role;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
