@@ -41,6 +41,7 @@ sub submit {
 		clientLibraryVersion  => $self->client_version,
 		purchaseTotals => {
 			currency         => $self->currency,
+			grandTotalAmount => $self->total,
 		},
 		ccCaptureService => {
 			run => 'true',
