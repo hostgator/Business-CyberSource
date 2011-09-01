@@ -20,16 +20,6 @@ with qw(
 
 requires 'submit';
 
-has server => (
-	required => 1,
-	lazy     => 1,
-	coerce   => 1,
-	init_arg => undef,
-	is       => 'ro',
-	isa      => Uri,
-	builder => '_build_server',
-);
-
 has reference_code => (
 	required => 1,
 	is       => 'ro',
@@ -38,22 +28,9 @@ has reference_code => (
 
 has _soap_request_data => (
 	lazy     => 1,
-	is       => 'rw',
+	is       => 'ro',
 	isa      => HashRef,
-	builder  => '_build_soap_request_data',
 );
-
-sub _build_soap_request {
-	my $self = shift;
-
-	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl );
-
-	$wsdl->importDefinitions( $self->cybs_xsd );
-
-	my $call = $wsdl->compileClient('runTransaction');
-
-	return $call
-}
 
 1;
 
