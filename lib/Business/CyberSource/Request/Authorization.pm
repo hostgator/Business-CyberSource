@@ -2,12 +2,12 @@ package Business::CyberSource::Request::Authorization;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 use Carp;
 
 # VERSION
 
 use Moose;
-use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::BillingInfo
@@ -17,19 +17,65 @@ with qw(
 
 use Business::CyberSource::Response;
 
+use XML::Compile::Util qw( pack_type type_of_node );
+use XML::Compile::Cache;
+use XML::Compile::SOAP::WSS 0.12;
+
+use XML::Compile::WSDL11;
+use XML::Compile::SOAP11;
+use XML::Compile::Transport::SOAPHTTP;
+
 sub submit {
 	my $self = shift;
 
-	my $ret = $self->_build_soap_request;
+    my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $decision    = $ret->valueof('decision'  );
-	my $request_id  = $ret->valueof('requestID' );
-	my $reason_code = $ret->valueof('reasonCode');
+    my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+    $wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	croak 'no decision from CyberSource' unless $decision;
+    my $call = $wsdl->compileClient('runTransaction');
+
+    my $security = $wss->wsseBasicAuth( $self->username, $self->password );
+
+	my ( $answer, $trace ) = $call->(
+		wsse_Security         => $security,
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+		billTo => {
+			firstName  => $self->first_name,
+			lastName   => $self->last_name,
+			street1    => $self->street1,
+			city       => $self->city,
+			state      => $self->state,
+			postalCode => $self->zip,
+			country    => $self->country,
+			email      => $self->email,
+		},
+		purchaseTotals => {
+			currency         => $self->currency,
+			grandTotalAmount => $self->total,
+		},
+		card => {
+			accountNumber   => $self->credit_card,
+			expirationMonth => $self->cc_exp_month,
+			expirationYear  => $self->cc_exp_year,
+		},
+		ccAuthService => {
+			run => 'true',
+		},
+	);
+
+	if ( $answer->{Fault} ) {
+		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
+	}
+
+	my $r = $answer->{result};
 
 	my $res;
-	if ( $decision eq 'ACCEPT' ) {
+	if ( $r->{decision} eq 'ACCEPT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
@@ -37,59 +83,43 @@ sub submit {
 				Business::CyberSource::Response::Role::Authorization
 			})
 			->new({
-				request_id     => $request_id,
-				decision       => $decision,
-				reason_code    => $reason_code,
-				reference_code => $ret->valueof('merchantReferenceCode'  ),
-				request_token  => $ret->valueof('requestToken'           ),
-				currency       => $ret->valueof('purchaseTotals/currency'),
-				amount         => $ret->valueof('ccAuthReply/amount'     ),
-				avs_code_raw   => $ret->valueof('ccAuthReply/avsCodeRaw' ),
-				avs_code       => $ret->valueof('ccAuthReply/avsCode'    ),
-				datetime       => $ret->valueof('ccAuthReply/authorizedDateTime'),
-				auth_record    => $ret->valueof('ccAuthReply/authRecord'        ),
-				auth_code      => $ret->valueof('ccAuthReply/authorizationCode' ),
-				processor_response => $ret->valueof('ccAuthReply/processorResponse'),
+				request_id     => $r->{requestID},
+				decision       => $r->{decision},
+				# quote reason_code to stringify from BigInt
+				reason_code    => "$r->{reasonCode}",
+				reference_code => $r->{merchantReferenceCode},
+				request_token  => $r->{requestToken},
+				currency       => $r->{purchaseTotals}->{currency},
+				amount         => $r->{ccAuthReply}->{amount},
+				avs_code_raw   => $r->{ccAuthReply}->{avsCodeRaw},
+				avs_code       => $r->{ccAuthReply}->{avsCode},
+				datetime       => $r->{ccAuthReply}->{authorizedDateTime},
+				auth_record    => $r->{ccAuthReply}->{authRecord},
+				auth_code      => $r->{ccAuthReply}->{authorizationCode},
+				processor_response =>
+					$r->{ccAuthReply}->{processorResponse},
 			})
 			;
 	}
-	elsif ( $decision eq 'REJECT' ) {
+	elsif ( $r->{decision} eq 'REJECT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Reject
 			})
 			->new({
-				decision      => $decision,
-				request_id    => $request_id,
-				reason_code   => $reason_code,
-				request_token => $ret->valueof('requestToken'),
+				decision      => $r->{decision},
+				request_id    => $r->{requestID},
+				reason_code   => "$r->{reasonCode}",
+				request_token => $r->{requestToken},
 			})
 			;
 	}
 	else {
-		croak 'decision defined, but not sane: ' . $decision;
+		croak 'decision defined, but not sane: ' . $r->{decision};
 	}
 
 	return $res;
-}
-
-sub _build_sdbo {
-	my $self = shift;
-
-	my $sb = $self->_build_sdbo_header;
-
-	$sb = $self->_build_bill_to_info    ( $sb );
-	$sb = $self->_build_purchase_info   ( $sb );
-	$sb = $self->_build_credit_card_info( $sb );
-
-	$sb->add_elem(
-		attributes => { run => 'true' },
-		name       => 'ccAuthService',
-		value      => ' ', # hack to prevent cs side unparseable xml
-	);
-
-	return $sb;
 }
 
 __PACKAGE__->meta->make_immutable;
