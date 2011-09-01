@@ -43,6 +43,9 @@ my $req
 
 my $res = $req->submit;
 
+note( $req->trace->printRequest );
+note( $req->trace->printResponse );
+
 is( $req->username, $CYBS_ID,  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
 
