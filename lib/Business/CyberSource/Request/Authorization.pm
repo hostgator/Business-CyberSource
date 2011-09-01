@@ -17,8 +17,6 @@ with qw(
 
 use Business::CyberSource::Response;
 
-use XML::Compile::Util qw( pack_type type_of_node );
-use XML::Compile::Cache;
 use XML::Compile::SOAP::WSS 0.12;
 
 use XML::Compile::WSDL11;
