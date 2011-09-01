@@ -26,12 +26,6 @@ has reference_code => (
 	isa      => Varchar[50],
 );
 
-has _soap_request_data => (
-	lazy     => 1,
-	is       => 'ro',
-	isa      => HashRef,
-);
-
 1;
 
 # ABSTRACT: Request Role
