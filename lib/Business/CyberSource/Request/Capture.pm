@@ -14,19 +14,48 @@ with qw(
 
 use Business::CyberSource::Response;
 
+use XML::Compile::SOAP::WSS 0.12;
+
+use XML::Compile::WSDL11;
+use XML::Compile::SOAP11;
+use XML::Compile::Transport::SOAPHTTP;
+
 sub submit {
 	my $self = shift;
 
-	my $ret = $self->_build_soap_request;
+    my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $decision    = $ret->valueof('decision'  );
-	my $request_id  = $ret->valueof('requestID' );
-	my $reason_code = $ret->valueof('reasonCode');
+    my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+    $wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	croak 'no decision from CyberSource' unless $decision;
+    my $call = $wsdl->compileClient('runTransaction');
+
+    my $security = $wss->wsseBasicAuth( $self->username, $self->password );
+
+	my ( $answer, $trace ) = $call->(
+		wsse_Security         => $security,
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+		purchaseTotals => {
+			currency         => $self->currency,
+		},
+		ccCaptureService => {
+			run => 'true',
+			authRequestID => $self->request_id,
+		},
+	);
+
+	if ( $answer->{Fault} ) {
+		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
+	}
+
+	my $r = $answer->{result};
 
 	my $res;
-	if ( $decision eq 'ACCEPT' ) {
+	if ( $r->{decision} eq 'ACCEPT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
@@ -34,34 +63,37 @@ sub submit {
 				Business::CyberSource::Response::Role::Capture
 			})
 			->new({
-				request_id     => $request_id,
-				decision       => $decision,
-				reason_code    => $reason_code,
-				currency       => $ret->valueof('purchaseTotals/currency'),
-				datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
-				amount         => $ret->valueof('ccCaptureReply/amount'  ),
-				reference_code => $ret->valueof('merchantReferenceCode'  ),
-				reconciliation_id   => $ret->valueof('ccCaptureReply/reconciliationID'),
-				capture_reason_code => $ret->valueof('ccCaptureReply/reasonCode'),
+				request_id     => $r->{requestID},
+				decision       => $r->{decision},
+				# quote reason_code to stringify from BigInt
+				reason_code    => "$r->{reasonCode}",
+				reference_code => $r->{merchantReferenceCode},
+				request_token  => $r->{requestToken},
+				currency       => $r->{purchaseTotals}->{currency},
+				datetime       => $r->{ccCaptureReply}->{requestDateTime},
+				amount         => $r->{ccCaptureReply}->{amount},
+				reference_code => $r->{merchantReferenceCode},
+				reconciliation_id => $r->{ccCaptureReply}->{reconciliationID},
+				capture_reason_code => "$r->{ccCaptureReply}->{reasonCode}",
 			})
 			;
 	}
-	elsif ( $decision eq 'REJECT' ) {
+	elsif ( $r->{decision} eq 'REJECT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Reject
 			})
 			->new({
-				decision      => $decision,
-				request_id    => $request_id,
-				reason_code   => $reason_code,
-				request_token => $ret->valueof('requestToken'),
+				decision      => $r->{decision},
+				request_id    => $r->{requestID},
+				reason_code   => "$r->{reasonCode}",
+				request_token => $r->{requestToken},
 			})
 			;
 	}
 	else {
-		croak 'decision defined, but not sane: ' . $decision;
+		croak 'decision defined, but not sane: ' . $r->{decision};
 	}
 
 	return $res;
@@ -72,27 +104,6 @@ has request_id => (
 	is       => 'ro',
 	isa      => 'Str',
 );
-
-sub _build_sdbo {
-	my $self = shift;
-
-	my $sb = $self->_build_sdbo_header;
-
-	$sb = $self->_build_purchase_info( $sb );
-
-	my $capture_service = $sb->add_elem(
-		attributes => { run => 'true' },
-		name       => 'ccCaptureService',
-	);
-
-	$sb->add_elem(
-		name   => 'authRequestID',
-		value  => $self->request_id,
-		parent => $capture_service,
-	);
-
-	return $sb;
-}
 
 __PACKAGE__->meta->make_immutable;
 1;
