@@ -39,10 +39,18 @@ has cc_exp_year => (
 
 has cv_indicator => (
 	required => 0,
+	init_arg => undef,
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Varchar[1],
-	default  => '1',
+	default  => sub {
+		my $self = shift;
+		if ( $self->cvn ) {
+			return 1;
+		} else {
+			return 0;
+		}
+	},
 	documentation => 'Flag that indicates whether a CVN code was sent'
 );
 
