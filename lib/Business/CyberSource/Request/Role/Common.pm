@@ -26,6 +26,11 @@ has reference_code => (
 	isa      => Varchar[50],
 );
 
+has trace => (
+	is  => 'rw',
+	isa => 'XML::Compile::SOAP::Trace',
+);
+
 1;
 
 # ABSTRACT: Request Role
