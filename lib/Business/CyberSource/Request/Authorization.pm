@@ -42,16 +42,7 @@ sub submit {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
-		billTo => {
-			firstName  => $self->first_name,
-			lastName   => $self->last_name,
-			street1    => $self->street1,
-			city       => $self->city,
-			state      => $self->state,
-			postalCode => $self->zip,
-			country    => $self->country,
-			email      => $self->email,
-		},
+		billTo                => $self->_billing_info,
 		purchaseTotals => {
 			currency         => $self->currency,
 			grandTotalAmount => $self->total,

@@ -87,6 +87,25 @@ has ip => (
 	documentation => 'IP address that customer submitted transaction from',
 );
 
+sub _billing_info {
+	my $self = shift;
+
+	my $bi = {
+		firstName  => $self->first_name,
+		lastName   => $self->last_name,
+		street1    => $self->street1,
+		street2    => $self->street2,
+		city       => $self->city,
+		state      => $self->state,
+		postalCode => $self->zip,
+		country    => $self->country,
+		email      => $self->email,
+		ipAddress  => $self->ip,
+	};
+
+	return $bi;
+}
+
 1;
 
 # ABSTRACT: Role for requests that require "bill to" information
