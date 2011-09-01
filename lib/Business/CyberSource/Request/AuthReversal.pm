@@ -43,7 +43,7 @@ sub submit {
 		purchaseTotals => {
 			currency         => $self->currency,
 		},
-		ccAuthReversal => {
+		ccAuthReversalService => {
 			run => 'true',
 			authRequestID => $self->request_id,
 		},
