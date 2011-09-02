@@ -10,6 +10,7 @@ use Moose;
 use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
+	Business::CyberSource::Request::Role::FollowUp
 );
 
 use Business::CyberSource::Response;
@@ -70,12 +71,6 @@ sub submit {
 
 	return $res;
 }
-
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -209,13 +204,11 @@ Reader: cybs_xsd
 
 Type: MooseX::Types::Path::Class::File
 
-=head2 reference_code
+=head2 client_name
 
-Reader: reference_code
+Reader: client_name
 
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
+Type: Str
 
 =head2 foreign_currency
 
@@ -223,11 +216,13 @@ Reader: foreign_currency
 
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
 
 =head2 client_version
 

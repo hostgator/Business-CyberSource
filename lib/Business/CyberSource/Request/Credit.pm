@@ -20,11 +20,6 @@ has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
 
-has request_id => (
-	is  => 'ro',
-	isa => 'Str',
-);
-
 sub submit {
 	my $self = shift;
 
@@ -209,12 +204,6 @@ This attribute is required.
 
 Additional documentation: 0: test server. 1: production server
 
-=head2 request_id
-
-Reader: request_id
-
-Type: Str
-
 =head2 cybs_api_version
 
 Reader: cybs_api_version
@@ -243,13 +232,11 @@ Reader: cybs_xsd
 
 Type: MooseX::Types::Path::Class::File
 
-=head2 reference_code
+=head2 foreign_currency
 
-Reader: reference_code
+Reader: foreign_currency
 
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
+Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 =head2 client_name
 
@@ -257,11 +244,13 @@ Reader: client_name
 
 Type: Str
 
-=head2 foreign_currency
+=head2 reference_code
 
-Reader: foreign_currency
+Reader: reference_code
 
-Type: MooseX::Types::Locale::Currency::CurrencyCode
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
 
 =head2 client_version
 
