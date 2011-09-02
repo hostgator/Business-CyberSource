@@ -1,15 +1,24 @@
-package Business::CyberSource::Request::Role::Common;
+package Business::CyberSource::Request::Role::FollowUp;
 use 5.008;
 use strict;
 use warnings;
 use Carp;
+use namespace::autoclean;
+
+our $VERSION = 'v0.2.2'; # VERSION
+
+use Moose::Role;
+
+1;
+
+# ABSTRACT: Role to apply to requests that are follow ups to a previous request
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::Common
+Business::CyberSource::Request::Role::FollowUp - Role to apply to requests that are follow ups to a previous request
 
 =head1 VERSION
 
