@@ -43,11 +43,8 @@ sub submit {
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
 		billTo                => $self->_billing_info,
-		purchaseTotals => {
-			currency         => $self->currency,
-			grandTotalAmount => $self->total,
-		},
-		card => $self->_cc_info,
+		purchaseTotals        => $self->_purchase_info,
+		card                  => $self->_cc_info,
 		ccAuthService => {
 			run => 'true',
 		},
