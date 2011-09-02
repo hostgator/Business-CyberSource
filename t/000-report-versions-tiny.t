@@ -61,6 +61,7 @@ eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('MooseX::AbstractFactory','any version') };
 eval { $v .= pmver('MooseX::Aliases','any version') };
+eval { $v .= pmver('MooseX::SetOnce','any version') };
 eval { $v .= pmver('MooseX::Traits','any version') };
 eval { $v .= pmver('MooseX::Types','any version') };
 eval { $v .= pmver('MooseX::Types::Common::String','any version') };
