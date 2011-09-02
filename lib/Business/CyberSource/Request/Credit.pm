@@ -26,7 +26,6 @@ sub submit {
 	my $payload = {
 		ccCreditService => {
 			run => 'true',
-			captureRequestID => $self->request_id,
 		},
 	};
 
@@ -38,6 +37,10 @@ sub submit {
 		$payload->{card} = $self->_cc_info ;
 	}
 
+	if ( $self->does('Business::CyberSource::Request::Role::FollowUp') ) { 
+		$payload->{ccCreditService}->{captureRequestId} = $self->request_id;
+	}
+	
 	my $r = $self->_build_request( $payload );
 
 	my $res;
