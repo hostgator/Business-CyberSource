@@ -9,6 +9,12 @@ our $VERSION = 'v0.2.2'; # VERSION
 
 use Moose::Role;
 
+has request_id => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
+);
+
 1;
 
 # ABSTRACT: Role to apply to requests that are follow ups to a previous request
