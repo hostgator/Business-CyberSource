@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.2.1'; # VERSION
+our $VERSION = 'v0.2.2'; # VERSION
 
 use Moose;
 with qw(
@@ -93,7 +93,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.2.1
+version v0.2.2
 
 =head1 SYNOPSIS
 

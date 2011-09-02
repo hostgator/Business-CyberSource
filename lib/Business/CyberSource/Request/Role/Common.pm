@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 our @CARP_NOT = qw( SOAP::Lite );
 
-our $VERSION = 'v0.2.1'; # VERSION
+our $VERSION = 'v0.2.2'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef );
@@ -40,8 +40,13 @@ sub _build_request {
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+		purchaseTotals        => $self->_purchase_info,
 		%{ $payload },
-		%{ $self->_common_req_hash },
 	);
 
 	$self->trace( $trace );
@@ -53,20 +58,6 @@ sub _build_request {
 	my $r = $answer->{result};
 
 	return $r;
-}
-
-sub _common_req_hash {
-	my $self = shift;
-
-	my $i = {
-		merchantID            => $self->username,
-		merchantReferenceCode => $self->reference_code,
-		clientEnvironment     => $self->client_env,
-		clientLibrary         => $self->client_name,
-		clientLibraryVersion  => $self->client_version,
-		purchaseTotals        => $self->_purchase_info,
-	};
-	return $i;
 }
 
 has reference_code => (
@@ -93,7 +84,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.2.1
+version v0.2.2
 
 =head1 BUGS
 
