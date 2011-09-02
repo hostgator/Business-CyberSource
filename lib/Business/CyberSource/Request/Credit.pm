@@ -20,18 +20,12 @@ has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
 
-has request_id => (
-	is  => 'ro',
-	isa => 'Str',
-);
-
 sub submit {
 	my $self = shift;
 
 	my $payload = {
 		ccCreditService => {
 			run => 'true',
-			captureRequestID => $self->request_id,
 		},
 	};
 
@@ -41,6 +35,10 @@ sub submit {
 
 	if ( $self->does('Business::CyberSource::Request::Role::CreditCardInfo') ) {
 		$payload->{card} = $self->_cc_info ;
+	}
+
+	if ( $self->does('Business::CyberSource::Request::Role::FollowUp') ) {
+		$payload->{ccCreditService}->{captureRequestID} = $self->request_id;
 	}
 
 	my $r = $self->_build_request( $payload );

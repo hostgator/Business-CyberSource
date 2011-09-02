@@ -10,6 +10,7 @@ use Moose;
 use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
+	Business::CyberSource::Request::Role::FollowUp
 );
 
 use Business::CyberSource::Response;
@@ -70,12 +71,6 @@ sub submit {
 
 	return $res;
 }
-
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
 
 __PACKAGE__->meta->make_immutable;
 1;

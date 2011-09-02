@@ -30,14 +30,14 @@ use XML::Compile::Transport::SOAPHTTP;
 sub _build_request {
 	my ( $self, $payload ) = @_;
 
-    my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-    my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-    $wsdl->importDefinitions( $self->cybs_xsd->stringify );
+	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-    my $call = $wsdl->compileClient('runTransaction');
+	my $call = $wsdl->compileClient('runTransaction');
 
-    my $security = $wss->wsseBasicAuth( $self->username, $self->password );
+	my $security = $wss->wsseBasicAuth( $self->username, $self->password );
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
@@ -70,7 +70,6 @@ has reference_code => (
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
-	traits => [ 'SetOnce' ],
 );
 
 1;
