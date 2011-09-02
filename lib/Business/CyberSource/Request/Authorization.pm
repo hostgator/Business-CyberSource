@@ -24,10 +24,7 @@ use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
 sub _build_request {
-	my ( $self, $payload )  = shift;
-
-	use Data::Dumper;
-	croak Dumper $payload;
+	my ( $self, $payload ) = @_;
 
     my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -60,7 +57,7 @@ sub submit {
 		},
 	};
 
-	my ( $answer, $trace ) = @{ $self->_build_request({ $payload }) };
+	my ( $answer, $trace ) = @{ $self->_build_request( $payload ) };
 
 	$self->trace( $trace );
 

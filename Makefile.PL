@@ -32,7 +32,6 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Config" => 0,
-    "Data::Dumper" => 0,
     "File::ShareDir" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,
