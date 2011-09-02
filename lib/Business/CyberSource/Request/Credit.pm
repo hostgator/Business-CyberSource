@@ -45,11 +45,7 @@ sub submit {
 
 	my $payload = {
 		merchantID            => $self->username,
-		merchantReferenceCode => $self->reference_code,
-		clientEnvironment     => $self->client_env,
-		clientLibrary         => $self->client_name,
-		clientLibraryVersion  => $self->client_version,
-		purchaseTotals        => $self->_purchase_info,
+		%{ $self->_common_req_hash },
 		ccCreditService => {
 			run => 'true',
 			captureRequestID => $self->request_id,
