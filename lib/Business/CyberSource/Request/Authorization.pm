@@ -26,6 +26,9 @@ use XML::Compile::Transport::SOAPHTTP;
 sub _build_request {
 	my ( $self, $payload )  = shift;
 
+	use Data::Dumper;
+	croak Dumper $payload;
+
     my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
     my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
