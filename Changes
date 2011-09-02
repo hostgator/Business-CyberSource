@@ -2,6 +2,9 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.2.0    2011-09-02
+	- use XML::Compile::SOAP instead of SOAP::Lite
+
 v0.1.10   2011-08-31
 	- use more MooseX::Types
 	- fix subtle missing use Business::CyberSource::Response
