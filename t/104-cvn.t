@@ -41,6 +41,7 @@ is( $req->cvn, 123, 'check cvn' );
 
 my $ret = $req->submit;
 
+note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
