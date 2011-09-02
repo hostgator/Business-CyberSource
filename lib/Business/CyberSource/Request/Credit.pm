@@ -40,7 +40,7 @@ sub submit {
 	if ( $self->does('Business::CyberSource::Request::Role::FollowUp') ) {
 		$payload->{ccCreditService}->{captureRequestID} = $self->request_id;
 	}
-	
+
 	my $r = $self->_build_request( $payload );
 
 	my $res;
