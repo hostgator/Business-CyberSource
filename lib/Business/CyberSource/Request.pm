@@ -135,7 +135,7 @@ implementation and required attributes:
 
 Reader: password
 
-Type: Str
+Type: MooseX::Types::Common::String::NonEmptyStr
 
 Additional documentation: your SOAP transaction key
 

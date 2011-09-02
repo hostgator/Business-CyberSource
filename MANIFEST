@@ -27,6 +27,10 @@ lib/Business/CyberSource/Response/Role/Credit.pm
 lib/Business/CyberSource/Response/Role/Reject.pm
 lib/MooseX/Types/CyberSource.pm
 perlcritic.rc
+share/production/CyberSourceTransaction_1.62.wsdl
+share/production/CyberSourceTransaction_1.62.xsd
+share/test/CyberSourceTransaction_1.62.wsdl
+share/test/CyberSourceTransaction_1.62.xsd
 t/00-compile.t
 t/000-report-versions-tiny.t
 t/101-authorization.t

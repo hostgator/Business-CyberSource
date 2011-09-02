@@ -6,6 +6,8 @@ use 5.008;
 
 use ExtUtils::MakeMaker 6.30;
 
+use File::ShareDir::Install;
+install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
@@ -20,7 +22,8 @@ my %WriteMakefileArgs = (
     "Test::More" => "0.88"
   },
   "CONFIGURE_REQUIRES" => {
-    "ExtUtils::MakeMaker" => "6.30"
+    "ExtUtils::MakeMaker" => "6.30",
+    "File::ShareDir::Install" => "0.03"
   },
   "DISTNAME" => "Business-CyberSource",
   "EXE_FILES" => [],
@@ -29,22 +32,28 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "Config" => 0,
+    "File::ShareDir" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,
     "MooseX::AbstractFactory" => 0,
     "MooseX::Aliases" => 0,
     "MooseX::Traits" => 0,
     "MooseX::Types" => 0,
+    "MooseX::Types::Common::String" => 0,
     "MooseX::Types::CreditCard" => "0.001001",
     "MooseX::Types::DateTime::W3C" => 0,
     "MooseX::Types::Email" => 0,
     "MooseX::Types::Locale::Country" => 0,
     "MooseX::Types::Locale::Currency" => 0,
     "MooseX::Types::Moose" => 0,
+    "MooseX::Types::Path::Class" => 0,
     "MooseX::Types::URI" => 0,
     "MooseX::Types::Varchar" => 0,
-    "SOAP::Data::Builder" => 0,
-    "SOAP::Lite" => "0.714",
+    "Path::Class" => 0,
+    "XML::Compile::SOAP11" => 0,
+    "XML::Compile::SOAP::WSS" => "0.12",
+    "XML::Compile::Transport::SOAPHTTP" => 0,
+    "XML::Compile::WSDL11" => 0,
     "namespace::autoclean" => 0,
     "strict" => 0,
     "warnings" => 0
@@ -74,5 +83,8 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
 
 WriteMakefile(%WriteMakefileArgs);
 
+package
+MY;
+use File::ShareDir::Install qw(postamble);
 
 

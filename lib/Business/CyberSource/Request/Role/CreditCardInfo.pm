@@ -2,16 +2,32 @@ package Business::CyberSource::Request::Role::CreditCardInfo;
 use 5.008;
 use strict;
 use warnings;
-use Carp;
-BEGIN {
-	our $VERSION = 'v0.1.11'; # VERSION
-}
-use Moose::Role;
 use namespace::autoclean;
+
+our $VERSION = 'v0.1.11'; # VERSION
+
+use Moose::Role;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
+
+sub _cc_info {
+	my $self = shift;
+
+	my $cc = {
+		accountNumber   => $self->credit_card,
+		expirationMonth => $self->cc_exp_month,
+		expirationYear  => $self->cc_exp_year,
+	};
+
+	if ( $self->cvn ) {
+		$cc->{cvNumber   } = $self->cvn;
+		$cc->{cvIndicator} = $self->cv_indicator;
+	}
+
+	return $cc;
+}
 
 has credit_card => (
 	required => 1,
@@ -40,10 +56,18 @@ has cc_exp_year => (
 
 has cv_indicator => (
 	required => 0,
+	init_arg => undef,
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Varchar[1],
-	default  => '1',
+	default  => sub {
+		my $self = shift;
+		if ( $self->cvn ) {
+			return 1;
+		} else {
+			return 0;
+		}
+	},
 	documentation => 'Flag that indicates whether a CVN code was sent'
 );
 
@@ -53,48 +77,6 @@ has cvn => (
 	is       => 'ro',
 	isa      => CardSecurityCode,
 );
-
-sub _build_credit_card_info {
-	my ( $self, $sb ) = @_;
-
-	my $card = $sb->add_elem(
-		name => 'card',
-	);
-
-	$sb->add_elem(
-		name   => 'accountNumber',
-		value  => $self->credit_card,
-		parent => $card,
-	);
-
-	$sb->add_elem(
-		name   => 'expirationMonth',
-		value  => $self->cc_exp_month,
-		parent => $card,
-	);
-
-	$sb->add_elem(
-		name   => 'expirationYear',
-		value  => $self->cc_exp_year,
-		parent => $card,
-	);
-
-	if ( $self->cvn ) {
-		$sb->add_elem(
-			name   => 'cvIndicator',
-			value  => $self->cv_indicator,
-			parent => $card,
-		);
-
-		$sb->add_elem(
-			name   => 'cvNumber',
-			value  => $self->cvn,
-			parent => $card,
-		);
-	}
-
-	return $sb;
-}
 
 1;
 

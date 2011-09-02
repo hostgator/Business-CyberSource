@@ -16,71 +16,93 @@ with qw(
 
 use Business::CyberSource::Response;
 
+use XML::Compile::SOAP::WSS 0.12;
+
+use XML::Compile::WSDL11;
+use XML::Compile::SOAP11;
+use XML::Compile::Transport::SOAPHTTP;
+
 sub submit {
 	my $self = shift;
 
-	my $ret = $self->_build_soap_request;
+    my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $decision    = $ret->valueof('decision'  );
-	my $request_id  = $ret->valueof('requestID' );
-	my $reason_code = $ret->valueof('reasonCode');
+    my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+    $wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	croak 'no decision from CyberSource' unless $decision;
+    my $call = $wsdl->compileClient('runTransaction');
+
+    my $security = $wss->wsseBasicAuth( $self->username, $self->password );
+
+	my $payload = {
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+		purchaseTotals => {
+			currency         => $self->currency,
+			foreignCurrency  => $self->foreign_currency,
+			grandTotalAmount => $self->total,
+		},
+		card => $self->_cc_info,
+		ccDCCService => {
+			run => 'true',
+		},
+	};
+
+	my ( $answer, $trace ) = $call->(
+		wsse_Security         => $security,
+		%{ $payload },
+	);
+
+	$self->trace( $trace );
+
+	if ( $answer->{Fault} ) {
+		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
+	}
+
+	my $r = $answer->{result};
 
 	my $res;
-	if ( $decision eq 'ACCEPT' ) {
+	if ( $r->{decision} eq 'ACCEPT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::Credit
 			})
 			->new({
-				request_id     => $request_id,
-				decision       => $decision,
-				reason_code    => $reason_code,
-				currency       => $ret->valueof('purchaseTotals/currency'),
-				datetime       => $ret->valueof('ccCaptureReply/requestDateTime'),
-				amount         => $ret->valueof('ccCaptureReply/amount'  ),
-				reference_code => $ret->valueof('merchantReferenceCode'  ),
+				request_id     => $r->{requestID},
+				decision       => $r->{decision},
+				# quote reason_code to stringify from BigInt
+				reason_code    => "$r->{reasonCode}",
+				reference_code => $r->{merchantReferenceCode},
+				currency       => $r->{purchaseTotals}->{currency},
+				datetime       => $r->{ccCaptureReply}->{requestDateTime},
+				amount         => $r->{ccCaptureReply}->{amount},
 			})
 			;
 	}
-	elsif ( $decision eq 'REJECT' ) {
+	elsif ( $r->{decision} eq 'REJECT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Reject
 			})
 			->new({
-				decision      => $decision,
-				request_id    => $request_id,
-				reason_code   => $reason_code,
-				request_token => $ret->valueof('requestToken'),
+				decision      => $r->{decision},
+				request_id    => $r->{requestID},
+				reason_code   => "$r->{reasonCode}",
+				request_token => $r->{requestToken},
 			})
 			;
 	}
 	else {
-		croak 'decision defined, but not sane: ' . $decision;
+		carp 'decision defined, but not sane: ' . $r->{decision};
 	}
 
 	return $res;
-}
-
-sub _build_sdbo {
-	my $self = shift;
-
-	my $sb = $self->_build_sdbo_header;
-
-	$sb = $self->_build_purchase_info   ( $sb );
-	$sb = $self->_build_credit_card_info( $sb );
-
-	$sb->add_elem(
-		attributes => { run => 'true' },
-		name       => 'ccDCCService',
-		value      => ' ',
-	);
-
-	return $sb;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -124,6 +146,12 @@ Reader: client_env
 
 Type: Str
 
+=head2 cybs_wsdl
+
+Reader: cybs_wsdl
+
+Type: MooseX::Types::Path::Class::File
+
 =head2 cv_indicator
 
 Reader: cv_indicator
@@ -131,6 +159,14 @@ Reader: cv_indicator
 Type: MooseX::Types::Varchar::Varchar[1]
 
 Additional documentation: Flag that indicates whether a CVN code was sent
+
+=head2 trace
+
+Reader: trace
+
+Writer: trace
+
+Type: XML::Compile::SOAP::Trace
 
 =head2 currency
 
@@ -144,7 +180,7 @@ This attribute is required.
 
 Reader: password
 
-Type: Str
+Type: MooseX::Types::Common::String::NonEmptyStr
 
 This attribute is required.
 
@@ -160,19 +196,23 @@ This attribute is required.
 
 Additional documentation: 0: test server. 1: production server
 
-=head2 server
+=head2 cybs_api_version
 
-Reader: server
+Reader: cybs_api_version
 
-Type: MooseX::Types::URI::Uri
-
-This attribute is required.
+Type: Str
 
 =head2 cvn
 
 Reader: cvn
 
 Type: MooseX::Types::CreditCard::CardSecurityCode
+
+=head2 total
+
+Reader: total
+
+Type: Num
 
 =head2 cc_exp_month
 
@@ -181,12 +221,6 @@ Reader: cc_exp_month
 Type: Int
 
 This attribute is required.
-
-=head2 total
-
-Reader: total
-
-Type: Num
 
 =head2 username
 
@@ -220,11 +254,11 @@ Reader: card_type
 
 Type: MooseX::Types::Varchar::Varchar[3]
 
-=head2 client_name
+=head2 cybs_xsd
 
-Reader: client_name
+Reader: cybs_xsd
 
-Type: Str
+Type: MooseX::Types::Path::Class::File
 
 =head2 reference_code
 
@@ -233,6 +267,12 @@ Reader: reference_code
 Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
 
 =head2 foreign_currency
 

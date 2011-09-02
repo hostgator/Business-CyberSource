@@ -12,7 +12,6 @@ plan skip_all
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::AuthReversal;
-#use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $auth_req
 	= Business::CyberSource::Request::Authorization->new({
@@ -54,6 +53,9 @@ my $rev_req = Business::CyberSource::Request::AuthReversal->new({
 	;
 
 my $rev = $rev_req->submit;
+
+note( $rev_req->trace->printRequest  );
+note( $rev_req->trace->printResponse );
 
 ok( $rev, 'reversal response exists' );
 
