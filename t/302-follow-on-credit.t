@@ -57,11 +57,7 @@ my $cres = $capture->submit;
 ok( $cres, 'capture response exists' );
 
 my $credit_req
-	= Business::CyberSource::Request::Credit
-	->with_traits(qw{
-		FollowUp
-	})
-	->new({
+	= Business::CyberSource::Request::Credit->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		reference_code => $req->reference_code,

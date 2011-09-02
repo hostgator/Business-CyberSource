@@ -12,6 +12,7 @@ with qw(
 	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::FollowUp
 );
 
 use Business::CyberSource::Response;
@@ -203,6 +204,14 @@ Type: Bool
 This attribute is required.
 
 Additional documentation: 0: test server. 1: production server
+
+=head2 request_id
+
+Reader: request_id
+
+Type: Str
+
+This attribute is required.
 
 =head2 cybs_api_version
 
