@@ -17,7 +17,7 @@ sub _purchase_info {
 	my $i = {
 		currency         => $self->currency,
 		grandTotalAmount => $self->total,
-	}
+	};
 
 	if ( $self->foreign_currency ) {
 		$i->{foreignCurrency} = $self->foreign_currency;
