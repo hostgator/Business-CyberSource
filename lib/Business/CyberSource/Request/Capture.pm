@@ -49,6 +49,8 @@ sub submit {
 		},
 	);
 
+	$self->trace( $trace );
+
 	if ( $answer->{Fault} ) {
 		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
