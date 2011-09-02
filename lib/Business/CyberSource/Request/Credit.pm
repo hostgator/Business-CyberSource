@@ -43,15 +43,7 @@ sub submit {
 		$payload->{card} = $self->_cc_info ;
 	}
 
-	my ( $answer, $trace ) = @{ $self->_build_request( $payload ) };
-
-	$self->trace( $trace );
-
-	if ( $answer->{Fault} ) {
-		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
-	}
-
-	my $r = $answer->{result};
+	my $r = $self->_build_request( $payload );
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {

@@ -44,9 +44,15 @@ sub _build_request {
 		%{ $self->_common_req_hash },
 	);
 
-	my $ret = [ $answer, $trace ];
+	$self->trace( $trace );
 
-	return $ret;
+	if ( $answer->{Fault} ) {
+		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
+	}
+
+	my $r = $answer->{result};
+
+	return $r;
 }
 
 sub _common_req_hash {
