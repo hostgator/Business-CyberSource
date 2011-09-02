@@ -20,6 +20,19 @@ with qw(
 
 requires 'submit';
 
+sub _common_req_hash {
+	my $self = shift;
+
+	my $i = {
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+	};
+	return $i;
+}
+
 has reference_code => (
 	required => 1,
 	is       => 'ro',
