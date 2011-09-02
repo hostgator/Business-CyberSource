@@ -38,7 +38,10 @@ my $req
 # check billing info
 is( $req->cvn, 123, 'check cvn' );
 
+
 my $ret = $req->submit;
+
+note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '1984',     'check reference_code' );
