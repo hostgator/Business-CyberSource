@@ -23,8 +23,8 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
-sub submit {
-	my $self = shift;
+sub _build_request {
+	my ( $self, $payload )  = shift;
 
     my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -38,12 +38,24 @@ sub submit {
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
 		%{ $self->_common_req_hash },
+		%{ $payload },
+	);
+
+	return [ $answer, $trace ]
+}
+
+sub submit {
+	my $self = shift;
+
+	my $payload = {
 		billTo                => $self->_billing_info,
 		card                  => $self->_cc_info,
 		ccAuthService => {
 			run => 'true',
 		},
-	);
+	};
+
+	my ( $answer, $trace ) = $self->_build_request( $payload );
 
 	$self->trace( $trace );
 
