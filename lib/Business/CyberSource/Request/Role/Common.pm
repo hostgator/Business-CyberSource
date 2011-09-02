@@ -70,7 +70,6 @@ has reference_code => (
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
-	traits => [ 'SetOnce' ],
 );
 
 1;
