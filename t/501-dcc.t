@@ -33,4 +33,6 @@ my $dcc = $dcc_req->submit;
 
 ok( $dcc, 'authorization response exists' );
 
+note( $dcc_req->trace->printResponse );
+
 done_testing;
