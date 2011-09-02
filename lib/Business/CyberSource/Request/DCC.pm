@@ -16,37 +16,17 @@ with qw(
 
 use Business::CyberSource::Response;
 
-use XML::Compile::SOAP::WSS 0.12;
-
-use XML::Compile::WSDL11;
-use XML::Compile::SOAP11;
-use XML::Compile::Transport::SOAPHTTP;
-
 sub submit {
 	my $self = shift;
 
-    my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
-
-    my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-    $wsdl->importDefinitions( $self->cybs_xsd->stringify );
-
-    my $call = $wsdl->compileClient('runTransaction');
-
-    my $security = $wss->wsseBasicAuth( $self->username, $self->password );
-
 	my $payload = {
-		merchantID            => $self->username,
-		%{ $self->_common_req_hash },
 		card                  => $self->_cc_info,
 		ccDCCService => {
 			run => 'true',
 		},
 	};
 
-	my ( $answer, $trace ) = $call->(
-		wsse_Security         => $security,
-		%{ $payload },
-	);
+	my ( $answer, $trace ) = @{ $self->_build_request( $payload ) };
 
 	$self->trace( $trace );
 
