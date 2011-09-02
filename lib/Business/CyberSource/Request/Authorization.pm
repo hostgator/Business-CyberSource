@@ -41,7 +41,9 @@ sub _build_request {
 		%{ $payload },
 	);
 
-	return [ $answer, $trace ]
+	my $ret = [ $answer, $trace ];
+
+	return $ret;
 }
 
 sub submit {
