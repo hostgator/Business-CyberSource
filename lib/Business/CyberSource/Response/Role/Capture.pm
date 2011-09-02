@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 BEGIN {
-	our $VERSION = 'v0.1.11'; # VERSION
+	our $VERSION = 'v0.2.0'; # VERSION
 }
 use Moose::Role;
 
@@ -30,7 +30,7 @@ Business::CyberSource::Response::Role::Capture - CyberSource Capture Response Ob
 
 =head1 VERSION
 
-version v0.1.11
+version v0.2.0
 
 =head1 BUGS
 
