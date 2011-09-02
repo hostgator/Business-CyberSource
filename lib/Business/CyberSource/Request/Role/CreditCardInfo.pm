@@ -21,6 +21,11 @@ sub _cc_info {
 		expirationYear  => $self->cc_exp_year,
 	};
 
+	if ( $self->cvn ) {
+		$cc->{cvNumber   } = $self->cvn;
+		$cc->{cvIndicator} = $self->cv_indicator;
+	}
+
 	return $cc;
 }
 
