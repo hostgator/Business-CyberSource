@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-our @CARP_NOT = qw( SOAP::Lite );
+use namespace::autoclean;
 
 our $VERSION = 'v0.2.2'; # VERSION
 
