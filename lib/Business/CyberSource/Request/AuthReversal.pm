@@ -40,10 +40,7 @@ sub submit {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
-		purchaseTotals => {
-			currency         => $self->currency,
-			grandTotalAmount => $self->total,
-		},
+		purchaseTotals        => $self->_purchase_info,
 		ccAuthReversalService => {
 			run => 'true',
 			authRequestID => $self->request_id,

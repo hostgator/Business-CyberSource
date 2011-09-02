@@ -40,12 +40,8 @@ sub submit {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
-		purchaseTotals => {
-			currency         => $self->currency,
-			foreignCurrency  => $self->foreign_currency,
-			grandTotalAmount => $self->total,
-		},
-		card => $self->_cc_info,
+		purchaseTotals        => $self->_purchase_info,
+		card                  => $self->_cc_info,
 		ccDCCService => {
 			run => 'true',
 		},
