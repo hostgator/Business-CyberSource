@@ -49,10 +49,7 @@ sub submit {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
-		purchaseTotals => {
-			currency         => $self->currency,
-			grandTotalAmount => $self->total,
-		},
+		purchaseTotals        => $self->_purchase_info,
 		ccCreditService => {
 			run => 'true',
 			captureRequestID => $self->request_id,
