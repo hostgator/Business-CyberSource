@@ -37,8 +37,8 @@ sub _build_request {
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
-		%{ $self->_common_req_hash },
 		%{ $payload },
+		%{ $self->_common_req_hash },
 	);
 
 	my $ret = [ $answer, $trace ];

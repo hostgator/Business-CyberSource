@@ -67,8 +67,8 @@ ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
 my $ret = $req->submit;
 
-note( $req->trace->printResponse );
 note( $req->trace->printRequest  );
+note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '42',     'check reference_code' );
