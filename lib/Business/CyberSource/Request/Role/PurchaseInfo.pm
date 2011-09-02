@@ -3,13 +3,28 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.2.0'; # VERSION
+our $VERSION = 'v0.2.1'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
 use MooseX::Types::Moose   qw( Num     );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
+
+sub _purchase_info {
+	my $self = shift;
+
+	my $i = {
+		currency         => $self->currency,
+		grandTotalAmount => $self->total,
+	};
+
+	if ( $self->foreign_currency ) {
+		$i->{foreignCurrency} = $self->foreign_currency;
+	}
+
+	return $i;
+}
 
 has currency => (
 	required => 1,
@@ -40,7 +55,7 @@ Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Inform
 
 =head1 VERSION
 
-version v0.2.0
+version v0.2.1
 
 =head1 BUGS
 

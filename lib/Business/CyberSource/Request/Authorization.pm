@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.2.0'; # VERSION
+our $VERSION = 'v0.2.1'; # VERSION
 
 use Moose;
 with qw(
@@ -43,11 +43,8 @@ sub submit {
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
 		billTo                => $self->_billing_info,
-		purchaseTotals => {
-			currency         => $self->currency,
-			grandTotalAmount => $self->total,
-		},
-		card => $self->_cc_info,
+		purchaseTotals        => $self->_purchase_info,
+		card                  => $self->_cc_info,
 		ccAuthService => {
 			run => 'true',
 		},
@@ -124,7 +121,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.2.0
+version v0.2.1
 
 =head1 SYNOPSIS
 
