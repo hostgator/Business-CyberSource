@@ -3,7 +3,6 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-our @CARP_NOT = qw( SOAP::Lite );
 
 # VERSION
 
@@ -11,6 +10,7 @@ use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
+use MooseX::SetOnce;
 
 with qw(
 	Business::CyberSource
@@ -67,8 +67,9 @@ has reference_code => (
 );
 
 has trace => (
-	is  => 'rw',
-	isa => 'XML::Compile::SOAP::Trace',
+	is     => 'rw',
+	isa    => 'XML::Compile::SOAP::Trace',
+	traits => [ 'SetOnce' ],
 );
 
 1;
