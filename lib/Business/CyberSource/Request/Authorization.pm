@@ -57,7 +57,9 @@ sub submit {
 		},
 	};
 
-	my ( $answer, $trace ) = $self->_build_request( $payload );
+	 my $i = $self->_build_request( $payload );
+
+	my ( $answer, $trace ) = @{ $i };
 
 	$self->trace( $trace );
 
