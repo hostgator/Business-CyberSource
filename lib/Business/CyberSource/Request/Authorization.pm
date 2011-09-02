@@ -39,7 +39,6 @@ sub submit {
 		wsse_Security         => $security,
 		%{ $self->_common_req_hash },
 		billTo                => $self->_billing_info,
-		purchaseTotals        => $self->_purchase_info,
 		card                  => $self->_cc_info,
 		ccAuthService => {
 			run => 'true',

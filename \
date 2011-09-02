@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.1'; # VERSION
+# VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -36,6 +36,7 @@ sub submit {
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
 		%{ $self->_common_req_hash },
+		purchaseTotals        => $self->_purchase_info,
 		ccAuthReversalService => {
 			run => 'true',
 			authRequestID => $self->request_id,
@@ -106,18 +107,6 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: CyberSource Reverse Authorization request object
 
-
-__END__
-=pod
-
-=head1 NAME
-
-Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization request object
-
-=head1 VERSION
-
-version v0.2.1
-
 =head1 SYNOPSIS
 
 	my $req = Business::CyberSource::Request::AuthReversal->new({
@@ -136,130 +125,16 @@ version v0.2.1
 
 This allows you to reverse an authorization request.
 
-=head1 METHODS
-
-=head2 new
+=method new
 
 Instantiates a authorization reversal request object, see
 L<the attributes listed below|/ATTRIBUTES> for which ones are required and
 which are optional.
 
-=head2 submit
+=method submit
 
 Actually sends the required data to CyberSource for processing and returns a
 L<Business::CyberSource::Response> object.
-
-=head1 ATTRIBUTES
-
-=head2 client_env
-
-Reader: client_env
-
-Type: Str
-
-=head2 cybs_wsdl
-
-Reader: cybs_wsdl
-
-Type: MooseX::Types::Path::Class::File
-
-=head2 trace
-
-Reader: trace
-
-Writer: trace
-
-Type: XML::Compile::SOAP::Trace
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-This attribute is required.
-
-Additional documentation: your SOAP transaction key
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-This attribute is required.
-
-Additional documentation: 0: test server. 1: production server
-
-=head2 request_id
-
-Reader: request_id
-
-Type: Str
-
-This attribute is required.
-
-=head2 cybs_api_version
-
-Reader: cybs_api_version
-
-Type: Str
-
-=head2 total
-
-Reader: total
-
-Type: Num
-
-=head2 username
-
-Reader: username
-
-Type: MooseX::Types::Varchar::Varchar[30]
-
-This attribute is required.
-
-Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
-
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-=head2 client_name
-
-Reader: client_name
-
-Type: Str
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
-
-=head2 client_version
-
-Reader: client_version
-
-Type: Str
 
 =head1 SEE ALSO
 
@@ -269,26 +144,4 @@ Type: Str
 
 =back
 
-=head1 BUGS
-
-Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Business-CyberSource/issues
-
-When submitting a bug or request, please include a test-file or a
-patch to an existing test-file that illustrates the bug or desired
-feature.
-
-=head1 AUTHOR
-
-Caleb Cushing <xenoterracide@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is Copyright (c) 2011 by Caleb Cushing.
-
-This is free software, licensed under:
-
-  The Artistic License 2.0 (GPL Compatible)
-
 =cut
-

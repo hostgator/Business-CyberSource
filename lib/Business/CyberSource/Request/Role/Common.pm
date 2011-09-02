@@ -29,6 +29,7 @@ sub _common_req_hash {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
+		purchaseTotals        => $self->_purchase_info,
 	};
 	return $i;
 }
