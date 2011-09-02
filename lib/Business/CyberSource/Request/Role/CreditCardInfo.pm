@@ -12,6 +12,18 @@ use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
 
+sub _cc_info {
+	my $self = shift;
+
+	my $cc = {
+		accountNumber   => $self->credit_card,
+		expirationMonth => $self->cc_exp_month,
+		expirationYear  => $self->cc_exp_year,
+	};
+
+	return $cc;
+}
+
 has credit_card => (
 	required => 1,
 	is       => 'ro',

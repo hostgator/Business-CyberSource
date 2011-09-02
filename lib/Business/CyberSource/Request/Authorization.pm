@@ -47,11 +47,7 @@ sub submit {
 			currency         => $self->currency,
 			grandTotalAmount => $self->total,
 		},
-		card => {
-			accountNumber   => $self->credit_card,
-			expirationMonth => $self->cc_exp_month,
-			expirationYear  => $self->cc_exp_year,
-		},
+		card => $self->_cc_info,
 		ccAuthService => {
 			run => 'true',
 		},

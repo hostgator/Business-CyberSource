@@ -43,8 +43,7 @@ sub submit {
 
     my $security = $wss->wsseBasicAuth( $self->username, $self->password );
 
-	my ( $answer, $trace ) = $call->(
-		wsse_Security         => $security,
+	my $payload = {
 		merchantID            => $self->username,
 		merchantReferenceCode => $self->reference_code,
 		clientEnvironment     => $self->client_env,
@@ -58,6 +57,19 @@ sub submit {
 			run => 'true',
 			captureRequestID => $self->request_id,
 		},
+	};
+
+	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo') ) {
+		$payload->{billTo} = $self->_billing_info ;
+	}
+
+	if ( $self->does('Business::CyberSource::Request::Role::CreditCardInfo') ) {
+		$payload->{card} = $self->_cc_info ;
+	}
+
+	my ( $answer, $trace ) = $call->(
+		wsse_Security         => $security,
+		%{ $payload },
 	);
 
 	$self->trace( $trace );
