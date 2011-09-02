@@ -12,12 +12,12 @@ plan skip_all
 
 use Business::CyberSource::Request::DCC;
 use Business::CyberSource::Request::Authorization;
-#use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $dcc_req
 	= Business::CyberSource::Request::DCC->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
+		production     => 1,
 		reference_code => '500',
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
