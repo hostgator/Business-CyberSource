@@ -17,15 +17,13 @@ my $dcc_req
 	= Business::CyberSource::Request::DCC->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		production     => 1,
+		production     => 0,
 		reference_code => '500',
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-		item           => 1,
-		unit_price     => 2.01,
-		quantity       => 1,
+		cc_exp_year    => '2015',
+		total          => '39.95',
 		foreign_currency => 'AUD',
 	});
 
@@ -33,6 +31,7 @@ my $dcc = $dcc_req->submit;
 
 ok( $dcc, 'authorization response exists' );
 
+note( $dcc_req->trace->printRequest  );
 note( $dcc_req->trace->printResponse );
 
 done_testing;

@@ -11,6 +11,7 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
 use Business::CyberSource::Response;
@@ -44,6 +45,7 @@ sub submit {
 			foreignCurrency  => $self->foreign_currency,
 			grandTotalAmount => $self->total,
 		},
+		card => $self->_cc_info,
 		ccDCCService => {
 			run => 'true',
 		},
@@ -97,7 +99,7 @@ sub submit {
 			;
 	}
 	else {
-		croak 'decision defined, but not sane: ' . $r->{decision};
+		carp 'decision defined, but not sane: ' . $r->{decision};
 	}
 
 	return $res;
