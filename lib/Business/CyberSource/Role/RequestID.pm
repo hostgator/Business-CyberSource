@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Role::FollowUp;
+package Business::CyberSource::Role::RequestID;
 use 5.008;
 use strict;
 use warnings;
@@ -8,20 +8,23 @@ use namespace::autoclean;
 our $VERSION = 'v0.2.2'; # VERSION
 
 use Moose::Role;
-with qw(
-	Business::CyberSource::Role::RequestID
+
+has request_id => (
+	required => 1,
+	is       => 'ro',
+	isa      => 'Str',
 );
 
 1;
 
-# ABSTRACT: Role to apply to requests that are follow ups to a previous request
+# ABSTRACT: Role to apply to requests and responses that require request id's
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::FollowUp - Role to apply to requests that are follow ups to a previous request
+Business::CyberSource::Role::RequestID - Role to apply to requests and responses that require request id's
 
 =head1 VERSION
 
