@@ -16,7 +16,7 @@ enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
 my $req_id_intersect
 	= MooseX::Meta::TypeConstraint::Intersection->new({
-		type_constraints => [ qw( NonEmptySimpleStr Varchar[26] ) ],
+		type_constraints => [ qw( NonEmptySimpleStr Varchar ) ],
 	});
 
 subtype 'RequestID',
