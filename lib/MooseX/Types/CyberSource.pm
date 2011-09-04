@@ -9,19 +9,12 @@ our $VERSION = 'v0.2.2'; # VERSION
 use MooseX::Types -declare => [ qw( Decision ) ];
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::Varchar qw( Varchar );
-use MooseX::Meta::TypeConstraint::Intersection;
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
 
-my $req_id_intersect
-	= MooseX::Meta::TypeConstraint::Intersection->new({
-		type_constraints => [ 'NonEmptySimpleStr' ],
-	});
-
-#subtype 'RequestID',
-#	as "$req_id_intersect";
-
+subtype 'RequestID',
+	as Varchar[29];
 
 1;
 
