@@ -7,14 +7,8 @@ use namespace::autoclean;
 our $VERSION = 'v0.2.2'; # VERSION
 
 use MooseX::Types -declare => [ qw( Decision ) ];
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use MooseX::Types::Varchar qw( Varchar );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
-
-
-subtype 'RequestID',
-	as Varchar[29];
 
 1;
 

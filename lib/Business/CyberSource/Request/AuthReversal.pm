@@ -175,7 +175,7 @@ Additional documentation: 0: test server. 1: production server
 
 Reader: request_id
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[29]
 
 This attribute is required.
 

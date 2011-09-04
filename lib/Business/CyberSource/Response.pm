@@ -143,7 +143,7 @@ version v0.2.2
 
 Reader: request_id
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[29]
 
 This attribute is required.
 
