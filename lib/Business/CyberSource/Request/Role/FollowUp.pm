@@ -8,11 +8,8 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
-
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
+with qw(
+	Business::CyberSource::Role::RequestID
 );
 
 1;
