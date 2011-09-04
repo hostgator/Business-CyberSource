@@ -2,11 +2,11 @@ package MooseX::Types::CyberSource;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 
 use MooseX::Types -declare => [ qw( Decision ) ];
-use namespace::autoclean;
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
