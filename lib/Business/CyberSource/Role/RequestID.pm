@@ -8,11 +8,12 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::Types::Varchar qw( Varchar );
 
 has request_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[29],
 );
 
 1;
