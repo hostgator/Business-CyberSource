@@ -62,7 +62,7 @@ sub _build_request {
 }
 
 sub _handle_decision {
-	my ( $self, $r ) = shift;
+	my ( $self, $r ) = @_;
 
 	my $res;
 	if ( $r->{decision} eq 'REJECT' ) {
