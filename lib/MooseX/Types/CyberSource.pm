@@ -20,7 +20,7 @@ my $req_id_intersect
 	});
 
 subtype 'RequestID',
-	as $req_id_intersect;
+	as "$req_id_intersect";
 
 
 1;
