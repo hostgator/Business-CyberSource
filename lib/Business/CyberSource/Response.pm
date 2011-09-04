@@ -8,16 +8,13 @@ use warnings;
 use Moose;
 use namespace::autoclean;
 
-with qw( MooseX::Traits );
+with qw(
+	MooseX::Traits
+	Business::CyberSource::Role::RequestID
+);
 
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::CyberSource qw( Decision );
-
-has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => Str,
-);
 
 has decision => (
 	required => 1,
