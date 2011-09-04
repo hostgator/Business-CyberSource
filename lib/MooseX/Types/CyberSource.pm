@@ -2,13 +2,26 @@ package MooseX::Types::CyberSource;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 our $VERSION = 'v0.2.2'; # VERSION
 
 use MooseX::Types -declare => [ qw( Decision ) ];
-use namespace::autoclean;
+use MooseX::Types::Common::String qw( NonEmptySimpleStr );
+use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Meta::TypeConstraint::Intersection;
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
+
+
+my $req_id_intersect
+	= MooseX::Meta::TypeConstraint::Intersection->new({
+		type_constraints => [ qw( NonEmptySimpleStr Varchar[26] ) ],
+	});
+
+subtype 'RequestID',
+	as $req_id_intersect;
+
 
 1;
 
