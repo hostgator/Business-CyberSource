@@ -82,7 +82,7 @@ sub _handle_decision {
 	else {
 		croak 'decision defined, but not sane: ' . $r->{decision};
 	}
-	
+
 	return $res;
 }
 

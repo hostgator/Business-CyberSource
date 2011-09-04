@@ -52,22 +52,8 @@ sub submit {
 			})
 			;
 	}
-	elsif ( $r->{decision} eq 'REJECT' ) {
-		$res
-			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Reject
-			})
-			->new({
-				decision      => $r->{decision},
-				request_id    => $r->{requestID},
-				reason_code   => "$r->{reasonCode}",
-				request_token => $r->{requestToken},
-			})
-			;
-	}
 	else {
-		croak 'decision defined, but not sane: ' . $r->{decision};
+		$res = $self->_handle_decision( $r );
 	}
 
 	return $res;
