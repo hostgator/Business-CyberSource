@@ -83,7 +83,6 @@ has email => (
 
 has ip => (
 	required => 0,
-	coerce   => 1,
 	is       => 'ro',
 	isa      => NetAddrIPv4,
 	documentation => 'IP address that customer submitted transaction from',
@@ -102,7 +101,7 @@ sub _billing_info {
 		postalCode => $self->zip,
 		country    => $self->country,
 		email      => $self->email,
-		ipAddress  => $self->ip,
+		ipAddress  => $self->ip->addr,
 	};
 
 	return $bi;
