@@ -6,9 +6,35 @@ use namespace::autoclean;
 
 # VERSION
 
-use MooseX::Types -declare => [ qw( Decision ) ];
+use MooseX::Types -declare => [ qw( Decision CardTypeCode CvIndicator ) ];
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
+
+# can't find a standard on this, so I assume these are a cybersource thing
+enum CardTypeCode, [ qw(
+	001
+	002
+	003
+	004
+	005
+	006
+	007
+	014
+	021
+	024
+	031
+	033
+	034
+	035
+	036
+	037
+	039
+	040
+	042
+	043
+) ];
+
+enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 1;
 
