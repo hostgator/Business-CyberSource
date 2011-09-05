@@ -13,6 +13,7 @@ with qw(
 
 use MooseX::Types::Moose         qw( Num Str     );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
+use MooseX::Types::Varchar       qw( Varchar     );
 
 
 has amount => (
@@ -30,7 +31,7 @@ has datetime => (
 has reference_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => Str,
+	isa      => Varchar[50],
 );
 
 1;
