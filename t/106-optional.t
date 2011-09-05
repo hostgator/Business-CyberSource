@@ -52,7 +52,7 @@ is( $req->street2,        '#514',      'check street2'        );
 is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
-is( $req->ip,             '192.168.42.39', 'check ip address' );
+is( $req->ip->addr,       '192.168.42.39', 'check ip address' );
 
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
