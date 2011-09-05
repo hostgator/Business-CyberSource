@@ -30,13 +30,15 @@ my $auth_req
 		quantity       => 1,
 		total          => 5.00,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
+		credit_card    => '5555 5555 5555 4444',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		production     => 0,
 	});
 
 my $auth = $auth_req->submit;
+
+is( $auth_req->card_type, '002', 'check card type is mastercard' );
 
 ok( $auth, 'authorization response exists' );
 note( 'request_id: ' . $auth->request_id );
