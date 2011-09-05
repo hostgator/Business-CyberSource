@@ -49,7 +49,7 @@ is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
 
-is( $req->ip,    '192.168.100.2',          'check ip'    );
+is( $req->ip->addr,    '192.168.100.2',          'check ip'   );
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
 is( $req->total,      5, 'check total'      );
