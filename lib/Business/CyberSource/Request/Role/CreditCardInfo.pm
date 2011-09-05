@@ -2,6 +2,7 @@ package Business::CyberSource::Request::Role::CreditCardInfo;
 use 5.008;
 use strict;
 use warnings;
+use Carp;
 use namespace::autoclean;
 
 our $VERSION = 'v0.2.3'; # VERSION
@@ -11,23 +12,26 @@ use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
-use MooseX::Types::CyberSource qw( CvIndicator );
+use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
+
+use Business::CreditCard;
 
 sub _cc_info {
 	my $self = shift;
 
-	my $cc = {
+	my $i = {
 		accountNumber   => $self->credit_card,
 		expirationMonth => $self->cc_exp_month,
 		expirationYear  => $self->cc_exp_year,
+		cardType        => $self->card_type,
 	};
 
 	if ( $self->cvn ) {
-		$cc->{cvNumber   } = $self->cvn;
-		$cc->{cvIndicator} = $self->cv_indicator;
+		$i->{cvNumber   } = $self->cvn;
+		$i->{cvIndicator} = $self->cv_indicator;
 	}
 
-	return $cc;
+	return $i;
 }
 
 has credit_card => (
@@ -39,8 +43,10 @@ has credit_card => (
 
 has card_type => (
 	required => 0,
+	lazy     => 1,
 	is       => 'ro',
-	isa      => Varchar[3],
+	isa      => CardTypeCode,
+	builder  => '_build_card_type',
 );
 
 has cc_exp_month => (
@@ -78,6 +84,28 @@ has cvn => (
 	is       => 'ro',
 	isa      => CardSecurityCode,
 );
+
+sub _build_card_type {
+	my $self = shift;
+
+	my $ct = Business::CreditCard->cardtype( $self->credit_card );
+
+	my $code
+		= $ct =~ /visa            /ixms ? '001'
+		: $ct =~ /mastercard      /ixms ? '002'
+		: $ct =~ /american express/ixms ? '003'
+		: $ct =~ /discover        /ixms ? '004'
+		: $ct =~ /jcb             /ixms ? '007'
+		: $ct =~ /enroute         /ixms ? '014'
+		: $ct =~ /laser           /ixms ? '035'
+		:                                 undef
+		;
+
+	croak 'card_type was unable to be detected please define it manually'
+		unless $code;
+		  
+	return $code;
+}
 
 1;
 

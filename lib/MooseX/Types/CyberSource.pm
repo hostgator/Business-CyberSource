@@ -6,11 +6,12 @@ use namespace::autoclean;
 
 our $VERSION = 'v0.2.3'; # VERSION
 
-use MooseX::Types -declare => [ qw( Decision CardType CvIndicator ) ];
+use MooseX::Types -declare => [ qw( Decision CardTypeCode CvIndicator ) ];
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
-enum CardType, [ qw(
+# can't find a standard on this, so I assume these are a cybersource thing
+enum CardTypeCode, [ qw(
 	001
 	002
 	003

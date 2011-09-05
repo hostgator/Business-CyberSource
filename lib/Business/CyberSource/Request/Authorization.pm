@@ -303,7 +303,7 @@ This attribute is required.
 
 Reader: card_type
 
-Type: MooseX::Types::Varchar::Varchar[3]
+Type: MooseX::Types::CyberSource::CardTypeCode
 
 =head2 zip
 

@@ -30,6 +30,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "artistic_2",
   "NAME" => "Business::CyberSource",
   "PREREQ_PM" => {
+    "Business::CreditCard" => 0,
     "Carp" => 0,
     "Config" => 0,
     "File::ShareDir" => 0,
