@@ -91,7 +91,7 @@ has ip => (
 sub _billing_info {
 	my $self = shift;
 
-	my $bi = {
+	my $i = {
 		firstName  => $self->first_name,
 		lastName   => $self->last_name,
 		street1    => $self->street1,
@@ -101,10 +101,13 @@ sub _billing_info {
 		postalCode => $self->zip,
 		country    => $self->country,
 		email      => $self->email,
-		ipAddress  => $self->ip->addr,
 	};
 
-	return $bi;
+	if ( $self->ip ) {
+		$i->{ipAddress} = $self->ip->addr;
+	}
+
+	return $i;
 }
 
 1;
