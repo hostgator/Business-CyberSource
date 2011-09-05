@@ -139,7 +139,7 @@ Additional documentation: Street address on credit card billing statement
 
 Reader: ip
 
-Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
+Type: MooseX::Types::NetAddr::IP::NetAddrIP
 
 Additional documentation: IP address that customer submitted transaction from
 

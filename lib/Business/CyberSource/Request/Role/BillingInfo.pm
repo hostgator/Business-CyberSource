@@ -12,7 +12,7 @@ use MooseX::Aliases;
 use MooseX::Types::Varchar         qw( Varchar       );
 use MooseX::Types::Email           qw( EmailAddress  );
 use MooseX::Types::Locale::Country qw( Alpha2Country );
-use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
+use MooseX::Types::NetAddr::IP     qw( NetAddrIP     );
 
 has first_name => (
 	required => 1,
@@ -84,7 +84,7 @@ has email => (
 has ip => (
 	required => 0,
 	is       => 'ro',
-	isa      => NetAddrIPv4,
+	isa      => NetAddrIP,
 	documentation => 'IP address that customer submitted transaction from',
 );
 
