@@ -6,9 +6,34 @@ use namespace::autoclean;
 
 our $VERSION = 'v0.2.3'; # VERSION
 
-use MooseX::Types -declare => [ qw( Decision ) ];
+use MooseX::Types -declare => [ qw( Decision CardType CvIndicator ) ];
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
+
+enum CardType, [ qw(
+	001
+	002
+	003
+	004
+	005
+	006
+	007
+	014
+	021
+	024
+	031
+	033
+	034
+	035
+	036
+	037
+	039
+	040
+	042
+	043
+) ];
+
+enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 1;
 

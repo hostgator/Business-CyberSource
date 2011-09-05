@@ -159,7 +159,7 @@ Type: MooseX::Types::Path::Class::File
 
 Reader: cv_indicator
 
-Type: MooseX::Types::Varchar::Varchar[1]
+Type: MooseX::Types::CyberSource::CvIndicator
 
 Additional documentation: Flag that indicates whether a CVN code was sent
 

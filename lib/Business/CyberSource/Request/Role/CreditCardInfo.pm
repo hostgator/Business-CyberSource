@@ -11,6 +11,7 @@ use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
+use MooseX::Types::CyberSource qw( CvIndicator );
 
 sub _cc_info {
 	my $self = shift;
@@ -59,7 +60,7 @@ has cv_indicator => (
 	init_arg => undef,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => Varchar[1],
+	isa      => CvIndicator,
 	default  => sub {
 		my $self = shift;
 		if ( $self->cvn ) {
