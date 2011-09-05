@@ -179,8 +179,6 @@ Reader: state
 
 Type: MooseX::Types::Varchar::Varchar[2]
 
-This attribute is required.
-
 Additional documentation: State on credit card billing statement
 
 =head2 email
@@ -312,8 +310,6 @@ Type: MooseX::Types::Varchar::Varchar[3]
 Reader: zip
 
 Type: MooseX::Types::Varchar::Varchar[10]
-
-This attribute is required.
 
 Additional documentation: postal code on credit card billing statement
 

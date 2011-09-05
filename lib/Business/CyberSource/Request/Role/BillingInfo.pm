@@ -51,7 +51,8 @@ has city => (
 );
 
 has state => (
-	required => 1,
+	required => 0,
+	alias    => 'province',
 	is       => 'ro',
 	isa      => Varchar[2],
 	documentation => 'State on credit card billing statement',
@@ -67,7 +68,8 @@ has country => (
 );
 
 has zip => (
-	required => 1,
+	required => 0,
+	alias    => 'postal_code',
 	is       => 'ro',
 	isa      => Varchar[10],
 	documentation => 'postal code on credit card billing statement',
@@ -98,14 +100,20 @@ sub _billing_info {
 		street1    => $self->street1,
 		street2    => $self->street2,
 		city       => $self->city,
-		state      => $self->state,
-		postalCode => $self->zip,
 		country    => $self->country,
 		email      => $self->email,
 	};
 
 	if ( $self->ip ) {
 		$i->{ipAddress} = $self->ip->addr;
+	}
+
+	if ( $self->state ) {
+		$i->{state} = $self->state;
+	}
+
+	if ( $self->zip ) {
+		$i->{postalCode} = $self->zip,
 	}
 
 	return $i;
