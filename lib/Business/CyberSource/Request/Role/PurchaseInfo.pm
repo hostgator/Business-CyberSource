@@ -2,11 +2,15 @@ package Business::CyberSource::Request::Role::PurchaseInfo;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
-use namespace::autoclean;
+with qw(
+	Business::CyberSource::Role::Currency
+);
+
 use MooseX::Types::Moose   qw( Num     );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
@@ -25,12 +29,6 @@ sub _purchase_info {
 
 	return $i;
 }
-
-has currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => CurrencyCode,
-);
 
 has total => (
 	is       => 'ro',

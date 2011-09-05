@@ -1,4 +1,4 @@
-package Business::CyberSource::Response::Role::Accept;
+package Business::CyberSource::Role::Currency;
 use 5.008;
 use strict;
 use warnings;
@@ -7,42 +7,24 @@ use namespace::autoclean;
 our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
-with qw(
-	Business::CyberSource::Role::Currency
-);
+use MooseX::Types::Locale::Currency qw( CurrencyCode );
 
-use MooseX::Types::Moose         qw( Num Str     );
-use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
-
-
-has amount => (
+has currency => (
 	required => 1,
 	is       => 'ro',
-	isa      => Num,
-);
-
-has datetime => (
-	required => 1,
-	is       => 'ro',
-	isa      => DateTimeW3C,
-);
-
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Str,
+	isa      => CurrencyCode,
 );
 
 1;
 
-# ABSTRACT: role for handling accepted transactions
+# ABSTRACT: Role to apply to requests and responses that require currency
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::Accept - role for handling accepted transactions
+Business::CyberSource::Role::Currency - Role to apply to requests and responses that require currency
 
 =head1 VERSION
 
