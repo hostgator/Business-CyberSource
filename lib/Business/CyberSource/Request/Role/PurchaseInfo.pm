@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.2.2'; # VERSION
+our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
@@ -55,7 +55,7 @@ Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Inform
 
 =head1 VERSION
 
-version v0.2.2
+version v0.2.3
 
 =head1 BUGS
 

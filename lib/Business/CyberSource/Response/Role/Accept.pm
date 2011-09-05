@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.2.2'; # VERSION
+our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
@@ -47,7 +47,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version v0.2.2
+version v0.2.3
 
 =head1 BUGS
 

@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+v0.2.3    2011-09-05
+
 v0.2.2    2011-09-04
 	- make code further DRY by reducing duplicated code
 

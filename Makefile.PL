@@ -47,6 +47,7 @@ my %WriteMakefileArgs = (
     "MooseX::Types::Locale::Country" => 0,
     "MooseX::Types::Locale::Currency" => 0,
     "MooseX::Types::Moose" => 0,
+    "MooseX::Types::NetAddr::IP" => 0,
     "MooseX::Types::Path::Class" => 0,
     "MooseX::Types::URI" => 0,
     "MooseX::Types::Varchar" => 0,
@@ -59,7 +60,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "v0.2.2",
+  "VERSION" => "v0.2.3",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -48,6 +48,7 @@
             "MooseX::Types::Locale::Country" : 0,
             "MooseX::Types::Locale::Currency" : 0,
             "MooseX::Types::Moose" : 0,
+            "MooseX::Types::NetAddr::IP" : 0,
             "MooseX::Types::Path::Class" : 0,
             "MooseX::Types::URI" : 0,
             "MooseX::Types::Varchar" : 0,
@@ -73,7 +74,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/xenoterracide/Business-CyberSource/issues"
@@ -85,6 +86,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "v0.2.2"
+   "version" : "v0.2.3"
 }
 

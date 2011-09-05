@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.2'; # VERSION
+our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
@@ -12,6 +12,7 @@ use MooseX::Aliases;
 use MooseX::Types::Varchar         qw( Varchar       );
 use MooseX::Types::Email           qw( EmailAddress  );
 use MooseX::Types::Locale::Country qw( Alpha2Country );
+use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
 
 has first_name => (
 	required => 1,
@@ -83,7 +84,7 @@ has email => (
 has ip => (
 	required => 0,
 	is       => 'ro',
-	isa      => Varchar[15],
+	isa      => NetAddrIPv4,
 	documentation => 'IP address that customer submitted transaction from',
 );
 
@@ -119,7 +120,7 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 
 =head1 VERSION
 
-version v0.2.2
+version v0.2.3
 
 =head1 BUGS
 

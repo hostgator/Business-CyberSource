@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.2'; # VERSION
+our $VERSION = 'v0.2.3'; # VERSION
 
 use MooseX::Types -declare => [ qw( Decision ) ];
 
@@ -24,7 +24,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version v0.2.2
+version v0.2.3
 
 =head1 SYNOPSIS
 

@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.2.2'; # VERSION
+our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose;
 with qw(
@@ -79,7 +79,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.2.2
+version v0.2.3
 
 =head1 SYNOPSIS
 
@@ -139,7 +139,7 @@ Additional documentation: Street address on credit card billing statement
 
 Reader: ip
 
-Type: MooseX::Types::Varchar::Varchar[15]
+Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
 
 Additional documentation: IP address that customer submitted transaction from
 
