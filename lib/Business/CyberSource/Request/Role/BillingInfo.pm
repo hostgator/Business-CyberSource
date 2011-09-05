@@ -83,6 +83,7 @@ has email => (
 
 has ip => (
 	required => 0,
+	coerce   => 1,
 	is       => 'ro',
 	isa      => NetAddrIPv4,
 	documentation => 'IP address that customer submitted transaction from',
