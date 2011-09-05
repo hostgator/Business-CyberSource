@@ -101,7 +101,7 @@ sub _build_card_type {
 		:                                 undef
 		;
 
-	croak 'card_type was unable to be detected please define it manually'
+	croak $ct . 'card_type was unable to be detected please define it manually'
 		unless $code;
 		  
 	return $code;
