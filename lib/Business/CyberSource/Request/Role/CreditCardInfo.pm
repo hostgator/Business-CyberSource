@@ -14,7 +14,7 @@ use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
 use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
 
-use Business::CreditCard;
+use Business::CreditCard qw( cardtype );
 
 sub _cc_info {
 	my $self = shift;
@@ -88,7 +88,7 @@ has cvn => (
 sub _build_card_type {
 	my $self = shift;
 
-	my $ct = Business::CreditCard->cardtype( $self->credit_card );
+	my $ct = cardtype( $self->credit_card );
 
 	my $code
 		= $ct =~ /visa            /ixms ? '001'
