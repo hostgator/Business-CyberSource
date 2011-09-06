@@ -133,7 +133,7 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
-Additional documentation: Street address on credit card billing statement
+Additional documentation: First line of the billing street address as it appears on the credit card issuer’s records. alias: C<street1>
 
 =head2 ip
 
@@ -141,7 +141,7 @@ Reader: ip
 
 Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
 
-Additional documentation: IP address that customer submitted transaction from
+Additional documentation: Customer’s IP address. alias: C<ip_address>
 
 =head2 client_env
 
@@ -149,11 +149,15 @@ Reader: client_env
 
 Type: Str
 
+Additional documentation: provided by the libary, unsettable
+
 =head2 cybs_wsdl
 
 Reader: cybs_wsdl
 
 Type: MooseX::Types::Path::Class::File
+
+Additional documentation: provided by the libary
 
 =head2 cv_indicator
 
@@ -171,7 +175,7 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
-Additional documentation: Card Holder's last name
+Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
 
 =head2 state
 
@@ -179,7 +183,7 @@ Reader: state
 
 Type: MooseX::Types::Varchar::Varchar[2]
 
-Additional documentation: State on credit card billing statement
+Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
 
 =head2 email
 
@@ -215,7 +219,7 @@ Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
 
-Additional documentation: City on credit card billing statement
+Additional documentation: City of the billing address.
 
 =head2 password
 
@@ -252,6 +256,8 @@ Additional documentation: ISO 2 character country code (as it would apply to a c
 Reader: cybs_api_version
 
 Type: Str
+
+Additional documentation: provided by the libary, unsettable
 
 =head2 cvn
 
@@ -311,13 +317,15 @@ Reader: zip
 
 Type: MooseX::Types::Varchar::Varchar[10]
 
-Additional documentation: postal code on credit card billing statement
+Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. alias: C<postal_code>
 
 =head2 cybs_xsd
 
 Reader: cybs_xsd
 
 Type: MooseX::Types::Path::Class::File
+
+Additional documentation: provided by the libary
 
 =head2 street2
 
@@ -347,6 +355,8 @@ Reader: client_name
 
 Type: Str
 
+Additional documentation: provided by the libary, unsettable
+
 =head2 client_version
 
 Reader: client_version
@@ -361,7 +371,7 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
-Additional documentation: Card Holder's first name
+Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
 
 =head1 SEE ALSO
 

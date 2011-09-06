@@ -19,7 +19,8 @@
       ],
       "namespace" : [
          "Business::CyberSource::Request::Role",
-         "Business::CyberSource::Response::Role"
+         "Business::CyberSource::Response::Role",
+         "Business::CyberSource::Role"
       ]
    },
    "prereqs" : {

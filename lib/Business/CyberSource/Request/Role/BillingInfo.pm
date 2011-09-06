@@ -2,12 +2,12 @@ package Business::CyberSource::Request::Role::BillingInfo;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 use Carp;
 
 our $VERSION = 'v0.2.3'; # VERSION
 
 use Moose::Role;
-use namespace::autoclean;
 use MooseX::Aliases;
 use MooseX::Types::Varchar         qw( Varchar       );
 use MooseX::Types::Email           qw( EmailAddress  );
@@ -18,14 +18,16 @@ has first_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[60],
-	documentation => 'Card Holder\'s first name',
+	documentation => 'Customer\'s first name.The value should be the same as '
+		. 'the one that is on the card.',
 );
 
 has last_name => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[60],
-	documentation => 'Card Holder\'s last name',
+	documentation => 'Customer\'s last name. The value should be the same as '
+		. 'the one that is on the card.'
 );
 
 has street => (
@@ -33,7 +35,8 @@ has street => (
 	is       => 'ro',
 	isa      => Varchar[60],
 	alias    => 'street1',
-	documentation => 'Street address on credit card billing statement',
+	documentation => 'First line of the billing street address as it '
+		. 'appears on the credit card issuer’s records. alias: C<street1>',
 );
 
 has street2 => (
@@ -47,7 +50,7 @@ has city => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[50],
-	documentation => 'City on credit card billing statement',
+	documentation => 'City of the billing address.',
 );
 
 has state => (
@@ -55,7 +58,8 @@ has state => (
 	alias    => 'province',
 	is       => 'ro',
 	isa      => Varchar[2],
-	documentation => 'State on credit card billing statement',
+	documentation => 'State or province of the billing address. '
+		. 'Use the two-character codes. alias: C<province>',
 );
 
 has country => (
@@ -72,7 +76,9 @@ has zip => (
 	alias    => 'postal_code',
 	is       => 'ro',
 	isa      => Varchar[10],
-	documentation => 'postal code on credit card billing statement',
+	documentation => 'Postal code for the billing address. '
+		. 'The postal code must consist of 5 to 9 digits. '
+		. 'alias: C<postal_code>',
 );
 
 has email => (
@@ -85,10 +91,11 @@ has email => (
 
 has ip => (
 	required => 0,
+	alias    => 'ip_address',
 	coerce   => 1,
 	is       => 'ro',
 	isa      => NetAddrIPv4,
-	documentation => 'IP address that customer submitted transaction from',
+	documentation => 'Customer’s IP address. alias: C<ip_address>',
 );
 
 sub _billing_info {

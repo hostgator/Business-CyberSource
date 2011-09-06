@@ -25,6 +25,7 @@ no_index:
   namespace:
     - Business::CyberSource::Request::Role
     - Business::CyberSource::Response::Role
+    - Business::CyberSource::Role
 requires:
   Business::CreditCard: 0
   Carp: 0

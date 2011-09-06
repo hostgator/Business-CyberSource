@@ -115,11 +115,15 @@ Reader: client_env
 
 Type: Str
 
+Additional documentation: provided by the libary, unsettable
+
 =head2 cybs_wsdl
 
 Reader: cybs_wsdl
 
 Type: MooseX::Types::Path::Class::File
+
+Additional documentation: provided by the libary
 
 =head2 trace
 
@@ -171,6 +175,8 @@ Reader: cybs_api_version
 
 Type: Str
 
+Additional documentation: provided by the libary, unsettable
+
 =head2 total
 
 Reader: total
@@ -193,6 +199,8 @@ Reader: cybs_xsd
 
 Type: MooseX::Types::Path::Class::File
 
+Additional documentation: provided by the libary
+
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -204,6 +212,8 @@ Type: MooseX::Types::Locale::Currency::CurrencyCode
 Reader: client_name
 
 Type: Str
+
+Additional documentation: provided by the libary, unsettable
 
 =head2 reference_code
 

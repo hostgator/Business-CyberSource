@@ -96,11 +96,15 @@ Reader: client_env
 
 Type: Str
 
+Additional documentation: provided by the libary, unsettable
+
 =head2 cybs_wsdl
 
 Reader: cybs_wsdl
 
 Type: MooseX::Types::Path::Class::File
+
+Additional documentation: provided by the libary
 
 =head2 cv_indicator
 
@@ -151,6 +155,8 @@ Additional documentation: 0: test server. 1: production server
 Reader: cybs_api_version
 
 Type: Str
+
+Additional documentation: provided by the libary, unsettable
 
 =head2 cvn
 
@@ -210,6 +216,8 @@ Reader: cybs_xsd
 
 Type: MooseX::Types::Path::Class::File
 
+Additional documentation: provided by the libary
+
 =head2 reference_code
 
 Reader: reference_code
@@ -223,6 +231,8 @@ This attribute is required.
 Reader: client_name
 
 Type: Str
+
+Additional documentation: provided by the libary, unsettable
 
 =head2 foreign_currency
 
