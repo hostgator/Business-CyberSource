@@ -115,4 +115,21 @@ sub _build_cybs_xsd {
 
 1;
 
-# ABSTRACT: Business::CyberSource
+# ABSTRACT: Perl interface to the CyberSource Simple Order SOAP API
+
+=head1 DESCRIPTION
+
+This library is a Perl interface to the CyberSource Simple Order SOAP API built
+on L<Moose> and L<XML::Compile::SOAP> technologies. This library aims to
+eventually provide a full interface the SOAPI.
+
+You may wish to read the Official CyberSource Documentation on L<Credit Card
+Services for the Simpler Order
+API|/http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO_API/html/>
+as it will provide further information on why what some things are and the
+general workflow.
+
+To get started you will want to read the documentation in
+L<Business::CyberSource::Request>
+
+=cut
