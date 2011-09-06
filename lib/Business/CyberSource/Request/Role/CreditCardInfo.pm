@@ -30,15 +30,16 @@ sub _cc_info {
 		$i->{cvNumber   } = $self->cvn;
 		$i->{cvIndicator} = $self->cv_indicator;
 	}
-
 	return $i;
 }
 
 has credit_card => (
 	required => 1,
+	alias    => 'account_number',
 	is       => 'ro',
 	isa      => CreditCard,
 	coerce   => 1,
+	documentation => 'Customer\'s credit card number',
 );
 
 has card_type => (
@@ -47,18 +48,23 @@ has card_type => (
 	is       => 'ro',
 	isa      => CardTypeCode,
 	builder  => '_build_card_type',
+	documentation => 'Type of card to authorize',
 );
 
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => Varchar[2],
+	documentation => 'Two-digit month that the credit card expires '
+		. 'in. Format: MM.',
 );
 
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => Varchar[4],
+	documentation => 'Four-digit year that the credit card expires in. '
+		. 'Format: YYYY.',
 );
 
 has cv_indicator => (
@@ -83,6 +89,7 @@ has cvn => (
 	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
 	is       => 'ro',
 	isa      => CardSecurityCode,
+	documentation => 'Card Verification Numbers',
 );
 
 sub _build_card_type {
