@@ -133,7 +133,7 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 This attribute is required.
 
-Additional documentation: First line of the billing street address as it appears on the credit card issuer’s records. alias: C<street1>
+Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
 
 =head2 ip
 
