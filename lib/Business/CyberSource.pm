@@ -36,7 +36,7 @@ has client_name => (
 	is       => 'ro',
 	isa      => Str,
 	default  => sub { return __PACKAGE__ },
-	documentation => 'provided by the libary, unsettable',
+	documentation => 'provided by the library',
 );
 
 has client_env => (
@@ -48,7 +48,7 @@ has client_env => (
 	default  => sub {
 		return "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
 	},
-	documentation => 'provided by the libary, unsettable',
+	documentation => 'provided by the library',
 );
 
 has cybs_api_version => (
@@ -57,7 +57,7 @@ has cybs_api_version => (
 	is       => 'ro',
 	isa      => Str,
 	default  => '1.62',
-	documentation => 'provided by the libary, unsettable',
+	documentation => 'provided by the library',
 );
 
 has cybs_wsdl => (
@@ -66,7 +66,7 @@ has cybs_wsdl => (
 	is        => 'ro',
 	isa       => File,
 	builder   => '_build_cybs_wsdl',
-	documentation => 'provided by the libary',
+	documentation => 'provided by the library',
 );
 
 has cybs_xsd => (
@@ -75,7 +75,7 @@ has cybs_xsd => (
 	is       => 'ro',
 	isa      => File,
 	builder  => '_build_cybs_xsd',
-	documentation => 'provided by the libary',
+	documentation => 'provided by the library',
 );
 
 sub _build_cybs_wsdl {
