@@ -265,13 +265,17 @@ Reader: cvn
 
 Type: MooseX::Types::CreditCard::CardSecurityCode
 
+Additional documentation: Card Verification Numbers
+
 =head2 cc_exp_month
 
 Reader: cc_exp_month
 
-Type: Int
+Type: MooseX::Types::Varchar::Varchar[2]
 
 This attribute is required.
+
+Additional documentation: Two-digit month that the credit card expires in. Format: MM.
 
 =head2 total
 
@@ -283,9 +287,11 @@ Type: Num
 
 Reader: cc_exp_year
 
-Type: Int
+Type: MooseX::Types::Varchar::Varchar[4]
 
 This attribute is required.
+
+Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
 
 =head2 username
 
@@ -305,11 +311,15 @@ Type: MooseX::Types::CreditCard::CreditCard
 
 This attribute is required.
 
+Additional documentation: Customer's credit card number
+
 =head2 card_type
 
 Reader: card_type
 
 Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
 
 =head2 zip
 
