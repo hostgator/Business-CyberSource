@@ -35,7 +35,7 @@ around 'create' => sub {
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Request factory
+# ABSTRACT: CyberSource Request Factory Module
 
 =head1 SYNOPSIS
 
@@ -49,8 +49,7 @@ __PACKAGE__->meta->make_immutable;
 			username       => $CYBS_ID,
 			password       => $CYBS_KEY,
 			production     => 0,
-		})
-		;
+		});
 
 	my $request_obj = $request_factory->create(
 		'Authorization',
@@ -74,7 +73,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This library provides a generic factory interface to creating request objects.
+This module provides a generic factory interface to creating request objects.
 It also allows us to not repeat ourselves when specifying attributes that are
 common to all requests such as authentication, and server destination.
 
