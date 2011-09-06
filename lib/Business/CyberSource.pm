@@ -137,7 +137,7 @@ eventually provide a full interface the SOAPI.
 
 You may wish to read the Official CyberSource Documentation on L<Credit Card
 Services for the Simpler Order
-API|/http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO_API/html/>
+API|http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO_API/html/>
 as it will provide further information on why what some things are and the
 general workflow.
 

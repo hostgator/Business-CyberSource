@@ -37,6 +37,7 @@ cvc
 cvv
 login
 AuthReversal
+SOAPI
 Caleb
 Cushing
 Caleb
