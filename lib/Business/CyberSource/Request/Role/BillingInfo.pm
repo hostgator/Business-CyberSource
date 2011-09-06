@@ -36,7 +36,7 @@ has street => (
 	isa      => Varchar[60],
 	alias    => 'street1',
 	documentation => 'First line of the billing street address as it '
-		. 'appears on the credit card issuer’s records. alias: C<street1>',
+		. 'appears on the credit card issuer\'s records. alias: C<street1>',
 );
 
 has street2 => (
