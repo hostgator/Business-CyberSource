@@ -141,7 +141,7 @@ Reader: ip
 
 Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
 
-Additional documentation: Customer’s IP address. alias: C<ip_address>
+Additional documentation: Customer's IP address. alias: C<ip_address>
 
 =head2 client_env
 

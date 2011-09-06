@@ -95,7 +95,7 @@ has ip => (
 	coerce   => 1,
 	is       => 'ro',
 	isa      => NetAddrIPv4,
-	documentation => 'Customer’s IP address. alias: C<ip_address>',
+	documentation => 'Customer\'s IP address. alias: C<ip_address>',
 );
 
 sub _billing_info {
