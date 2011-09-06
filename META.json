@@ -1,5 +1,5 @@
 {
-   "abstract" : "Business::CyberSource",
+   "abstract" : "Perl interface to the CyberSource Simple Order SOAP API",
    "author" : [
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],

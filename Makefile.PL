@@ -11,7 +11,7 @@ install_share dist => "share";
 
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Business::CyberSource",
+  "ABSTRACT" => "Perl interface to the CyberSource Simple Order SOAP API",
   "AUTHOR" => "Caleb Cushing <xenoterracide\@gmail.com>",
   "BUILD_REQUIRES" => {
     "English" => 0,
