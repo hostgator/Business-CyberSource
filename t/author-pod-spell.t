@@ -38,6 +38,14 @@ cvv
 login
 AuthReversal
 SOAPI
+Bleue
+Carta
+Carte
+Dankort
+JAL
+Santander
+UATP
+YYYY
 Caleb
 Cushing
 Caleb
