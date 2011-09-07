@@ -20,6 +20,7 @@ has decision => (
 	required => 1,
 	is       => 'ro',
 	isa      => Decision,
+	documentation => 'Summarizes the result of the overall request',
 );
 
 has reason_code => (
