@@ -132,3 +132,50 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Response Object
+
+=head1 DESCRIPTION
+
+Every time you call C<submit> on a request object it returns a response
+object. This response can be used to determine the success of a transaction,
+as well as receive a follow up C<request_id> in case you need to do further
+actions with this. A response will always have C<decision>, C<reason_code>,
+C<reason_text>, and C<request_id> attributes. You should always use either
+introspection or check the C<decision> to determine which attributes will be
+defined, as what is returned by CyberSource varies depending on what the
+C<decision> is and what was sent in the request itself.
+
+=head1 TRAITS
+
+=head2 Accept
+
+This trait is applied if the decision is C<ACCEPT>.
+
+=head3 ammount
+
+Type: Num
+
+Amount that was approved.
+
+=head3 datetime
+
+Type: MooseX::Types::DateTime::W3C::DateTimeW3C
+
+A response timestamp (will probably become a DateTime object at somepoint)
+
+=head3 reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+The merchant reference code originally sent
+
+=head2 Reject
+
+This trait is applied if the decision is C<Reject>
+
+=head3 request_token
+
+The field is an encoded string that contains no confidential information,
+such as an account number or card verification number. The string can contain
+up to 256 characters.
+
+=cut
