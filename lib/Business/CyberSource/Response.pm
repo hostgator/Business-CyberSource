@@ -26,6 +26,8 @@ has reason_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => Int,
+	documentation => 'Numeric value corresponding to the result '
+		. 'of the credit card authorization request',
 );
 
 has reason_text => (
@@ -34,6 +36,10 @@ has reason_text => (
 	is       => 'ro',
 	isa      => Str,
 	builder  => '_build_reason_text',
+	documentation => 'official description of returned reason code. '
+		. 'warning: reason codes are returned by cybersource and '
+		. 'occassionally do not reflect the real reason for the error '
+		. 'please inspect the trace request/response for issues',
 );
 
 sub _build_reason_text {
