@@ -11,7 +11,7 @@ use Moose::Role;
 has request_token => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[256],
 );
 
 1;
