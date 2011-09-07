@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 BEGIN {
-	our $VERSION = 'v0.2.3'; # VERSION
+	our $VERSION = 'v0.2.4'; # VERSION
 }
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
@@ -28,7 +28,7 @@ Business::CyberSource::Response::Role::Reject - role for handling rejected trans
 
 =head1 VERSION
 
-version v0.2.3
+version v0.2.4
 
 =head1 BUGS
 

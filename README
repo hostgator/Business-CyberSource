@@ -3,7 +3,7 @@ NAME
     SOAP API
 
 VERSION
-    version v0.2.3
+    version v0.2.4
 
 DESCRIPTION
     This library is a Perl interface to the CyberSource Simple Order SOAP
@@ -18,6 +18,16 @@ DESCRIPTION
 
     To get started you will want to read the documentation in
     Business::CyberSource::Request
+
+ACKNOWLEGEMENTS
+    *   Mark Overmeer
+
+        for the help with getting XML::Compile::SOAP::WSS working.
+
+SEE ALSO
+    *   Checkout::CyberSource::SOAP
+
+    *   Business::OnlinePayment::CyberSource
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
