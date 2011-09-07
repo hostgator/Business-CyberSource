@@ -137,4 +137,24 @@ general workflow.
 To get started you will want to read the documentation in
 L<Business::CyberSource::Request>
 
+=head1 ACKNOWLEDGEMENTS
+
+=over
+
+=item * Mark Overmeer
+
+for the help with getting L<XML::Compile::SOAP::WSS> working.
+
+=back
+
+=head1 SEE ALSO
+
+=over
+
+=item * L<Checkout::CyberSource::SOAP>
+
+=item * L<Business::OnlinePayment::CyberSource>
+
+=back
+
 =cut
