@@ -283,6 +283,8 @@ Reader: total
 
 Type: Num
 
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
 =head2 cc_exp_year
 
 Reader: cc_exp_year
@@ -350,6 +352,8 @@ Additional documentation: Second line of the billing street address.
 Reader: foreign_currency
 
 Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 reference_code
 

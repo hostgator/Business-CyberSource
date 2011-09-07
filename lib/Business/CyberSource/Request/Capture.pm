@@ -180,6 +180,8 @@ Reader: total
 
 Type: Num
 
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
 =head2 username
 
 Reader: username
@@ -211,6 +213,8 @@ Additional documentation: provided by the library
 Reader: foreign_currency
 
 Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 reference_code
 

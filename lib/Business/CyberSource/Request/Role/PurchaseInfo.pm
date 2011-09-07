@@ -33,11 +33,16 @@ sub _purchase_info {
 has total => (
 	is       => 'ro',
 	isa      => Num,
+	documentation => 'Grand total for the order. You must include '
+		. 'either this field or item_#_unitPrice in your request',
 );
 
 has foreign_currency => (
 	is  => 'ro',
 	isa => CurrencyCode,
+	documentation => 'Billing currency returned by the DCC service. '
+		. 'For the possible values, see the ISO currency codes',
+
 );
 
 1;
