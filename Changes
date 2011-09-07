@@ -2,6 +2,11 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.2.3    2011-09-06
+	- make ->ip a Net::Addr
+	- more and improved documentation
+	- tighten down other contraints
+
 v0.2.2    2011-09-04
 	- make code further DRY by reducing duplicated code
 
