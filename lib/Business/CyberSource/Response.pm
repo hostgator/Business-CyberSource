@@ -37,8 +37,8 @@ has reason_text => (
 	isa      => Str,
 	builder  => '_build_reason_text',
 	documentation => 'official description of returned reason code. '
-		. 'warning: reason codes are returned by cybersource and '
-		. 'occassionally do not reflect the real reason for the error '
+		. 'warning: reason codes are returned by CyberSource and '
+		. 'occasionally do not reflect the real reason for the error '
 		. 'please inspect the trace request/response for issues',
 );
 
@@ -161,7 +161,7 @@ Type: Str
 
 This attribute is required.
 
-Additional documentation: official description of returned reason code. warning: reason codes are returned by cybersource and occassionally do not reflect the real reason for the error please inspect the trace request/response for issues
+Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
 
 =head2 decision
 
