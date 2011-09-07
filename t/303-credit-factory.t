@@ -22,23 +22,23 @@ my $factory
 ok( $factory, 'factory exists' );
 
 my $req = $factory->create(
-	'Authorization',
+	'StandAloneCredit',
 	{
-		reference_code => '42',
+		reference_code => '1021',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
-		street         => 'somewhere',
+		street1        => 'somewhere',
+		street2        => 'B',
 		city           => 'Houston',
 		state          => 'TX',
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		unit_price     => 5.00,
-		quantity       => 1,
-		total          => 5.00,
+		ip_address     => '10.0.0.8',
+		total          => 9.84,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
+		credit_card    => '3566 1111 1111 1113',
+		cc_exp_month   => '02',
 		cc_exp_year    => '2025',
 	}
 );
