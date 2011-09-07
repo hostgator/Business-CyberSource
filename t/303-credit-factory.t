@@ -12,7 +12,6 @@ plan skip_all
 
 use Business::CyberSource::Request;
 
-
 my $factory
 	= Business::CyberSource::Request->new({
 		username       => $CYBS_ID,
@@ -23,9 +22,9 @@ my $factory
 ok( $factory, 'factory exists' );
 
 my $req = $factory->create(
-	'Credit',
+	'Authorization',
 	{
-		reference_code => '360',
+		reference_code => '42',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -34,13 +33,15 @@ my $req = $factory->create(
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		ip             => '192.168.100.2',
+		unit_price     => 5.00,
+		quantity       => 1,
 		total          => 5.00,
 		currency       => 'USD',
-		credit_card    => '3566 1111 1111 1113',
+		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-	};
+	}
+);
 
 ok( $req, 'request exists' );
 

@@ -19,6 +19,7 @@ lib/Business/CyberSource/Request/Role/Credentials.pm
 lib/Business/CyberSource/Request/Role/CreditCardInfo.pm
 lib/Business/CyberSource/Request/Role/FollowUp.pm
 lib/Business/CyberSource/Request/Role/PurchaseInfo.pm
+lib/Business/CyberSource/Request/StandAloneCredit.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Role/Accept.pm
 lib/Business/CyberSource/Response/Role/AuthReversal.pm
@@ -46,6 +47,7 @@ t/201-capture.t
 t/202-capture-reject.t
 t/301-credit.t
 t/302-follow-on-credit.t
+t/303-credit-factory.t
 t/401-auth-reversal.t
 t/402-auth-reversal-reject.t
 t/403-auth-reversal-factory.t
