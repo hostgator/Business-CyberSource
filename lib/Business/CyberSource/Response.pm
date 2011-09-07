@@ -150,7 +150,7 @@ C<decision> is and what was sent in the request itself.
 
 This trait is applied if the decision is C<ACCEPT>.
 
-=head3 ammount
+=head3 amount
 
 Type: Num
 
@@ -160,7 +160,7 @@ Amount that was approved.
 
 Type: MooseX::Types::DateTime::W3C::DateTimeW3C
 
-A response timestamp (will probably become a DateTime object at somepoint)
+A response timestamp (will probably become a DateTime object at some point)
 
 =head3 reference_code
 

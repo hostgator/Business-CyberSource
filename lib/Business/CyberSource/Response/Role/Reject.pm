@@ -7,11 +7,12 @@ BEGIN {
 	# VERSION
 }
 use Moose::Role;
+use MooseX::Types::Varchar qw( Varchar );
 
 has request_token => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[256],
 );
 
 1;
