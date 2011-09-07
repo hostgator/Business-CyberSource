@@ -149,7 +149,7 @@ general workflow.
 To get started you will want to read the documentation in
 L<Business::CyberSource::Request>
 
-=head1 ACKNOWLEGEMENTS
+=head1 ACKNOWLEDGEMENTS
 
 =over
 

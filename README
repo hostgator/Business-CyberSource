@@ -19,7 +19,7 @@ DESCRIPTION
     To get started you will want to read the documentation in
     Business::CyberSource::Request
 
-ACKNOWLEGEMENTS
+ACKNOWLEDGEMENTS
     *   Mark Overmeer
 
         for the help with getting XML::Compile::SOAP::WSS working.
