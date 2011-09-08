@@ -38,6 +38,7 @@ has reference_code => (
 
 # ABSTRACT: role for handling accepted transactions
 
+
 __END__
 =pod
 
@@ -48,6 +49,30 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 =head1 VERSION
 
 version v0.2.4
+
+=head1 DESCRIPTION
+
+If the transaction has a C<decision> of approved then this Role is applied.
+
+=head1 ATTRIBUTES
+
+=head2 amount
+
+Type: Num
+
+Amount that was approved.
+
+=head2 datetime
+
+Type: MooseX::Types::DateTime::W3C::DateTimeW3C
+
+A response timestamp (will probably become a DateTime object at some point)
+
+=head2 reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+The merchant reference code originally sent
 
 =head1 BUGS
 

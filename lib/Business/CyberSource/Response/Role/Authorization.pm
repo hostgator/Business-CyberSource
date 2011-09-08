@@ -7,12 +7,6 @@ BEGIN {
 }
 use Moose::Role;
 
-has request_token => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 has auth_code => (
 	required => 1,
 	is       => 'ro',
@@ -47,6 +41,7 @@ has processor_response => (
 
 # ABSTRACT: CyberSource Authorization Response object
 
+
 __END__
 =pod
 
@@ -57,6 +52,8 @@ Business::CyberSource::Response::Role::Authorization - CyberSource Authorization
 =head1 VERSION
 
 version v0.2.4
+
+=head1 DESCRIPTION
 
 =head1 BUGS
 

@@ -15,6 +15,7 @@ with qw(
 
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::CyberSource qw( Decision );
+use MooseX::Types::Varchar qw( Varchar );
 
 has decision => (
 	required => 1,
@@ -41,6 +42,12 @@ has reason_text => (
 		. 'warning: reason codes are returned by CyberSource and '
 		. 'occasionally do not reflect the real reason for the error '
 		. 'please inspect the trace request/response for issues',
+);
+
+has request_token => (
+	required => 1,
+	is       => 'ro',
+	isa      => Varchar[256],
 );
 
 sub _build_reason_text {
@@ -196,39 +203,13 @@ This attribute is required.
 
 Additional documentation: Numeric value corresponding to the result of the credit card authorization request
 
-=head1 TRAITS
+=head2 request_token
 
-=head2 Accept
+Reader: request_token
 
-This trait is applied if the decision is C<ACCEPT>.
+Type: MooseX::Types::Varchar::Varchar[256]
 
-=head3 amount
-
-Type: Num
-
-Amount that was approved.
-
-=head3 datetime
-
-Type: MooseX::Types::DateTime::W3C::DateTimeW3C
-
-A response timestamp (will probably become a DateTime object at some point)
-
-=head3 reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-The merchant reference code originally sent
-
-=head2 Reject
-
-This trait is applied if the decision is C<Reject>
-
-=head3 request_token
-
-The field is an encoded string that contains no confidential information,
-such as an account number or card verification number. The string can contain
-up to 256 characters.
+This attribute is required.
 
 =head1 BUGS
 
