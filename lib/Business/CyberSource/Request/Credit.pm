@@ -9,15 +9,16 @@ our $VERSION = 'v0.2.5'; # VERSION
 use Moose;
 use namespace::autoclean;
 with qw(
+	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 );
 
 use Business::CyberSource::Response;
 
-#has '+_trait_namespace' => (
-#	default => 'Business::CyberSource::Request::Role',
-#);
+has '+_trait_namespace' => (
+	default => 'Business::CyberSource::Request::Role',
+);
 
 sub submit {
 	my $self = shift;
