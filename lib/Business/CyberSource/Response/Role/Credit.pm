@@ -12,7 +12,7 @@ use MooseX::Types::Moose qw( Int );
 has reconciliation_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => Int, # Int[6]
 );
 
 1;
