@@ -2,9 +2,9 @@ package Business::CyberSource::Response::Role::AuthReversal;
 use 5.008;
 use strict;
 use warnings;
-BEGIN {
-	our $VERSION = 'v0.2.4'; # VERSION
-}
+
+our $VERSION = 'v0.2.4'; # VERSION
+
 use Moose::Role;
 
 has processor_response => (
