@@ -207,6 +207,8 @@ This attribute is required.
 
 Reader: trace
 
+Writer: trace
+
 Type: XML::Compile::SOAP::Trace
 
 =head2 city

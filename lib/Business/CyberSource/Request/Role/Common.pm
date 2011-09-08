@@ -87,8 +87,9 @@ has reference_code => (
 );
 
 has trace => (
-	is     => 'ro',
+	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
+	traits => [ qw( SetOnce ) ],
 );
 
 1;

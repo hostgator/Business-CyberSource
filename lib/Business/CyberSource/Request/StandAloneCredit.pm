@@ -148,6 +148,8 @@ Additional documentation: Customer's email address, including the full domain na
 
 Reader: trace
 
+Writer: trace
+
 Type: XML::Compile::SOAP::Trace
 
 =head2 currency
