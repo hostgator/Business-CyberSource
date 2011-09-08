@@ -50,6 +50,12 @@ Type: Num
 
 Amount that was approved.
 
+=head2 currency
+
+Type: MooseX::Types::Locale::Currency
+
+Currency code which was used to make the request
+
 =head2 datetime
 
 Type: MooseX::Types::DateTime::W3C::DateTimeW3C
