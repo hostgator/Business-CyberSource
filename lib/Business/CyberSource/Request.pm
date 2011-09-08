@@ -122,9 +122,9 @@ implementation and required attributes:
 
 =item * L<Capture|Business::CyberSource::Request::Capture>
 
-=item * L<FollowOnCredit|Business::CyberSource::Request::FollowOnCredit>
+=item * L<Follow-On Credit|Business::CyberSource::Request::FollowOnCredit>
 
-=item * L<StandAloneCredit|Business::CyberSource::Request::StandAloneCredit>
+=item * L<Stand Alone Credit|Business::CyberSource::Request::StandAloneCredit>
 
 =item * L<DCC|Business::CyberSource::Request::DCC>
 
