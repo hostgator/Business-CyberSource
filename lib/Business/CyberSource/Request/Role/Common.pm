@@ -66,12 +66,7 @@ sub _handle_decision {
 
 	my $res;
 	if ( $r->{decision} eq 'REJECT' ) {
-		$res
-			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Reject
-			})
-			->new({
+		$res = Business::CyberSource::Response->new({
 				decision      => $r->{decision},
 				request_id    => $r->{requestID},
 				reason_code   => "$r->{reasonCode}",
