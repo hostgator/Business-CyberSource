@@ -11,9 +11,9 @@ with qw(
 	Business::CyberSource::Role::Currency
 );
 
-use MooseX::Types::Moose         qw( Num Str     );
+use MooseX::Types::Moose         qw( Num );
+use MooseX::Types::Varchar       qw( Varchar );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
-use MooseX::Types::Varchar       qw( Varchar     );
 
 
 has amount => (
