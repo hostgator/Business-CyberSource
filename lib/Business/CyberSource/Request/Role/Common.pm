@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef );
@@ -87,7 +87,7 @@ has reference_code => (
 );
 
 has trace => (
-	is     => 'rw',
+	is     => 'ro',
 	isa    => 'XML::Compile::SOAP::Trace',
 );
 
@@ -104,7 +104,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 BUGS
 

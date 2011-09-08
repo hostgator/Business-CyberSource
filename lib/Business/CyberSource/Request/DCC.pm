@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -71,7 +71,7 @@ Business::CyberSource::Request::DCC - CyberSource DCC Request Object
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 DESCRIPTION
 
@@ -121,8 +121,6 @@ Additional documentation: Flag that indicates whether a CVN code was sent
 =head2 trace
 
 Reader: trace
-
-Writer: trace
 
 Type: XML::Compile::SOAP::Trace
 

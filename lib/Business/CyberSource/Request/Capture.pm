@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -73,7 +73,7 @@ Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 SYNOPSIS
 
@@ -133,8 +133,6 @@ This attribute is required.
 =head2 trace
 
 Reader: trace
-
-Writer: trace
 
 Type: XML::Compile::SOAP::Trace
 

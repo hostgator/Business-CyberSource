@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose qw( Int );
@@ -28,7 +28,7 @@ Business::CyberSource::Response::Role::Credit - CyberSource Credit Response obje
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 BUGS
 

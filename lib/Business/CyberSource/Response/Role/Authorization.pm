@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
@@ -54,7 +54,7 @@ Business::CyberSource::Response::Role::Authorization - CyberSource Authorization
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 BUGS
 

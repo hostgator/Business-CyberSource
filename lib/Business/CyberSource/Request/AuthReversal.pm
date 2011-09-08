@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.4'; # VERSION
+our $VERSION = 'v0.2.5'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -75,7 +75,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.2.4
+version v0.2.5
 
 =head1 SYNOPSIS
 
@@ -129,8 +129,6 @@ Additional documentation: provided by the library
 =head2 trace
 
 Reader: trace
-
-Writer: trace
 
 Type: XML::Compile::SOAP::Trace
 
