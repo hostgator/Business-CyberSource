@@ -67,12 +67,11 @@ sub _handle_decision {
 	my $res;
 	if ( $r->{decision} eq 'REJECT' ) {
 		$res = Business::CyberSource::Response->new({
-				decision      => $r->{decision},
-				request_id    => $r->{requestID},
-				reason_code   => "$r->{reasonCode}",
-				request_token => $r->{requestToken},
-			})
-			;
+			decision      => $r->{decision},
+			request_id    => $r->{requestID},
+			reason_code   => "$r->{reasonCode}",
+			request_token => $r->{requestToken},
+		});
 	}
 	else {
 		croak 'decision defined, but not sane: ' . $r->{decision};
