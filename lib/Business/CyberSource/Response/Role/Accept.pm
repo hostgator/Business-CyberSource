@@ -37,3 +37,29 @@ has reference_code => (
 1;
 
 # ABSTRACT: role for handling accepted transactions
+
+=head1 DESCRIPTION
+
+If the transaction has a C<decision> of approved then this Role is applied.
+
+=head1 ATTRIBUTES
+
+=head2 amount
+
+Type: Num
+
+Amount that was approved.
+
+=head2 datetime
+
+Type: MooseX::Types::DateTime::W3C::DateTimeW3C
+
+A response timestamp (will probably become a DateTime object at some point)
+
+=head2 reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+The merchant reference code originally sent
+
+=cut
