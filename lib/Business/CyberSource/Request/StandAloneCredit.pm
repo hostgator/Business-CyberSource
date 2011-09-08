@@ -3,7 +3,6 @@ use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Carp;
 
 our $VERSION = 'v0.2.4'; # VERSION
 
@@ -33,47 +32,35 @@ version v0.2.4
 
 =head1 SYNOPSIS
 
-	use Business::CyberSource::Request::Credit;
+	use Business::CyberSource::Request::StandAloneCredit;
 
-	my $req = Business::CyberSource::Request::Credit
-		->with_traits(qw{
-			BillingInfo
-			CreditCardInfo
-		})
-		->new({
-			username       => 'merchantID',
-			password       => 'transaction key',
-			production     => 0,
-			reference_code => 'merchant reference code',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
-			credit_card    => '4111-1111-1111-1111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2025',
-		});
+	my $req = Business::CyberSource::Request::StandAloneCredit->new({
+		username       => 'merchantID',
+		password       => 'transaction key',
+		production     => 0,
+		reference_code => 'merchant reference code',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => 'somewhere',
+		city           => 'Houston',
+		state          => 'TX',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'xenoterracide@gmail.com',
+		total          => 5.00,
+		currency       => 'USD',
+		credit_card    => '4111-1111-1111-1111',
+		cc_exp_month   => '09',
+		cc_exp_year    => '2025',
+	});
 
 	my $res = $req->submit;
 
 =head1 DESCRIPTION
 
-This object allows you to create a request for a credit. Their are two types
-of credits, a standalone credit, and a follow on credit.
+This object allows you to create a request for a standalone credit.
 
 =head1 METHODS
-
-=head2 with_traits
-
-For standalone credit requests requests you need to apply C<BillingInfo> and
-C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
-on credits require that you specify a C<request_id> in order to work.
 
 =head2 new
 
