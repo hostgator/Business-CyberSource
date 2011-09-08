@@ -2,10 +2,12 @@ package Business::CyberSource::Response::Role::AuthReversal;
 use 5.008;
 use strict;
 use warnings;
-BEGIN {
-	# VERSION
-}
+use namespace::autoclean;
+
+# VERSION
+
 use Moose::Role;
+use MooseX::Types::Varchar qw( Varchar );
 
 has processor_response => (
 	required => 1,
