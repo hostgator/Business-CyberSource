@@ -2,15 +2,17 @@ package Business::CyberSource::Response::Role::Credit;
 use 5.008;
 use strict;
 use warnings;
-BEGIN {
-	our $VERSION = 'v0.2.4'; # VERSION
-}
+use namespace::autoclean;
+
+our $VERSION = 'v0.2.4'; # VERSION
+
 use Moose::Role;
+use MooseX::Types::Moose qw( Int );
 
 has reconciliation_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Int,
 );
 
 1;
