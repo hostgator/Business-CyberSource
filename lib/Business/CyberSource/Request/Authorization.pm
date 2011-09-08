@@ -45,7 +45,6 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
-				request_token  => $r->{requestToken},
 				currency       => $r->{purchaseTotals}->{currency},
 				amount         => $r->{ccAuthReply}->{amount},
 				avs_code_raw   => $r->{ccAuthReply}->{avsCodeRaw},
