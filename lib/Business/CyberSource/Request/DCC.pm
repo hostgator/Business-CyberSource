@@ -41,6 +41,7 @@ sub submit {
 				decision       => $r->{decision},
 				# quote reason_code to stringify from BigInt
 				reason_code    => "$r->{reasonCode}",
+				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
 				currency       => $r->{purchaseTotals}->{currency},
 				datetime       => $r->{ccCaptureReply}->{requestDateTime},
