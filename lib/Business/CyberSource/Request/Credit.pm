@@ -110,8 +110,10 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This object allows you to create a request for a credit. Their are two types
-of credits, a standalone credit, and a follow on credit.
+This object allows you to create a request for a credit. If you do not want to
+apply traits (or are using the Request factory) then you can instantiate either the
+L<Business::CyberSource::Request::StandAloneCredit> or the
+L<Business::CyberSource::Request::FollowOnCredit>.
 
 =method with_traits
 
