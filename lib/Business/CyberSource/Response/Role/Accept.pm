@@ -60,7 +60,7 @@ Currency code which was used to make the request
 
 Type: MooseX::Types::DateTime::W3C::DateTimeW3C
 
-A response timestamp (will probably become a DateTime object at some point)
+Request timestamp (will probably become a DateTime object at some point)
 
 =head2 reference_code
 
