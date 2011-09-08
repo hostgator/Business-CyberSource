@@ -7,12 +7,6 @@ BEGIN {
 }
 use Moose::Role;
 
-has request_token => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
-);
-
 has auth_code => (
 	required => 1,
 	is       => 'ro',

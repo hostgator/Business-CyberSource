@@ -15,6 +15,7 @@ with qw(
 
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::CyberSource qw( Decision );
+use MooseX::Types::Varchar qw( Varchar );
 
 has decision => (
 	required => 1,
@@ -41,6 +42,12 @@ has reason_text => (
 		. 'warning: reason codes are returned by CyberSource and '
 		. 'occasionally do not reflect the real reason for the error '
 		. 'please inspect the trace request/response for issues',
+);
+
+has request_token => (
+	required => 1,
+	is       => 'ro',
+	isa      => Varchar[256],
 );
 
 sub _build_reason_text {
