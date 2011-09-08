@@ -108,11 +108,17 @@ implementation and required attributes:
 
 =item * L<Capture|Business::CyberSource::Request::Capture>
 
-=item * L<Credit|Business::CyberSource::Request::Credit>
+=item * L<FollowOnCredit|Business::CyberSource::Request::FollowOnCredit>
+
+=item * L<StandAloneCredit|Business::CyberSource::Request::StandAloneCredit>
 
 =item * L<DCC|Business::CyberSource::Request::DCC>
 
 =back
+
+I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
+it requires traits to be applied depending on the type of request you need,
+and thus does not currently work with the factory.
 
 =head1 SEE ALSO
 
