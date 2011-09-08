@@ -12,7 +12,7 @@ use MooseX::Types::Varchar qw( Varchar );
 has processor_response => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[10]
 );
 
 has reversal_reason_code => (
