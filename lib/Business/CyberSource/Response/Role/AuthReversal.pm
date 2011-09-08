@@ -8,17 +8,18 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Moose   qw( Int     );
 
 has processor_response => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Varchar[10]
 );
 
 has reversal_reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => Int, # 5
 );
 
 1;
