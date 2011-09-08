@@ -48,6 +48,11 @@ has request_token => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[256],
+	documentation => 'Request token data created by CyberSource for each '
+		. 'reply. The field is an encoded string that contains no '
+		. 'confidential information, such as an account or card verification '
+		. 'number. The string can contain up to 256 characters.',
+
 );
 
 sub _build_reason_text {
@@ -146,7 +151,7 @@ Every time you call C<submit> on a request object it returns a response
 object. This response can be used to determine the success of a transaction,
 as well as receive a follow up C<request_id> in case you need to do further
 actions with this. A response will always have C<decision>, C<reason_code>,
-C<reason_text>, and C<request_id> attributes. You should always use either
+C<reason_text>, C<request_token>, and C<request_id> attributes. You should always use either
 introspection or check the C<decision> to determine which attributes will be
 defined, as what is returned by CyberSource varies depending on what the
 C<decision> is and what was sent in the request itself.
