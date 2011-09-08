@@ -8,6 +8,7 @@ our $VERSION = 'v0.2.4'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Moose   qw( Int     );
 
 has processor_response => (
 	required => 1,
@@ -18,7 +19,7 @@ has processor_response => (
 has reversal_reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Num',
+	isa      => Int, # 5
 );
 
 1;
