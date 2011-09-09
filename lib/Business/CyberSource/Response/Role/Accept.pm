@@ -48,37 +48,4 @@ has request_specific_reason_code => (
 
 If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
 
-=head1 ATTRIBUTES
-
-=head2 amount
-
-Type: Num
-
-Amount that was approved.
-
-=head2 currency
-
-Type: MooseX::Types::Locale::Currency
-
-Currency code which was used to make the request
-
-=head2 datetime
-
-Type: MooseX::Types::DateTime::W3C::DateTimeW3C
-
-Request timestamp (will probably become a DateTime object at some point)
-
-=head2 reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-The merchant reference code originally sent
-
-=head2 request_specific_reason_code
-
-Type: Int
-
-Every successful request also has a reason code specific to its request type,
-e.g. for capture this is the ccCaptureReply_reasonCode.
-
 =cut

@@ -160,4 +160,45 @@ All of the responses contain the attributes here, however if the response is
 C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
 
+=attr amount
+
+Type: Num
+
+Condition: ACCEPT
+
+Amount that was approved.
+
+=attr currency
+
+Type: MooseX::Types::Locale::Currency
+
+Condition: ACCEPT
+
+Currency code which was used to make the request
+
+=attr datetime
+
+Type: MooseX::Types::DateTime::W3C::DateTimeW3C
+
+Condition: ACCEPT
+
+Request timestamp (will probably become a DateTime object at some point)
+
+=attr reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+Condition: ACCEPT
+
+The merchant reference code originally sent
+
+=attr request_specific_reason_code
+
+Type: Int
+
+Condition: ACCEPT
+
+Every successful request also has a reason code specific to its request type,
+e.g. for capture this is the ccCaptureReply_reasonCode.
+
 =cut
