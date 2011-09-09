@@ -30,8 +30,6 @@ lib/Business/CyberSource/Role/Currency.pm
 lib/Business/CyberSource/Role/RequestID.pm
 lib/MooseX/Types/CyberSource.pm
 perlcritic.rc
-request.xml
-response.xml
 share/production/CyberSourceTransaction_1.62.wsdl
 share/production/CyberSourceTransaction_1.62.xsd
 share/test/CyberSourceTransaction_1.62.wsdl

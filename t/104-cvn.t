@@ -48,7 +48,7 @@ is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '1984',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         1,    'check amount'        );
+is( $ret->amount,         '1.00',    'check amount'        );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
