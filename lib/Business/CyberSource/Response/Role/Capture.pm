@@ -12,11 +12,6 @@ has reconciliation_id => (
 	isa      => 'Str',
 );
 
-has capture_reason_code => (
-	is       => 'ro',
-	isa      => 'Num',
-);
-
 1;
 
 # ABSTRACT: CyberSource Capture Response Object

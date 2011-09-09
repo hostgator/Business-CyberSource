@@ -11,7 +11,7 @@ with qw(
 	Business::CyberSource::Role::Currency
 );
 
-use MooseX::Types::Moose         qw( Num );
+use MooseX::Types::Moose         qw( Num Int );
 use MooseX::Types::Varchar       qw( Varchar );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
@@ -32,6 +32,15 @@ has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[50],
+);
+
+has request_specific_reason_code => (
+	required => 1,
+	is       => 'ro',
+	isa      => Int,
+	documentation => 'every sucessful request also has a reason code '
+		. 'specific to its request type, e.g. for capture this is the '
+		. 'ccCaptureReply_reasonCode',
 );
 
 1;
