@@ -17,14 +17,14 @@ has reconciliation_id => (
 
 1;
 
-# ABSTRACT: ReconciliationID
+# ABSTRACT: Reconciliation Identifier
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::ReconciliationID - ReconciliationID
+Business::CyberSource::Response::Role::ReconciliationID - Reconciliation Identifier
 
 =head1 VERSION
 
