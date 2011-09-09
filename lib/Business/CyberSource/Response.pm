@@ -227,6 +227,18 @@ Type: Int
 
 Condition: ACCEPT and be either a Credit or Capture
 
+=head2 avs_code
+
+Type: MooseX::Types::Varchar::Varchar[1]
+
+Condition: ACCEPT and Authorization
+
+=head2 avs_code_raw
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Condition: ACCEPT and Authorization
+
 =head1 ATTRIBUTES
 
 =head2 request_id
