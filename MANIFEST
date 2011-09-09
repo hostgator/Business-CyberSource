@@ -24,9 +24,8 @@ lib/Business/CyberSource/Request/StandAloneCredit.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Role/Accept.pm
 lib/Business/CyberSource/Response/Role/Authorization.pm
-lib/Business/CyberSource/Response/Role/Capture.pm
-lib/Business/CyberSource/Response/Role/Credit.pm
 lib/Business/CyberSource/Response/Role/ProcessorResponse.pm
+lib/Business/CyberSource/Response/Role/ReconciliationID.pm
 lib/Business/CyberSource/Role/Currency.pm
 lib/Business/CyberSource/Role/RequestID.pm
 lib/MooseX/Types/CyberSource.pm

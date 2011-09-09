@@ -2,6 +2,7 @@ package Business::CyberSource::Response::Role::ProcessorResponse;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 our $VERSION = 'v0.2.5'; # VERSION
 

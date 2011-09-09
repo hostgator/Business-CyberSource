@@ -1,4 +1,4 @@
-package Business::CyberSource::Response::Role::Credit;
+package Business::CyberSource::Response::Role::ReconciliationID;
 use 5.008;
 use strict;
 use warnings;
@@ -12,19 +12,19 @@ use MooseX::Types::Moose qw( Int );
 has reconciliation_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int, # Int[6]
+	isa      => Int,
 );
 
 1;
 
-# ABSTRACT: CyberSource Credit Response object
+# ABSTRACT: ReconciliationID
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::Credit - CyberSource Credit Response object
+Business::CyberSource::Response::Role::ReconciliationID - ReconciliationID
 
 =head1 VERSION
 
