@@ -12,6 +12,7 @@ with qw(
 );
 
 use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Moose   qw( Str     );
 
 has auth_code => (
 	required => 1,
@@ -22,7 +23,7 @@ has auth_code => (
 has auth_record => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Str',
+	isa      => Str,
 );
 
 has avs_code => (
