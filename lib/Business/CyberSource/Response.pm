@@ -215,6 +215,18 @@ Condition: ACCEPT
 Every successful request also has a reason code specific to its request type,
 e.g. for capture this is the ccCaptureReply_reasonCode.
 
+=head2 processor_response
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Condition: ACCEPT and be either an Authorization or Authorization Reversal
+
+=head2 reconciliation_id
+
+Type: Int
+
+Condition: ACCEPT and be either a Credit or Capture
+
 =head1 ATTRIBUTES
 
 =head2 request_id
