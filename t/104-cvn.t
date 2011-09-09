@@ -26,17 +26,17 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
+		total          => 1,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		cvn            => 123,
+		cvn            => 1111,
 		production     => 0,
 	});
 
 # check billing info
-is( $req->cvn, 123, 'check cvn' );
+is( $req->cvn, 1111, 'check cvn' );
 
 
 my $ret = $req->submit;
@@ -48,7 +48,7 @@ is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '1984',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         '5.00',    'check amount'        );
+is( $ret->amount,         '1.00',    'check amount'        );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
