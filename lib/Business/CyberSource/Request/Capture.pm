@@ -47,7 +47,8 @@ sub submit {
 				amount         => $r->{ccCaptureReply}->{amount},
 				reference_code => $r->{merchantReferenceCode},
 				reconciliation_id => $r->{ccCaptureReply}->{reconciliationID},
-				capture_reason_code => "$r->{ccCaptureReply}->{reasonCode}",
+				request_specific_reason_code =>
+					"$r->{ccCaptureReply}->{reasonCode}",
 			})
 			;
 	}

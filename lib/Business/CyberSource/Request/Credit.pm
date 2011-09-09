@@ -61,8 +61,9 @@ sub submit {
 				currency       => $r->{purchaseTotals}->{currency},
 				datetime       => $r->{ccCreditReply}->{requestDateTime},
 				amount         => $r->{ccCreditReply}->{amount},
-				credit_reason_code => "$r->{ccCreditReply}->{reasonCode}",
 				reconciliation_id  => $r->{ccCreditReply}->{reconciliationID},
+				request_specific_reason_code =>
+					"$r->{ccCreditReply}->{reasonCode}",
 			})
 			;
 	}

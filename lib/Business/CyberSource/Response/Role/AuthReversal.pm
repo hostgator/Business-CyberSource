@@ -16,12 +16,6 @@ has processor_response => (
 	isa      => Varchar[10]
 );
 
-has reversal_reason_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Int, # 5
-);
-
 1;
 
 # ABSTRACT: Role for Authorization Reversal responses

@@ -54,6 +54,8 @@ sub submit {
 				auth_code      => $r->{ccAuthReply}->{authorizationCode},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
+				request_specific_reason_code =>
+					"$r->{ccAuthReply}->{reasonCode}",
 			})
 			;
 	}

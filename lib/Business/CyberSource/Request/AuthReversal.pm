@@ -46,7 +46,7 @@ sub submit {
 				currency       => $r->{purchaseTotals}->{currency},
 				datetime       => $r->{ccAuthReversalReply}->{requestDateTime},
 				amount         => $r->{ccAuthReversalReply}->{amount},
-				reversal_reason_code =>
+				request_specific_reason_code =>
 					"$r->{ccAuthReversalReply}->{reasonCode}",
 				processor_response =>
 					$r->{ccAuthReversalReply}->{processorResponse},
