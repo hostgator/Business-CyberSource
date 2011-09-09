@@ -90,7 +90,7 @@ The merchant reference code originally sent
 
 Type: Int
 
-Every sucessful request also has a reason code specific to its request type,
+Every successful request also has a reason code specific to its request type,
 e.g. for capture this is the ccCaptureReply_reasonCode.
 
 =head1 BUGS
