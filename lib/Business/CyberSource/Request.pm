@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use MooseX::AbstractFactory;
 use namespace::autoclean;
@@ -47,7 +47,7 @@ Business::CyberSource::Request - CyberSource Request Factory Module
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 SYNOPSIS
 
@@ -88,6 +88,32 @@ version v0.2.5
 This module provides a generic factory interface to creating request objects.
 It also allows us to not repeat ourselves when specifying attributes that are
 common to all requests such as authentication, and server destination.
+
+=head1 ATTRIBUTES
+
+=head2 password
+
+Reader: password
+
+Type: MooseX::Types::Common::String::NonEmptyStr
+
+Additional documentation: your SOAP transaction key
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+Additional documentation: 0: test server. 1: production server
+
+=head2 username
+
+Reader: username
+
+Type: MooseX::Types::Varchar::Varchar[30]
+
+Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head1 METHODS
 
@@ -133,32 +159,6 @@ implementation and required attributes:
 I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
 it requires traits to be applied depending on the type of request you need,
 and thus does not currently work with the factory.
-
-=head1 ATTRIBUTES
-
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-Additional documentation: your SOAP transaction key
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-Additional documentation: 0: test server. 1: production server
-
-=head2 username
-
-Reader: username
-
-Type: MooseX::Types::Varchar::Varchar[30]
-
-Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head1 SEE ALSO
 

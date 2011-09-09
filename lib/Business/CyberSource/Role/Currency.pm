@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
@@ -28,7 +28,7 @@ Business::CyberSource::Role::Currency - Role to apply to requests and responses 
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 BUGS
 

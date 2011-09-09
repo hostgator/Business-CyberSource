@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -75,7 +75,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 SYNOPSIS
 
@@ -94,19 +94,6 @@ version v0.2.5
 =head1 DESCRIPTION
 
 This allows you to reverse an authorization request.
-
-=head1 METHODS
-
-=head2 new
-
-Instantiates a authorization reversal request object, see
-L<the attributes listed below|/ATTRIBUTES> for which ones are required and
-which are optional.
-
-=head2 submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -233,6 +220,19 @@ This attribute is required.
 Reader: client_version
 
 Type: Str
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a authorization reversal request object, see
+L<the attributes listed below|/ATTRIBUTES> for which ones are required and
+which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 

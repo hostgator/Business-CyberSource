@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -89,7 +89,7 @@ Business::CyberSource::Request::Credit - CyberSource Credit Request Object
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 SYNOPSIS
 
@@ -128,24 +128,6 @@ This object allows you to create a request for a credit. If you do not want to
 apply traits (or are using the Request factory) then you can instantiate either the
 L<Business::CyberSource::Request::StandAloneCredit> or the
 L<Business::CyberSource::Request::FollowOnCredit>.
-
-=head1 METHODS
-
-=head2 with_traits
-
-For standalone credit requests requests you need to apply C<BillingInfo> and
-C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
-on credits require that you specify a C<request_id> in order to work.
-
-=head2 new
-
-Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
-
-=head2 submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -264,6 +246,24 @@ This attribute is required.
 Reader: client_version
 
 Type: Str
+
+=head1 METHODS
+
+=head2 with_traits
+
+For standalone credit requests requests you need to apply C<BillingInfo> and
+C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
+on credits require that you specify a C<request_id> in order to work.
+
+=head2 new
+
+Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 

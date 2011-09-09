@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -55,7 +55,7 @@ Business::CyberSource::Response::Role::Authorization - CyberSource Authorization
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 BUGS
 

@@ -75,7 +75,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/xenoterracide/Business-CyberSource/issues"
@@ -87,6 +87,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "v0.2.5"
+   "version" : "v0.2.6"
 }
 

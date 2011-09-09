@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose;
 with qw(
@@ -81,7 +81,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 SYNOPSIS
 
@@ -112,18 +112,6 @@ version v0.2.5
 =head1 DESCRIPTION
 
 This allows you to create an authorization request.
-
-=head1 METHODS
-
-=head2 new
-
-Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
-
-=head2 submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -388,6 +376,18 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 

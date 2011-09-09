@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -155,7 +155,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 DESCRIPTION
 
@@ -171,6 +171,56 @@ C<decision> is and what was sent in the request itself.
 All of the responses contain the attributes here, however if the response is
 C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
+
+=head1 ATTRIBUTES
+
+=head2 request_id
+
+Reader: request_id
+
+Type: MooseX::Types::Varchar::Varchar[29]
+
+This attribute is required.
+
+=head2 reason_text
+
+Reader: reason_text
+
+Type: Str
+
+This attribute is required.
+
+Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
+
+=head2 decision
+
+Reader: decision
+
+Type: MooseX::Types::CyberSource::Decision
+
+This attribute is required.
+
+Additional documentation: Summarizes the result of the overall request
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: Int
+
+This attribute is required.
+
+Additional documentation: Numeric value corresponding to the result of the credit card authorization request
+
+=head2 request_token
+
+Reader: request_token
+
+Type: MooseX::Types::Varchar::Varchar[256]
+
+This attribute is required.
+
+Additional documentation: Request token data created by CyberSource for each reply. The field is an encoded string that contains no confidential information, such as an account or card verification number. The string can contain up to 256 characters.
 
 =head1 ATTRIBUTES
 
@@ -250,56 +300,6 @@ Condition: ACCEPT and Authorization
 Type: MooseX::Types::Varchar::Varchar[7]
 
 Condition: ACCEPT and Authorization
-
-=head1 ATTRIBUTES
-
-=head2 request_id
-
-Reader: request_id
-
-Type: MooseX::Types::Varchar::Varchar[29]
-
-This attribute is required.
-
-=head2 reason_text
-
-Reader: reason_text
-
-Type: Str
-
-This attribute is required.
-
-Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
-
-=head2 decision
-
-Reader: decision
-
-Type: MooseX::Types::CyberSource::Decision
-
-This attribute is required.
-
-Additional documentation: Summarizes the result of the overall request
-
-=head2 reason_code
-
-Reader: reason_code
-
-Type: Int
-
-This attribute is required.
-
-Additional documentation: Numeric value corresponding to the result of the credit card authorization request
-
-=head2 request_token
-
-Reader: request_token
-
-Type: MooseX::Types::Varchar::Varchar[256]
-
-This attribute is required.
-
-Additional documentation: Request token data created by CyberSource for each reply. The field is an encoded string that contains no confidential information, such as an account or card verification number. The string can contain up to 256 characters.
 
 =head1 BUGS
 

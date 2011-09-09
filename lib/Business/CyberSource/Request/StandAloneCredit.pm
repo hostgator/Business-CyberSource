@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
@@ -28,7 +28,7 @@ Business::CyberSource::Request::StandAloneCredit - CyberSource Credit Request Ob
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 SYNOPSIS
 
@@ -59,18 +59,6 @@ version v0.2.5
 =head1 DESCRIPTION
 
 This object allows you to create a request for a standalone credit.
-
-=head1 METHODS
-
-=head2 new
-
-Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
-
-=head2 submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
 
 =head1 ATTRIBUTES
 
@@ -335,6 +323,18 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
+
+=head1 METHODS
+
+=head2 new
+
+Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
+for which ones are required and which are optional.
+
+=head2 submit
+
+Actually sends the required data to CyberSource for processing and returns a
+L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 

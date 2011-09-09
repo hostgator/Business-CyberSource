@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.5'; # VERSION
+our $VERSION = 'v0.2.6'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
@@ -28,7 +28,7 @@ Business::CyberSource::Response::Role::ProcessorResponse - Processor Response at
 
 =head1 VERSION
 
-version v0.2.5
+version v0.2.6
 
 =head1 BUGS
 
