@@ -2,6 +2,9 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.2.6    2011-09-09
+	- no real changes, simply removing trial status
+
 v0.2.5    2011-09-09
 	- more docs
 	- Swap out most of the request type response roles for more generic roles
