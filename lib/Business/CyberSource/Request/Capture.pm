@@ -33,7 +33,7 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::Capture
+				Business::CyberSource::Response::Role::ReconciliationID
 			})
 			->new({
 				request_id     => $r->{requestID},
