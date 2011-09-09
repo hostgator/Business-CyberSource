@@ -34,7 +34,7 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::AuthReversal
+				Business::CyberSource::Response::Role::ProcessorResponse
 			})
 			->new({
 				request_id     => $r->{requestID},
