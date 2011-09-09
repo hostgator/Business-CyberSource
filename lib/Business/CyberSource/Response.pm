@@ -156,4 +156,8 @@ introspection or check the C<decision> to determine which attributes will be
 defined, as what is returned by CyberSource varies depending on what the
 C<decision> is and what was sent in the request itself.
 
+All of the responses contain the attributes here, however if the response is
+C<ACCEPT> you will want to read the documentation for the L<Accept
+Role|Business::CyberSource::Response::Role::Accept>
+
 =cut
