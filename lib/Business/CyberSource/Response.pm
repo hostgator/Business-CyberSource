@@ -213,4 +213,28 @@ Type: Int
 
 Condition: ACCEPT and be either a Credit or Capture
 
+=attr avs_code
+
+Type: MooseX::Types::Varchar::Varchar[1]
+
+Condition: ACCEPT and Authorization
+
+=attr avs_code_raw
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Condition: ACCEPT and Authorization
+
+=attr auth_record
+
+Type: Str
+
+Condition: ACCEPT and Authorization
+
+=attr auth_code
+
+Type: MooseX::Types::Varchar::Varchar[7]
+
+Condition: ACCEPT and Authorization
+
 =cut
