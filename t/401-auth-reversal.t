@@ -66,7 +66,7 @@ is( $rev->decision, 'ACCEPT', 'check decision' );
 is( $rev->reason_code, 100, 'check reason_code' );
 is( $rev->currency, 'USD', 'check currency' );
 is( $rev->amount, '5.00', 'check amount' );
-is( $rev->reversal_reason_code, 100, 'check capture_reason_code' );
+is( $rev->request_specific_reason_code , 100, 'check capture_reason_code' );
 
 ok( $rev->datetime, 'datetime exists' );
 note( $rev->datetime );

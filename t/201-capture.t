@@ -59,7 +59,7 @@ is( $cres->decision, 'ACCEPT', 'check decision' );
 is( $cres->reason_code, 100, 'check reason_code' );
 is( $cres->currency, 'USD', 'check currency' );
 is( $cres->amount, '5.00', 'check amount' );
-is( $cres->capture_reason_code, 100, 'check capture_reason_code' );
+is( $cres->request_specific_reason_code , 100, 'check capture_reason_code' );
 
 ok( $cres->reconciliation_id, 'reconciliation_id exists' );
 ok( $cres->request_id, 'check request_id exists' );
