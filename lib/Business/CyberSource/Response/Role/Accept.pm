@@ -38,9 +38,6 @@ has request_specific_reason_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => Int,
-	documentation => 'every sucessful request also has a reason code '
-		. 'specific to its request type, e.g. for capture this is the '
-		. 'ccCaptureReply_reasonCode',
 );
 
 1;
@@ -61,7 +58,7 @@ version v0.2.5
 
 =head1 DESCRIPTION
 
-If the transaction has a C<decision> of approved then this Role is applied.
+If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
 
 =head1 ATTRIBUTES
 
@@ -88,6 +85,13 @@ Request timestamp (will probably become a DateTime object at some point)
 Type: MooseX::Types::Varchar::Varchar[50]
 
 The merchant reference code originally sent
+
+=head2 request_specific_reason_code
+
+Type: Int
+
+Every sucessful request also has a reason code specific to its request type,
+e.g. for capture this is the ccCaptureReply_reasonCode.
 
 =head1 BUGS
 
