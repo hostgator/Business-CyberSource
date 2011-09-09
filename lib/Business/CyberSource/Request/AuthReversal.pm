@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.6'; # VERSION
+our $VERSION = 'v0.2.7'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -75,7 +75,7 @@ Business::CyberSource::Request::AuthReversal - CyberSource Reverse Authorization
 
 =head1 VERSION
 
-version v0.2.6
+version v0.2.7
 
 =head1 SYNOPSIS
 
