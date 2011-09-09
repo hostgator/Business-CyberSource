@@ -239,6 +239,18 @@ Type: MooseX::Types::Varchar::Varchar[10]
 
 Condition: ACCEPT and Authorization
 
+=head2 auth_record
+
+Type: Str
+
+Condition: ACCEPT and Authorization
+
+=head2 auth_code
+
+Type: MooseX::Types::Varchar::Varchar[7]
+
+Condition: ACCEPT and Authorization
+
 =head1 ATTRIBUTES
 
 =head2 request_id
