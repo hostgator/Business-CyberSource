@@ -2,6 +2,12 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.2.7    2011-09-11
+	- use MooseX::StrictConstructor for new checking
+	- add expermimental cv_code and cv_code_raw accessors on authorization
+	  responses. you can use has_cv_code* predicate to check if defined.
+	- decision ERROR now returns an actual response object.
+
 v0.2.6    2011-09-09
 	- no real changes, simply removing trial status
 
