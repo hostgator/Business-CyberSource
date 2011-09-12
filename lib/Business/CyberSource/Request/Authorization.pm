@@ -38,7 +38,6 @@ sub submit {
 		my $cv = { };
 
 		if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
-			croak 'here';
 			$cv->{cv_code}     = $r->{ccAuthReply}{cvCode};
 			$cv->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
 		}
