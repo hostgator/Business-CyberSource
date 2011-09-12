@@ -67,7 +67,6 @@ my $ret1 = $req1->submit;
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,    '200',    'check reason_code'    );
-is( $ret1->auth_code,      '831000', 'check auth code'      );
 is( $ret1->avs_code,       'N',      'check avs_code'       );
 is( $ret1->avs_code_raw,   'N',      'check avs_code_raw'   );
 is( $ret1->processor_response, '00', 'check processor response' );
