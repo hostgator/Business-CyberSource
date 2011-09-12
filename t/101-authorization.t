@@ -26,7 +26,7 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
+		total          => 3000.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
@@ -78,10 +78,10 @@ is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
 is( $ret->reason_text, 'Successful transaction', 'check reason_text' );
+is( $ret->auth_code, '831000',     'check auth_code exists');
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
-ok( $ret->auth_code,     'check auth_code exists'     );
 ok( $ret->datetime,      'check datetime exists'      );
 ok( $ret->auth_record,   'check auth_record exists'   );
 done_testing;
