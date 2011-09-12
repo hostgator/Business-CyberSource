@@ -36,7 +36,7 @@ my $req
 	});
 
 # check billing info
-is( $req->cvn, 1111, 'check cvn' );
+is( $req->cvn, '222', 'check cvn' );
 
 
 my $ret = $req->submit;
