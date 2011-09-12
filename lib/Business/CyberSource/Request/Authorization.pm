@@ -66,7 +66,7 @@ sub submit {
 					$r->{ccAuthReply}->{processorResponse},
 				request_specific_reason_code =>
 					"$r->{ccAuthReply}->{reasonCode}",
-				$cv,
+				%{$cv},
 			})
 			;
 	}
