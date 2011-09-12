@@ -65,6 +65,8 @@ my $req1
 
 my $ret1 = $req1->submit;
 
+note( $req1->trace->printResponse );
+
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,    '200',    'check reason_code'    );
 is( $ret1->avs_code,       'N',      'check avs_code'       );
