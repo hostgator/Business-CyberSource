@@ -13,6 +13,7 @@ with qw(
 	Business::CyberSource::Role::RequestID
 );
 
+use MooseX::StrictConstructor;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::CyberSource qw( Decision );
 use MooseX::Types::Varchar qw( Varchar );
