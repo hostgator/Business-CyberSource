@@ -14,6 +14,7 @@ with qw(
 );
 
 use Business::CyberSource::Response;
+use MooseX::StrictConstructor;
 
 sub submit {
 	my $self = shift;
