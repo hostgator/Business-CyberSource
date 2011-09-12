@@ -37,9 +37,9 @@ sub submit {
 
 		my $cv = { };
 
-		if ( $r->{cvCode} and $r->{cvCodeRaw} ) {
-			$cv->{cv_code}     = $r->{cvCode};
-			$cv->{cv_code_raw} = $r->{cvCodeRaw};
+		if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
+			$cv->{cv_code}     = $r->{ccAuthReply}{cvCode};
+			$cv->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
 		}
 
 		$res
