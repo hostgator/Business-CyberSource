@@ -42,7 +42,11 @@ sub submit {
 
 		if ( $r->{ccAuthReply} ) {
 			$e->{datetime } = $r->{ccAuthReply}{authorizedDateTime};
-			$e->{auth_code} = $r->{ccAuthReply}{authorizationCode };
+
+			$e->{auth_code}
+				=  $r->{ccAuthReply}{authorizationCode }
+				if $r->{ccAuthReply}{authorizationCode }
+				;
 
 			$e->{currency } = $r->{purchaseTotals}{currency};
 
