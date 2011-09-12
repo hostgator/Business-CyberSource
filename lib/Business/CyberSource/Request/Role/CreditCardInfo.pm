@@ -75,7 +75,7 @@ has cv_indicator => (
 	isa      => CvIndicator,
 	default  => sub {
 		my $self = shift;
-		if ( $self->cvn ) {
+		if ( $self->has_cvn ) {
 			return 1;
 		} else {
 			return 0;
@@ -85,10 +85,11 @@ has cv_indicator => (
 );
 
 has cvn => (
-	required => 0,
-	alias    => [ qw( cvv cvv2  cvc2 cid ) ],
-	is       => 'ro',
-	isa      => CardSecurityCode,
+	required  => 0,
+	alias     => [ qw( cvv cvv2  cvc2 cid ) ],
+	predicate => 'has_cvn',
+	is        => 'ro',
+	isa       => CardSecurityCode,
 	documentation => 'Card Verification Numbers',
 );
 
