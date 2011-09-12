@@ -44,9 +44,14 @@ sub submit {
 		$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 	}
 
-	if ( $r->{ccAuthReply}->{authorizedDateTime} ) {
+	if ( $r->{ccAuthReply}{authorizedDateTime} ) {
 		$e->{datetime}     = $r->{ccAuthReply}->{authorizedDateTime};
 	}
+
+	$e->{auth_code}
+		=  $r->{ccAuthReply}{authorizationCode}
+		if $r->{ccAuthReply}{authorizationCode}
+		;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
