@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.2.7'; # VERSION
+our $VERSION = 'v0.2.8'; # VERSION
 
 use Moose::Role;
 
@@ -132,7 +132,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version v0.2.7
+version v0.2.8
 
 =head1 DESCRIPTION
 
