@@ -1,4 +1,4 @@
-package Business::CyberSource::Response::Role::Authorization;
+package Business::CyberSource::Response::Role::AVS;
 use 5.008;
 use strict;
 use warnings;
@@ -7,35 +7,33 @@ use namespace::autoclean;
 our $VERSION = 'v0.2.8'; # VERSION
 
 use Moose::Role;
-with qw(
-	Business::CyberSource::Response::Role::ProcessorResponse
-);
 
 use MooseX::Types::Varchar qw( Varchar );
-use MooseX::Types::Moose   qw( Str     );
 
-has auth_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[7],
+has cv_code => (
+	required  => 0,
+	predicate => 'has_cv_code',
+	is        => 'ro',
+	isa       => Varchar[1],
 );
 
-has auth_record => (
-	required => 1,
-	is       => 'ro',
-	isa      => Str,
+has cv_code_raw => (
+	required  => 0,
+	predicate => 'has_cv_code_raw',
+	is        => 'ro',
+	isa       => Varchar[10],
 );
 
 1;
 
-# ABSTRACT: CyberSource Authorization Response only attributes
+# ABSTRACT: CVN Role
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::Authorization - CyberSource Authorization Response only attributes
+Business::CyberSource::Response::Role::AVS - CVN Role
 
 =head1 VERSION
 

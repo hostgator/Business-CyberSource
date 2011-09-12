@@ -35,11 +35,16 @@ sub submit {
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {
 
-		my $cv = { };
+		my $e = { };
 
 		if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
-			$cv->{cv_code}     = $r->{ccAuthReply}{cvCode};
-			$cv->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
+			$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
+			$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
+		}
+
+		if ( $r->{ccAuthReply}{avsCode} && $r->{ccAuthReply}{avsCodeRaw} ) {
+			$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
+			$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 		}
 
 		$res
@@ -47,6 +52,8 @@ sub submit {
 			->with_traits(qw{
 				Business::CyberSource::Response::Role::Authorization
 				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::AVS
+				Business::CyberSource::Response::Role::CVN
 			})
 			->new({
 				request_id     => $r->{requestID},
@@ -66,7 +73,7 @@ sub submit {
 					$r->{ccAuthReply}->{processorResponse},
 				request_specific_reason_code =>
 					"$r->{ccAuthReply}->{reasonCode}",
-				%{$cv},
+				%{$e},
 			})
 			;
 	}
