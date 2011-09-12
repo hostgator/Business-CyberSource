@@ -35,20 +35,23 @@ sub submit {
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
 		my @traits = qw(Business::CyberSource::Response::Role::Authorization);
 
-		push( @traits, 'Business::CyberSource::Response::Role::Accept' )
-			if $r->{decision} eq 'ACCEPT';
-
 		my $e = { };
 
+		if ( $r->{decision} eq 'ACCEPT' ) {
+			push( @traits, 'Business::CyberSource::Response::Role::Accept' );
+			$e->{currency      } = $r->{purchaseTotals}{currency};
+			$e->{amount        } = $r->{ccAuthReply}->{amount};
+			$e->{datetime      } = $r->{ccAuthReply}{authorizedDateTime};
+			$e->{reference_code} = $r->{merchantReferenceCode};
+		}
+
 		if ( $r->{ccAuthReply} ) {
-			$e->{datetime } = $r->{ccAuthReply}{authorizedDateTime};
 
 			$e->{auth_code}
 				=  $r->{ccAuthReply}{authorizationCode }
 				if $r->{ccAuthReply}{authorizationCode }
 				;
 
-			$e->{currency } = $r->{purchaseTotals}{currency};
 
 			if ( $r->{ccAuthReply}{cvCode}
 					&& $r->{ccAuthReply}{cvCodeRaw}
@@ -74,8 +77,6 @@ sub submit {
 				# quote reason_code to stringify from BigInt
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
-				reference_code => $r->{merchantReferenceCode},
-				amount         => $r->{ccAuthReply}->{amount},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
