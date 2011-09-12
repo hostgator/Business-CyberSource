@@ -69,7 +69,7 @@ my $req1
 		production     => 0,
 	});
 
-my $ret1 = $req->submit;
+my $ret1 = $req1->submit;
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,     201,     'check reason_code'    );
