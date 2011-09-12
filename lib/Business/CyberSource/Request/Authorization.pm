@@ -72,7 +72,6 @@ sub submit {
 				reference_code => $r->{merchantReferenceCode},
 				currency       => $r->{purchaseTotals}->{currency},
 				amount         => $r->{ccAuthReply}->{amount},
-				auth_code      => $r->{ccAuthReply}->{authorizationCode},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
