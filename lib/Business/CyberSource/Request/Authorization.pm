@@ -44,13 +44,19 @@ sub submit {
 		$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 	}
 
-	if ( $r->{ccAuthReply}{authorizedDateTime} ) {
-		$e->{datetime}     = $r->{ccAuthReply}->{authorizedDateTime};
-	}
+	$e->{datetime}
+		=  $r->{ccAuthReply}{authorizedDateTime}
+		if $r->{ccAuthReply}{authorizedDateTime}
+		;
 
 	$e->{auth_code}
 		=  $r->{ccAuthReply}{authorizationCode}
 		if $r->{ccAuthReply}{authorizationCode}
+		;
+
+	$e->{currency}
+		=  $r->{purchaseTotals}{currency}
+		if $r->{purchaseTotals}{currency}
 		;
 
 	my $res;
@@ -70,7 +76,6 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
-				currency       => $r->{purchaseTotals}->{currency},
 				amount         => $r->{ccAuthReply}->{amount},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
 				processor_response =>
