@@ -26,17 +26,17 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 2000,
+		total          => 1,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-#		cvn            => '1111',
+		cvn            => 1111,
 		production     => 0,
 	});
 
 # check billing info
-is( $req->cvn, '222', 'check cvn' );
+is( $req->cvn, 1111, 'check cvn' );
 
 
 my $ret = $req->submit;
