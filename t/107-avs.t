@@ -37,7 +37,7 @@ my $ret0 = $req0->submit;
 
 is( $ret0->decision,       'ACCEPT', 'check decision'       );
 is( $ret0->reason_code,     100,     'check reason_code'    );
-is( $ret0->auth_code,      '831000', 'check auth code'      ):
+is( $ret0->auth_code,      '831000', 'check auth code'      );
 is( $ret0->avs_code,       'X',      'check avs_code'       );
 is( $ret0->avs_code_raw,   'X',      'check avs_code_raw'   );
 
