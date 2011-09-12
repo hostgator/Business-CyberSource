@@ -51,7 +51,7 @@ is( $req->country,        'US',        'check country'        );
 
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
-is( $req->total,      5, 'check total'      );
+is( $req->total,      '3000', 'check total'      );
 
 is( $req->currency, 'USD', 'check currency' );
 
