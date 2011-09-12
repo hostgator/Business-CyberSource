@@ -31,44 +31,39 @@ sub submit {
 
 	my $r = $self->_build_request( $payload );
 
-
-	my $e = { };
-
-	if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
-		$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
-		$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
-	}
-
-	if ( $r->{ccAuthReply}{avsCode} && $r->{ccAuthReply}{avsCodeRaw} ) {
-		$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
-		$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
-	}
-
-	$e->{datetime}
-		=  $r->{ccAuthReply}{authorizedDateTime}
-		if $r->{ccAuthReply}{authorizedDateTime}
-		;
-
-	$e->{auth_code}
-		=  $r->{ccAuthReply}{authorizationCode}
-		if $r->{ccAuthReply}{authorizationCode}
-		;
-
-	$e->{currency}
-		=  $r->{purchaseTotals}{currency}
-		if $r->{purchaseTotals}{currency}
-		;
-
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
+		my @traits = qw(Business::CyberSource::Response::Role::Authorization);
+
+		push( @traits, 'Business::CyberSource::Response::Role::Accept' )
+			if $r->{decision} eq 'ACCEPT';
+
+		my $e = { };
+
+		if ( $r->{ccAuthReply} ) {
+			$e->{datetime } = $r->{ccAuthReply}{authorizedDateTime};
+			$e->{auth_code} = $r->{ccAuthReply}{authorizationCode };
+
+			$e->{currency } = $r->{purchaseTotals}{currency};
+
+			if ( $r->{ccAuthReply}{cvCode}
+					&& $r->{ccAuthReply}{cvCodeRaw}
+				) {
+				$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
+				$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
+			}
+
+			if ( $r->{ccAuthReply}{avsCode}
+					&& $r->{ccAuthReply}{avsCodeRaw}
+				) {
+				$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
+				$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
+			}
+		}
+
 		$res
 			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Authorization
-				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::AVS
-				Business::CyberSource::Response::Role::CVN
-			})
+			->with_traits( @traits )
 			->new({
 				request_id     => $r->{requestID},
 				decision       => $r->{decision},
