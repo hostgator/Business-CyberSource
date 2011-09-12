@@ -78,7 +78,7 @@ sub submit {
 			})
 			;
 	}
-	if ( $r->{decision} eq 'REJECT' ) {
+	elsif ( $r->{decision} eq 'REJECT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
