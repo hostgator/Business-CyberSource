@@ -26,12 +26,12 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 7504.00,
+		total          => 1,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		cvn            => 111,
+		cvn            => '7777',
 		production     => 0,
 	});
 
