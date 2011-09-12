@@ -32,21 +32,29 @@ sub submit {
 	my $r = $self->_build_request( $payload );
 
 
-	my $e = { };
-	my $res;
+	my $e = {
+		processor_response => $r->{ccAuthReply}->{processorResponse},
+	};
 
+	if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
+		$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
+		$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
+	}
+
+	if ( $r->{ccAuthReply}{avsCode} && $r->{ccAuthReply}{avsCodeRaw} ) {
+		$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
+		$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
+	}
+
+	if ( $r->{ccAuthReply}{authRecord} ) {
+		$e->{auth_record}  = $r->{ccAuthReply}->{authRecord},
+	}
+
+	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {
 
 
-		if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
-			$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
-			$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
-		}
 
-		if ( $r->{ccAuthReply}{avsCode} && $r->{ccAuthReply}{avsCodeRaw} ) {
-			$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
-			$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
-		}
 
 		$res
 			= Business::CyberSource::Response
@@ -65,13 +73,8 @@ sub submit {
 				reference_code => $r->{merchantReferenceCode},
 				currency       => $r->{purchaseTotals}->{currency},
 				amount         => $r->{ccAuthReply}->{amount},
-				avs_code_raw   => $r->{ccAuthReply}->{avsCodeRaw},
-				avs_code       => $r->{ccAuthReply}->{avsCode},
 				datetime       => $r->{ccAuthReply}->{authorizedDateTime},
-				auth_record    => $r->{ccAuthReply}->{authRecord},
 				auth_code      => $r->{ccAuthReply}->{authorizationCode},
-				processor_response =>
-					$r->{ccAuthReply}->{processorResponse},
 				request_specific_reason_code =>
 					"$r->{ccAuthReply}->{reasonCode}",
 				%{$e},
