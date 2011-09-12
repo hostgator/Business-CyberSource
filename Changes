@@ -1,6 +1,6 @@
 Revision history for Business-CyberSource
 
-v0.2.8    2011-09-11
+v0.2.8    2011-09-12
 
 v0.2.7    2011-09-11
 	- use MooseX::StrictConstructor for new checking
