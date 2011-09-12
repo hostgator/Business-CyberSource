@@ -302,6 +302,22 @@ Type: MooseX::Types::Varchar::Varchar[7]
 
 Condition: ACCEPT and Authorization
 
+=head2 cv_code
+
+Type: MooseX::Types::Varchar::Varchar[1]
+
+Condition: ACCEPT, Authorization, and cv_code actually returned
+
+you can use predicate has_cv_code to check for definedness
+
+=head2 cv_code_raw
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Condition: ACCEPT, Authorization, and cvCodeRaw actually returned
+
+you can use predicate has_cv_code to check for definedness
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
