@@ -25,11 +25,11 @@ my $req0
 		zip            => '77064',
 		country        => 'US',
 		email          => 'foobar@example.com',
-		total          => 15.95,
+		total          => 3000.37,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
-		cc_exp_year    => '1998',
+		cc_exp_year    => '2025',
 		production     => 0,
 	});
 
@@ -44,6 +44,7 @@ is(
 		,
 	'check reason_text',
 );
+is( $ret0->processor_response, '54', 'check processor response' );
 
 ok( $ret0->request_id,    'check request_id exists'    );
 ok( $ret0->request_token, 'check request_token exists' );
