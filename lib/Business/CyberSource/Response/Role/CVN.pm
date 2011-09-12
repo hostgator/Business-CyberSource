@@ -1,4 +1,4 @@
-package Business::CyberSource::Response::Role::AVS;
+package Business::CyberSource::Response::Role::CVN;
 use 5.008;
 use strict;
 use warnings;
@@ -33,7 +33,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::AVS - CVN Role
+Business::CyberSource::Response::Role::CVN - CVN Role
 
 =head1 VERSION
 
