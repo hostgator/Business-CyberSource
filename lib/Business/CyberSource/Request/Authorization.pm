@@ -31,13 +31,22 @@ sub submit {
 
 	my $r = $self->_build_request( $payload );
 
+
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {
+
+		my $cv = { };
+
+		if ( $r->{cvCode} and $r->{cvCodeRaw} ) {
+			$cv->{cv_code}     = $r->{cvCode};
+			$cv->{cv_code_raw} = $r->{cvCodeRaw};
+		}
+
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-				Business::CyberSource::Response::Role::Accept
 				Business::CyberSource::Response::Role::Authorization
+				Business::CyberSource::Response::Role::Accept
 			})
 			->new({
 				request_id     => $r->{requestID},
@@ -57,6 +66,7 @@ sub submit {
 					$r->{ccAuthReply}->{processorResponse},
 				request_specific_reason_code =>
 					"$r->{ccAuthReply}->{reasonCode}",
+				%{$cv},
 			})
 			;
 	}

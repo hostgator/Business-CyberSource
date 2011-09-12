@@ -41,6 +41,20 @@ has avs_code_raw => (
 		. 'Returned only if a value is returned by the processor.',
 );
 
+has cv_code => (
+	required  => 0,
+	predicate => 'has_cv_code',
+	is        => 'ro',
+	isa       => Varchar[1],
+);
+
+has cv_code_raw => (
+	required  => 0,
+	predicate => 'has_cv_code_raw',
+	is        => 'ro',
+	isa       => Varchar[10],
+);
+
 
 1;
 
