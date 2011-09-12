@@ -15,6 +15,7 @@ with qw(
 );
 
 use Business::CyberSource::Response;
+use MooseX::StrictConstructor;
 
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',

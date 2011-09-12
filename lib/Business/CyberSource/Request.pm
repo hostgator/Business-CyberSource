@@ -2,12 +2,13 @@ package Business::CyberSource::Request;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 use Carp;
 
 # VERSION
 
 use MooseX::AbstractFactory;
-use namespace::autoclean;
+use MooseX::StrictConstructor;
 
 with qw(
 	 Business::CyberSource::Request::Role::Credentials
