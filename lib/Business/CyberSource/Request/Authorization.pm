@@ -32,9 +32,7 @@ sub submit {
 	my $r = $self->_build_request( $payload );
 
 
-	my $e = {
-		processor_response => $r->{ccAuthReply}->{processorResponse},
-	};
+	my $e = { };
 
 	if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
 		$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
@@ -46,16 +44,8 @@ sub submit {
 		$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 	}
 
-	if ( $r->{ccAuthReply}{authRecord} ) {
-		$e->{auth_record}  = $r->{ccAuthReply}->{authRecord},
-	}
-
 	my $res;
-	if ( $r->{decision} eq 'ACCEPT' ) {
-
-
-
-
+	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
@@ -75,27 +65,14 @@ sub submit {
 				amount         => $r->{ccAuthReply}->{amount},
 				datetime       => $r->{ccAuthReply}->{authorizedDateTime},
 				auth_code      => $r->{ccAuthReply}->{authorizationCode},
+				auth_record    => $r->{ccAuthReply}->{authRecord},
+				processor_response =>
+					$r->{ccAuthReply}->{processorResponse},
 				request_specific_reason_code =>
 					"$r->{ccAuthReply}->{reasonCode}",
 				%{$e},
 			})
 			;
-	}
-	elsif ( $r->{decision} eq 'REJECT' ) {
-		$res
-			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Authorization
-				Business::CyberSource::Response::Role::AVS
-				Business::CyberSource::Response::Role::CVN
-			})
-			->new({
-				decision      => $r->{decision},
-				request_id    => $r->{requestID},
-				reason_code   => "$r->{reasonCode}",
-				request_token => $r->{requestToken},
-				%{$e},
-			});
 	}
 	else {
 		croak 'decision defined, but not sane: ' . $r->{decision};
