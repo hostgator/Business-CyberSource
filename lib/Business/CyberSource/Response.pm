@@ -308,15 +308,15 @@ Type: MooseX::Types::Varchar::Varchar[1]
 
 Condition: ACCEPT, Authorization, and cv_code actually returned
 
-you can use predicate has_cv_code to check for definedness
+you can use predicate has_cv_code to check if attribute is defined
 
 =head2 cv_code_raw
 
 Type: MooseX::Types::Varchar::Varchar[10]
 
-Condition: ACCEPT, Authorization, and cvCodeRaw actually returned
+Condition: ACCEPT, Authorization, and cv_code_raw actually returned
 
-you can use predicate has_cv_code to check for definedness
+you can use predicate has_cv_code to check if attribute is defined
 
 =head1 BUGS
 
