@@ -45,7 +45,7 @@ sub submit {
 	}
 
 	if ( $r->{ccAuthReply}->{authorizedDateTime} ) {
-		$e->{datetime}       = $r->{ccAuthReply}->{authorizedDateTime},
+		$e->{datetime}     = $r->{ccAuthReply}->{authorizedDateTime};
 	}
 
 	my $res;
