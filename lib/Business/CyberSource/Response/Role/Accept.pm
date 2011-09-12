@@ -23,7 +23,7 @@ has amount => (
 );
 
 has datetime => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => DateTimeW3C,
 );
