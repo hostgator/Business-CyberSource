@@ -64,7 +64,7 @@ sub _handle_decision {
 	my ( $self, $r ) = @_;
 
 	my $res;
-	if ( $r->{decision} eq 'REJECT' ) {
+	if ( $r->{decision} eq 'REJECT' or $r->{decision} eq 'ERROR' ) {
 		$res = Business::CyberSource::Response->new({
 			decision      => $r->{decision},
 			request_id    => $r->{requestID},
