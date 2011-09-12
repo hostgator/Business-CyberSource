@@ -32,10 +32,11 @@ sub submit {
 	my $r = $self->_build_request( $payload );
 
 
+	my $e = { };
 	my $res;
+
 	if ( $r->{decision} eq 'ACCEPT' ) {
 
-		my $e = { };
 
 		if ( $r->{ccAuthReply}{cvCode} && $r->{ccAuthReply}{cvCodeRaw} ) {
 			$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
@@ -77,8 +78,24 @@ sub submit {
 			})
 			;
 	}
+	if ( $r->{decision} eq 'REJECT' ) {
+		$res
+			= Business::CyberSource::Response
+			->with_traits(qw{
+				Business::CyberSource::Response::Role::Authorization
+				Business::CyberSource::Response::Role::AVS
+				Business::CyberSource::Response::Role::CVN
+			})
+			->new({
+				decision      => $r->{decision},
+				request_id    => $r->{requestID},
+				reason_code   => "$r->{reasonCode}",
+				request_token => $r->{requestToken},
+				%{$e},
+			});
+	}
 	else {
-		$res = $self->_handle_decision( $r );
+		croak 'decision defined, but not sane: ' . $r->{decision};
 	}
 
 	return $res;

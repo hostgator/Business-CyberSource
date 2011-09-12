@@ -15,13 +15,13 @@ use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Moose   qw( Str     );
 
 has auth_code => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Varchar[7],
 );
 
 has auth_record => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Str,
 );
