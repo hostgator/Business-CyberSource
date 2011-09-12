@@ -15,46 +15,16 @@ use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Moose   qw( Str     );
 
 has auth_code => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Varchar[7],
 );
 
 has auth_record => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Str,
 );
-
-has avs_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[1],
-	documentation => 'AVS results.',
-);
-
-has avs_code_raw => (
-	required => 0,
-	is       => 'ro',
-	isa      => Varchar[10],
-	documentation => 'AVS result code sent directly from the processor. '
-		. 'Returned only if a value is returned by the processor.',
-);
-
-has cv_code => (
-	required  => 0,
-	predicate => 'has_cv_code',
-	is        => 'ro',
-	isa       => Varchar[1],
-);
-
-has cv_code_raw => (
-	required  => 0,
-	predicate => 'has_cv_code_raw',
-	is        => 'ro',
-	isa       => Varchar[10],
-);
-
 
 1;
 
