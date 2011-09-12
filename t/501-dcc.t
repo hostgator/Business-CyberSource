@@ -34,6 +34,6 @@ ok( $dcc, 'authorization response exists' );
 note( $dcc_req->trace->printRequest  );
 note( $dcc_req->trace->printResponse );
 
-is( $dcc->decions, 'ERROR', 'decision is ERROR' );
+is( $dcc->decision, 'ERROR', 'decision is ERROR' );
 
 done_testing;
