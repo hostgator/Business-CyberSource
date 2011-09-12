@@ -38,7 +38,7 @@ sub submit {
 		my $cv = { };
 
 		if ( $r->{cvCode} && $r->{cvCodeRaw} ) {
-			carp 'here';
+			croak 'here';
 			$cv->{cv_code}     = $r->{cvCode};
 			$cv->{cv_code_raw} = $r->{cvCodeRaw};
 		}
