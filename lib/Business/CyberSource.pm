@@ -138,6 +138,11 @@ To get started you will want to read the documentation in
 L<Business::CyberSource::Request>. If you find any documentation unclear or
 outright missing, please file a bug.
 
+If there are features that are part of CyberSource's API but are not
+documented, or are missing here, please file a bug. I'll be happy to add them,
+but due to the size of the upstream API, I have not had time to cover all the features
+and some are currently undocumented.
+
 =head1 ACKNOWLEDGEMENTS
 
 =over
