@@ -9,6 +9,8 @@ use namespace::autoclean;
 use Moose::Role;
 with qw(
 	Business::CyberSource::Response::Role::ProcessorResponse
+	Business::CyberSource::Response::Role::AVS
+	Business::CyberSource::Response::Role::CVN
 );
 
 use MooseX::Types::Varchar qw( Varchar );
