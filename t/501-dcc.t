@@ -27,7 +27,8 @@ my $dcc_req
 		foreign_currency => 'AUD',
 	});
 
-eval { my $dcc = $dcc_req->submit; }
+my $dcc;
+eval { $dcc = $dcc_req->submit; }
 
 TODO: {
 ok( $dcc, 'authorization response exists' );
