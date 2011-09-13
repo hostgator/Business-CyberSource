@@ -43,6 +43,8 @@ sub submit {
 			$e->{amount        } = $r->{ccAuthReply}->{amount};
 			$e->{datetime      } = $r->{ccAuthReply}{authorizedDateTime};
 			$e->{reference_code} = $r->{merchantReferenceCode};
+			$e->{request_specific_reason_code}
+				= "$r->{ccAuthReply}->{reasonCode}";
 		}
 
 		if ( $r->{ccAuthReply} ) {
@@ -80,8 +82,6 @@ sub submit {
 				auth_record    => $r->{ccAuthReply}->{authRecord},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
-				request_specific_reason_code =>
-					"$r->{ccAuthReply}->{reasonCode}",
 				%{$e},
 			})
 			;
