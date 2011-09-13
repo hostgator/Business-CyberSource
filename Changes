@@ -1,6 +1,12 @@
 Revision history for Business-CyberSource
 
 v0.2.8    2011-09-12
+	- make cv_code and cv_code_raw accessors work
+	- use processor specific value testing
+	- test CVN and AVS values
+	- refactor authorization to make values that are somemtimes available on
+	  reject available
+	
 
 v0.2.7    2011-09-11
 	- use MooseX::StrictConstructor for new checking
