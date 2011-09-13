@@ -75,6 +75,7 @@ has state => (
 	alias    => 'province',
 	is       => 'ro',
 	isa      => Varchar[2],
+	predicate => 'has_state',
 	documentation => 'State or province of the billing address. '
 		. 'Use the two-character codes. alias: C<province>',
 );
