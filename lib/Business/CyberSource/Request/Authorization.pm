@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.2.8'; # VERSION
+our $VERSION = 'v0.2.9'; # VERSION
 
 use Moose;
 with qw(
@@ -108,7 +108,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version v0.2.8
+version v0.2.9
 
 =head1 SYNOPSIS
 
@@ -176,13 +176,13 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 cv_indicator
+=head2 state
 
-Reader: cv_indicator
+Reader: state
 
-Type: MooseX::Types::CyberSource::CvIndicator
+Type: MooseX::Types::Varchar::Varchar[2]
 
-Additional documentation: Flag that indicates whether a CVN code was sent
+Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
 
 =head2 last_name
 
@@ -194,13 +194,21 @@ This attribute is required.
 
 Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
 
-=head2 state
+=head2 cv_indicator
 
-Reader: state
+Reader: cv_indicator
 
-Type: MooseX::Types::Varchar::Varchar[2]
+Type: MooseX::Types::CyberSource::CvIndicator
 
-Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
+Additional documentation: Flag that indicates whether a CVN code was sent
+
+=head2 trace
+
+Reader: trace
+
+Writer: trace
+
+Type: XML::Compile::SOAP::Trace
 
 =head2 email
 
@@ -220,13 +228,15 @@ Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 This attribute is required.
 
-=head2 trace
+=head2 password
 
-Reader: trace
+Reader: password
 
-Writer: trace
+Type: MooseX::Types::Common::String::NonEmptyStr
 
-Type: XML::Compile::SOAP::Trace
+This attribute is required.
+
+Additional documentation: your SOAP transaction key
 
 =head2 city
 
@@ -238,16 +248,6 @@ This attribute is required.
 
 Additional documentation: City of the billing address.
 
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-This attribute is required.
-
-Additional documentation: your SOAP transaction key
-
 =head2 production
 
 Reader: production
@@ -257,6 +257,22 @@ Type: Bool
 This attribute is required.
 
 Additional documentation: 0: test server. 1: production server
+
+=head2 street4
+
+Reader: street4
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: Fourth line of the billing street address.
+
+=head2 cybs_api_version
+
+Reader: cybs_api_version
+
+Type: Str
+
+Additional documentation: provided by the library
 
 =head2 country
 
@@ -268,14 +284,6 @@ This attribute is required.
 
 Additional documentation: ISO 2 character country code (as it would apply to a credit card billing statement)
 
-=head2 cybs_api_version
-
-Reader: cybs_api_version
-
-Type: Str
-
-Additional documentation: provided by the library
-
 =head2 cvn
 
 Reader: cvn
@@ -283,6 +291,14 @@ Reader: cvn
 Type: MooseX::Types::CreditCard::CardSecurityCode
 
 Additional documentation: Card Verification Numbers
+
+=head2 total
+
+Reader: total
+
+Type: Num
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
 
 =head2 cc_exp_month
 
@@ -294,13 +310,15 @@ This attribute is required.
 
 Additional documentation: Two-digit month that the credit card expires in. Format: MM.
 
-=head2 total
+=head2 username
 
-Reader: total
+Reader: username
 
-Type: Num
+Type: MooseX::Types::Varchar::Varchar[30]
 
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+This attribute is required.
+
+Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
 =head2 cc_exp_year
 
@@ -312,15 +330,13 @@ This attribute is required.
 
 Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
 
-=head2 username
+=head2 card_type
 
-Reader: username
+Reader: card_type
 
-Type: MooseX::Types::Varchar::Varchar[30]
+Type: MooseX::Types::CyberSource::CardTypeCode
 
-This attribute is required.
-
-Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
+Additional documentation: Type of card to authorize
 
 =head2 credit_card
 
@@ -331,14 +347,6 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
 
 =head2 zip
 
@@ -364,14 +372,6 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 Additional documentation: Second line of the billing street address.
 
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
 =head2 reference_code
 
 Reader: reference_code
@@ -387,6 +387,22 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 street3
+
+Reader: street3
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: Third line of the billing street address.
 
 =head2 client_version
 

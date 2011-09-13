@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.2.8'; # VERSION
+our $VERSION = 'v0.2.9'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -75,7 +75,7 @@ Business::CyberSource::Request::Capture - CyberSource Capture Request Object
 
 =head1 VERSION
 
-version v0.2.8
+version v0.2.9
 
 =head1 SYNOPSIS
 
@@ -111,14 +111,6 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
 =head2 trace
 
 Reader: trace
@@ -136,24 +128,6 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 This attribute is required.
 
 Additional documentation: your SOAP transaction key
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-This attribute is required.
-
-Additional documentation: 0: test server. 1: production server
-
-=head2 request_id
-
-Reader: request_id
-
-Type: MooseX::Types::Varchar::Varchar[29]
-
-This attribute is required.
 
 =head2 cybs_api_version
 
@@ -181,6 +155,40 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
+
+=head2 currency
+
+Reader: currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+This attribute is required.
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+This attribute is required.
+
+Additional documentation: 0: test server. 1: production server
+
+=head2 request_id
+
+Reader: request_id
+
+Type: MooseX::Types::Varchar::Varchar[29]
+
+This attribute is required.
+
 =head2 cybs_xsd
 
 Reader: cybs_xsd
@@ -204,14 +212,6 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
 
 =head2 client_version
 
