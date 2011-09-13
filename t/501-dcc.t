@@ -28,7 +28,7 @@ my $dcc_req
 	});
 
 my $dcc;
-eval { $dcc = $dcc_req->submit; }
+eval { $dcc = $dcc_req->submit; };
 
 TODO: {
 ok( $dcc, 'authorization response exists' );
