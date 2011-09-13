@@ -35,6 +35,8 @@ my $req0
 
 my $ret0 = $req0->submit;
 
+note( $req0->trace->printResponse );
+
 is( $ret0->decision,       'REJECT', 'check decision'       );
 is( $ret0->reason_code,     202,     'check reason_code'    );
 is(
@@ -71,6 +73,8 @@ my $req1
 	});
 
 my $ret1 = $req1->submit;
+
+note( $req1->trace->printResponse );
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,     201,     'check reason_code'    );
