@@ -23,6 +23,8 @@ my $req
 		last_name      => 'Cushing',
 		street1        => '100 somewhere blvd',
 		street2        => '#514',
+		street3        => 'PO Box foo',
+		street4        => 'idk, just putting something here',
 		city           => 'Houston',
 		state          => 'TX',
 		zip            => '77064',
