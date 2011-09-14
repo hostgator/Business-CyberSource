@@ -7,14 +7,29 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-use MooseX::Types::CyberSource qw( Item Items );
+use MooseX::Types::CyberSource qw( Items );
 
 has items => (
-	required => 0,
-	is       => 'ro',
-	isa      => Items,
-	traits   => ['Array'],
+	required  => 0,
+	predicate => 'has_items',
+	is        => 'ro',
+	isa       => Items,
+	traits    => ['Array'],
+	handles   => {
+		items_is_empty => 'is_empty',
+	}
 );
+
+sub _items {
+	my $self = shift;
+
+	my $i = { };
+
+	if ( $self->has_items and not $self->items_is_empty ) {
+	}
+
+	return $i;
+}
 
 1;
 
