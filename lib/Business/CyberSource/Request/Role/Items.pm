@@ -21,15 +21,24 @@ has items => (
 	}
 );
 
-sub _items {
+sub _item_info {
 	my $self = shift;
 
-	my $i = { };
-
+	my $items = [ ];
 	if ( $self->has_items and not $self->items_is_empty ) {
+		my $i = 0;
+		foreach my $item ( @{ $self->items } ) {
+			my $h = {
+				id        => $i,
+				quantity  => $item->{quantity},
+				unitPrice => $item->{unit_price},
+			};
+			push @{ $items }, $h;
+			$i++;
+		}
 	}
 
-	return $i;
+	return $items;
 }
 
 1;
