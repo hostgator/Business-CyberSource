@@ -85,13 +85,9 @@ sub BUILD {
 	my $self = shift;
 
 	if ( $self->does('Business::CyberSource::Request::Role::Items' ) ) {
-		if ( $self->has_items && not $self->items_is_empty ) {
-			has '+items' => ( required => 1 );
-		}
-		elsif ( $self->has_total ) {
-			has '+total' => ( required => 1 );
-		}
-		else {
+		unless ( ( $self->has_items and not $self->items_is_empty )
+				or $self->has_total
+			) {
 			croak 'you must define either items or total';
 		}
 	}
