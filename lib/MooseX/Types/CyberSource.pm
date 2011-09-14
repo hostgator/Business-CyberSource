@@ -47,8 +47,8 @@ enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 subtype Item,
 	as Dict[
-		amount => Num,
-		quantity => Int,
+		unit_price => Num,
+		quantity   => Int,
 	];
 
 subtype Items,
