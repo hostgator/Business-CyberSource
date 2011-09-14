@@ -48,8 +48,6 @@ is( $req->password, $CYBS_KEY, 'check key'      );
 
 # check billing info
 
-is( $req->total,      '3000', 'check total'      );
-
 my $ret = $req->submit;
 
 note( $req->trace->printRequest  );
