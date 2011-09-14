@@ -25,16 +25,16 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		items          => [
-			{
-				unit_price => 1000.00,
-				quantity   => 2,
-			},
-			{
-				unit_price => 1000.00,
-				quantity   => 1,
-			},
-		],
+#		items          => [
+#			{
+#				unit_price => 1000.00,
+#				quantity   => 2,
+#			},
+#			{
+#				unit_price => 1000.00,
+#				quantity   => 1,
+#			},
+#		],
 #		total          => 3000.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
