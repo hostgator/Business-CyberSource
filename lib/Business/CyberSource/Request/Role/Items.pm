@@ -7,13 +7,14 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-use MooseX::Types::CyberSource qw( Items );
+use MooseX::Types::CyberSource qw( Item );
+use MooseX::Types::Moose       qw( ArrayRef );
 
 has items => (
 	required  => 0,
 	predicate => 'has_items',
 	is        => 'ro',
-	isa       => Items,
+	isa       => ArrayRef[Item],
 	traits    => ['Array'],
 	handles   => {
 		items_is_empty => 'is_empty',

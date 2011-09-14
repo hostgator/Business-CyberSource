@@ -11,10 +11,9 @@ use MooseX::Types -declare => [ qw(
 	CardTypeCode
 	CvIndicator
 	Item
-	Items
 ) ];
 
-use MooseX::Types::Moose qw( Int Num Str ArrayRef );
+use MooseX::Types::Moose qw( Int Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
@@ -50,9 +49,6 @@ subtype Item,
 		unit_price => Num,
 		quantity   => Int,
 	];
-
-subtype Items,
-	as ArrayRef[Item];
 
 1;
 
