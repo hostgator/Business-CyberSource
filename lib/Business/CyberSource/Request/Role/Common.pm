@@ -81,6 +81,17 @@ sub _handle_decision {
 	return $res;
 }
 
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $class = shift;
+
+	use Data::Dumper;
+
+	carp Dumper @_;
+
+	return $class->$orig(@_);
+};
+
 has reference_code => (
 	required => 1,
 	is       => 'ro',

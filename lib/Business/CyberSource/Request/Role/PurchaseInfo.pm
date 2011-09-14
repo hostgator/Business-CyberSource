@@ -19,27 +19,30 @@ sub _purchase_info {
 	my $self = shift;
 
 	my $i = {
-		currency         => $self->currency,
-		grandTotalAmount => $self->total,
+		currency => $self->currency,
 	};
 
-	if ( $self->foreign_currency ) {
-		$i->{foreignCurrency} = $self->foreign_currency;
-	}
+	$i->{grandTotalAmount} = $self->total if $self->has_total;;
+	$i->{foreignCurrency}  = $self->foreign_currency
+		if $self->has_foreign_currency;
 
 	return $i;
 }
 
 has total => (
-	is       => 'ro',
-	isa      => Num,
+	required  => 0,
+	predicate => 'has_total',
+	is        => 'ro',
+	isa       => Num,
 	documentation => 'Grand total for the order. You must include '
 		. 'either this field or item_#_unitPrice in your request',
 );
 
 has foreign_currency => (
-	is  => 'ro',
-	isa => CurrencyCode,
+	required  => 0,
+	predicate => 'has_foreign_currency',
+	is        => 'ro',
+	isa       => CurrencyCode,
 	documentation => 'Billing currency returned by the DCC service. '
 		. 'For the possible values, see the ISO currency codes',
 
