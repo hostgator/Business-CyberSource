@@ -26,7 +26,7 @@ sub _cc_info {
 		cardType        => $self->card_type,
 	};
 
-	if ( $self->cvn ) {
+	if ( $self->has_cvn ) {
 		$i->{cvNumber   } = $self->cvn;
 		$i->{cvIndicator} = $self->cv_indicator;
 	}
