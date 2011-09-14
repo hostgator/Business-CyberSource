@@ -6,7 +6,15 @@ use namespace::autoclean;
 
 our $VERSION = 'v0.2.9'; # VERSION
 
-use MooseX::Types -declare => [ qw( Decision CardTypeCode CvIndicator ) ];
+use MooseX::Types -declare => [ qw(
+	Decision
+	CardTypeCode
+	CvIndicator
+	Item
+) ];
+
+use MooseX::Types::Moose qw( Int Num Str );
+use MooseX::Types::Structured qw( Dict Optional );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -35,6 +43,12 @@ enum CardTypeCode, [ qw(
 ) ];
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
+
+subtype Item,
+	as Dict[
+		unit_price => Num,
+		quantity   => Int,
+	];
 
 1;
 

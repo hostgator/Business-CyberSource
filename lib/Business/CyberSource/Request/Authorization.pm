@@ -13,6 +13,7 @@ with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
+	Business::CyberSource::Request::Role::Items
 );
 
 use Business::CyberSource::Response;
@@ -28,6 +29,10 @@ sub submit {
 			run => 'true',
 		},
 	};
+
+	if ( $self->has_items and not $self->items_is_empty ) {
+		$payload->{item} = [ @{ $self->_item_info } ];
+	}
 
 	my $r = $self->_build_request( $payload );
 
@@ -152,14 +157,6 @@ This attribute is required.
 
 Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
 
-=head2 ip
-
-Reader: ip
-
-Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
-
-Additional documentation: Customer's IP address. alias: C<ip_address>
-
 =head2 client_env
 
 Reader: client_env
@@ -184,24 +181,6 @@ Type: MooseX::Types::Varchar::Varchar[2]
 
 Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
 
-=head2 last_name
-
-Reader: last_name
-
-Type: MooseX::Types::Varchar::Varchar[60]
-
-This attribute is required.
-
-Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
-
-=head2 cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Additional documentation: Flag that indicates whether a CVN code was sent
-
 =head2 trace
 
 Reader: trace
@@ -220,14 +199,6 @@ This attribute is required.
 
 Additional documentation: Customer's email address, including the full domain name
 
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
 =head2 password
 
 Reader: password
@@ -238,34 +209,6 @@ This attribute is required.
 
 Additional documentation: your SOAP transaction key
 
-=head2 city
-
-Reader: city
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
-
-Additional documentation: City of the billing address.
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-This attribute is required.
-
-Additional documentation: 0: test server. 1: production server
-
-=head2 street4
-
-Reader: street4
-
-Type: MooseX::Types::Varchar::Varchar[60]
-
-Additional documentation: Fourth line of the billing street address.
-
 =head2 cybs_api_version
 
 Reader: cybs_api_version
@@ -273,16 +216,6 @@ Reader: cybs_api_version
 Type: Str
 
 Additional documentation: provided by the library
-
-=head2 country
-
-Reader: country
-
-Type: MooseX::Types::Locale::Country::Alpha2Country
-
-This attribute is required.
-
-Additional documentation: ISO 2 character country code (as it would apply to a credit card billing statement)
 
 =head2 cvn
 
@@ -320,16 +253,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 cc_exp_year
-
-Reader: cc_exp_year
-
-Type: MooseX::Types::Varchar::Varchar[4]
-
-This attribute is required.
-
-Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
-
 =head2 card_type
 
 Reader: card_type
@@ -356,14 +279,6 @@ Type: MooseX::Types::Varchar::Varchar[10]
 
 Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. alias: C<postal_code>
 
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
 =head2 street2
 
 Reader: street2
@@ -380,11 +295,101 @@ Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
 
-=head2 client_name
+=head2 street3
 
-Reader: client_name
+Reader: street3
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: Third line of the billing street address.
+
+=head2 ip
+
+Reader: ip
+
+Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
+
+Additional documentation: Customer's IP address. alias: C<ip_address>
+
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Additional documentation: Flag that indicates whether a CVN code was sent
+
+=head2 last_name
+
+Reader: last_name
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+This attribute is required.
+
+Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
+
+=head2 currency
+
+Reader: currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+This attribute is required.
+
+=head2 city
+
+Reader: city
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
+
+Additional documentation: City of the billing address.
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+This attribute is required.
+
+Additional documentation: 0: test server. 1: production server
+
+=head2 street4
+
+Reader: street4
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: Fourth line of the billing street address.
+
+=head2 country
+
+Reader: country
+
+Type: MooseX::Types::Locale::Country::Alpha2Country
+
+This attribute is required.
+
+Additional documentation: ISO 2 character country code (as it would apply to a credit card billing statement)
+
+=head2 cc_exp_year
+
+Reader: cc_exp_year
+
+Type: MooseX::Types::Varchar::Varchar[4]
+
+This attribute is required.
+
+Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
+
+=head2 cybs_xsd
+
+Reader: cybs_xsd
+
+Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
@@ -396,13 +401,13 @@ Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
-=head2 street3
+=head2 client_name
 
-Reader: street3
+Reader: client_name
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: Str
 
-Additional documentation: Third line of the billing street address.
+Additional documentation: provided by the library
 
 =head2 client_version
 
@@ -419,6 +424,12 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
+
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

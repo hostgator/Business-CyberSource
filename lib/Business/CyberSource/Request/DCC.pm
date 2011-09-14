@@ -99,14 +99,6 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Additional documentation: Flag that indicates whether a CVN code was sent
-
 =head2 trace
 
 Reader: trace
@@ -114,14 +106,6 @@ Reader: trace
 Writer: trace
 
 Type: XML::Compile::SOAP::Trace
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
 
 =head2 password
 
@@ -132,16 +116,6 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 This attribute is required.
 
 Additional documentation: your SOAP transaction key
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-This attribute is required.
-
-Additional documentation: 0: test server. 1: production server
 
 =head2 cybs_api_version
 
@@ -187,16 +161,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 cc_exp_year
-
-Reader: cc_exp_year
-
-Type: MooseX::Types::Varchar::Varchar[4]
-
-This attribute is required.
-
-Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
-
 =head2 credit_card
 
 Reader: credit_card
@@ -215,14 +179,6 @@ Type: MooseX::Types::CyberSource::CardTypeCode
 
 Additional documentation: Type of card to authorize
 
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
 =head2 reference_code
 
 Reader: reference_code
@@ -230,6 +186,50 @@ Reader: reference_code
 Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
+
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Additional documentation: Flag that indicates whether a CVN code was sent
+
+=head2 currency
+
+Reader: currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+This attribute is required.
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+This attribute is required.
+
+Additional documentation: 0: test server. 1: production server
+
+=head2 cc_exp_year
+
+Reader: cc_exp_year
+
+Type: MooseX::Types::Varchar::Varchar[4]
+
+This attribute is required.
+
+Additional documentation: Four-digit year that the credit card expires in. Format: YYYY.
+
+=head2 cybs_xsd
+
+Reader: cybs_xsd
+
+Type: MooseX::Types::Path::Class::File
+
+Additional documentation: provided by the library
 
 =head2 client_name
 
