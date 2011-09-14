@@ -35,7 +35,6 @@ my $req
 				quantity   => 1,
 			},
 		],
-		total          => 3000.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
@@ -47,8 +46,6 @@ is( $req->username, $CYBS_ID,  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
 
 # check billing info
-
-is( $req->total,      '3000', 'check total'      );
 
 my $ret = $req->submit;
 
