@@ -81,16 +81,21 @@ sub _handle_decision {
 	return $res;
 }
 
-around BUILDARGS => sub {
-	my $orig = shift;
-	my $class = shift;
+sub BUILD {
+	my $self = shift;
 
-	use Data::Dumper;
-
-	carp Dumper @_;
-
-	return $class->$orig(@_);
-};
+	if ( $self->does('Business::CyberSource::Request::Role::Items' ) ) {
+		if ( $self->has_items && not $self->items_is_empty ) {
+			has '+items' => ( required => 1 );
+		}
+		elsif ( $self->has_total ) {
+			has '+total' => ( required => 1 );
+		}
+		else {
+			croak 'you must define either items or total';
+		}
+	}
+}
 
 has reference_code => (
 	required => 1,
