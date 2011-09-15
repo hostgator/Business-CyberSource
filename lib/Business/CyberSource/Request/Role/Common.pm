@@ -84,10 +84,8 @@ sub _handle_decision {
 sub BUILD {
 	my $self = shift;
 
-	if ( $self->does('Business::CyberSource::Request::Role::Items' ) ) {
-		unless ( ( $self->has_items and not $self->items_is_empty )
-				or $self->has_total
-			) {
+	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
+		unless ( $self->has_items or $self->has_total ) {
 			croak 'you must define either items or total';
 		}
 	}
@@ -107,3 +105,6 @@ has trace => (
 1;
 
 # ABSTRACT: Request Role
+
+=for Pod::Coverage BUILD
+=cut
