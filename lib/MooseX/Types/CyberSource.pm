@@ -10,6 +10,7 @@ use MooseX::Types -declare => [ qw(
 	Decision
 	CardTypeCode
 	CvIndicator
+	CvResults
 	Item
 ) ];
 
@@ -50,6 +51,8 @@ subtype Item,
 		unit_price => PositiveOrZeroNum,
 		quantity   => Int,
 	];
+
+enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
 1;
 
@@ -138,6 +141,15 @@ L<Business::CyberSource::Request::Role::CreditCardInfo>
 =item * 043: Santander card
 
 =back
+
+=item * C<CvResults>
+
+Base Type: C<enum>
+
+Single character code that defines the result of having sent a CVN. See
+L<CyberSource's Documentation on Card Verification Results
+|http://www.cybersource.com/support_center/support_documentation/quick_references/view.php?page_id=421>
+for more information.
 
 =back
 
