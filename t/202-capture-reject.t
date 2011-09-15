@@ -44,7 +44,7 @@ my $capture
 		password       => $req->password,
 		reference_code => $req->reference_code,
 		request_id     => $res->request_id,
-		total          => -1,
+		total          => 2018.00,
 		currency       => $res->currency,
 		production     => 0,
 	})
@@ -55,7 +55,7 @@ my $cres = $capture->submit;
 ok( $cres, 'capture response exists' );
 
 is( $cres->decision, 'REJECT', 'check decision' );
-is( $cres->reason_code, 102, 'check reason_code' );
+is( $cres->reason_code, 235, 'check reason_code' );
 
 ok( $cres->request_id, 'check request_id exists' );
 
