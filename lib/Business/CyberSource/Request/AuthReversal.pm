@@ -192,13 +192,13 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 foreign_currency
+=head2 reference_code
 
-Reader: foreign_currency
+Reader: reference_code
 
-Type: MooseX::Types::Locale::Currency::CurrencyCode
+Type: MooseX::Types::Varchar::Varchar[50]
 
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+This attribute is required.
 
 =head2 client_name
 
@@ -208,19 +208,25 @@ Type: Str
 
 Additional documentation: provided by the library
 
-=head2 reference_code
+=head2 foreign_currency
 
-Reader: reference_code
+Reader: foreign_currency
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::Locale::Currency::CurrencyCode
 
-This attribute is required.
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 client_version
 
 Reader: client_version
 
 Type: Str
+
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

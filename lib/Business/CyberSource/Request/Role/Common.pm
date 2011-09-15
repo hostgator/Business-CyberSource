@@ -84,9 +84,10 @@ sub _handle_decision {
 sub BUILD {
 	my $self = shift;
 
-	if ( $self->does('Business::CyberSource::Request::Role::Items' ) ) {
-		unless ( ( $self->has_items and not $self->items_is_empty )
-				or $self->has_total
+	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
+		if ( not $self->has_items
+				or $self->items_is_empty
+				or not $self->has_total
 			) {
 			croak 'you must define either items or total';
 		}

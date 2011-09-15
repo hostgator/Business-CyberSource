@@ -13,7 +13,6 @@ with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
-	Business::CyberSource::Request::Role::Items
 );
 
 use Business::CyberSource::Response;
@@ -415,6 +414,12 @@ Reader: client_version
 
 Type: Str
 
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
+
 =head2 first_name
 
 Reader: first_name
@@ -424,12 +429,6 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
-
-=head2 items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

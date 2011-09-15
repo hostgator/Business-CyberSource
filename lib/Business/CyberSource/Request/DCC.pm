@@ -161,6 +161,14 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
+
 =head2 credit_card
 
 Reader: credit_card
@@ -170,14 +178,6 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
 
 =head2 reference_code
 
@@ -252,6 +252,12 @@ Additional documentation: Billing currency returned by the DCC service. For the 
 Reader: client_version
 
 Type: Str
+
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 
