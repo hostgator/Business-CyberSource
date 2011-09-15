@@ -13,7 +13,6 @@ with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
-	Business::CyberSource::Request::Role::Items
 );
 
 use Business::CyberSource::Response;
