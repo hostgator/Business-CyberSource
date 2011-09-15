@@ -154,7 +154,7 @@ L<Business::CyberSource::Request::Role::CreditCardInfo>
 
 =back
 
-=item * CvResults
+=item * C<CvResults>
 
 Base Type: C<enum>
 
