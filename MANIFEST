@@ -39,9 +39,9 @@ share/test/CyberSourceTransaction_1.62.wsdl
 share/test/CyberSourceTransaction_1.62.xsd
 t/00-compile.t
 t/000-report-versions-tiny.t
-t/101-authorization.t
-t/102-auth-bad-auth-credentials.t
-t/103-rejected-request.t
+t/001-exception-bad-credentials.t
+t/101-authorization-accept.t
+t/102-authorization-reject.t
 t/104-cvn.t
 t/105-factory.t
 t/106-optional.t
