@@ -29,7 +29,7 @@ my $req
 		cc_exp_year    => '2025',
 		production     => 0,
 	});
-} qr/foo/, 'new threw exception ok';
+} qr/you must define either items or total/, 'new threw exception ok';
 
 
 done_testing;
