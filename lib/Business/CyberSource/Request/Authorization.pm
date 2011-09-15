@@ -86,7 +86,7 @@ sub submit {
 				auth_record    => $r->{ccAuthReply}->{authRecord},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
-				%{$e},
+			%{$e},
 			})
 			;
 	}
@@ -141,7 +141,7 @@ version v0.2.9
 	my $response = $req->submit;
 
 	# or if you want to use items instead of just giving a total
-	
+
 	my $oreq = Business::CyberSource::Request::Authorization->new({
 		username       => 'merchantID',
 		password       => 'transaction key',
