@@ -13,6 +13,7 @@ use MooseX::Types -declare => [ qw(
 	Item
 ) ];
 
+use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 use MooseX::Types::Moose qw( Int Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
 
@@ -46,7 +47,7 @@ enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 subtype Item,
 	as Dict[
-		unit_price => Num,
+		unit_price => PositiveOrZeroNum,
 		quantity   => Int,
 	];
 

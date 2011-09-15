@@ -12,9 +12,9 @@ with qw(
 	Business::CyberSource::Request::Role::Items
 );
 
-use MooseX::Types::Moose   qw( Num     );
-use MooseX::Types::Varchar qw( Varchar );
-use MooseX::Types::Locale::Currency qw( CurrencyCode );
+use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
+use MooseX::Types::Varchar          qw( Varchar           );
+use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
 sub _purchase_info {
 	my $self = shift;
@@ -34,7 +34,7 @@ has total => (
 	required  => 0,
 	predicate => 'has_total',
 	is        => 'ro',
-	isa       => Num,
+	isa       => PositiveOrZeroNum,
 	documentation => 'Grand total for the order. You must include '
 		. 'either this field or item_#_unitPrice in your request',
 );
