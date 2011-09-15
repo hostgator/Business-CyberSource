@@ -12,7 +12,6 @@ plan skip_all
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::Capture;
-#use SOAP::Lite +trace => [ 'debug' ] ;
 
 my $req
 	= Business::CyberSource::Request::Authorization->new({
