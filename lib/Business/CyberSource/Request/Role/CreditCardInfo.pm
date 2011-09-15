@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.3.0'; # VERSION
+our $VERSION = 'v0.3.1'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
@@ -128,7 +128,7 @@ Business::CyberSource::Request::Role::CreditCardInfo - credit card info role
 
 =head1 VERSION
 
-version v0.3.0
+version v0.3.1
 
 =head1 BUGS
 

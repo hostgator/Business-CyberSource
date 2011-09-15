@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.3.0'; # VERSION
+our $VERSION = 'v0.3.1'; # VERSION
 
 use Moose::Role;
 
@@ -54,7 +54,7 @@ Business::CyberSource::Request::Role::Items - Role that provides Items
 
 =head1 VERSION
 
-version v0.3.0
+version v0.3.1
 
 =head1 BUGS
 
