@@ -85,10 +85,7 @@ sub BUILD {
 	my $self = shift;
 
 	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
-		if ( not $self->has_items
-				or $self->items_is_empty
-				or not $self->has_total
-			) {
+		unless ( $self->has_items or $self->has_total ) {
 			croak 'you must define either items or total';
 		}
 	}
