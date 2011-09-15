@@ -196,7 +196,7 @@ Additional documentation: provided by the library
 
 Reader: total
 
-Type: Num
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
 Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
 
