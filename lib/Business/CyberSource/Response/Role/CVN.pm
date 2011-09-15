@@ -8,13 +8,14 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Varchar     qw( Varchar   );
+use MooseX::Types::CyberSource qw( CvResults );
 
 has cv_code => (
 	required  => 0,
 	predicate => 'has_cv_code',
 	is        => 'ro',
-	isa       => Varchar[1],
+	isa       => CvResults,
 );
 
 has cv_code_raw => (
