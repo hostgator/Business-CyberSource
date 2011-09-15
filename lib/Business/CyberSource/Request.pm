@@ -115,6 +115,8 @@ implementation and required attributes:
 
 =item * L<DCC|Business::CyberSource::Request::DCC>
 
+=item * L<Sale|Business::CyberSource::Request::Sale>
+
 =back
 
 I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
