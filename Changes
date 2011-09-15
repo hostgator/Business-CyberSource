@@ -2,7 +2,6 @@ Revision history for Business-CyberSource
 
 v0.2.9    2011-09-14
 	- add support for multiple items
-	- make currency amounts positive or zero numbers only
 	- add Sale (Authorization + Capture) Request Object
 
 v0.2.8    2011-09-12
