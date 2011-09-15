@@ -106,6 +106,7 @@ has trace => (
 
 # ABSTRACT: Request Role
 
+
 __END__
 =pod
 
@@ -116,6 +117,8 @@ Business::CyberSource::Request::Role::Common - Request Role
 =head1 VERSION
 
 version v0.2.9
+
+=for Pod::Coverage BUILD
 
 =head1 BUGS
 
