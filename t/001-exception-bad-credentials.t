@@ -30,6 +30,7 @@ my $req
 	});
 
 is( $req->username, 'foobar',  'check username' );
+is( $req->password, 'test'  ,  'check password' );
 
 throws_ok { $req->submit } qr/SOAP Fault/, 'submit threw exception ok';
 done_testing;
