@@ -85,6 +85,7 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
+				reconciliation_id => $r->{ccCaptureReply}->{reconciliationID},
 				processor_response =>
 					$r->{ccAuthReply}->{processorResponse},
 				%{$e},
