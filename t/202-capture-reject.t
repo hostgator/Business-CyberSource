@@ -55,7 +55,7 @@ my $cres = $capture->submit;
 ok( $cres, 'capture response exists' );
 
 is( $cres->decision, 'REJECT', 'check decision' );
-is( $cres->reason_code, 233, 'check reason_code' );
+is( $cres->reason_code, 235, 'check reason_code' );
 
 ok( $cres->request_id, 'check request_id exists' );
 
