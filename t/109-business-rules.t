@@ -134,7 +134,6 @@ note( $req2->trace->printRequest  );
 note( $req2->trace->printResponse );
 
 is( $ret2->decision,       'REJECT', 'check decision'       );
-is( $ret2->reference_code, 't109-2', 'check reference_code' );
 is( $ret2->reason_code,     100,     'check reason_code'    );
 is( $ret2->currency,       'USD',    'check currency'       );
 is( $ret2->amount,         '5005.00',    'check amount'     );
