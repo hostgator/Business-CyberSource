@@ -35,14 +35,6 @@ my $req
 		production     => 0,
 	});
 
-is( $req->username, $CYBS_ID,  'check username' );
-is( $req->password, $CYBS_KEY, 'check key'      );
-ok( $req->client_version, 'check client_version exists');
-is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
-ok( $req->client_env,                            'check client_env exists' );
-
-# check billing info
-
 my $ret;
 
 eval { $ret = $req->submit };
@@ -57,7 +49,7 @@ is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '9001.00',    'check amount'     );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-is( $ret->processor_response, '00',  'check processor_response');
+is( $ret->processor_response, 'C2',  'check processor_response');
 is( $ret->reason_text, 'Successful transaction', 'check reason_text' );
 is( $ret->auth_code, '831000',     'check auth_code exists');
 
