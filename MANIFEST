@@ -22,6 +22,7 @@ lib/Business/CyberSource/Request/Role/CreditCardInfo.pm
 lib/Business/CyberSource/Request/Role/FollowUp.pm
 lib/Business/CyberSource/Request/Role/Items.pm
 lib/Business/CyberSource/Request/Role/PurchaseInfo.pm
+lib/Business/CyberSource/Request/Sale.pm
 lib/Business/CyberSource/Request/StandAloneCredit.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Role/AVS.pm
@@ -59,6 +60,7 @@ t/401-auth-reversal.t
 t/402-auth-reversal-reject.t
 t/403-auth-reversal-factory.t
 t/501-dcc.t
+t/601-sale.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t

@@ -155,7 +155,7 @@ implementation and required attributes:
 
 =item * L<DCC|Business::CyberSource::Request::DCC>
 
-=item * L<DCC|Business::CyberSource::Request::Sale>
+=item * L<Sale|Business::CyberSource::Request::Sale>
 
 =back
 
