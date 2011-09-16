@@ -31,7 +31,9 @@ sub submit {
 		},
 	};
 
-	$payload = $self->_business_rules;
+	if ( keys $self->_business_rules ) {
+		$payload->{businessRules} = $self->_business_rules;
+	}
 
 	my $r = $self->_build_request( $payload );
 

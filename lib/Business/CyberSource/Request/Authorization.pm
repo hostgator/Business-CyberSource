@@ -30,7 +30,9 @@ sub submit {
 		},
 	};
 
-	$payload = $self->_business_rules;
+	if ( keys $self->_business_rules ) {
+		$payload->{businessRules} = $self->_business_rules;
+	}
 
 	if ( $self->has_items and not $self->items_is_empty ) {
 		$payload->{item} = [ @{ $self->_item_info } ];
