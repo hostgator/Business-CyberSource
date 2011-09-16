@@ -138,7 +138,6 @@ is( $ret2->reason_code,     200,     'check reason_code'    );
 is( $ret2->avs_code,       'Y',       'check avs_code'      );
 is( $ret2->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret2->processor_response, '00',  'check processor_response');
-is( $ret2->reason_text, 'Successful transaction', 'check reason_text' );
 is( $ret2->auth_code, '831000',     'check auth_code exists');
 
 ok( $ret2->request_id,    'check request_id exists'    );
