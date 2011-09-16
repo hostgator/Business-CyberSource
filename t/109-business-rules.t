@@ -77,8 +77,6 @@ my $req1
 		credit_card    => '4111111111111111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		cvn            => '1111',
-		ignore_cv_result => 1,
 		production     => 0,
 	});
 
@@ -86,23 +84,23 @@ my $ret1;
 
 eval { $ret1 = $req1->submit };
 
-note( $req->trace->printRequest  );
-note( $req->trace->printResponse );
+note( $req1->trace->printRequest  );
+note( $req1->trace->printResponse );
 
-is( $ret0->decision,       'ACCEPT', 'check decision'       );
-is( $ret0->reference_code, 't109-1', 'check reference_code' );
-is( $ret0->reason_code,     100,     'check reason_code'    );
-is( $ret0->currency,       'USD',    'check currency'       );
-is( $ret0->amount,         '5005.00',    'check amount'     );
-is( $ret0->avs_code,       'Y',       'check avs_code'      );
-is( $ret0->avs_code_raw,   'Y',       'check avs_code_raw'  );
-is( $ret0->processor_response, 'C2',  'check processor_response');
-is( $ret0->reason_text, 'Successful transaction', 'check reason_text' );
-is( $ret0->auth_code, '831000',     'check auth_code exists');
+is( $ret1->decision,       'ACCEPT', 'check decision'       );
+is( $ret1->reference_code, 't109-1', 'check reference_code' );
+is( $ret1->reason_code,     100,     'check reason_code'    );
+is( $ret1->currency,       'USD',    'check currency'       );
+is( $ret1->amount,         '5005.00',    'check amount'     );
+is( $ret1->avs_code,       'Y',       'check avs_code'      );
+is( $ret1->avs_code_raw,   'Y',       'check avs_code_raw'  );
+is( $ret1->processor_response, 'C2',  'check processor_response');
+is( $ret1->reason_text, 'Successful transaction', 'check reason_text' );
+is( $ret1->auth_code, '831000',     'check auth_code exists');
 
-ok( $ret0->request_id,    'check request_id exists'    );
-ok( $ret0->request_token, 'check request_token exists' );
-ok( $ret0->datetime,      'check datetime exists'      );
-ok( $ret0->auth_record,   'check auth_record exists'   );
+ok( $ret1->request_id,    'check request_id exists'    );
+ok( $ret1->request_token, 'check request_token exists' );
+ok( $ret1->datetime,      'check datetime exists'      );
+ok( $ret1->auth_record,   'check auth_record exists'   );
 
 done_testing;
