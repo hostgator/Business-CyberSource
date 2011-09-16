@@ -15,6 +15,7 @@ lib/Business/CyberSource/Request/Credit.pm
 lib/Business/CyberSource/Request/DCC.pm
 lib/Business/CyberSource/Request/FollowOnCredit.pm
 lib/Business/CyberSource/Request/Role/BillingInfo.pm
+lib/Business/CyberSource/Request/Role/BusinessRules.pm
 lib/Business/CyberSource/Request/Role/Common.pm
 lib/Business/CyberSource/Request/Role/Credentials.pm
 lib/Business/CyberSource/Request/Role/CreditCardInfo.pm

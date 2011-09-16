@@ -8,13 +8,14 @@ our $VERSION = 'v0.3.1'; # VERSION
 
 use Moose::Role;
 
+use MooseX::Types::CyberSource qw( AVSResult );
 use MooseX::Types::Varchar qw( Varchar );
 
 has avs_code => (
 	required => 0,
 	predicate => 'has_avs_code',
 	is       => 'ro',
-	isa      => Varchar[1],
+	isa      => AVSResult,
 	documentation => 'AVS results.',
 );
 
