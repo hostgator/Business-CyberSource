@@ -31,7 +31,7 @@ sub submit {
 		},
 	};
 
-	$payload = { %{ $self->_business_rules } };
+	$payload = $self->_business_rules;
 
 	my $r = $self->_build_request( $payload );
 
