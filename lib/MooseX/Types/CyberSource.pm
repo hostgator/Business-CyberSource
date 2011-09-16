@@ -7,7 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use MooseX::Types -declare => [ qw(
-	AVSResults
+	AVSResult
 	CardTypeCode
 	CvIndicator
 	CvResults
@@ -55,7 +55,7 @@ subtype Item,
 
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
-enum AVSResults, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
 
 1;
 

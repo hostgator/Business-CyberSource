@@ -8,7 +8,7 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::Types::Moose qw( Bool ArrayRef Int );
-use MooseX::Types::Cybersource qw( AVSResult );
+use MooseX::Types::CyberSource qw( AVSResult );
 
 has ignore_avs_result => (
 	predicate => 'has_ignore_avs_result',
