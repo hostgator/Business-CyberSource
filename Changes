@@ -1,6 +1,8 @@
 Revision history for Business-CyberSource
 
 v0.3.1    2011-09-15
+	- Sale wasn't actually added in 0.3.0 due to forgotten merge
+	- add support for business rules
 
 v0.3.0    2011-09-14
 	- add support for multiple items
