@@ -42,28 +42,6 @@ is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
 # check billing info
-is( $req->reference_code, '42',        'check reference_code' );
-is( $req->first_name,     'Caleb',     'check first_name'     );
-is( $req->last_name,      'Cushing',   'check first_name'     );
-is( $req->street,         'somewhere', 'check street'         );
-is( $req->city,           'Houston',   'check city'           );
-is( $req->state,          'TX',        'check state'          );
-is( $req->country,        'US',        'check country'        );
-
-is( $req->email, 'xenoterracide@gmail.com', 'check email' );
-
-is( $req->total,      '3000', 'check total'      );
-
-is( $req->currency, 'USD', 'check currency' );
-
-is( $req->credit_card,  '4111111111111111', 'check credit card number' );
-
-is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
-is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
-is( $req->card_type,    '001',  'check card type' );
-
-ok( $req->cybs_wsdl->stringify, 'check for wsdl' );
-ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
 my $ret;
 
@@ -73,10 +51,10 @@ note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, '42',     'check reference_code' );
+is( $ret->reference_code, 't109',   'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         '3000.00',    'check amount'     );
+is( $ret->amount,         '2100.00',    'check amount'     );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
