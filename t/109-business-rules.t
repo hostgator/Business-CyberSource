@@ -142,7 +142,6 @@ is( $ret2->auth_code, '831000',     'check auth_code exists');
 
 ok( $ret2->request_id,    'check request_id exists'    );
 ok( $ret2->request_token, 'check request_token exists' );
-ok( $ret2->datetime,      'check datetime exists'      );
 ok( $ret2->auth_record,   'check auth_record exists'   );
 
 done_testing;
