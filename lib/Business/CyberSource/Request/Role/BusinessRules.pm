@@ -60,6 +60,45 @@ has score_threshold => (
 	required  => 0,
 	isa       => Int,
 );
+
+sub _business_rules {
+	my $self = shift;
+
+	my $i = { };
+
+	$i->{BusinessRules}{scoreThreshold} = $self->score_threshold
+		if $self->has_score_threshold;
+
+	$i->{BusinessRules}{declineAVSFlags} = $self->_stringify_decline_avs_flags
+		if $self->has_decline_avs_flags;
+
+	if ( $self->has_ignore_validate_result ) {
+		$i->{BusinessRules}{ignoreValidateResult}
+			= $self->ignore_validate_result ? 'true' : 'false';
+	}
+
+	if ( $self->has_ignore_export_result ) {
+		$i->{BusinessRules}{ignoreExportResult}
+			= $self->ignore_export_result ? 'true' : 'false';
+	}
+
+	if ( $self->has_ignore_dav_result ) {
+		$i->{BusinessRules}{ignoreDAVResult}
+			= $self->ignore_dav_result ? 'true' : 'false';
+	}
+
+	if ( $self->has_ignore_cv_result ) {
+		$i->{BusinessRules}{ignoreCVResult}
+			= $self->ignore_cv_result ? 'true' : 'false';
+	}
+
+	if ( $self->has_ignore_cv_result ) {
+		$i->{BusinessRules}{ignoreAVSResult}
+			= $self->ignore_cv_result ? 'true' : 'false';
+	}
+
+	return $i;
+}
 1;
 
 # ABSTRACT: Business Rules Role
