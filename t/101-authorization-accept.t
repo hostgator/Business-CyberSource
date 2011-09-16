@@ -63,7 +63,9 @@ is( $req->card_type,    '001',  'check card type' );
 ok( $req->cybs_wsdl->stringify, 'check for wsdl' );
 ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
-my $ret = $req->submit;
+my $ret;
+
+eval { $ret = $req->submit };
 
 note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
