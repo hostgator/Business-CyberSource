@@ -12,6 +12,7 @@ with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
+	Business::CyberSource::Request::Role::BusinessRules
 );
 
 use Business::CyberSource::Response;
@@ -29,6 +30,10 @@ sub submit {
 			run => 'true',
 		},
 	};
+
+	if ( keys $self->_business_rules ) {
+		$payload->{businessRules} = $self->_business_rules;
+	}
 
 	my $r = $self->_build_request( $payload );
 

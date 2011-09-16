@@ -13,6 +13,7 @@ with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
+	Business::CyberSource::Request::Role::BusinessRules
 );
 
 use Business::CyberSource::Response;
@@ -28,6 +29,10 @@ sub submit {
 			run => 'true',
 		},
 	};
+
+	if ( keys $self->_business_rules ) {
+		$payload->{businessRules} = $self->_business_rules;
+	}
 
 	if ( $self->has_items and not $self->items_is_empty ) {
 		$payload->{item} = [ @{ $self->_item_info } ];
