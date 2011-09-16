@@ -133,13 +133,13 @@ eval { $ret2 = $req2->submit };
 note( $req2->trace->printRequest  );
 note( $req2->trace->printResponse );
 
-is( $ret2->decision,       'ACCEPT', 'check decision'       );
+is( $ret2->decision,       'REJECT', 'check decision'       );
 is( $ret2->reference_code, 't109-2', 'check reference_code' );
 is( $ret2->reason_code,     100,     'check reason_code'    );
 is( $ret2->currency,       'USD',    'check currency'       );
 is( $ret2->amount,         '5005.00',    'check amount'     );
-is( $ret2->avs_code,       'N',       'check avs_code'      );
-is( $ret2->avs_code_raw,   'N',       'check avs_code_raw'  );
+is( $ret2->avs_code,       'Y',       'check avs_code'      );
+is( $ret2->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret2->processor_response, '00',  'check processor_response');
 is( $ret2->reason_text, 'Successful transaction', 'check reason_text' );
 is( $ret2->auth_code, '831000',     'check auth_code exists');
