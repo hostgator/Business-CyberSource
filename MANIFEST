@@ -50,6 +50,7 @@ t/105-factory.t
 t/106-optional.t
 t/107-avs.t
 t/108-items.t
+t/109-business-rules.t
 t/201-capture.t
 t/202-capture-reject.t
 t/301-credit.t

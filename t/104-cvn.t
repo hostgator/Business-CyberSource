@@ -16,7 +16,7 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '1984',
+		reference_code => 't104',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -45,7 +45,7 @@ note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, '1984',     'check reference_code' );
+is( $ret->reference_code, 't104',   'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '9000.00', 'check amount'        );

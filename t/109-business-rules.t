@@ -16,7 +16,7 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => 't101',
+		reference_code => 't109',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -25,11 +25,12 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 3000.00,
+		total          => 9000.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
+		cvn            => '1111',
 		production     => 0,
 	});
 
@@ -40,7 +41,7 @@ is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
 # check billing info
-is( $req->reference_code, 't101',      'check reference_code' );
+is( $req->reference_code, '42',        'check reference_code' );
 is( $req->first_name,     'Caleb',     'check first_name'     );
 is( $req->last_name,      'Cushing',   'check first_name'     );
 is( $req->street,         'somewhere', 'check street'         );
@@ -71,7 +72,7 @@ note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, 't101',   'check reference_code' );
+is( $ret->reference_code, '42',     'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '3000.00',    'check amount'     );
