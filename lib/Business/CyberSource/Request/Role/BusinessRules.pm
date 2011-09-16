@@ -92,9 +92,9 @@ sub _business_rules {
 			= $self->ignore_cv_result ? 'true' : 'false';
 	}
 
-	if ( $self->has_ignore_cv_result ) {
+	if ( $self->has_ignore_avs_result ) {
 		$i->{ignoreAVSResult}
-			= $self->ignore_cv_result ? 'true' : 'false';
+			= $self->ignore_avs_result ? 'true' : 'false';
 	}
 
 	return $i;
