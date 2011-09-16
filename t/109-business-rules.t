@@ -123,7 +123,7 @@ my $req2
 		credit_card    => '4111111111111111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		decline_avs_flags => [ 'Y' ],
+		decline_avs_flags => [ qw( Y N ) ],
 	});
 
 my $ret2;
