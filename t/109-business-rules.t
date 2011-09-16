@@ -50,11 +50,11 @@ eval { $ret = $req->submit };
 note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
-is( $ret->decision,       'REJECT', 'check decision'       );
+is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, 't109',   'check reference_code' );
-is( $ret->reason_code,     230,     'check reason_code'    );
+is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         '2100.00',    'check amount'     );
+is( $ret->amount,         '9001.00',    'check amount'     );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
 is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->processor_response, '00',  'check processor_response');
