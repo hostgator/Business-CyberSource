@@ -63,6 +63,7 @@ my $req1
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
+		production     => 0,
 		reference_code => 't109-1',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -77,7 +78,6 @@ my $req1
 		credit_card    => '4111111111111111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
 		ignore_avs_result => 1,
 	});
 
