@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     "MooseX::StrictConstructor" => 0,
     "MooseX::Traits" => 0,
     "MooseX::Types" => 0,
-    "MooseX::Types::Common::Numeric" => 0,
+    "MooseX::Types::Common::Numeric" => "0.001003",
     "MooseX::Types::Common::String" => 0,
     "MooseX::Types::CreditCard" => "0.001001",
     "MooseX::Types::DateTime::W3C" => 0,
@@ -63,7 +63,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "v0.3.1",
+  "VERSION" => "v0.3.2",
   "test" => {
     "TESTS" => "t/*.t"
   }
