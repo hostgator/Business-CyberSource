@@ -25,12 +25,12 @@ my $req
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 2100,
+		total          => 9001.00,
 		currency       => 'USD',
 		credit_card    => '4111111111111111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		cvn            => '2222',
+		cvn            => '1111',
 #		ignore_cv_result => 1,
 		production     => 0,
 	});
@@ -50,9 +50,9 @@ eval { $ret = $req->submit };
 note( $req->trace->printRequest  );
 note( $req->trace->printResponse );
 
-is( $ret->decision,       'ACCEPT', 'check decision'       );
+is( $ret->decision,       'REJECT', 'check decision'       );
 is( $ret->reference_code, 't109',   'check reference_code' );
-is( $ret->reason_code,     100,     'check reason_code'    );
+is( $ret->reason_code,     230,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
 is( $ret->amount,         '2100.00',    'check amount'     );
 is( $ret->avs_code,       'Y',       'check avs_code'      );
