@@ -135,7 +135,6 @@ note( $req2->trace->printResponse );
 
 is( $ret2->decision,       'REJECT', 'check decision'       );
 is( $ret2->reason_code,     200,     'check reason_code'    );
-is( $ret2->amount,         '5005.00',    'check amount'     );
 is( $ret2->avs_code,       'Y',       'check avs_code'      );
 is( $ret2->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret2->processor_response, '00',  'check processor_response');
