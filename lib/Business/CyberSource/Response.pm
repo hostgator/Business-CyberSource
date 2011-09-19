@@ -14,7 +14,7 @@ with qw(
 );
 
 use MooseX::StrictConstructor;
-use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Moose qw( Str Int Bool );
 use MooseX::Types::CyberSource qw( Decision );
 use MooseX::Types::Varchar qw( Varchar );
 
@@ -53,8 +53,21 @@ has request_token => (
 		. 'reply. The field is an encoded string that contains no '
 		. 'confidential information, such as an account or card verification '
 		. 'number. The string can contain up to 256 characters.',
-
 );
+
+has is_success => (
+	required => 0,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => Bool,
+	default  => sub {
+		my $self = shift;
+		return $self->decision eq 'ACCEPT' ? 1 : 0;
+	},
+	documentation => 'boolean way of determining whether the transaction was '
+		. 'a success',
+);
+
 
 sub _build_reason_text {
 	my $self = shift;
@@ -174,6 +187,14 @@ C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
 
 =head1 ATTRIBUTES
+
+=head2 is_success
+
+Reader: is_success
+
+Type: Bool
+
+Additional documentation: boolean way of determining whether the transaction was a success
 
 =head2 reason_text
 
