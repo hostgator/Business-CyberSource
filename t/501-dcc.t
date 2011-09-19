@@ -20,10 +20,10 @@ my $dcc_req
 		production     => 0,
 		reference_code => '500',
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2015',
-		total          => '39.95',
+		credit_card    => '4205260000000005',
+		cc_exp_month   => '04',
+		cc_exp_year    => '2012',
+		total          => '1.00',
 		foreign_currency => 'AUD',
 	});
 
