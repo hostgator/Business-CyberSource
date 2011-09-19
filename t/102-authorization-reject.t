@@ -37,6 +37,7 @@ my $ret0 = $req0->submit;
 
 note( $req0->trace->printResponse );
 
+is( $ret0->is_success,     0,        'check success'        );
 is( $ret0->decision,       'REJECT', 'check decision'       );
 is( $ret0->reason_code,     202,     'check reason_code'    );
 is(
