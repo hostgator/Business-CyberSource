@@ -34,6 +34,7 @@ my %WriteMakefileArgs = (
     "Carp" => 0,
     "Config" => 0,
     "File::ShareDir" => 0,
+    "Locale::Country" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,
     "MooseX::AbstractFactory" => 0,

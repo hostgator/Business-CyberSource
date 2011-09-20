@@ -284,7 +284,7 @@ Additional documentation: Fourth line of the billing street address.
 
 Reader: country
 
-Type: MooseX::Types::Locale::Country::Alpha2Country
+Type: MooseX::Types::CyberSource::CountryCode
 
 This attribute is required.
 

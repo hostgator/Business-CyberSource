@@ -58,6 +58,7 @@ eval { $v .= pmver('File::Find','any version') };
 eval { $v .= pmver('File::ShareDir','any version') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::Temp','any version') };
+eval { $v .= pmver('Locale::Country','any version') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('MooseX::AbstractFactory','any version') };
