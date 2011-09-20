@@ -19,7 +19,7 @@ my $dcc_req
 		password       => $CYBS_KEY,
 		production     => 0,
 		reference_code => 't501',
-		currency       => 'USD',
+		currency       => 'JPY',
 		credit_card    => '4205260000000005',
 		cc_exp_month   => '04',
 		cc_exp_year    => '2012',
