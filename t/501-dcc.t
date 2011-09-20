@@ -19,12 +19,12 @@ my $dcc_req
 		password       => $CYBS_KEY,
 		production     => 0,
 		reference_code => 't501',
-		currency       => 'JPY',
+		currency       => 'USD',
 		credit_card    => '4205260000000005',
 		cc_exp_month   => '04',
 		cc_exp_year    => '2012',
 		total          => '1.00',
-		foreign_currency => 'AUD',
+		foreign_currency => 'JPY',
 	});
 
 my $dcc;
