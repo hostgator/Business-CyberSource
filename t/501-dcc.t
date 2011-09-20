@@ -28,7 +28,7 @@ my $dcc_req
 	});
 
 my $dcc;
-eval { $dcc = $dcc_req->submit; };
+$dcc = $dcc_req->submit;
 ok ( $dcc_req->trace, 'trace exists' );
 
 ok( $dcc, 'authorization response exists' );
