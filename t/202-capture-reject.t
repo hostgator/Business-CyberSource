@@ -36,6 +36,8 @@ my $req
 	})
 	;
 
+is( $req->country, 'JP', 'check country converted right' );
+
 my $res = $req->submit;
 
 my $capture
