@@ -62,6 +62,7 @@ t/402-auth-reversal-reject.t
 t/403-auth-reversal-factory.t
 t/501-dcc.t
 t/601-sale.t
+t/602-sale-reject.t
 t/author-critic.t
 t/author-pod-spell.t
 t/release-cpan-changes.t
