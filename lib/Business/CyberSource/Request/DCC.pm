@@ -33,9 +33,6 @@ sub submit {
 	if ( $r->{decision} eq 'ACCEPT' ) {
 		$res
 			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Accept
-			})
 			->new({
 				request_id     => $r->{requestID},
 				decision       => $r->{decision},
