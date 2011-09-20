@@ -116,6 +116,14 @@ version v0.3.3
 
 This module provides CyberSource specific Moose Types.
 
+=begin Pod::Coverage
+
+LOCALE_CODE_ALPHA_2
+
+LOCALE_CODE_ALPHA_3
+
+=end Pod::Coverage
+
 =head1 TYPES
 
 =over
