@@ -83,7 +83,7 @@ sub submit {
 		if ( $r->{ccCaptureReply}->{reconciliationID} ) {
 			$e->{reconciliation_id} = $r->{ccCaptureReply}->{reconciliationID};
 		}
-			
+
 		$res
 			= Business::CyberSource::Response
 			->with_traits( @traits )
