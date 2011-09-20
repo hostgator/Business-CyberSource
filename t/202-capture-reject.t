@@ -24,7 +24,7 @@ my $req
 		city           => 'Houston',
 		state          => 'TX',
 		zip            => '77064',
-		country        => 'US',
+		country        => 'Japan',
 		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
 		total          => 5.00,
@@ -35,6 +35,8 @@ my $req
 		production     => 0,
 	})
 	;
+
+is( $req->country, 'JP', 'check country converted right' );
 
 my $res = $req->submit;
 

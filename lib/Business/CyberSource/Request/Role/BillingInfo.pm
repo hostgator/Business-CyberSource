@@ -11,7 +11,7 @@ use Moose::Role;
 use MooseX::Aliases;
 use MooseX::Types::Varchar         qw( Varchar       );
 use MooseX::Types::Email           qw( EmailAddress  );
-use MooseX::Types::Locale::Country qw( Alpha2Country );
+use MooseX::Types::CyberSource     qw( CountryCode   );
 use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
 
 has first_name => (
@@ -84,7 +84,7 @@ has country => (
 	required => 1,
 	coerce   => 1,
 	is       => 'ro',
-	isa      => Alpha2Country,
+	isa      => CountryCode,
 	documentation => 'ISO 2 character country code '
 		. '(as it would apply to a credit card billing statement)',
 );

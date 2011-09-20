@@ -9,6 +9,7 @@ use namespace::autoclean;
 use MooseX::Types -declare => [ qw(
 	AVSResult
 	CardTypeCode
+	CountryCode
 	CvIndicator
 	CvResults
 	Decision
@@ -18,6 +19,8 @@ use MooseX::Types -declare => [ qw(
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 use MooseX::Types::Moose qw( Int Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
+use Locale::Country;
+use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -56,6 +59,24 @@ subtype Item,
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+
+subtype CountryCode,
+	as Alpha2Country
+	;
+
+coerce CountryCode,
+	from Alpha3Country,
+	via {
+		return uc country_code2code( $_ , LOCALE_CODE_ALPHA_3, LOCALE_CODE_ALPHA_2 );
+	}
+	;
+
+coerce CountryCode,
+	from CountryName,
+	via {
+		return uc country2code( $_, LOCALE_CODE_ALPHA_2 );
+	}
+	;
 
 1;
 
