@@ -2,6 +2,11 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.3.3    2011-09-19
+	- add country code conversion from 3 character, and country name
+	- fix bug where rejected sale's were crashing due to giving responses the
+	  wrong inputs
+
 v0.3.2    2011-09-19
 	- fix dependancy issue
 	- add an ->is_success accessor to the response object
