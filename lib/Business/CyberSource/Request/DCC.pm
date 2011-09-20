@@ -44,7 +44,6 @@ sub submit {
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
 				currency       => $r->{purchaseTotals}->{currency},
-				datetime       => $r->{ccDCCReply}->{exchangeRateTimeStamp},
 				amount         => $r->{ccDCCReply}->{amount},
 			})
 			;
