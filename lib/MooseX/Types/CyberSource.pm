@@ -82,6 +82,14 @@ coerce CountryCode,
 
 # ABSTRACT: Moose Types specific to CyberSource
 
+=begin Pod::Coverage
+
+LOCALE_CODE_ALPHA_2
+
+LOCALE_CODE_ALPHA_3
+
+=end Pod::Coverage
+
 =head1 SYNOPSIS
 
 	{
