@@ -67,7 +67,7 @@ subtype CountryCode,
 coerce CountryCode,
 	from Alpha3Country,
 	via {
-		return country_code2code( $_ , LOCALE_CODE_ALPHA_3, LOCALE_CODE_ALPHA_2 );
+		return uc country_code2code( $_ , LOCALE_CODE_ALPHA_3, LOCALE_CODE_ALPHA_2 );
 	}
 	;
 
