@@ -33,7 +33,9 @@ my $req0
 		cc_exp_year    => '2025',
 	});
 
-my $ret0 = $req0->submit;
+my $ret0;
+
+eval { $ret0 = $req0->submit };
 
 note( $req0->trace->printResponse );
 
