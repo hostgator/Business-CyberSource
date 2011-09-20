@@ -20,7 +20,7 @@ use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 use MooseX::Types::Moose qw( Int Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Locale::Country;
-use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country );
+use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -68,6 +68,13 @@ coerce CountryCode,
 	from Alpha3Country,
 	via {
 		return uc country_code2code( $_ , LOCALE_CODE_ALPHA_3, LOCALE_CODE_ALPHA_2 );
+	}
+	;
+
+coerce CountryCode,
+	from CountryName,
+	via {
+		return uc country2code( $_, LOCALE_CODE_ALPHA_2 );
 	}
 	;
 

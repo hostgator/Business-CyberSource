@@ -24,7 +24,7 @@ my $req
 		city           => 'Houston',
 		state          => 'TX',
 		zip            => '77064',
-		country        => 'US',
+		country        => 'Japan',
 		email          => 'xenoterracide@gmail.com',
 		ip             => '192.168.100.2',
 		total          => 5.00,
