@@ -35,7 +35,7 @@ has reference_code => (
 );
 
 has request_specific_reason_code => (
-	required => 0,
+	required => 1,
 	is       => 'ro',
 	isa      => Int,
 );

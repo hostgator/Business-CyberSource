@@ -48,6 +48,7 @@ sub submit {
 				currency       => $r->{purchaseTotals}{currency},
 				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
 				amount         => $r->{ccDCCReply}->{amount},
+				request_specific_reason_code => $r->{ccDCCReply}{reasonCode},
 			})
 			;
 	}
