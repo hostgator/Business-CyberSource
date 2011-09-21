@@ -36,6 +36,7 @@ sub submit {
 			= Business::CyberSource::Response
 			->with_traits(qw{
 				Business::CyberSource::Role::ForeignCurrency
+				Business::CyberSource::Response::Role::Accept
 			})
 			->new({
 				request_id     => $r->{requestID},
@@ -43,10 +44,10 @@ sub submit {
 				# quote reason_code to stringify from BigInt
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
-#				reference_code => $r->{merchantReferenceCode},
-#				currency       => $r->{purchaseTotals}{currency},
+				reference_code => $r->{merchantReferenceCode},
+				currency       => $r->{purchaseTotals}{currency},
 				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
-#				amount         => $r->{ccDCCReply}->{amount},
+				amount         => $r->{ccDCCReply}->{amount},
 			})
 			;
 	}
