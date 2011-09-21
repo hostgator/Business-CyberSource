@@ -17,7 +17,7 @@ use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
 
 has amount => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Num,
 );
