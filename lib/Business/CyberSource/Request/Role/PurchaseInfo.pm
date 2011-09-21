@@ -9,7 +9,6 @@ our $VERSION = 'v0.3.4'; # VERSION
 use Moose::Role;
 with qw(
 	Business::CyberSource::Role::Currency
-	Business::CyberSource::Role::ForeignCurrency
 	Business::CyberSource::Request::Role::Items
 );
 
@@ -26,7 +25,7 @@ sub _purchase_info {
 
 	$i->{grandTotalAmount} = $self->total if $self->has_total;;
 	$i->{foreignCurrency}  = $self->foreign_currency
-		if $self->has_foreign_currency;
+		if $self->does('Business::CyberSource::Role::ForeignCurrency');
 
 	return $i;
 }

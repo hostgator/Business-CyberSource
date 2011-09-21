@@ -316,16 +316,6 @@ Type: Str
 
 Additional documentation: provided by the library
 
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
 =head2 client_version
 
 Reader: client_version
