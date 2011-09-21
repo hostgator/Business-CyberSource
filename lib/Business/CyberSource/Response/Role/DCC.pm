@@ -15,7 +15,7 @@ with qw(
 use MooseX::Types::Moose qw( Num );
 
 has foreign_amount => (
-	required => 0,
+	required => 1,
 	is       => 'ro',
 	isa      => Num,
 );
