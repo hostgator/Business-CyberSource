@@ -36,4 +36,7 @@ ok( $dcc, 'authorization response exists' );
 note( $dcc_req->trace->printRequest  );
 note( $dcc_req->trace->printResponse );
 
+ok( $dcc->reference_code, 'reference code exists' );
+is( $dcc->request_specific_reason_code, 100, 'DCC Reason code is 100' );
+
 done_testing;
