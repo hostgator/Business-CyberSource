@@ -35,8 +35,7 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-				Business::CyberSource::Role::ForeignCurrency
-				Business::CyberSource::Response::Role::Accept
+				Business::CyberSource::Response::Role::DCC
 			})
 			->new({
 				request_id     => $r->{requestID},

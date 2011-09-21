@@ -1,4 +1,4 @@
-package Business::CyberSource::Response::Role::Accept;
+package Business::CyberSource::Response::Role::DCC;
 use 5.008;
 use strict;
 use warnings;
@@ -8,7 +8,8 @@ our $VERSION = 'v0.3.4'; # VERSION
 
 use Moose::Role;
 with qw(
-	Business::CyberSource::Role::Currency
+	Business::CyberSource::Role::ForeignCurrency
+	Business::CyberSource::Response::Role::Accept
 );
 
 1;
@@ -20,7 +21,7 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Response::Role::Accept - Role that provides attributes specific to responses for DCC
+Business::CyberSource::Response::Role::DCC - Role that provides attributes specific to responses for DCC
 
 =head1 VERSION
 
