@@ -9,6 +9,7 @@ our $VERSION = 'v0.3.4'; # VERSION
 use Moose::Role;
 with qw(
 	Business::CyberSource::Role::Currency
+	Business::CyberSource::Role::ForeignCurrency
 	Business::CyberSource::Request::Role::Items
 );
 
