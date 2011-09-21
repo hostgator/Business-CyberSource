@@ -10,9 +10,10 @@ use Moose::Role;
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
 
 has foreign_currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => CurrencyCode,
+	required  => 1,
+	predicate => 'has_foreign_currency',
+	is        => 'ro',
+	isa       => CurrencyCode,
 	documentation => 'Billing currency returned by the DCC service. '
 		. 'For the possible values, see the ISO currency codes',
 );
