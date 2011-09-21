@@ -12,6 +12,7 @@ with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
+	Business::CyberSource::Role::ForeignCurrency
 );
 
 use Business::CyberSource::Response;
@@ -33,6 +34,9 @@ sub submit {
 	if ( $r->{decision} eq 'ACCEPT' ) {
 		$res
 			= Business::CyberSource::Response
+			->with_traits(qw{
+				Business::CyberSource::Role::ForeignCurrency
+			})
 			->new({
 				request_id     => $r->{requestID},
 				decision       => $r->{decision},
@@ -40,7 +44,8 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
-				currency       => $r->{purchaseTotals}->{currency},
+				currency       => $r->{purchaseTotals}{currency},
+				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
 				amount         => $r->{ccDCCReply}->{amount},
 			})
 			;
@@ -156,14 +161,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
 =head2 credit_card
 
 Reader: credit_card
@@ -173,6 +170,14 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
 
 =head2 reference_code
 
@@ -226,6 +231,16 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+This attribute is required.
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
 =head2 client_name
 
 Reader: client_name
@@ -233,14 +248,6 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 client_version
 
