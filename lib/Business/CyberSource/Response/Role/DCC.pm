@@ -12,12 +12,18 @@ with qw(
 	Business::CyberSource::Response::Role::Accept
 );
 
-use MooseX::Types::Moose qw( Num );
+use MooseX::Types::Moose qw( Num Bool );
 
 has foreign_amount => (
 	required => 1,
 	is       => 'ro',
 	isa      => Num,
+);
+
+has dcc_supported => (
+	required => 1,
+	is       => 'ro',
+	isa      => Bool
 );
 
 1;

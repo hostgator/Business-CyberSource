@@ -47,6 +47,8 @@ sub submit {
 				currency       => $r->{purchaseTotals}{currency},
 				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
 				foreign_amount   => $r->{purchaseTotals}{foreignAmount},
+				dcc_supported =>
+					$r->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0,
 				request_specific_reason_code => "$r->{ccDCCReply}{reasonCode}",
 			})
 			;
