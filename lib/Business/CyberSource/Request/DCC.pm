@@ -86,9 +86,6 @@ version v0.3.4
 =head1 DESCRIPTION
 
 This object allows you to create a request for Direct Currency Conversion.
-This object is not known to work correctly. Although it follows the
-CyberSource Documentation for DCC request, the response returned appears to
-always be a 150 General Error.
 
 =head1 ATTRIBUTES
 
