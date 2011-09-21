@@ -12,6 +12,14 @@ with qw(
 	Business::CyberSource::Response::Role::Accept
 );
 
+use MooseX::Types::Moose qw( Num );
+
+has foreign_amount => (
+	required => 0,
+	is       => 'ro',
+	isa      => Num,
+);
+
 1;
 
 # ABSTRACT: Role that provides attributes specific to responses for DCC
