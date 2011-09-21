@@ -24,8 +24,6 @@ sub _purchase_info {
 	};
 
 	$i->{grandTotalAmount} = $self->total if $self->has_total;;
-	$i->{foreignCurrency}  = $self->foreign_currency
-		if $self->does('Business::CyberSource::Role::ForeignCurrency');
 
 	return $i;
 }
