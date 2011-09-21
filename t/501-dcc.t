@@ -45,5 +45,6 @@ is( $dcc->dcc_supported, 1, 'check dcc supported' );
 is( $dcc->exchange_rate, 116.4344, 'check exchange rate' );
 is( $dcc->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
 is( $dcc->valid_hours, 11229, 'check valid hours' );
+is( $dcc->margin_rate_percentage, 03.0000, 'check margin rate percentage' );
 
 done_testing;
