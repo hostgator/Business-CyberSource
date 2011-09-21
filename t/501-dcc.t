@@ -24,14 +24,14 @@ my $dcc_req
 		cc_exp_month   => '04',
 		cc_exp_year    => '2012',
 		total          => '1.00',
-		foreign_currency => 'AUD',
+		foreign_currency => 'JPY',
 	});
 
 my $dcc;
-eval { $dcc = $dcc_req->submit; };
+$dcc = $dcc_req->submit;
 ok ( $dcc_req->trace, 'trace exists' );
 
-#ok( $dcc, 'authorization response exists' );
+ok( $dcc, 'authorization response exists' );
 
 note( $dcc_req->trace->printRequest  );
 note( $dcc_req->trace->printResponse );
