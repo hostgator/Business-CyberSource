@@ -26,6 +26,12 @@ has dcc_supported => (
 	isa      => Bool
 );
 
+has exchange_rate => (
+	required => 1,
+	is       => 'ro',
+	isa      => Num,
+);
+
 1;
 
 # ABSTRACT: Role that provides attributes specific to responses for DCC

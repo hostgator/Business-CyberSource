@@ -42,5 +42,6 @@ is( $dcc->foreign_currency, 'JPY', 'check foreign currency' );
 is( $dcc->foreign_amount, 116, 'check foreign amount' );
 is( $dcc->currency, 'USD', 'check currency' );
 is( $dcc->dcc_supported, 1, 'check dcc supported' );
+is( $dcc->exchange_rate, 116.4344, 'check exchange rate' );
 
 done_testing;
