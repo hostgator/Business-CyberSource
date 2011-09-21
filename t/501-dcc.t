@@ -43,5 +43,7 @@ is( $dcc->foreign_amount, 116, 'check foreign amount' );
 is( $dcc->currency, 'USD', 'check currency' );
 is( $dcc->dcc_supported, 1, 'check dcc supported' );
 is( $dcc->exchange_rate, 116.4344, 'check exchange rate' );
+is( $dcc->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
+is( $dcc->valid_hours, 11229, 'check valid hours' );
 
 done_testing;
