@@ -44,12 +44,18 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
+				exchange_rate  => $r->{purchaseTotals}{exchangeRate},
+				exchange_rate_timestamp =>
+					$r->{purchaseTotals}{exchangeRateTimeStamp},
 				currency       => $r->{purchaseTotals}{currency},
 				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
 				foreign_amount   => $r->{purchaseTotals}{foreignAmount},
-				exchange_rate => $r->{purchaseTotals}{exchangeRate},
 				dcc_supported =>
 					$r->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0,
+				valid_hours => $r->{ccDCCReply}{validHours},
+				margin_rate_percentage =>
+					$r->{ccDCCReply}{marginRatePercentage},
+				
 				request_specific_reason_code => "$r->{ccDCCReply}{reasonCode}",
 			})
 			;

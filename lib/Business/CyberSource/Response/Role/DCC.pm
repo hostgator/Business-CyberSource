@@ -12,7 +12,7 @@ with qw(
 	Business::CyberSource::Response::Role::Accept
 );
 
-use MooseX::Types::Moose qw( Num Bool );
+use MooseX::Types::Moose qw( Num Bool Str Int );
 
 has foreign_amount => (
 	required => 1,
@@ -27,6 +27,24 @@ has dcc_supported => (
 );
 
 has exchange_rate => (
+	required => 1,
+	is       => 'ro',
+	isa      => Num,
+);
+
+has exchange_timestamp => (
+	required => 1,
+	is       => 'ro',
+	isa      => Str,
+);
+
+has valid_hours => (
+	required => 1,
+	is       => 'ro',
+	isa      => Int,
+);
+
+has margin_rate_percentage => (
 	required => 1,
 	is       => 'ro',
 	isa      => Num,
