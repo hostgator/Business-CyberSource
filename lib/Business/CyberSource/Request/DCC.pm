@@ -55,7 +55,6 @@ sub submit {
 				valid_hours => $r->{ccDCCReply}{validHours},
 				margin_rate_percentage =>
 					$r->{ccDCCReply}{marginRatePercentage},
-				
 				request_specific_reason_code => "$r->{ccDCCReply}{reasonCode}",
 			})
 			;
