@@ -39,16 +39,6 @@ has total => (
 		. 'either this field or item_#_unitPrice in your request',
 );
 
-has foreign_currency => (
-	required  => 0,
-	predicate => 'has_foreign_currency',
-	is        => 'ro',
-	isa       => CurrencyCode,
-	documentation => 'Billing currency returned by the DCC service. '
-		. 'For the possible values, see the ISO currency codes',
-
-);
-
 1;
 
 # ABSTRACT: CyberSource Purchase Information Role

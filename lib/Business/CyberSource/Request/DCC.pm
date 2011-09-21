@@ -12,6 +12,7 @@ with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
+	Business::CyberSource::Role::ForeignCurrency
 );
 
 use Business::CyberSource::Response;
@@ -34,8 +35,7 @@ sub submit {
 		$res
 			= Business::CyberSource::Response
 			->with_traits(qw{
-				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::Credit
+				Business::CyberSource::Response::Role::DCC
 			})
 			->new({
 				request_id     => $r->{requestID},
@@ -44,9 +44,18 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				reference_code => $r->{merchantReferenceCode},
-				currency       => $r->{purchaseTotals}->{currency},
-				datetime       => $r->{ccCaptureReply}->{requestDateTime},
-				amount         => $r->{ccCaptureReply}->{amount},
+				exchange_rate  => $r->{purchaseTotals}{exchangeRate},
+				exchange_rate_timestamp =>
+					$r->{purchaseTotals}{exchangeRateTimeStamp},
+				currency       => $r->{purchaseTotals}{currency},
+				foreign_currency => $r->{purchaseTotals}{foreignCurrency},
+				foreign_amount   => $r->{purchaseTotals}{foreignAmount},
+				dcc_supported =>
+					$r->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0,
+				valid_hours => $r->{ccDCCReply}{validHours},
+				margin_rate_percentage =>
+					$r->{ccDCCReply}{marginRatePercentage},
+				request_specific_reason_code => "$r->{ccDCCReply}{reasonCode}",
 			})
 			;
 	}
