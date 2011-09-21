@@ -32,7 +32,7 @@ has exchange_rate => (
 	isa      => Num,
 );
 
-has exchange_timestamp => (
+has exchange_rate_timestamp => (
 	required => 1,
 	is       => 'ro',
 	isa      => Str,
