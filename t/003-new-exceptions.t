@@ -30,7 +30,7 @@ my $req0
 		cc_exp_year    => '2025',
 		production     => 0,
 	});
-} /Attribute (country)/, 'new threw exception ok';
+} qr/Attribute \(country\)/, 'new threw exception ok';
 
 
 done_testing;
