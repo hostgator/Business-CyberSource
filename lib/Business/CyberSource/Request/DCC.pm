@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'v0.3.4'; # VERSION
+our $VERSION = 'v0.3.5'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -81,7 +81,7 @@ Business::CyberSource::Request::DCC - CyberSource DCC Request Object
 
 =head1 VERSION
 
-version v0.3.4
+version v0.3.5
 
 =head1 DESCRIPTION
 

@@ -4,7 +4,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.3.4'; # VERSION
+our $VERSION = 'v0.3.5'; # VERSION
 
 use Moose;
 with qw(
@@ -122,7 +122,7 @@ Business::CyberSource::Request::Sale - Sale Request Object
 
 =head1 VERSION
 
-version v0.3.4
+version v0.3.5
 
 =head1 SYNOPSIS
 
