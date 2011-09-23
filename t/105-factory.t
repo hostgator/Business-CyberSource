@@ -45,7 +45,7 @@ my $req = $factory->create(
 
 ok( $req, 'request exists' );
 
-is( $req->card_type, 003, 'check card type is american express' );
+is( $req->card_type, '003', 'check card type is american express' );
 
 my $res = $req->submit;
 
