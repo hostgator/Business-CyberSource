@@ -99,14 +99,14 @@ sub _build_card_type {
 	my $ct = cardtype( $self->credit_card );
 
 	my $code
-		= $ct =~ /visa            /ixms ? '001'
-		: $ct =~ /mastercard      /ixms ? '002'
-		: $ct =~ /american\ express\ card/ixms ? '003'
-		: $ct =~ /discover        /ixms ? '004'
-		: $ct =~ /jcb             /ixms ? '007'
-		: $ct =~ /enroute         /ixms ? '014'
-		: $ct =~ /laser           /ixms ? '035'
-		:                                 undef
+		= $ct =~ /visa             /ixms ? '001'
+		: $ct =~ /mastercard       /ixms ? '002'
+		: $ct =~ /discover         /ixms ? '004'
+		: $ct =~ /jcb              /ixms ? '007'
+		: $ct =~ /enroute          /ixms ? '014'
+		: $ct =~ /laser            /ixms ? '035'
+		: $ct =~ /american\ express/ixms ? '003'
+		:                                  undef
 		;
 
 	croak $ct . ' card_type was unable to be detected please define it manually'
