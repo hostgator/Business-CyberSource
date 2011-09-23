@@ -23,7 +23,7 @@ my $req
 		city           => 'Houston',
 		state          => 'TX',
 		zip            => '77064',
-		country        => 'US',
+		country        => 'us',
 		email          => 'xenoterracide@gmail.com',
 		items          => [
 			{
