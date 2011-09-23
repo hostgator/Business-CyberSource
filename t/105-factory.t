@@ -37,13 +37,15 @@ my $req = $factory->create(
 		email          => 'xenoterracide@gmail.com',
 		total          => 5.00,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
+		credit_card    => '378282246310005',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 	}
 );
 
 ok( $req, 'request exists' );
+
+is( $req->card_type, '003', 'check card type is american express' );
 
 my $res = $req->submit;
 
