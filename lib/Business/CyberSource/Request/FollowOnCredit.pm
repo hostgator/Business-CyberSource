@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.3.5'; # VERSION
+our $VERSION = 'v0.3.6'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
@@ -28,7 +28,7 @@ Business::CyberSource::Request::FollowOnCredit - CyberSource Credit Request Obje
 
 =head1 VERSION
 
-version v0.3.5
+version v0.3.6
 
 =head1 SYNOPSIS
 
