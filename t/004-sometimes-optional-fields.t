@@ -23,7 +23,6 @@ my $req0
 		street         => 'somewhere',
 		city           => 'Houston',
 		state          => 'TX',
-		zip            => undef,
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
 		total          => 3000.00,
