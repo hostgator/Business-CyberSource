@@ -2,6 +2,10 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.3.7    2011-09-27
+	- fix bug where valid REJECT on an expired card was causing an exception
+	  to be thrown
+
 v0.3.6    2011-09-27
 	- fix bug where you could not specify a zip code for US or CA, and the
 	  library would not throw an exception
