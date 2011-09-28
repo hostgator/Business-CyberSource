@@ -77,6 +77,15 @@ sub submit {
 				$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
 				$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 			}
+			if ( $r->{ccAuthReply}{processorResponse} ) {
+				$e->{processor_response}
+					= $r->{ccAuthReply}{processorResponse}
+					;
+			}
+
+			if ( $r->{ccAuthReply}->{authRecord} ) {
+				$e->{auth_record} = $r->{ccAuthReply}->{authRecord};
+			}
 		}
 
 		$res
@@ -88,9 +97,6 @@ sub submit {
 				# quote reason_code to stringify from BigInt
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
-				auth_record    => $r->{ccAuthReply}->{authRecord},
-				processor_response =>
-					$r->{ccAuthReply}->{processorResponse},
 			%{$e},
 			})
 			;
