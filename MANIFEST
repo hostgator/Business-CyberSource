@@ -46,6 +46,7 @@ t/000-report-versions-tiny.t
 t/001-exception-bad-credentials.t
 t/002-items-totals.t
 t/003-new-exceptions.t
+t/004-sometimes-optional-fields.t
 t/101-authorization-accept.t
 t/102-authorization-reject.t
 t/104-cvn.t
@@ -54,7 +55,6 @@ t/106-optional.t
 t/107-avs.t
 t/108-items.t
 t/109-business-rules.t
-t/110-auth-regression.t
 t/201-capture.t
 t/202-capture-reject.t
 t/301-credit.t

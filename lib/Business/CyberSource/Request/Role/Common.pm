@@ -89,6 +89,13 @@ sub BUILD {
 			croak 'you must define either items or total';
 		}
 	}
+	
+	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo' ) ) {
+		if ( $self->country eq 'US' or $self->country eq 'CA' ) {
+			croak 'zip code is required for US or Canada'
+				unless $self->has_zip;
+		}
+	}
 }
 
 has reference_code => (

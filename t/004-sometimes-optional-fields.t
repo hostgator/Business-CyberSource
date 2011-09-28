@@ -17,7 +17,7 @@ my $req0
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		production     => 0,
-		reference_code => 't101',
+		reference_code => 't004',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -42,6 +42,6 @@ note( $req0->trace->printResponse );
 
 is( $ret->is_success,     1,        'check success'        );
 is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, 't101',   'check reference_code' );
+is( $ret->reference_code, 't004',   'check reference_code' );
 is( $ret->reason_code,     100,     'check reason_code'    );
 is( $ret->currency,       'USD',    'check currency'       );
