@@ -17,7 +17,7 @@ my $req
 	= Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
-		reference_code => '69',
+		reference_code => 't201',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -54,7 +54,7 @@ my $cres = $capture->submit;
 
 ok( $cres, 'capture response exists' );
 
-is( $cres->reference_code, '69', 'check reference_code' );
+is( $cres->reference_code, 't201', 'check reference_code' );
 is( $cres->decision, 'ACCEPT', 'check decision' );
 is( $cres->reason_code, 100, 'check reason_code' );
 is( $cres->currency, 'USD', 'check currency' );
