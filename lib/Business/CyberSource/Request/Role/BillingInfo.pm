@@ -97,6 +97,7 @@ has zip => (
 	predicate => 'has_zip',
 	documentation => 'Postal code for the billing address. '
 		. 'The postal code must consist of 5 to 9 digits. '
+		. 'Required if C<country> is "US" or "CA"'
 		. 'alias: C<postal_code>',
 );
 
