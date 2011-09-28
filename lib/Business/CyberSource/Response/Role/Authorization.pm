@@ -17,15 +17,17 @@ use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Moose   qw( Str     );
 
 has auth_code => (
-	required => 0,
-	is       => 'ro',
-	isa      => Varchar[7],
+	required  => 0,
+	predicate => 'has_auth_code',
+	is        => 'ro',
+	isa       => Varchar[7],
 );
 
 has auth_record => (
-	required => 0,
-	is       => 'ro',
-	isa      => Str,
+	required  => 0,
+	predicate => 'has_auth_record',
+	is        => 'ro',
+	isa       => Str,
 );
 
 1;

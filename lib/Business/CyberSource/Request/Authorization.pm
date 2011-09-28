@@ -78,7 +78,7 @@ sub submit {
 				$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 			}
 			if ( $r->{ccAuthReply}{processorResponse} ) {
-				$e->{proccessor_response}
+				$e->{processor_response}
 					= $r->{ccAuthReply}{processorResponse}
 					;
 			}
