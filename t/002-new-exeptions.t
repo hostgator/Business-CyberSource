@@ -54,4 +54,27 @@ my $req1
 	});
 } qr/zip code is required for US or Canada/, 'us/ca require a zip code';
 
+throws_ok {
+my $req2
+	= Business::CyberSource::Request::Authorization->new({
+		username       => 'foobar',
+		password       => 'test',
+		reference_code => 't108',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => 'somewhere',
+		city           => 'Houston',
+		state          => 'TX',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'xenoterracide@gmail.com',
+		currency       => 'USD',
+		credit_card    => '4111-1111-1111-1111',
+		cc_exp_month   => '09',
+		cc_exp_year    => '2025',
+		production     => 0,
+	});
+} qr/you must define either items or total/, 'check either items or total';
+
+
 done_testing;
