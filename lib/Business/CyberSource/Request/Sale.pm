@@ -81,7 +81,7 @@ sub submit {
 		}
 
 		if ( $r->{ccAuthReply}{processorResponse} ) {
-			$e->{proccessor_response}
+			$e->{processor_response}
 				= $r->{ccAuthReply}{processorResponse}
 				;
 		}
