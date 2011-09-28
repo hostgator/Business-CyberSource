@@ -80,6 +80,12 @@ sub submit {
 			}
 		}
 
+		if ( $r->{ccAuthReply}{processorResponse} ) {
+			$e->{proccessor_response}
+				= $r->{ccAuthReply}{processorResponse}
+				;
+		}
+
 		if ( $r->{ccCaptureReply}->{reconciliationID} ) {
 			$e->{reconciliation_id} = $r->{ccCaptureReply}->{reconciliationID};
 		}
@@ -94,8 +100,6 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
-				processor_response =>
-					$r->{ccAuthReply}->{processorResponse},
 				%{$e},
 			})
 			;

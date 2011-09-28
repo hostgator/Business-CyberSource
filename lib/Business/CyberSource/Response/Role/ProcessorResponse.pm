@@ -10,9 +10,10 @@ use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
 
 has processor_response => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[10],
+	required  => 0,
+	predicate => 'has_processor_response',
+	is        => 'ro',
+	isa       => Varchar[10],
 );
 
 1;

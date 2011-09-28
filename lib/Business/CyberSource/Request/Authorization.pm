@@ -77,6 +77,11 @@ sub submit {
 				$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
 				$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
 			}
+			if ( $r->{ccAuthReply}{processorResponse} ) {
+				$e->{proccessor_response}
+					= $r->{ccAuthReply}{processorResponse}
+					;
+			}
 		}
 
 		$res
@@ -89,8 +94,6 @@ sub submit {
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
 				auth_record    => $r->{ccAuthReply}->{authRecord},
-				processor_response =>
-					$r->{ccAuthReply}->{processorResponse},
 			%{$e},
 			})
 			;
