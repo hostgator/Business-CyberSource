@@ -5,10 +5,10 @@ use warnings;
 use Test::More;
 
 use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::C;
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::Authorization;
+use Business::CyberSource::Request::AuthReversal;
+use Business::CyberSource::Request::Credit;
+use Business::CyberSource::Request::Capture;
+use Business::CyberSource::Request::DCC;
 
 my $req0
 	= Business::CyberSource::Request::Authorization->new({
