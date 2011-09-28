@@ -35,10 +35,10 @@ my $req0
 
 my $ret;
 
-eval { $ret = $req->submit };
+eval { $ret = $req0->submit };
 
-note( $req->trace->printRequest  );
-note( $req->trace->printResponse );
+note( $req0->trace->printRequest  );
+note( $req0->trace->printResponse );
 
 is( $ret->is_success,     1,        'check success'        );
 is( $ret->decision,       'ACCEPT', 'check decision'       );
