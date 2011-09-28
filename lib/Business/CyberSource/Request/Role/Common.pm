@@ -81,7 +81,7 @@ sub _handle_decision {
 	return $res;
 }
 
-sub BUILD {
+sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
 	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
