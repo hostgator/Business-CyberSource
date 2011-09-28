@@ -88,4 +88,33 @@ is(
 	'check reason_text',
 );
 
+my $req2
+	= Business::CyberSource::Request::Authorization->new({
+		username       => $CYBS_ID,
+		password       => $CYBS_KEY,
+		reference_code => '99',
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => '432 nowhere ave.',
+		city           => 'Detroit',
+		state          => 'MI',
+		zip            => '77064',
+		country        => 'US',
+		email          => 'foobar@example.com',
+		total          => 35.00,
+		currency       => 'USD',
+		credit_card    => '6304 9850 2809 0561 515',
+		cc_exp_month   => '12',
+		cc_exp_year    => '2010',
+		production     => 0,
+	});
+
+my $ret2 = $req2->submit;
+
+note( $req2->trace->printResponse );
+
+is( $ret2->is_success,     0,        'check success'        );
+is( $ret2->decision,       'REJECT', 'check decision'       );
+is( $ret2->reason_code,     202,     'check reason_code'    );
+
 done_testing;

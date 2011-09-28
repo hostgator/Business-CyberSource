@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+v0.3.7    2011-09-27
+
 v0.3.6    2011-09-27
 	- fix bug where you could not specify a zip code for US or CA, and the
 	  library would not throw an exception
