@@ -86,6 +86,10 @@ sub submit {
 				;
 		}
 
+		if ( $r->{ccAuthReply}->{authRecord} ) {
+			$e->{auth_record} = $r->{ccAuthReply}->{authRecord};
+		}
+
 		if ( $r->{ccCaptureReply}->{reconciliationID} ) {
 			$e->{reconciliation_id} = $r->{ccCaptureReply}->{reconciliationID};
 		}
@@ -99,7 +103,6 @@ sub submit {
 				# quote reason_code to stringify from BigInt
 				reason_code    => "$r->{reasonCode}",
 				request_token  => $r->{requestToken},
-				auth_record    => $r->{ccAuthReply}->{authRecord},
 				%{$e},
 			})
 			;
