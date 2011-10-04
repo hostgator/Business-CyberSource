@@ -75,10 +75,10 @@ SKIP: {
 			currency         => $dcc->currency,
 			foreign_currency => $dcc->foreign_currency,
 			foreign_amount   => $dcc->foreign_amount,
-			exchange_rate    => 116.4344,
+			exchange_rate    => $dcc->exchange_rate,
 			cc_exp_month     => '04',
 			cc_exp_year      => '2012',
-			exchange_rate_timestamp => '20090101 00:00',
+			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 		})
 	} 'create dcc authorization request';
 }
