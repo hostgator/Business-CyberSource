@@ -40,10 +40,6 @@ sub _build_request {
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
-		merchantID            => $self->username,
-		clientEnvironment     => $self->client_env,
-		clientLibrary         => $self->client_name,
-		clientLibraryVersion  => $self->client_version,
 		purchaseTotals        => $self->_purchase_info,
 		%{ $self->_request_data },
 		%{ $payload },
@@ -120,12 +116,23 @@ has _request_data => (
 	init_arg => undef,
 	is       => 'rw',
 	isa      => HashRef[Str],
-	default  => sub { { } },
 	traits   => [ 'Hash' ],
 	handles  => {
 		_set_request_data => 'set',
-	}
+	},
+	builder  => '_build_request_data',
 );
+
+sub _build_request_data {
+	my $self->shift;
+
+	return {
+		merchantID            => $self->username,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
+	};
+}
 
 1;
 
