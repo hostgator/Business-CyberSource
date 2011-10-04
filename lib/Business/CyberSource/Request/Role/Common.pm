@@ -124,7 +124,7 @@ has _request_data => (
 );
 
 sub _build_request_data {
-	my $self->shift;
+	my $self = shift;
 
 	return {
 		merchantID            => $self->username,
