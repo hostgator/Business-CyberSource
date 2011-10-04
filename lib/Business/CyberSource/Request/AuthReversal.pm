@@ -210,14 +210,6 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 client_name
-
-Reader: client_name
-
-Type: Str
-
-Additional documentation: provided by the library
-
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -233,6 +225,14 @@ Reader: reference_code
 Type: MooseX::Types::Varchar::Varchar[50]
 
 This attribute is required.
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
+Additional documentation: provided by the library
 
 =head2 client_version
 
