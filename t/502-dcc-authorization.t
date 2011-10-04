@@ -6,29 +6,37 @@ use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
 
-use Business::CyberSource::Request::DCC;
-use Business::CyberSource::Request::Authorization;
+use Business::CyberSource::Request;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
+my $factory;
+lives_ok {
+	$factory = Business::CyberSource::Request->new({
+		username => $cybs_id,
+		password => $cybs_key,
+		production => 0,
+	});
+} 'factory new';
+
+
+
 my $dcc_req;
 lives_ok {
-	$dcc_req = Business::CyberSource::Request::DCC->new({
-		username       => $cybs_id,
-		password       => $cybs_key,
-		production     => 0,
+	$dcc_req = $factory->create( 'DCC',
+	{
 		reference_code => 't501',
 		currency       => 'USD',
-		credit_card    => '4205260000000005',
+		credit_card    => '5100870000000004',
 		cc_exp_month   => '04',
 		cc_exp_year    => '2012',
 		total          => '1.00',
 		foreign_currency => 'JPY',
 	})
-} 'DCC object initialized';
+} 'DCC request object created';
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
@@ -48,6 +56,27 @@ SKIP: {
 
 	note( $dcc_req->trace->request->decoded_content );
 	note( $dcc_req->trace->response->decoded_content );
+
+	my $auth_req;
+	lives_ok {
+		$auth_req = $factory->create( 'Authorization',
+		{
+			reference_code => $dcc->reference_code,
+			first_name     => 'Caleb',
+			last_name      => 'Cushing',
+			street         => 'somewhere',
+			city           => 'Houston',
+			state          => 'TX',
+			zip            => '77064',
+			country        => 'US',
+			email          => 'xenoterracide@gmail.com',
+			credit_card    => '5100870000000004',
+			total          => 1.00,
+			currency       => 'USD',
+			cc_exp_month   => '09',
+			cc_exp_year    => '2025',
+		});
+	} 'create dcc authorization request';
 }
 
 done_testing;
