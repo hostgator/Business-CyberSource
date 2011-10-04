@@ -14,28 +14,11 @@ with qw(
 
 use MooseX::Types::Moose qw( Num Bool Str Int );
 
-has foreign_amount => (
-	required => 1,
-	is       => 'ro',
-	isa      => Num,
-);
 
 has dcc_supported => (
 	required => 1,
 	is       => 'ro',
 	isa      => Bool
-);
-
-has exchange_rate => (
-	required => 1,
-	is       => 'ro',
-	isa      => Num,
-);
-
-has exchange_rate_timestamp => (
-	required => 1,
-	is       => 'ro',
-	isa      => Str,
 );
 
 has valid_hours => (
