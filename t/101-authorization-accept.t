@@ -67,8 +67,8 @@ SKIP: {
 
 	eval { $ret = $req->submit };
 
-	note( $req->trace->printRequest  );
-	note( $req->trace->printResponse );
+	note( $req->trace->request->decoded_content );
+	note( $req->trace->response->decoded_content );
 
 	is( $ret->is_success,     1,        'check success'        );
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
