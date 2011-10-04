@@ -4,8 +4,6 @@ use strict;
 use warnings;
 use Carp;
 
-our @CARP_NOT = qw( Business::CyberSource::Request::DCC );
-
 our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose;
