@@ -35,15 +35,15 @@ has credit_card => (
 	is       => 'ro',
 	isa      => CreditCard,
 	coerce   => 1,
-	trigger  => sub {
-		my $self = shift;
-		$self->_set_request_data(
-			card => {
-				accountNumber => $self->credit_card,
-				cardType      => $self->card_type,
-			},
-		);
-	},
+#	trigger  => sub {
+#		my $self = shift;
+#		$self->_set_request_data(
+#			card => {
+#				accountNumber => $self->credit_card,
+#				cardType      => $self->card_type,
+#			},
+#		);
+#	},
 	documentation => 'Customer\'s credit card number',
 );
 
