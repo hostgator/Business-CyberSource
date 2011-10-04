@@ -75,7 +75,7 @@ SKIP: {
 			currency         => 'USD',
 			foreign_currency => 'JPY',
 			foreign_amount   => 116,
-			exchange_rate    => 116.4344
+			exchange_rate    => 116.4344,
 			cc_exp_month     => '04',
 			cc_exp_year      => '2012',
 			exchange_rate_timestamp => '20090101 00:00',
