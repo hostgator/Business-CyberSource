@@ -20,9 +20,6 @@ sub _cc_info {
 	my $self = shift;
 
 	my $i = {
-		expirationMonth => $self->cc_exp_month,
-		expirationYear  => $self->cc_exp_year,
-		cardType        => $self->card_type,
 	};
 
 	if ( $self->has_cvn ) {
@@ -41,7 +38,10 @@ has credit_card => (
 	trigger  => sub {
 		my $self = shift;
 		$self->_set_request_data(
-			card => { accountNumber => $self->credit_card },
+			card => {
+				accountNumber => $self->credit_card,
+				cardType      => $self->card_type,
+			},
 		);
 	},
 	documentation => 'Customer\'s credit card number',
@@ -60,6 +60,14 @@ has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[2],
+	trigger  => sub {
+		my $self = shift;
+		$self->_set_request_data(
+			card => {
+				expirationMonth => $self->cc_exp_month,
+			},
+		);
+	},
 	documentation => 'Two-digit month that the credit card expires '
 		. 'in. Format: MM.',
 );
@@ -68,6 +76,14 @@ has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[4],
+	trigger  => sub {
+		my $self = shift;
+		$self->_set_request_data(
+			card => {
+				expirationYear  => $self->cc_exp_year,
+			},
+		);
+	},
 	documentation => 'Four-digit year that the credit card expires in. '
 		. 'Format: YYYY.',
 );
