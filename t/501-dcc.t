@@ -46,8 +46,8 @@ SKIP: {
 
 	ok( $dcc, 'authorization response exists' );
 
-	note( $req->trace->request->decoded_content );
-	note( $req->trace->response->decoded_content );
+	note( $dcc_req->req->trace->request->decoded_content );
+	note( $dcc_req->trace->response->decoded_content );
 
 	ok( $dcc->reference_code, 'reference code exists' );
 	is( $dcc->request_specific_reason_code, 100, 'DCC Reason code is 100' );
