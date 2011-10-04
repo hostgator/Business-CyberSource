@@ -15,12 +15,11 @@ my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
-note Dumper $CYBS_ID;
 my $dcc_req;
 lives_ok {
 	$dcc_req = Business::CyberSource::Request::DCC->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $cybs_id,
+		password       => $cybs_key,
 		production     => 0,
 		reference_code => 't501',
 		currency       => 'USD',
