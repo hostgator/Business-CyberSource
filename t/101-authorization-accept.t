@@ -33,8 +33,6 @@ my $req
 		production     => 0,
 	});
 
-is( $req->username, $CYBS_ID,  'check username' );
-is( $req->password, $CYBS_KEY, 'check key'      );
 ok( $req->client_version, 'check client_version exists');
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
@@ -64,9 +62,14 @@ ok( $req->cybs_wsdl->stringify, 'check for wsdl' );
 ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
 SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!', 15
-	unless $CYBS_ID and $CYBS_KEY
-	;
+	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
+		17
+		unless $CYBS_ID and $CYBS_KEY
+		;
+
+	is( $req->username, $CYBS_ID,  'check username' );
+	is( $req->password, $CYBS_KEY, 'check key'      );
+
 	my $ret;
 
 	eval { $ret = $req->submit };
