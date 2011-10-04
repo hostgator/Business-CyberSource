@@ -1,6 +1,10 @@
 Revision history for Business-CyberSource
 
 v0.3.8    2011-10-04
+	- change ->is_success to ->accepted, allow aliases ->is_accepted and ->is
+	  success
+	[DEPRECATED]
+	- ->is_success success as a name doesn't really make sense
 
 v0.3.7    2011-09-27
 	- fix bug where valid REJECT on an expired card was causing an exception

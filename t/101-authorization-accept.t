@@ -34,7 +34,7 @@ lives_ok {
 		cc_exp_year    => '2025',
 		production     => 0,
 	})
-} 'Authorization object initialized ok';
+} 'Authorization object initialized';
 
 ok( $req->client_version, 'check client_version exists');
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
