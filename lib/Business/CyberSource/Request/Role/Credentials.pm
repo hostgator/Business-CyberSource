@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.3.7'; # VERSION
+our $VERSION = 'v0.3.8'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
@@ -48,7 +48,7 @@ Business::CyberSource::Request::Role::Credentials - CyberSource login credential
 
 =head1 VERSION
 
-version v0.3.7
+version v0.3.8
 
 =head1 BUGS
 

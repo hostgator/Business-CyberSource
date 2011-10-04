@@ -1,0 +1,3 @@
+- validate that a credit card is not expired
+	- make credit card expiration month/year datetime
+- make returned timestamps datetime

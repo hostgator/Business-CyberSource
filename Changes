@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+v0.3.8    2011-10-04
+
 v0.3.7    2011-09-27
 	- fix bug where valid REJECT on an expired card was causing an exception
 	  to be thrown
