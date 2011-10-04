@@ -3,7 +3,6 @@ use 5.008;
 use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
-use Data::Dumper;
 use Test::More;
 use Test::Exception;
 
@@ -12,15 +11,14 @@ use Business::CyberSource::Request::Authorization;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
-note Dumper $cybs_id;
-
+$cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
 my $dcc_req;
 lives_ok {
 	$dcc_req = Business::CyberSource::Request::DCC->new({
 		username       => $cybs_id,
-		password       => $cybs_key,
+		password       => $cybs_id,
 		production     => 0,
 		reference_code => 't501',
 		currency       => 'USD',
