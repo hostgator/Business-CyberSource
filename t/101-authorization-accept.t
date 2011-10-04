@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use Test::Exception;
 
 use Business::CyberSource::Request::Authorization;
 
