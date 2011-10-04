@@ -14,8 +14,8 @@ $cybs_key ||= 'test';
 
 my $req
 	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $cybs_id,
+		password       => $cybs_key,
 		reference_code => 't101',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
