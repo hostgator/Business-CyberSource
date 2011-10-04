@@ -28,7 +28,7 @@ my $dcc_req;
 lives_ok {
 	$dcc_req = $factory->create( 'DCC',
 	{
-		reference_code => 't501',
+		reference_code => 't502',
 		currency       => 'USD',
 		credit_card    => '5100870000000004',
 		cc_exp_month   => '04',
@@ -72,9 +72,9 @@ SKIP: {
 			email            => 'xenoterracide@gmail.com',
 			credit_card      => '5100870000000004',
 			total            => 1.00,
-			currency         => 'USD',
-			foreign_currency => 'JPY',
-			foreign_amount   => 116,
+			currency         => $dcc->currency,
+			foreign_currency => $dcc->foreign_currency,
+			foreign_amount   => $dcc->foreign_amount,
 			exchange_rate    => 116.4344,
 			cc_exp_month     => '04',
 			cc_exp_year      => '2012',
