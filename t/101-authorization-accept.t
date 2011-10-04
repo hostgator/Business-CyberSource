@@ -13,6 +13,7 @@ my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
+my $req;
 lives_ok(
 	$req = Business::CyberSource::Request::Authorization->new({
 		username       => $cybs_id,
