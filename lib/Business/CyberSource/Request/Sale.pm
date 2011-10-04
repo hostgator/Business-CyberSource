@@ -173,6 +173,12 @@ Reader: ignore_cv_result
 
 Type: Bool
 
+=head2 foreign_amount
+
+Reader: foreign_amount
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
 =head2 street
 
 Reader: street
@@ -285,14 +291,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
 =head2 credit_card
 
 Reader: credit_card
@@ -302,6 +300,14 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
 
 =head2 zip
 
@@ -353,14 +359,6 @@ Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
 
 Additional documentation: Customer's IP address. alias: C<ip_address>
 
-=head2 cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Additional documentation: Flag that indicates whether a CVN code was sent
-
 =head2 last_name
 
 Reader: last_name
@@ -370,6 +368,14 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
+
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Additional documentation: Flag that indicates whether a CVN code was sent
 
 =head2 currency
 
@@ -417,6 +423,18 @@ This attribute is required.
 
 Additional documentation: ISO 2 character country code (as it would apply to a credit card billing statement)
 
+=head2 exchange_rate
+
+Reader: exchange_rate
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 exchange_rate_timestamp
+
+Reader: exchange_rate_timestamp
+
+Type: Str
+
 =head2 ignore_validate_result
 
 Reader: ignore_validate_result
@@ -454,6 +472,14 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 decline_avs_flags
 

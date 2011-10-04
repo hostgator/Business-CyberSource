@@ -95,6 +95,12 @@ This object allows you to create a request for a capture.
 
 =head1 ATTRIBUTES
 
+=head2 foreign_amount
+
+Reader: foreign_amount
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
 =head2 client_env
 
 Reader: client_env
@@ -189,6 +195,18 @@ Type: MooseX::Types::Varchar::Varchar[29]
 
 This attribute is required.
 
+=head2 exchange_rate
+
+Reader: exchange_rate
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 exchange_rate_timestamp
+
+Reader: exchange_rate_timestamp
+
+Type: Str
+
 =head2 cybs_xsd
 
 Reader: cybs_xsd
@@ -204,6 +222,14 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 client_version
 

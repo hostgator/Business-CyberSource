@@ -7,15 +7,38 @@ use namespace::autoclean;
 our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose::Role;
+use MooseX::Types::Moose            qw( Str );
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
+use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 
 has foreign_currency => (
-	required  => 1,
+	required  => 0,
 	predicate => 'has_foreign_currency',
 	is        => 'ro',
 	isa       => CurrencyCode,
 	documentation => 'Billing currency returned by the DCC service. '
 		. 'For the possible values, see the ISO currency codes',
+);
+
+has foreign_amount => (
+	predicate => 'has_foreign_amount',
+	required => 0,
+	is       => 'ro',
+	isa      => PositiveOrZeroNum,
+);
+
+has exchange_rate => (
+	predicate => 'has_exchange_rate',
+	required => 0,
+	is       => 'ro',
+	isa      => PositiveOrZeroNum,
+);
+
+has exchange_rate_timestamp => (
+	predicate => 'has_exchange_rate_timestamp',
+	required => 0,
+	is       => 'ro',
+	isa      => Str,
 );
 
 1;

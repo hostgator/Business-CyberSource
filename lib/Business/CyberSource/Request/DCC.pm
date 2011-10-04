@@ -89,6 +89,12 @@ This object allows you to create a request for Direct Currency Conversion.
 
 =head1 ATTRIBUTES
 
+=head2 foreign_amount
+
+Reader: foreign_amount
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
 =head2 client_env
 
 Reader: client_env
@@ -219,6 +225,18 @@ This attribute is required.
 
 Additional documentation: 0: test server. 1: production server
 
+=head2 exchange_rate
+
+Reader: exchange_rate
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 exchange_rate_timestamp
+
+Reader: exchange_rate_timestamp
+
+Type: Str
+
 =head2 cc_exp_year
 
 Reader: cc_exp_year
@@ -242,8 +260,6 @@ Additional documentation: provided by the library
 Reader: foreign_currency
 
 Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
