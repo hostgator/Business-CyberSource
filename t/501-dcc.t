@@ -12,6 +12,8 @@ use Business::CyberSource::Request::Authorization;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
+note Dumper $cybs_id;
+
 $cybs_key ||= 'test';
 
 my $dcc_req;
