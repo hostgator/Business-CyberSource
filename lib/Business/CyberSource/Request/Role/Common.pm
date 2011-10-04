@@ -127,7 +127,6 @@ sub _build_request_data {
 	my $self = shift;
 
 	return {
-		merchantID            => $self->username,
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,

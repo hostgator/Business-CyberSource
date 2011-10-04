@@ -20,7 +20,6 @@ sub _cc_info {
 	my $self = shift;
 
 	my $i = {
-		accountNumber   => $self->credit_card,
 		expirationMonth => $self->cc_exp_month,
 		expirationYear  => $self->cc_exp_year,
 		cardType        => $self->card_type,
@@ -39,6 +38,12 @@ has credit_card => (
 	is       => 'ro',
 	isa      => CreditCard,
 	coerce   => 1,
+	trigger  => sub {
+		my $self = shift;
+		$self->_set_request_data(
+			accountNumber   => $self->credit_card,
+		);
+	},
 	documentation => 'Customer\'s credit card number',
 );
 
