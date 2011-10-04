@@ -65,6 +65,7 @@ t/401-auth-reversal.t
 t/402-auth-reversal-reject.t
 t/403-auth-reversal-factory.t
 t/501-dcc.t
+t/502-dcc-authorization.t
 t/601-sale.t
 t/602-sale-reject.t
 t/author-critic.t

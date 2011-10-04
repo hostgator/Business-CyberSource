@@ -40,13 +40,11 @@ SKIP: {
 		. 'for your account' )
 		;
 
+	my $dcc;
+
 	lives_ok {
 		$dcc = $dcc_req->submit;
 	} 'DCC submitted ok';
-
-	ok ( $dcc_req->trace, 'trace exists' );
-
-	ok( $dcc, 'authorization response exists' );
 
 	note( $dcc_req->trace->request->decoded_content );
 	note( $dcc_req->trace->response->decoded_content );
