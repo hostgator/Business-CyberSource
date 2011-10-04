@@ -18,7 +18,7 @@ my $dcc_req;
 lives_ok {
 	$dcc_req = Business::CyberSource::Request::DCC->new({
 		username       => $cybs_id,
-		password       => $cybs_id,
+		password       => $cybs_key,
 		production     => 0,
 		reference_code => 't501',
 		currency       => 'USD',
