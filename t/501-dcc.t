@@ -14,7 +14,7 @@ my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
-my $dcc_req
+my $dcc_req;
 lives_ok {
 	$dcc_req = Business::CyberSource::Request::DCC->new({
 		username       => $CYBS_ID,
