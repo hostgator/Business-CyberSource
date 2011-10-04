@@ -12,7 +12,6 @@ use Business::CyberSource::Request::Authorization;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
-$cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
 my $dcc_req;
