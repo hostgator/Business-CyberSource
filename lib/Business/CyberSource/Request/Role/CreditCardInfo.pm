@@ -41,9 +41,7 @@ has credit_card => (
 	trigger  => sub {
 		my $self = shift;
 		$self->_set_request_data(
-			card => {
-				accountNumber   => $self->credit_card,
-			},
+			card => { accountNumber => $self->credit_card },
 		);
 	},
 	documentation => 'Customer\'s credit card number',
