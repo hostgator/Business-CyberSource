@@ -44,7 +44,7 @@ SKIP: {
 
 	lives_ok {
 		$dcc = $dcc_req->submit;
-	} 'DCC submitted ok';
+	} 'DCC submitted';
 
 	note( $dcc_req->trace->request->decoded_content );
 	note( $dcc_req->trace->response->decoded_content );

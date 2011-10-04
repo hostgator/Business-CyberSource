@@ -40,9 +40,10 @@ SKIP: {
 		. 'for your account' )
 		;
 
+	my $dcc;
 	lives_ok {
 		$dcc = $dcc_req->submit;
-	} 'DCC submitted ok';
+	} 'DCC submitted';
 
 	ok ( $dcc_req->trace, 'trace exists' );
 
