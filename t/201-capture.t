@@ -42,8 +42,7 @@ SKIP: {
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
-	my $ret;
-
+	my $res;
 	eval { $res = $req->submit };
 
 	note( $req->trace->request->decoded_content );
