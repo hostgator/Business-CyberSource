@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use Test::Exception;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
@@ -13,8 +14,10 @@ $cybs_key ||= 'test';
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::Capture;
 
-my $req
-	= Business::CyberSource::Request::Authorization->new({
+my $req;
+
+lives_ok(
+	$req = Business::CyberSource::Request::Authorization->new({
 		username       => $cybs_id,
 		password       => $cybs_key,
 		production     => 0,
@@ -33,8 +36,9 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-	})
-	;
+	}),
+	'authorization lives'
+);
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
