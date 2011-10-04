@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-use Test::Exception;
 
 use Business::CyberSource::Request::Authorization;
 
@@ -13,10 +12,9 @@ my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
-my $req = 'Business::CyberSource::Request::Authorization';
-
-lives_ok(
-	$req->new({
+my $req;
+lives_ok {
+	$req = Business::CyberSource::Request::Authorization->new({
 		username       => $cybs_id,
 		password       => $cybs_key,
 		reference_code => 't101',
@@ -34,9 +32,10 @@ lives_ok(
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		production     => 0,
-	}),
-	'authorization lives'
-);
+	})
+},
+	'Authorization object initialized ok'
+;
 
 ok( $req->client_version, 'check client_version exists');
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
