@@ -41,7 +41,10 @@ SKIP: {
 		;
 
 	my $dcc;
-	$dcc = $dcc_req->submit;
+	lives_ok {
+		$dcc = $dcc_req->submit;
+	} 'DCC submitted';
+
 	ok ( $dcc_req->trace, 'trace exists' );
 
 	ok( $dcc, 'authorization response exists' );
