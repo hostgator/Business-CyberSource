@@ -61,20 +61,24 @@ SKIP: {
 	lives_ok {
 		$auth_req = $factory->create( 'Authorization',
 		{
-			reference_code => $dcc->reference_code,
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			credit_card    => '5100870000000004',
-			total          => 1.00,
-			currency       => 'USD',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2025',
+			reference_code   => $dcc->reference_code,
+			first_name       => 'Caleb',
+			last_name        => 'Cushing',
+			street           => 'somewhere',
+			city             => 'Houston',
+			state            => 'TX',
+			zip              => '77064',
+			country          => 'US',
+			email            => 'xenoterracide@gmail.com',
+			credit_card      => '5100870000000004',
+			total            => 1.00,
+			currency         => 'USD',
+			foreign_currency => 'JPY',
+			foreign_amount   => 116,
+			exchange_rate    => 116.4344
+			cc_exp_month     => '04',
+			cc_exp_year      => '2012',
+			exchange_rate_timestamp => '20090101 00:00',
 		});
 	} 'create dcc authorization request';
 }
