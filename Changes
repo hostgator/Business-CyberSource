@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+v0.3.9    2011-10-04
+
 v0.3.8    2011-10-04
 	- change ->is_success to ->accepted, allow aliases ->is_accepted and ->is
 	  success
