@@ -109,7 +109,7 @@ has cvn => (
 );
 
 has _card_data => (
-	required  => 1,
+	required  => 0,
 	predicate => '_has_card_data',
 	is        => 'rw',
 	isa       => HashRef,
