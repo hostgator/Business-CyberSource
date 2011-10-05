@@ -88,8 +88,8 @@ has cvn => (
 	isa       => CardSecurityCode,
 	trigger  => sub {
 		my $self = shift;
-		$self->_request_data->{cvNumber} = $self->cvn;
-		$self->_request_data->{cvIndicator} = $self->cv_indicator;
+		$self->_request_data->{card}{cvNumber} = $self->cvn;
+		$self->_request_data->{card}{cvIndicator} = $self->cv_indicator;
 	},
 	documentation => 'Card Verification Numbers',
 );
