@@ -11,16 +11,14 @@ use Business::CyberSource::Request::Authorization;
 
 my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
 
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
 $cybs_id  ||= 'test';
 $cybs_key ||= 'test';
 
 my $req;
 lives_ok {
 	$req = Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $cybs_id,
+		password       => $cybs_key,
 		reference_code => 't104',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
