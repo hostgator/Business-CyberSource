@@ -5,6 +5,7 @@ use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
+use Data::Dumper;
 
 use Business::CyberSource::Request::Authorization;
 
@@ -35,8 +36,6 @@ lives_ok {
 		production     => 0,
 	})
 } 'Authorization object initialized';
-
-use Data::Dumper;
 
 note( Dumper $req->_request_data );
 
