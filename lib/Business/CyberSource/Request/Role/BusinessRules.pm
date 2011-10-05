@@ -15,6 +15,12 @@ has ignore_avs_result => (
 	required  => 0,
 	is        => 'ro',
 	isa       => Bool,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{ignoreAVSResult}
+			= $self->ignore_avs_result ? 'true' : 'false'
+			;
+	},
 );
 
 has ignore_cv_result => (
@@ -22,6 +28,12 @@ has ignore_cv_result => (
 	required  => 0,
 	is        => 'ro',
 	isa       => Bool,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{ignoreCVResult}
+			= $self->ignore_cv_result ? 'true' : 'false'
+			;
+	},
 );
 
 has ignore_dav_result => (
@@ -29,6 +41,12 @@ has ignore_dav_result => (
 	required  => 0,
 	is        => 'ro',
 	isa       => Bool,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{ignoreDAVResult}
+			= $self->ignore_dav_result ? 'true' : 'false'
+			;
+	},
 );
 
 has ignore_export_result => (
@@ -36,6 +54,12 @@ has ignore_export_result => (
 	required  => 0,
 	is        => 'ro',
 	isa       => Bool,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{ignoreExportResult}
+			= $self->ignore_export_result ? 'true' : 'false'
+			;
+	},
 );
 
 has ignore_validate_result => (
@@ -43,6 +67,12 @@ has ignore_validate_result => (
 	required  => 0,
 	is        => 'ro',
 	isa       => Bool,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{ignoreValidateResult}
+			= $self->ignore_validate_result ? 'true' : 'false'
+			;
+	},
 );
 
 has decline_avs_flags => (
@@ -53,52 +83,26 @@ has decline_avs_flags => (
 	handles   => {
 		_stringify_decline_avs_flags => [ join => ' ' ],
 	},
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{declineAVSFlags}
+			= $self->_stringify_decline_avs_flags
+			;
+	},
 );
 
 has score_threshold => (
 	predicate => 'has_score_threshold',
 	required  => 0,
 	isa       => Int,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{businessRules}{scoreThreshold}
+			= $self->ignore_cv_result
+			;
+	},
 );
 
-sub _business_rules {
-	my $self = shift;
-
-	my $i = { };
-
-	$i->{scoreThreshold} = $self->score_threshold
-		if $self->has_score_threshold;
-
-	$i->{declineAVSFlags} = $self->_stringify_decline_avs_flags
-		if $self->has_decline_avs_flags;
-
-	if ( $self->has_ignore_validate_result ) {
-		$i->{ignoreValidateResult}
-			= $self->ignore_validate_result ? 'true' : 'false';
-	}
-
-	if ( $self->has_ignore_export_result ) {
-		$i->{ignoreExportResult}
-			= $self->ignore_export_result ? 'true' : 'false';
-	}
-
-	if ( $self->has_ignore_dav_result ) {
-		$i->{ignoreDAVResult}
-			= $self->ignore_dav_result ? 'true' : 'false';
-	}
-
-	if ( $self->has_ignore_cv_result ) {
-		$i->{ignoreCVResult}
-			= $self->ignore_cv_result ? 'true' : 'false';
-	}
-
-	if ( $self->has_ignore_avs_result ) {
-		$i->{ignoreAVSResult}
-			= $self->ignore_avs_result ? 'true' : 'false';
-	}
-
-	return $i;
-}
 1;
 
 # ABSTRACT: Business Rules Role
