@@ -4,16 +4,21 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-
-plan skip_all
-	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
-	unless $CYBS_ID and $CYBS_KEY
-	;
+use Test::Exception;
+use Data::Dumper;
 
 use Business::CyberSource::Request::Authorization;
 
-my $req
-	= Business::CyberSource::Request::Authorization->new({
+my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
+
+my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
+
+$cybs_id  ||= 'test';
+$cybs_key ||= 'test';
+
+my $req;
+lives_ok {
+	$req = Business::CyberSource::Request::Authorization->new({
 		username       => $CYBS_ID,
 		password       => $CYBS_KEY,
 		reference_code => 't104',
@@ -32,32 +37,45 @@ my $req
 		cc_exp_year    => '2025',
 		cvn            => '1111',
 		production     => 0,
-	});
+	})
+} 'Authorization object initialized';
+
+
+note( Dumper $req->_request_data );
 
 # check billing info
 is( $req->cvn,   '1111', 'check cvn'   );
 is( $req->total, '9000', 'check total' );
 
 
-my $ret = $req->submit;
+SKIP: {
+	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
+		16
+		unless $CYBS_ID and $CYBS_KEY
+		;
 
-note( $req->trace->printRequest  );
-note( $req->trace->printResponse );
+	my $ret;
 
-is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reference_code, 't104',   'check reference_code' );
-is( $ret->reason_code,     100,     'check reason_code'    );
-is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         '9000.00', 'check amount'        );
-is( $ret->avs_code,       'Y',       'check avs_code'      );
-is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-is( $ret->processor_response, '00',  'check processor_response');
-is( $ret->auth_code, '831000', 'check auth_code is 83100'  );
-is( $ret->cv_code,     'M',          'check cv_code'       );
-is( $ret->cv_code_raw, 'M',          'check cv_code'       );
+	lives_ok { $ret = $req->submit } 'submit';
 
-ok( $ret->request_id,    'check request_id exists'    );
-ok( $ret->request_token, 'check request_token exists' );
-ok( $ret->datetime,      'check datetime exists'      );
-ok( $ret->auth_record,   'check auth_record exists'   );
+	note( $req->trace->printRequest  );
+	note( $req->trace->printResponse );
+
+	is( $ret->decision,       'ACCEPT', 'check decision'       );
+	is( $ret->reference_code, 't104',   'check reference_code' );
+	is( $ret->reason_code,     100,     'check reason_code'    );
+	is( $ret->currency,       'USD',    'check currency'       );
+	is( $ret->amount,         '9000.00', 'check amount'        );
+	is( $ret->avs_code,       'Y',       'check avs_code'      );
+	is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
+	is( $ret->processor_response, '00',  'check processor_response');
+	is( $ret->auth_code, '831000', 'check auth_code is 83100'  );
+	is( $ret->cv_code,     'M',          'check cv_code'       );
+	is( $ret->cv_code_raw, 'M',          'check cv_code'       );
+
+	ok( $ret->request_id,    'check request_id exists'    );
+	ok( $ret->request_token, 'check request_token exists' );
+	ok( $ret->datetime,      'check datetime exists'      );
+	ok( $ret->auth_record,   'check auth_record exists'   );
+}
 done_testing;
