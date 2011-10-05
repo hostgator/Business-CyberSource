@@ -18,28 +18,25 @@ has items => (
 	traits    => ['Array'],
 	handles   => {
 		items_is_empty => 'is_empty',
-	}
-);
-
-sub _item_info {
-	my $self = shift;
-
-	my $items = [ ];
-	if ( $self->has_items and not $self->items_is_empty ) {
-		my $i = 0;
-		foreach my $item ( @{ $self->items } ) {
-			my $h = {
-				id        => $i,
-				quantity  => $item->{quantity},
-				unitPrice => $item->{unit_price},
-			};
-			push @{ $items }, $h;
-			$i++;
+	},
+	trigger   => sub {
+		my $self = shift;
+		my $items = [ ];
+		if ( $self->has_items and not $self->items_is_empty ) {
+			my $i = 0;
+			foreach my $item ( @{ $self->items } ) {
+				my $h = {
+					id        => $i,
+					quantity  => $item->{quantity},
+					unitPrice => $item->{unit_price},
+				};
+				push @{ $items }, $h;
+				$i++;
+			}
 		}
-	}
-
-	return $items;
-}
+		$self->_request_data->{item} = $items;
+	},
+);
 
 1;
 
