@@ -24,7 +24,7 @@ sub submit {
 		= $self->request_id
 		;
 
-	my $r = $self->_build_request( $self->_request_data );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {

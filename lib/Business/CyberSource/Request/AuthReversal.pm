@@ -20,14 +20,12 @@ use MooseX::StrictConstructor;
 sub submit {
 	my $self = shift;
 
-	my $payload = {
-		ccAuthReversalService => {
-			run => 'true',
-			authRequestID => $self->request_id,
-		},
-	};
+	$self->_request_data->{ccAuthReversalService}{run} = 'true';
+	$self->_request_data->{ccAuthReversalService}{authRequestID}
+		= $self->request_id
+		;
 
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {

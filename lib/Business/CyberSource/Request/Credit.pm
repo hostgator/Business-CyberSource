@@ -24,25 +24,9 @@ has '+_trait_namespace' => (
 sub submit {
 	my $self = shift;
 
-	my $payload = {
-		ccCreditService => {
-			run => 'true',
-		},
-	};
+	$self->_request_data->{ccCreditService}{run} = 'true';
 
-	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo') ) {
-		$payload->{billTo} = $self->_billing_info ;
-	}
-
-	if ( $self->does('Business::CyberSource::Request::Role::CreditCardInfo') ) {
-		$payload->{card} = $self->_cc_info ;
-	}
-
-	if ( $self->does('Business::CyberSource::Request::Role::FollowUp') ) {
-		$payload->{ccCreditService}->{captureRequestID} = $self->request_id;
-	}
-
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {

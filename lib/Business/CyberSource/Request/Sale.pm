@@ -20,22 +20,11 @@ use MooseX::StrictConstructor;
 
 sub submit {
 	my $self = shift;
-	my $payload = {
-		billTo                => $self->_billing_info,
-		card                  => $self->_cc_info,
-		ccAuthService => {
-			run => 'true',
-		},
-		ccCaptureService => {
-			run => 'true',
-		},
-	};
 
-	if ( keys $self->_business_rules ) {
-		$payload->{businessRules} = $self->_business_rules;
-	}
+	$self->_request_data->{ccAuthService}{run} = 'true';
+	$self->_request_data->{ccCaptureService}{run} = 'true';
 
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
