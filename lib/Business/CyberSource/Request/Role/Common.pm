@@ -27,7 +27,7 @@ use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
 sub _build_request {
-	my ( $self, $payload ) = @_;
+	my $self = shift;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -39,7 +39,7 @@ sub _build_request {
 	my $security = $wss->wsseBasicAuth( $self->username, $self->password );
 
 	my ( $answer, $trace ) = $call->(
-		wsse_Security         => $security,
+		wsse_Security => $security,
 		%{ $self->_request_data },
 	);
 
