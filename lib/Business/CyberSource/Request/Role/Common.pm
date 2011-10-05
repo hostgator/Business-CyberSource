@@ -112,7 +112,6 @@ has trace => (
 );
 
 has _request_data => (
-	lazy     => 1,
 	init_arg => undef,
 	is       => 'rw',
 	isa      => HashRef,
