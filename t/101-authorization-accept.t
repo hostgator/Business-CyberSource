@@ -36,6 +36,10 @@ lives_ok {
 	})
 } 'Authorization object initialized';
 
+use Data::Dumper;
+
+note( Dumper $req->_request_data );
+
 ok( $req->client_version, 'check client_version exists');
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
