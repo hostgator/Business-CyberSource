@@ -4,24 +4,28 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-
-plan skip_all
-	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
-	unless $CYBS_ID and $CYBS_KEY
-	;
+use Test::Exception;
+use Data::Dumper;
 
 use Business::CyberSource::Request::Credit;
 
-my $req
-	= Business::CyberSource::Request::Credit
+my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
+
+$cybs_id  ||= 'test';
+$cybs_key ||= 'test';
+
+my $req;
+lives_ok {
+	$req = Business::CyberSource::Request::Credit
 	->with_traits(qw{
 		BillingInfo
 		CreditCardInfo
 	})
 	->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		reference_code => '360',
+		username       => $cybs_id,
+		password       => $cybs_key,
+		production     => 0,
+		reference_code => 't301',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -36,49 +40,56 @@ my $req
 		credit_card    => '3566 1111 1111 1113',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
 	})
-	;
+} 'new credit request';
 
-my $res = $req->submit;
+note( Dumper $req->_request_data );
 
+SKIP: {
+	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
+		25
+		unless $CYBS_ID and $CYBS_KEY
+		;
 
-note( $req->trace->printRequest );
-note( $req->trace->printResponse );
+	is( $req->username, $CYBS_ID,  'check username' );
+	is( $req->password, $CYBS_KEY, 'check key'      );
 
-is( $req->username, $CYBS_ID,  'check username' );
-is( $req->password, $CYBS_KEY, 'check key'      );
+	my $ret;
+	lives_ok { $ret = $req->submit } 'submit';
+
+	note( $req->trace->request->decoded_content );
+	note( $req->trace->response->decoded_content );
 
 # check billing info
-is( $req->reference_code, '360',        'check reference_code' );
-is( $req->first_name,     'Caleb',     'check first_name'     );
-is( $req->last_name,      'Cushing',   'check first_name'     );
-is( $req->street,         'somewhere', 'check street'         );
-is( $req->city,           'Houston',   'check city'           );
-is( $req->state,          'TX',        'check state'          );
-is( $req->country,        'US',        'check country'        );
+	is( $req->reference_code, 't301',      'check reference_code' );
+	is( $req->first_name,     'Caleb',     'check first_name'     );
+	is( $req->last_name,      'Cushing',   'check first_name'     );
+	is( $req->street,         'somewhere', 'check street'         );
+	is( $req->city,           'Houston',   'check city'           );
+	is( $req->state,          'TX',        'check state'          );
+	is( $req->country,        'US',        'check country'        );
 
-is( $req->ip->addr,   '192.168.100.2',          'check ip'    );
-is( $req->email, 'xenoterracide@gmail.com', 'check email' );
+	is( $req->ip->addr,   '192.168.100.2',          'check ip'    );
+	is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
-is( $req->total,      5, 'check total'      );
+	is( $req->total,      5, 'check total'      );
 
-is( $req->currency, 'USD', 'check currency' );
+	is( $req->currency, 'USD', 'check currency' );
 
-is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
-is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
+	is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
+	is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
-is( $req->card_type, '007', 'check card type is JCB' );
+	is( $req->card_type, '007', 'check card type is JCB' );
 
-ok( $res, 'request response exists' );
+	ok( $ret, 'request response exists' );
 
-is( $res->reference_code, '360', 'check response reference code' );
-is( $res->decision,       'ACCEPT', 'check decision'       );
-is( $res->reason_code,     100,     'check reason_code'    );
-is( $res->currency,       'USD',    'check currency'       );
-is( $res->amount,         '5.00',    'check amount'        );
+	is( $ret->reference_code, 't301', 'check response reference code' );
+	is( $ret->decision,       'ACCEPT', 'check decision'       );
+	is( $ret->reason_code,     100,     'check reason_code'    );
+	is( $ret->currency,       'USD',    'check currency'       );
+	is( $ret->amount,         '5.00',    'check amount'        );
 
-ok( $res->request_id,    'check request_id exists'    );
-ok( $res->datetime,      'check datetime exists'      );
-
+	ok( $ret->request_id,    'check request_id exists'    );
+	ok( $ret->datetime,      'check datetime exists'      );
+}
 done_testing;
