@@ -24,14 +24,6 @@ sub submit {
 
 	$self->_request_data->{ccAuthService}{run} = 'true';
 
-#	if ( keys $self->_business_rules ) {
-#		$payload->{businessRules} = $self->_business_rules;
-#	}
-
-#	if ( $self->has_items and not $self->items_is_empty ) {
-#		$payload->{item} = [ @{ $self->_item_info } ];
-#	}
-
 	my $r = $self->_build_request;
 
 	my $res;
