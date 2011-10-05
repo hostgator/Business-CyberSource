@@ -14,7 +14,6 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "Perl interface to the CyberSource Simple Order SOAP API",
   "AUTHOR" => "Caleb Cushing <xenoterracide\@gmail.com>",
   "BUILD_REQUIRES" => {
-    "Data::Dumper" => 0,
     "English" => 0,
     "Env" => 0,
     "File::Find" => 0,

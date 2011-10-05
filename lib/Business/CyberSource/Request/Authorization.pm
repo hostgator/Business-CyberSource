@@ -493,14 +493,6 @@ Reader: ignore_dav_result
 
 Type: Bool
 
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
 =head2 client_name
 
 Reader: client_name
@@ -508,6 +500,14 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 decline_avs_flags
 
@@ -519,12 +519,6 @@ Reader: client_version
 
 Type: Str
 
-=head2 items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
-
 =head2 first_name
 
 Reader: first_name
@@ -534,6 +528,12 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's first name.The value should be the same as the one that is on the card.
+
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

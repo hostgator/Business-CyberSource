@@ -9,7 +9,7 @@ our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
-use MooseX::Types::Moose      qw( Int HashRef );
+use MooseX::Types::Moose      qw( Int        );
 use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
 use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
@@ -20,6 +20,10 @@ sub _cc_info {
 	my $self = shift;
 
 	my $i = {
+		accountNumber   => $self->credit_card,
+		expirationMonth => $self->cc_exp_month,
+		expirationYear  => $self->cc_exp_year,
+		cardType        => $self->card_type,
 	};
 
 	if ( $self->has_cvn ) {
@@ -35,13 +39,6 @@ has credit_card => (
 	is       => 'ro',
 	isa      => CreditCard,
 	coerce   => 1,
-	trigger  => sub {
-		my $self = shift;
-		$self->_set_card_data(
-			accountNumber => $self->credit_card,
-			cardType      => $self->card_type,
-		);
-	},
 	documentation => 'Customer\'s credit card number',
 );
 
@@ -58,12 +55,6 @@ has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[2],
-	trigger  => sub {
-		my $self = shift;
-		$self->_set_card_data(
-			expirationMonth => $self->cc_exp_month,
-		);
-	},
 	documentation => 'Two-digit month that the credit card expires '
 		. 'in. Format: MM.',
 );
@@ -72,12 +63,6 @@ has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[4],
-	trigger  => sub {
-		my $self = shift;
-		$self->_set_card_data(
-			expirationYear  => $self->cc_exp_year,
-		);
-	},
 	documentation => 'Four-digit year that the credit card expires in. '
 		. 'Format: YYYY.',
 );
@@ -107,24 +92,6 @@ has cvn => (
 	isa       => CardSecurityCode,
 	documentation => 'Card Verification Numbers',
 );
-
-has _card_data => (
-	required  => 0,
-	predicate => '_has_card_data',
-	is        => 'rw',
-	isa       => HashRef,
-	traits    => [ 'Hash' ],
-	handles   => {
-		_set_card_data => 'set',
-	},
-	trigger   => sub {
-		my $self = shift;
-		$self->_set_request_data(
-			card  => $self->_card_data,
-		);
-	},
-);
-	
 
 sub _build_card_type {
 	my $self = shift;

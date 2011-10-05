@@ -8,7 +8,7 @@ use namespace::autoclean;
 our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose::Role;
-use MooseX::Types::Moose   qw( HashRef Str );
+use MooseX::Types::Moose   qw( HashRef );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
 
@@ -40,8 +40,12 @@ sub _build_request {
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
+		merchantID            => $self->username,
+		merchantReferenceCode => $self->reference_code,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
 		purchaseTotals        => $self->_purchase_info,
-		%{ $self->_request_data },
 		%{ $payload },
 	);
 
@@ -98,40 +102,12 @@ has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[50],
-	trigger  => sub {
-		my $self = shift;
-		$self->_set_request_data(
-			merchantReferenceCode => $self->reference_code
-		);
-	},
 );
 
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
 );
-
-has _request_data => (
-	required => 1,
-	init_arg => undef,
-	is       => 'rw',
-	isa      => HashRef,
-	traits   => [ 'Hash' ],
-	handles  => {
-		_set_request_data => 'set',
-	},
-	builder  => '_build_request_data',
-);
-
-sub _build_request_data {
-	my $self = shift;
-
-	return {
-		clientEnvironment     => $self->client_env,
-		clientLibrary         => $self->client_name,
-		clientLibraryVersion  => $self->client_version,
-	};
-}
 
 1;
 

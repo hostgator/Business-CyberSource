@@ -4,6 +4,7 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
+Makefile.old
 README
 TODO
 docs/SubmittingPatches.pod
