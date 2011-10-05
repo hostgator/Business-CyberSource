@@ -40,9 +40,7 @@ sub _build_request {
 
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
-		purchaseTotals        => $self->_purchase_info,
 		%{ $self->_request_data },
-		%{ $payload },
 	);
 
 	$self->trace( $trace );
@@ -100,9 +98,7 @@ has reference_code => (
 	isa      => Varchar[50],
 	trigger  => sub {
 		my $self = shift;
-		$self->_set_request_data(
-			merchantReferenceCode => $self->reference_code
-		);
+		$self->_request_data->{merchantReferenceCode} = $self->reference_code;
 	},
 );
 
@@ -116,10 +112,6 @@ has _request_data => (
 	init_arg => undef,
 	is       => 'rw',
 	isa      => HashRef,
-	traits   => [ 'Hash' ],
-	handles  => {
-		_set_request_data => 'set',
-	},
 	builder  => '_build_request_data',
 );
 

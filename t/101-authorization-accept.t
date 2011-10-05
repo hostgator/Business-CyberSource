@@ -70,7 +70,7 @@ ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		17
+		18
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
@@ -79,7 +79,7 @@ SKIP: {
 
 	my $ret;
 
-	eval { $ret = $req->submit };
+	lives_ok { $ret = $req->submit } 'submit';
 
 	note( $req->trace->request->decoded_content );
 	note( $req->trace->response->decoded_content );

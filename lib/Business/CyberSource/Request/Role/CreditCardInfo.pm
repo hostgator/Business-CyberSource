@@ -16,19 +16,6 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
 
 use Business::CreditCard qw( cardtype );
 
-sub _cc_info {
-	my $self = shift;
-
-	my $i = {
-	};
-
-	if ( $self->has_cvn ) {
-		$i->{cvNumber   } = $self->cvn;
-		$i->{cvIndicator} = $self->cv_indicator;
-	}
-	return $i;
-}
-
 has credit_card => (
 	required => 1,
 	alias    => 'account_number',
@@ -37,10 +24,8 @@ has credit_card => (
 	coerce   => 1,
 	trigger  => sub {
 		my $self = shift;
-		$self->_set_card_data(
-			accountNumber => $self->credit_card,
-			cardType      => $self->card_type,
-		);
+		$self->_request_data->{card}{accountNumber} = $self->credit_card;
+		$self->_request_data->{card}{cardType}      = $self->card_type;
 	},
 	documentation => 'Customer\'s credit card number',
 );
@@ -60,9 +45,7 @@ has cc_exp_month => (
 	isa      => Varchar[2],
 	trigger  => sub {
 		my $self = shift;
-		$self->_set_card_data(
-			expirationMonth => $self->cc_exp_month,
-		);
+		$self->_request_data->{card}{expirationMonth} = $self->cc_exp_month;
 	},
 	documentation => 'Two-digit month that the credit card expires '
 		. 'in. Format: MM.',
@@ -74,9 +57,7 @@ has cc_exp_year => (
 	isa      => Varchar[4],
 	trigger  => sub {
 		my $self = shift;
-		$self->_set_card_data(
-			expirationYear  => $self->cc_exp_year,
-		);
+		$self->_request_data->{card}{expirationYear} = $self->cc_exp_year;
 	},
 	documentation => 'Four-digit year that the credit card expires in. '
 		. 'Format: YYYY.',
@@ -105,26 +86,13 @@ has cvn => (
 	predicate => 'has_cvn',
 	is        => 'ro',
 	isa       => CardSecurityCode,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{cvNumber} = $self->cvn;
+		$self->_request_data->{cvIndicator} = $self->cv_indicator;
+	},
 	documentation => 'Card Verification Numbers',
 );
-
-has _card_data => (
-	required  => 0,
-	predicate => '_has_card_data',
-	is        => 'rw',
-	isa       => HashRef,
-	traits    => [ 'Hash' ],
-	handles   => {
-		_set_card_data => 'set',
-	},
-	trigger   => sub {
-		my $self = shift;
-		$self->_set_request_data(
-			card  => $self->_card_data,
-		);
-	},
-);
-	
 
 sub _build_card_type {
 	my $self = shift;
