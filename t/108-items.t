@@ -31,12 +31,16 @@ lives_ok {
 		email          => 'xenoterracide@gmail.com',
 		items          => [
 			{
+				unit_price => '0.01',
+				quantity   => 1,
+			},
+			{
 				unit_price => 1000.00,
 				quantity   => 2,
 				product_name => 'candybarz',
 				product_code => 't108-code',
 				product_sku  => '123456',
-				tax_amount   => '1.00',
+				tax_amount   => '0.01',
 			},
 			{
 				unit_price => 1000.00,
@@ -73,10 +77,10 @@ SKIP: {
 	is( $ret->reference_code, 't108',   'check reference_code' );
 	is( $ret->reason_code,     100,     'check reason_code'    );
 	is( $ret->currency,       'USD',    'check currency'       );
-	is( $ret->amount,         '3001.00',    'check amount'     );
+	is( $ret->amount,         '3000.02',    'check amount'     );
 	is( $ret->avs_code,       'Y',       'check avs_code'      );
 	is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-	is( $ret->processor_response, '00',  'check processor_response');
+	is( $ret->processor_response, '85',  'check processor_response');
 	is( $ret->reason_text, 'Successful transaction', 'check reason_text' );
 	is( $ret->auth_code, '831000',     'check auth_code exists');
 
