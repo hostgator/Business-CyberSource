@@ -13,6 +13,7 @@ with qw(
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;
@@ -156,17 +157,17 @@ electronic goods and for services that you can turn on immediately.
 
 =head1 ATTRIBUTES
 
-=head2 ignore_cv_result
-
-Reader: ignore_cv_result
-
-Type: Bool
-
 =head2 foreign_amount
 
 Reader: foreign_amount
 
 Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 ignore_cv_result
+
+Reader: ignore_cv_result
+
+Type: Bool
 
 =head2 client_env
 
@@ -454,6 +455,20 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
+=head2 dcc_indicator
+
+Reader: dcc_indicator
+
+Type: MooseX::Types::CyberSource::DCCIndicator
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
 =head2 ignore_dav_result
 
 Reader: ignore_dav_result
@@ -467,14 +482,6 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 decline_avs_flags
 
