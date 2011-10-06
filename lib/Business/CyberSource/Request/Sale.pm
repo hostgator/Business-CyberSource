@@ -20,22 +20,11 @@ use MooseX::StrictConstructor;
 
 sub submit {
 	my $self = shift;
-	my $payload = {
-		billTo                => $self->_billing_info,
-		card                  => $self->_cc_info,
-		ccAuthService => {
-			run => 'true',
-		},
-		ccCaptureService => {
-			run => 'true',
-		},
-	};
 
-	if ( keys $self->_business_rules ) {
-		$payload->{businessRules} = $self->_business_rules;
-	}
+	$self->_request_data->{ccAuthService}{run} = 'true';
+	$self->_request_data->{ccCaptureService}{run} = 'true';
 
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
@@ -179,16 +168,6 @@ Reader: foreign_amount
 
 Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
-=head2 street
-
-Reader: street
-
-Type: MooseX::Types::Varchar::Varchar[60]
-
-This attribute is required.
-
-Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
-
 =head2 client_env
 
 Reader: client_env
@@ -240,6 +219,14 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 This attribute is required.
 
 Additional documentation: your SOAP transaction key
+
+=head2 postal_code
+
+Reader: postal_code
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. Required if C<country> is "US" or "CA"alias: C<postal_code>
 
 =head2 cybs_api_version
 
@@ -309,14 +296,6 @@ Type: MooseX::Types::CyberSource::CardTypeCode
 
 Additional documentation: Type of card to authorize
 
-=head2 zip
-
-Reader: zip
-
-Type: MooseX::Types::Varchar::Varchar[10]
-
-Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. Required if C<country> is "US" or "CA"alias: C<postal_code>
-
 =head2 street2
 
 Reader: street2
@@ -350,14 +329,6 @@ Type: Int
 Reader: ignore_avs_result
 
 Type: Bool
-
-=head2 ip
-
-Reader: ip
-
-Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
-
-Additional documentation: Customer's IP address. alias: C<ip_address>
 
 =head2 last_name
 
@@ -413,6 +384,14 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 Additional documentation: Fourth line of the billing street address.
 
+=head2 ip_address
+
+Reader: ip_address
+
+Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
+
+Additional documentation: Customer's IP address. alias: C<ip_address>
+
 =head2 country
 
 Reader: country
@@ -440,6 +419,16 @@ Type: Str
 Reader: ignore_validate_result
 
 Type: Bool
+
+=head2 street1
+
+Reader: street1
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+This attribute is required.
+
+Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
 
 =head2 cc_exp_year
 

@@ -3,6 +3,7 @@ abstract: 'Perl interface to the CyberSource Simple Order SOAP API'
 author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
 build_requires:
+  Data::Dumper: 0
   English: 0
   Env: 0
   File::Find: 0
@@ -13,7 +14,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.112621'
+generated_by: 'Dist::Zilla version 4.300002, CPAN::Meta::Converter version 2.112150'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -31,6 +32,7 @@ requires:
   Carp: 0
   Config: 0
   File::ShareDir: 0
+  LWP::Protocol::https: 0
   Locale::Country: 0
   Moose: 0
   Moose::Role: 0

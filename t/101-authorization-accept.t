@@ -5,6 +5,7 @@ use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
+use Data::Dumper;
 
 use Business::CyberSource::Request::Authorization;
 
@@ -36,6 +37,8 @@ lives_ok {
 	})
 } 'Authorization object initialized';
 
+note( Dumper $req->_request_data );
+
 ok( $req->client_version, 'check client_version exists');
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
@@ -66,7 +69,7 @@ ok( $req->cybs_xsd->stringify,  'check for xsd' );
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		17
+		18
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
@@ -75,7 +78,7 @@ SKIP: {
 
 	my $ret;
 
-	eval { $ret = $req->submit };
+	lives_ok { $ret = $req->submit } 'submit';
 
 	note( $req->trace->request->decoded_content );
 	note( $req->trace->response->decoded_content );

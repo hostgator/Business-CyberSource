@@ -16,6 +16,14 @@ has foreign_currency => (
 	predicate => 'has_foreign_currency',
 	is        => 'ro',
 	isa       => CurrencyCode,
+	trigger => sub {
+		my $self = shift;
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
+			$self->_request_data->{purchaseTotals}{foreignCurrency}
+				= $self->foreign_currency
+				;
+		}
+	},
 	documentation => 'Billing currency returned by the DCC service. '
 		. 'For the possible values, see the ISO currency codes',
 );
@@ -25,6 +33,14 @@ has foreign_amount => (
 	required => 0,
 	is       => 'ro',
 	isa      => PositiveOrZeroNum,
+	trigger => sub {
+		my $self = shift;
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
+			$self->_request_data->{purchaseTotals}{foreignAmount}
+				= $self->foreign_amount
+				;
+		}
+	},
 );
 
 has exchange_rate => (
@@ -32,6 +48,14 @@ has exchange_rate => (
 	required => 0,
 	is       => 'ro',
 	isa      => PositiveOrZeroNum,
+	trigger => sub {
+		my $self = shift;
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
+			$self->_request_data->{purchaseTotals}{exchangeRate}
+				= $self->exchange_rate
+				;
+		}
+	},
 );
 
 has exchange_rate_timestamp => (
@@ -39,6 +63,14 @@ has exchange_rate_timestamp => (
 	required => 0,
 	is       => 'ro',
 	isa      => Str,
+	trigger => sub {
+		my $self = shift;
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
+			$self->_request_data->{purchaseTotals}{exchangeRateTimeStamp}
+				= $self->exchange_rate_timestamp
+				;
+		}
+	},
 );
 
 1;

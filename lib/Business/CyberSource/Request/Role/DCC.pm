@@ -1,4 +1,4 @@
-package Business::CyberSource::Request::Role::PurchaseInfo;
+package Business::CyberSource::Request::Role::DCC;
 use 5.008;
 use strict;
 use warnings;
@@ -7,40 +7,34 @@ use namespace::autoclean;
 our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose::Role;
+
 with qw(
-	Business::CyberSource::Role::Currency
 	Business::CyberSource::Role::ForeignCurrency
-	Business::CyberSource::Request::Role::Items
 );
 
-use MooseX::Types::Moose            qw( HashRef           );
-use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
-use MooseX::Types::Varchar          qw( Varchar           );
-use MooseX::Types::Locale::Currency qw( CurrencyCode      );
+use MooseX::Types::CyberSource qw( DCCIndicator );
 
-has total => (
+has dcc_indicator => (
 	required  => 0,
-	predicate => 'has_total',
+	predicate => 'has_dcc_indicator',
 	is        => 'ro',
-	isa       => PositiveOrZeroNum,
-	trigger  => sub {
+	isa       => DCCIndicator,
+	trigger   => sub {
 		my $self = shift;
-		$self->_request_data->{purchaseTotals}{grandTotalAmount} = $self->total;
+		$self->_request_data->{dcc}{dccIndicator} = $self->dcc_indicator;
 	},
-	documentation => 'Grand total for the order. You must include '
-		. 'either this field or item_#_unitPrice in your request',
 );
 
 1;
 
-# ABSTRACT: CyberSource Purchase Information Role
+# ABSTRACT: Role for DCC follow up requests
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Information Role
+Business::CyberSource::Request::Role::DCC - Role for DCC follow up requests
 
 =head1 VERSION
 

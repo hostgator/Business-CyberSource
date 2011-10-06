@@ -13,6 +13,12 @@ has currency => (
 	required => 1,
 	is       => 'ro',
 	isa      => CurrencyCode,
+	trigger => sub {
+		my $self = shift;
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
+			$self->_request_data->{purchaseTotals}{currency} = $self->currency;
+		}
+	},
 );
 
 1;

@@ -165,6 +165,12 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
+=head2 dcc_indicator
+
+Reader: dcc_indicator
+
+Type: MooseX::Types::CyberSource::DCCIndicator
+
 =head2 reference_code
 
 Reader: reference_code

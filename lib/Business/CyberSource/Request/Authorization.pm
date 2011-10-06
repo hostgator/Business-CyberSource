@@ -14,6 +14,7 @@ with qw(
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;
@@ -22,23 +23,9 @@ use MooseX::StrictConstructor;
 sub submit {
 	my $self = shift;
 
-	my $payload = {
-		billTo                => $self->_billing_info,
-		card                  => $self->_cc_info,
-		ccAuthService => {
-			run => 'true',
-		},
-	};
+	$self->_request_data->{ccAuthService}{run} = 'true';
 
-	if ( keys $self->_business_rules ) {
-		$payload->{businessRules} = $self->_business_rules;
-	}
-
-	if ( $self->has_items and not $self->items_is_empty ) {
-		$payload->{item} = [ @{ $self->_item_info } ];
-	}
-
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
@@ -195,27 +182,17 @@ cards.
 
 =head1 ATTRIBUTES
 
-=head2 ignore_cv_result
-
-Reader: ignore_cv_result
-
-Type: Bool
-
 =head2 foreign_amount
 
 Reader: foreign_amount
 
 Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
-=head2 street
+=head2 ignore_cv_result
 
-Reader: street
+Reader: ignore_cv_result
 
-Type: MooseX::Types::Varchar::Varchar[60]
-
-This attribute is required.
-
-Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
+Type: Bool
 
 =head2 client_env
 
@@ -268,6 +245,14 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 This attribute is required.
 
 Additional documentation: your SOAP transaction key
+
+=head2 postal_code
+
+Reader: postal_code
+
+Type: MooseX::Types::Varchar::Varchar[10]
+
+Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. Required if C<country> is "US" or "CA"alias: C<postal_code>
 
 =head2 cybs_api_version
 
@@ -337,14 +322,6 @@ Type: MooseX::Types::CyberSource::CardTypeCode
 
 Additional documentation: Type of card to authorize
 
-=head2 zip
-
-Reader: zip
-
-Type: MooseX::Types::Varchar::Varchar[10]
-
-Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. Required if C<country> is "US" or "CA"alias: C<postal_code>
-
 =head2 street2
 
 Reader: street2
@@ -378,14 +355,6 @@ Type: Int
 Reader: ignore_avs_result
 
 Type: Bool
-
-=head2 ip
-
-Reader: ip
-
-Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
-
-Additional documentation: Customer's IP address. alias: C<ip_address>
 
 =head2 last_name
 
@@ -441,6 +410,14 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 Additional documentation: Fourth line of the billing street address.
 
+=head2 ip_address
+
+Reader: ip_address
+
+Type: MooseX::Types::NetAddr::IP::NetAddrIPv4
+
+Additional documentation: Customer's IP address. alias: C<ip_address>
+
 =head2 country
 
 Reader: country
@@ -469,6 +446,16 @@ Reader: ignore_validate_result
 
 Type: Bool
 
+=head2 street1
+
+Reader: street1
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+This attribute is required.
+
+Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
+
 =head2 cc_exp_year
 
 Reader: cc_exp_year
@@ -487,6 +474,20 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
+=head2 dcc_indicator
+
+Reader: dcc_indicator
+
+Type: MooseX::Types::CyberSource::DCCIndicator
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
 =head2 ignore_dav_result
 
 Reader: ignore_dav_result
@@ -500,14 +501,6 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
 =head2 decline_avs_flags
 

@@ -20,6 +20,7 @@ lib/Business/CyberSource/Request/Role/BusinessRules.pm
 lib/Business/CyberSource/Request/Role/Common.pm
 lib/Business/CyberSource/Request/Role/Credentials.pm
 lib/Business/CyberSource/Request/Role/CreditCardInfo.pm
+lib/Business/CyberSource/Request/Role/DCC.pm
 lib/Business/CyberSource/Request/Role/FollowUp.pm
 lib/Business/CyberSource/Request/Role/Items.pm
 lib/Business/CyberSource/Request/Role/PurchaseInfo.pm

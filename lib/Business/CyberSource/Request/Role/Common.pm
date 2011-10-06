@@ -8,7 +8,7 @@ use namespace::autoclean;
 our $VERSION = 'v0.3.9'; # VERSION
 
 use Moose::Role;
-use MooseX::Types::Moose   qw( HashRef );
+use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
 
@@ -27,7 +27,7 @@ use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
 sub _build_request {
-	my ( $self, $payload ) = @_;
+	my $self = shift;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -41,12 +41,10 @@ sub _build_request {
 	my ( $answer, $trace ) = $call->(
 		wsse_Security         => $security,
 		merchantID            => $self->username,
-		merchantReferenceCode => $self->reference_code,
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
-		purchaseTotals        => $self->_purchase_info,
-		%{ $payload },
+		%{ $self->_request_data },
 	);
 
 	$self->trace( $trace );
@@ -102,11 +100,23 @@ has reference_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[50],
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{merchantReferenceCode} = $self->reference_code;
+	},
 );
 
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
+);
+
+has _request_data => (
+	required => 1,
+	init_arg => undef,
+	is       => 'rw',
+	isa      => HashRef,
+	default => sub { { } },
 );
 
 1;

@@ -51,6 +51,7 @@ sub pmver {
 eval { $v .= pmver('Business::CreditCard','any version') };
 eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Config','any version') };
+eval { $v .= pmver('Data::Dumper','any version') };
 eval { $v .= pmver('English','any version') };
 eval { $v .= pmver('Env','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
@@ -58,6 +59,7 @@ eval { $v .= pmver('File::Find','any version') };
 eval { $v .= pmver('File::ShareDir','any version') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::Temp','any version') };
+eval { $v .= pmver('LWP::Protocol::https','any version') };
 eval { $v .= pmver('Locale::Country','any version') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };

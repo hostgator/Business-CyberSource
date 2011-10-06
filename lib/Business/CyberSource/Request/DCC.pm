@@ -21,14 +21,9 @@ use MooseX::StrictConstructor;
 sub submit {
 	my $self = shift;
 
-	my $payload = {
-		card                  => $self->_cc_info,
-		ccDCCService => {
-			run => 'true',
-		},
-	};
+	$self->_request_data->{ccDCCService}{run} = 'true';
 
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {

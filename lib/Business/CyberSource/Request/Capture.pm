@@ -11,6 +11,7 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;
@@ -19,14 +20,12 @@ use MooseX::StrictConstructor;
 sub submit {
 	my $self = shift;
 
-	my $payload = {
-		ccCaptureService => {
-			run => 'true',
-			authRequestID => $self->request_id,
-		},
-	};
+	$self->_request_data->{ccCaptureService}{run} = 'true';
+	$self->_request_data->{ccCaptureService}{authRequestID}
+		= $self->request_id
+		;
 
-	my $r = $self->_build_request( $payload );
+	my $r = $self->_build_request;
 
 	my $res;
 	if ( $r->{decision} eq 'ACCEPT' ) {
@@ -46,7 +45,6 @@ sub submit {
 				currency       => $r->{purchaseTotals}->{currency},
 				datetime       => $r->{ccCaptureReply}->{requestDateTime},
 				amount         => $r->{ccCaptureReply}->{amount},
-				reference_code => $r->{merchantReferenceCode},
 				reconciliation_id => $r->{ccCaptureReply}->{reconciliationID},
 				request_specific_reason_code =>
 					"$r->{ccCaptureReply}->{reasonCode}",
@@ -215,13 +213,11 @@ Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
 
-=head2 client_name
+=head2 dcc_indicator
 
-Reader: client_name
+Reader: dcc_indicator
 
-Type: Str
-
-Additional documentation: provided by the library
+Type: MooseX::Types::CyberSource::DCCIndicator
 
 =head2 foreign_currency
 
@@ -230,6 +226,14 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
+Additional documentation: provided by the library
 
 =head2 client_version
 

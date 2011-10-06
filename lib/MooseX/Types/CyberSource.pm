@@ -12,6 +12,7 @@ use MooseX::Types -declare => [ qw(
 	CountryCode
 	CvIndicator
 	CvResults
+	DCCIndicator
 	Decision
 	Item
 ) ];
@@ -52,8 +53,15 @@ enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 subtype Item,
 	as Dict[
-		unit_price => PositiveOrZeroNum,
-		quantity   => Int,
+		unit_price   => PositiveOrZeroNum,
+		quantity     => Int,
+		product_code => Optional[Str],
+		product_name => Optional[Str],
+		product_sku  => Optional[Str],
+		product_risk => Optional[Str],
+		tax_amount   => Optional[PositiveOrZeroNum],
+		tax_rate     => Optional[PositiveOrZeroNum],
+		national_tax => Optional[PositiveOrZeroNum],
 	];
 
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
@@ -77,6 +85,8 @@ coerce CountryCode,
 		return uc country2code( $_, LOCALE_CODE_ALPHA_2 );
 	}
 	;
+
+enum DCCIndicator, [ qw( 1 2 3 ) ];
 
 1;
 
@@ -203,6 +213,28 @@ Single character code that defines the result of having sent a CVN. See
 L<CyberSource's Documentation on AVS Results
 |http://www.cybersource.com/support_center/support_documentation/quick_references/view.php?page_id=423>
 for more information.
+
+=item * C<DCCIndicator>
+
+Base Type: C<enum>
+
+Single character code that defines the DCC status
+
+=over
+
+=item * C<1>
+
+Converted - DCC is being used.
+
+=item * C<2>
+
+Non-convertible - DCC cannot be used.
+
+=item * C<3>
+
+Declined - DCC could be used, but the customer declined it.
+
+=back
 
 =back
 
