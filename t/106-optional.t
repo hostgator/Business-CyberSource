@@ -82,6 +82,8 @@ SKIP: {
 	my $ret;
 	lives_ok { $ret = $req->submit } 'submit request';
 
+	note( $req->trace->request->decoded_content );
+
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
 	is( $ret->reference_code, '36',     'check reference_code' );
 	is( $ret->reason_code,     100,     'check reason_code'    );
