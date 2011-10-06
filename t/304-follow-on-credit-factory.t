@@ -47,8 +47,6 @@ lives_ok {
 	})
 } 'create authorization';
 
-note( Dumper $req->_request_data );
-
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
 		16
@@ -99,6 +97,9 @@ SKIP: {
 	lives_ok {
 		$credit = $credit_req->submit;
 	} 'credit submit';
+
+	note( $credit_req->trace->request->decoded_content );
+	note( $credit_req->trace->response->decoded_content );
 
 	ok( $credit, 'credit response exists' );
 
