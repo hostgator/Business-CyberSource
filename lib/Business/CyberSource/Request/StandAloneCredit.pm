@@ -298,6 +298,12 @@ Reader: exchange_rate_timestamp
 
 Type: Str
 
+=head2 full_name
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: full name on credit card
+
 =head2 street1
 
 Reader: street1
@@ -307,12 +313,6 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
-
-=head2 full_name
-
-Type: MooseX::Types::Varchar::Varchar[60]
-
-Additional documentation: full name on credit card
 
 =head2 cc_exp_year
 

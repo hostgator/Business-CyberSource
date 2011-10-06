@@ -16,16 +16,6 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
 
 use Business::CreditCard qw( cardtype );
 
-has full_name => (
-	required  => 0,
-	predicate => 'has_full_name',
-	isa       => Varchar[60], # length is a guess by other max's
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{card}{fullName} = $self->full_name;
-	},
-	documentation => 'full name on credit card',
-);
 
 has credit_card => (
 	required => 1,
@@ -106,6 +96,17 @@ has cvn => (
 		$self->_request_data->{card}{cvIndicator} = $self->cv_indicator;
 	},
 	documentation => 'Card Verification Numbers',
+);
+
+has full_name => (
+	required  => 0,
+	predicate => 'has_full_name',
+	isa       => Varchar[60], # length is a guess by other max's
+	trigger   => sub {
+		my $self = shift;
+		$self->_request_data->{card}{fullName} = $self->full_name;
+	},
+	documentation => 'full name on credit card',
 );
 
 sub _build_card_type {
