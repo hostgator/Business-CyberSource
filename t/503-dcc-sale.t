@@ -96,5 +96,7 @@ SKIP: {
 
 	note( $sale_req->trace->request->decoded_content );
 	note( $sale_req->trace->response->decoded_content );
+
+	is( $sale_res->accepted, 1, 'sale accepted' );
 }
 done_testing;
