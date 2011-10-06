@@ -98,7 +98,7 @@ has cvn => (
 );
 
 has full_name => (
-	required => 1,
+	required => 0,
 	is       => 'ro',
 	isa      => Varchar[60],
 	trigger  => sub {
