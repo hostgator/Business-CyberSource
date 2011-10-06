@@ -20,10 +20,6 @@ has full_name => (
 	required  => 0,
 	predicate => 'has_full_name',
 	isa       => Varchar[60], # length is a guess by other max's
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{card}{fullName} = $self->full_name;
-	},
 	documentation => 'full name on credit card',
 );
 
