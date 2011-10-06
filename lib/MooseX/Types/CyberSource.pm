@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.3.9'; # VERSION
+our $VERSION = 'v0.4.0'; # VERSION
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
@@ -102,7 +102,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version v0.3.9
+version v0.4.0
 
 =head1 SYNOPSIS
 
@@ -235,6 +235,22 @@ Non-convertible - DCC cannot be used.
 Declined - DCC could be used, but the customer declined it.
 
 =back
+
+=item * C<Item>
+
+Base Type: C<Dict>
+
+Here's the current list of valid keys and their types for the Dictionary
+
+	unit_price   => PositiveOrZeroNum,
+	quantity     => Int,
+	product_code => Optional[Str],
+	product_name => Optional[Str],
+	product_sku  => Optional[Str],
+	product_risk => Optional[Str],
+	tax_amount   => Optional[PositiveOrZeroNum],
+	tax_rate     => Optional[PositiveOrZeroNum],
+	national_tax => Optional[PositiveOrZeroNum],
 
 =back
 

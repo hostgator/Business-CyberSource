@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.3.9'; # VERSION
+our $VERSION = 'v0.4.0'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
@@ -181,7 +181,7 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 
 =head1 VERSION
 
-version v0.3.9
+version v0.4.0
 
 =head1 BUGS
 
