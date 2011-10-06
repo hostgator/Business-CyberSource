@@ -61,6 +61,7 @@ is( $req->total,      5, 'check total'      );
 is( $req->currency, 'USD', 'check currency' );
 
 is( $req->credit_card,  '4111111111111111', 'check credit card number' );
+is( $req->full_name,    'Caleb Cushing'   , 'check full_name'          );
 
 is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
 is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
