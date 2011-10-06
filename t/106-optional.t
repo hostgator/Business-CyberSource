@@ -33,6 +33,7 @@ my $req
 		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
+		full_name      => 'Caleb Cushing',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		ip             => '192.168.42.39',
