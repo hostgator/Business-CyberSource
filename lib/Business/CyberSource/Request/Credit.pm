@@ -25,6 +25,8 @@ sub submit {
 	my $self = shift;
 
 	$self->_request_data->{ccCreditService}{run} = 'true';
+	$self->_request_data->{ccCreditService}{captureRequestID}
+		= $self->request_id if $self->meta->has_attribute( 'request_id' );
 
 	my $r = $self->_build_request;
 

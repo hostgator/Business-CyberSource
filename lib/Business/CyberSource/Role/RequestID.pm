@@ -11,9 +11,10 @@ use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
 
 has request_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[29],
+	required  => 1,
+	predicate => 'has_request_id',
+	is        => 'ro',
+	isa       => Varchar[29],
 );
 
 1;

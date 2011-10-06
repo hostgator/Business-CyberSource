@@ -93,6 +93,8 @@ SKIP: {
 		})
 	} 'create follow-on credit';
 
+	note( Dumper $credit_req->_request_data );
+
 	my $credit;
 	lives_ok {
 		$credit = $credit_req->submit;
