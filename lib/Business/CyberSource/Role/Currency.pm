@@ -15,7 +15,7 @@ has currency => (
 	isa      => CurrencyCode,
 	trigger => sub {
 		my $self = shift;
-		if ( $self->meta->has_attribute( '_request_data' ) ) {
+		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
 			$self->_request_data->{purchaseTotals}{currency} = $self->currency;
 		}
 	},
