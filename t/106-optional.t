@@ -4,18 +4,21 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-
-plan skip_all
-	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
-	unless $CYBS_ID and $CYBS_KEY
-	;
+use Test::Exception;
+use Data::Dumper;
 
 use Business::CyberSource::Request::Authorization;
 
-my $req
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
+
+$cybs_id  ||= 'test';
+$cybs_key ||= 'test';
+
+my $req;
+lives_ok {
+	$req = Business::CyberSource::Request::Authorization->new({
+		username       => $cybs_id,
+		password       => $cybs_key,
 		production     => 0,
 		reference_code => '36',
 		first_name     => 'Caleb',
@@ -36,7 +39,10 @@ my $req
 		cc_exp_year    => '2025',
 		ip             => '192.168.42.39',
 		full_name      => 'Caleb Cushing',
-	});
+	})
+} 'new' . ref( $req );
+
+note( Dumper $req->_request_data );
 
 is( $req->username, $CYBS_ID,  'check username' );
 is( $req->password, $CYBS_KEY, 'check key'      );
