@@ -300,9 +300,11 @@ Type: Str
 
 =head2 full_name
 
+Reader: full_name
+
 Type: MooseX::Types::Varchar::Varchar[60]
 
-Additional documentation: full name on credit card
+This attribute is required.
 
 =head2 street1
 
