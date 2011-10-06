@@ -30,6 +30,33 @@ has items => (
 					quantity  => $item->{quantity},
 					unitPrice => $item->{unit_price},
 				};
+				$h->{productCode}
+					= $item->{product_code} if $item->{product_code}
+					;
+
+				$h->{productName}
+					= $item->{product_name} if $item->{product_name}
+					;
+
+				$h->{productSKU}
+					= $item->{product_sku} if $item->{product_sku}
+					;
+
+				$h->{productRisk}
+					= $item->{product_risk} if $item->{product_risk}
+					;
+
+				$h->{taxAmount}
+					= $item->{tax_amount} if $item->{tax_amount}
+					;
+
+				$h->{taxRate}
+					= $item->{tax_rate} if $item->{tax_rate}
+					;
+				$h->{nationalTax}
+					= $item->{national_tax} if $item->{national_tax}
+					;
+
 				push @{ $items }, $h;
 				$i++;
 			}

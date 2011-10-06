@@ -17,8 +17,9 @@ $cybs_key ||= 'test';
 my $req;
 lives_ok {
 	$req = Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $cybs_id,
+		password       => $cybs_key,
+		production     => 0,
 		reference_code => 't108',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -32,6 +33,10 @@ lives_ok {
 			{
 				unit_price => 1000.00,
 				quantity   => 2,
+				product_name => 'candybarz',
+				product_code => 't108-code',
+				product_sku  => '123456',
+				tax_amount   => '1.00',
 			},
 			{
 				unit_price => 1000.00,
@@ -42,7 +47,6 @@ lives_ok {
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
 	});
 
 } 'Authorization object initialized';
@@ -69,7 +73,7 @@ SKIP: {
 	is( $ret->reference_code, 't108',   'check reference_code' );
 	is( $ret->reason_code,     100,     'check reason_code'    );
 	is( $ret->currency,       'USD',    'check currency'       );
-	is( $ret->amount,         '3000.00',    'check amount'     );
+	is( $ret->amount,         '3001.00',    'check amount'     );
 	is( $ret->avs_code,       'Y',       'check avs_code'      );
 	is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
 	is( $ret->processor_response, '00',  'check processor_response');

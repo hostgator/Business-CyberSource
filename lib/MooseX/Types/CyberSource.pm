@@ -53,8 +53,15 @@ enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
 subtype Item,
 	as Dict[
-		unit_price => PositiveOrZeroNum,
-		quantity   => Int,
+		unit_price   => PositiveOrZeroNum,
+		quantity     => Int,
+		product_code => Optional[Str],
+		product_name => Optional[Str],
+		product_sku  => Optional[Str],
+		product_risk => Optional[Str],
+		tax_amount   => Optional[PositiveOrZeroNum],
+		tax_rate     => Optional[PositiveOrZeroNum],
+		national_tax => Optional[PositiveOrZeroNum],
 	];
 
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
