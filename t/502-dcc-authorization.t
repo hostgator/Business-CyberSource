@@ -34,13 +34,13 @@ lives_ok {
 		cc_exp_month   => '04',
 		cc_exp_year    => '2012',
 		total          => '1.00',
-		foreign_currency => 'JPY',
+		foreign_currency => 'EUR',
 	})
 } 'DCC request object created';
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		1
+		7
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
@@ -57,6 +57,11 @@ SKIP: {
 	note( $dcc_req->trace->request->decoded_content );
 	note( $dcc_req->trace->response->decoded_content );
 
+	is( $dcc->foreign_currency, 'EUR', 'dcc response foreign_currency' ); 
+	is( $dcc->foreign_amount,  '0.88', 'dcc response foreign_amount'   );
+	is( $dcc->exchange_rate, '0.8810', 'dcc response exchange_rate'    );
+	is( $dcc->dcc_supported,        1, 'dcc response dcc_supported'    );
+
 	my $auth_req;
 	lives_ok {
 		$auth_req = $factory->create( 'Authorization',
@@ -71,7 +76,7 @@ SKIP: {
 			country          => 'US',
 			email            => 'xenoterracide@gmail.com',
 			credit_card      => '5100870000000004',
-			total            => 1.00,
+			total            => $dcc_req->total,
 			currency         => $dcc->currency,
 			foreign_currency => $dcc->foreign_currency,
 			foreign_amount   => $dcc->foreign_amount,
@@ -81,6 +86,14 @@ SKIP: {
 			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 		})
 	} 'create dcc authorization request';
+
+	my $auth_res;
+	lives_ok {
+		$auth_res = $auth_req->submit;
+	} 'auth submit';
+
+	note( $auth_req->trace->request->decoded_content );
+	note( $auth_req->trace->response->decoded_content );
 }
 
 done_testing;
