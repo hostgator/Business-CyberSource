@@ -2,6 +2,14 @@ Revision history for Business-CyberSource
 
 {{$NEXT}}
 
+v0.4.0    2011-10-06
+	- refactor guts to use moose triggers to build a request data hashref
+	- DCC requests were supported, but you couldn't have any follow up
+	  requests. Now you can toggle dcc indicator's on Sale, Authorization,
+	  Capture, and Credit.
+	- add more fields to Items
+	- add support for Full Name with Credit Cards
+
 v0.3.8    2011-10-04
 	- change ->is_success to ->accepted, allow aliases ->is_accepted and ->is
 	  success
