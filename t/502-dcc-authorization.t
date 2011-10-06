@@ -83,10 +83,10 @@ SKIP: {
 			exchange_rate    => $dcc->exchange_rate,
 			cc_exp_month     => '04',
 			cc_exp_year      => '2012',
-			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 			dcc_indicator    => 1,
+			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 		})
-	} 'create dcc authorization request';
+	} 'create dcc authorization request object';
 
 	my $auth_res;
 	lives_ok {
@@ -95,6 +95,27 @@ SKIP: {
 
 	note( $auth_req->trace->request->decoded_content );
 	note( $auth_req->trace->response->decoded_content );
+
+	my $cap_req;
+	lives_ok {
+		$cap_req = $factory->create( 'Capture',
+		{
+			reference_code => $dcc->reference_code,
+			total          => $dcc_req->total,
+			currency         => $dcc->currency,
+			foreign_currency => $dcc->foreign_currency,
+			foreign_amount   => $dcc->foreign_amount,
+			exchange_rate    => $dcc->exchange_rate,
+			dcc_indicator    => 1,
+			request_id       => $auth_res->request_id,
+			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+		})
+	} 'create dcc capture request object';
+
+	my $cap_res;
+	lives_ok {
+		$cap_res = $cap_req->submit;
+	} 'capture submit';
 }
 
 done_testing;
