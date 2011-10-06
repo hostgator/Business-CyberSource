@@ -199,15 +199,21 @@ for more information.
 
 Base Type: C<enum>
 
-Single character code that defineds the DCC status
+Single character code that defines the DCC status
 
 =over
 
-=item * C<1>: Converted—DCC is being used.
+=item * C<1>
 
-=item * C<2>: Non-convertible—DCC cannot be used.
+Converted - DCC is being used.
 
-=item * C<3>: Declined—DCC could be used, but the customer declined it.
+=item * C<2>
+
+Non-convertible - DCC cannot be used.
+
+=item * C<3>
+
+Declined - DCC could be used, but the customer declined it.
 
 =back
 
