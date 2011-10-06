@@ -12,6 +12,7 @@ use MooseX::Types -declare => [ qw(
 	CountryCode
 	CvIndicator
 	CvResults
+	DCCIndicator
 	Decision
 	Item
 ) ];
@@ -77,6 +78,8 @@ coerce CountryCode,
 		return uc country2code( $_, LOCALE_CODE_ALPHA_2 );
 	}
 	;
+
+enum DCCIndicator, [ qw( 1 2 3 ) ];
 
 1;
 
@@ -191,6 +194,22 @@ Single character code that defines the result of having sent a CVN. See
 L<CyberSource's Documentation on AVS Results
 |http://www.cybersource.com/support_center/support_documentation/quick_references/view.php?page_id=423>
 for more information.
+
+=item * C<DCCIndicator>
+
+Base Type: C<enum>
+
+Single character code that defineds the DCC status
+
+=over
+
+=item * C<1>: Converted—DCC is being used.
+
+=item * C<2>: Non-convertible—DCC cannot be used.
+
+=item * C<3>: Declined—DCC could be used, but the customer declined it.
+
+=back
 
 =back
 

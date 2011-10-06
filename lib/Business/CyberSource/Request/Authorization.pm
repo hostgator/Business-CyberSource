@@ -14,6 +14,7 @@ with qw(
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;

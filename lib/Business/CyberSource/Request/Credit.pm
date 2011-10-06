@@ -12,6 +12,7 @@ with qw(
 	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;

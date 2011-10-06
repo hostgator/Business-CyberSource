@@ -11,6 +11,7 @@ use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
+	Business::CyberSource::Request::Role::DCC
 );
 
 use Business::CyberSource::Response;
