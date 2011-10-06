@@ -40,7 +40,7 @@ lives_ok {
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		7
+		9
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
@@ -96,3 +96,5 @@ SKIP: {
 
 	note( $sale_req->trace->request->decoded_content );
 	note( $sale_req->trace->response->decoded_content );
+}
+done_testing;
