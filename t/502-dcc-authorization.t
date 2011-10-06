@@ -57,7 +57,7 @@ SKIP: {
 	note( $dcc_req->trace->request->decoded_content );
 	note( $dcc_req->trace->response->decoded_content );
 
-	is( $dcc->foreign_currency, 'EUR', 'dcc response foreign_currency' ); 
+	is( $dcc->foreign_currency, 'EUR', 'dcc response foreign_currency' );
 	is( $dcc->foreign_amount,  '0.88', 'dcc response foreign_amount'   );
 	is( $dcc->exchange_rate, '0.8810', 'dcc response exchange_rate'    );
 	is( $dcc->dcc_supported,        1, 'dcc response dcc_supported'    );
