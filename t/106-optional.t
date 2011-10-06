@@ -40,7 +40,7 @@ lives_ok {
 		ip             => '192.168.42.39',
 		full_name      => 'Caleb Cushing',
 	})
-} 'new' . ref( $req );
+} ref $req . '->new';
 
 note( Dumper $req->_request_data );
 
