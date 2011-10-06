@@ -84,6 +84,7 @@ SKIP: {
 			cc_exp_month     => '04',
 			cc_exp_year      => '2012',
 			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+			dcc_indicator    => 1,
 		})
 	} 'create dcc authorization request';
 
