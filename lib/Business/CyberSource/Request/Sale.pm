@@ -420,6 +420,12 @@ Reader: ignore_validate_result
 
 Type: Bool
 
+=head2 full_name
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: full name on credit card
+
 =head2 street1
 
 Reader: street1

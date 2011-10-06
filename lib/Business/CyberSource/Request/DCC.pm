@@ -313,6 +313,12 @@ Reader: exchange_rate_timestamp
 
 Type: Str
 
+=head2 full_name
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
+Additional documentation: full name on credit card
+
 =head2 cc_exp_year
 
 Reader: cc_exp_year
