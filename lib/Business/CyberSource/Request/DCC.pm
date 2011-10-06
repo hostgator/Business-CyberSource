@@ -319,8 +319,6 @@ Reader: full_name
 
 Type: MooseX::Types::Varchar::Varchar[60]
 
-This attribute is required.
-
 =head2 cc_exp_year
 
 Reader: cc_exp_year

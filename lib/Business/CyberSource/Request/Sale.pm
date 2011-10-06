@@ -427,8 +427,6 @@ Reader: full_name
 
 Type: MooseX::Types::Varchar::Varchar[60]
 
-This attribute is required.
-
 =head2 street1
 
 Reader: street1
