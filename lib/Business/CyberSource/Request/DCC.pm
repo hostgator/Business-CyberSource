@@ -121,9 +121,9 @@ __PACKAGE__->meta->make_immutable;
 	my $cap_req = $factory->create( 'Capture',
 		{
 			reference_code   => '1984',
-			total            => '1.00'
-			currency         => 'USD'
-			foreign_currency => 'EUR'
+			total            => '1.00',
+			currency         => 'USD',
+			foreign_currency => 'EUR',
 			foreign_amount   => $dcc_res->foreign_amount,
 			exchange_rate    => $dcc_res->exchange_rate,
 			dcc_indicator    => 1,
@@ -136,16 +136,16 @@ __PACKAGE__->meta->make_immutable;
 	my $cred_req = $factory->create( 'FollowOnCredit',
 		{
 			reference_code   => '1984',
-			total            => '1.00'
-			currency         => 'USD'
-			foreign_currency => 'EUR'
+			total            => '1.00',
+			currency         => 'USD',
+			foreign_currency => 'EUR',
 			foreign_currency => $dcc_res->foreign_currency,
 			foreign_amount   => $dcc_res->foreign_amount,
 			exchange_rate    => $dcc_res->exchange_rate,
 			dcc_indicator    => 1,
 			request_id       => $cap_res->request_id,
 			exchange_rate_timestamp => $dcc_res->exchange_rate_timestamp,
-		})
+		});
 
 =head1 DESCRIPTION
 
