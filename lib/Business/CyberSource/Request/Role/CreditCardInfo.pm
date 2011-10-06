@@ -104,6 +104,7 @@ has full_name => (
 	isa       => Varchar[60], # length is a guess by other max's
 	trigger   => sub {
 		my $self = shift;
+		$self->has_full_name;
 		$self->full_name;
 		$self->_request_data->{card}{fullName} = $self->full_name;
 	},
