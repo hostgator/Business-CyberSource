@@ -24,12 +24,6 @@ has username => (
 	required => 1,
 	is       => 'ro',
 	isa      => Varchar[30],
-	trigger  => sub {
-		my $self = shift;
-		if ( $self->meta->has_attribute( '_request_data' ) ) {
-			$self->_request_data->{merchantID} = $self->username;
-		}
-	},
 	documentation => 'Your CyberSource merchant ID. Use the same merchantID '
 		. 'for evaluation, testing, and production',
 );

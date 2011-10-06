@@ -39,7 +39,11 @@ sub _build_request {
 	my $security = $wss->wsseBasicAuth( $self->username, $self->password );
 
 	my ( $answer, $trace ) = $call->(
-		wsse_Security => $security,
+		wsse_Security         => $security,
+		merchantID            => $self->username,
+		clientEnvironment     => $self->client_env,
+		clientLibrary         => $self->client_name,
+		clientLibraryVersion  => $self->client_version,
 		%{ $self->_request_data },
 	);
 
@@ -112,18 +116,8 @@ has _request_data => (
 	init_arg => undef,
 	is       => 'rw',
 	isa      => HashRef,
-	builder  => '_build_request_data',
+	default => sub { { } },
 );
-
-sub _build_request_data {
-	my $self = shift;
-
-	return {
-		clientEnvironment     => $self->client_env,
-		clientLibrary         => $self->client_name,
-		clientLibraryVersion  => $self->client_version,
-	};
-}
 
 1;
 
