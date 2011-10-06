@@ -116,6 +116,30 @@ SKIP: {
 	lives_ok {
 		$cap_res = $cap_req->submit;
 	} 'capture submit';
+
+	my $cred_req;
+	lives_ok {
+		$cred_req = $factory->create( 'FollowOnCredit',
+		{
+			reference_code => $dcc->reference_code,
+			total          => $dcc_req->total,
+			currency         => $dcc->currency,
+			foreign_currency => $dcc->foreign_currency,
+			foreign_amount   => $dcc->foreign_amount,
+			exchange_rate    => $dcc->exchange_rate,
+			dcc_indicator    => 1,
+			request_id       => $cap_res->request_id,
+			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+		})
+	} 'create dcc follow-on credit request';
+
+	my $cred_res;
+	lives_ok {
+		$cred_res = $cred_req->submit;
+	} 'credit submit';
+
+	is( $cred_res->is_accepted, 1, 'check that credit decicion is ACCEPT');
+	is( $cred_res->amount, '1.00', 'check that credit amount is 1.00' );
 }
 
 done_testing;
