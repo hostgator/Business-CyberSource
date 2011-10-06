@@ -224,6 +224,22 @@ Declined - DCC could be used, but the customer declined it.
 
 =back
 
+=item * C<Item>
+
+Base Type: C<Dict>
+
+Here's the current list of valid keys and their types for the Dictionary
+
+	unit_price   => PositiveOrZeroNum,
+	quantity     => Int,
+	product_code => Optional[Str],
+	product_name => Optional[Str],
+	product_sku  => Optional[Str],
+	product_risk => Optional[Str],
+	tax_amount   => Optional[PositiveOrZeroNum],
+	tax_rate     => Optional[PositiveOrZeroNum],
+	national_tax => Optional[PositiveOrZeroNum],
+
 =back
 
 =cut
