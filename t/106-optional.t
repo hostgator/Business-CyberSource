@@ -40,12 +40,10 @@ lives_ok {
 		ip             => '192.168.42.39',
 		full_name      => 'Caleb Cushing',
 	})
-} ref $req . '->new';
+} 'new authorization';
 
 note( Dumper $req->_request_data );
 
-is( $req->username, $CYBS_ID,  'check username' );
-is( $req->password, $CYBS_KEY, 'check key'      );
 is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
@@ -72,7 +70,16 @@ is( $req->full_name,    'Caleb Cushing'   , 'check full_name'          );
 is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
 is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
-my $ret = $req->submit;
+SKIP: {
+	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
+		18
+		unless $CYBS_ID and $CYBS_KEY
+		;
+
+	is( $req->username, $CYBS_ID,  'check username' );
+	is( $req->password, $CYBS_KEY, 'check key'      );
+
+	my $ret = lives_ok { $req->submit } 'submit request';
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reference_code, '36',     'check reference_code' );
