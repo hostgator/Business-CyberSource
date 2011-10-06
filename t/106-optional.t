@@ -79,7 +79,8 @@ SKIP: {
 	is( $req->username, $CYBS_ID,  'check username' );
 	is( $req->password, $CYBS_KEY, 'check key'      );
 
-	my $ret = lives_ok { $req->submit } 'submit request';
+	my $ret;
+	lives_ok { $req->submit } 'submit request';
 
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
 	is( $ret->reference_code, '36',     'check reference_code' );
