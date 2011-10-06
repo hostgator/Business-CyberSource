@@ -72,7 +72,7 @@ is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
 
 SKIP: {
 	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		18
+		17
 		unless $CYBS_ID and $CYBS_KEY
 		;
 
@@ -80,7 +80,7 @@ SKIP: {
 	is( $req->password, $CYBS_KEY, 'check key'      );
 
 	my $ret;
-	lives_ok { $req->submit } 'submit request';
+	lives_ok { $ret = $req->submit } 'submit request';
 
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
 	is( $ret->reference_code, '36',     'check reference_code' );
