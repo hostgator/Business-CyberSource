@@ -75,7 +75,7 @@ SKIP: {
 			zip              => '77064',
 			country          => 'US',
 			email            => 'xenoterracide@gmail.com',
-			credit_card      => '5100870000000004',
+			credit_card      => $dcc_req,
 			total            => $dcc_req->total,
 			currency         => $dcc->currency,
 			foreign_currency => $dcc->foreign_currency,
