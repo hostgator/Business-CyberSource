@@ -11,6 +11,7 @@ use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
+use MooseX::SetOnce 0.200001;
 
 with qw(
 	Business::CyberSource
@@ -109,6 +110,7 @@ has reference_code => (
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
+	traits => [ 'SetOnce' ],
 );
 
 has _request_data => (
