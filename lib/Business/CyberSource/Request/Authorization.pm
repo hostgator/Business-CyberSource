@@ -222,7 +222,7 @@ Additional documentation: State or province of the billing address. Use the two-
 
 Reader: trace
 
-Writer: trace
+Writer: _trace
 
 Type: XML::Compile::SOAP::Trace
 

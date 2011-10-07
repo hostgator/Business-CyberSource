@@ -122,7 +122,7 @@ Additional documentation: provided by the library
 
 Reader: trace
 
-Writer: trace
+Writer: _trace
 
 Type: XML::Compile::SOAP::Trace
 

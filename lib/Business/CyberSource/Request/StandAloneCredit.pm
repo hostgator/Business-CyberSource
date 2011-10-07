@@ -106,7 +106,7 @@ Additional documentation: Customer's email address, including the full domain na
 
 Reader: trace
 
-Writer: trace
+Writer: _trace
 
 Type: XML::Compile::SOAP::Trace
 
