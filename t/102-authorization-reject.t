@@ -113,7 +113,7 @@ my $ret2 = $req2->submit;
 
 note( $req2->trace->printResponse );
 
-is( $ret2->is_success,     0,        'check success'        );
+is( $ret2->accepted,     0,        'check success'        );
 is( $ret2->decision,       'REJECT', 'check decision'       );
 is( $ret2->reason_code,     202,     'check reason_code'    );
 
