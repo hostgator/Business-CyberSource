@@ -5,12 +5,13 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.0'; # VERSION
+our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
+use MooseX::SetOnce;
 
 with qw(
 	Business::CyberSource
@@ -109,6 +110,7 @@ has reference_code => (
 has trace => (
 	is     => 'rw',
 	isa    => 'XML::Compile::SOAP::Trace',
+	traits => [ 'SetOnce' ],
 );
 
 has _request_data => (
@@ -133,7 +135,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.4.0
+version v0.4.1
 
 =for Pod::Coverage BUILD
 

@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.0'; # VERSION
+our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -25,7 +25,7 @@ Business::CyberSource::Request::Role::FollowUp - Role to apply to requests that 
 
 =head1 VERSION
 
-version v0.4.0
+version v0.4.1
 
 =head1 BUGS
 

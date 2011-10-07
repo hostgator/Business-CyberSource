@@ -38,6 +38,7 @@ requires:
   Moose::Role: 0
   MooseX::AbstractFactory: 0
   MooseX::Aliases: 0
+  MooseX::SetOnce: 0
   MooseX::StrictConstructor: 0
   MooseX::Traits: 0
   MooseX::Types: 0
@@ -67,4 +68,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: v0.4.0
+version: v0.4.1
