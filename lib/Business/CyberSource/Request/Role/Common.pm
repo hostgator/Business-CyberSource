@@ -48,7 +48,7 @@ sub _build_request {
 		%{ $self->_request_data },
 	);
 
-	$self->trace( $trace );
+	$self->_trace( $trace );
 
 	if ( $answer->{Fault} ) {
 		croak 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
@@ -108,9 +108,11 @@ has reference_code => (
 );
 
 has trace => (
-	is     => 'rw',
-	isa    => 'XML::Compile::SOAP::Trace',
-	traits => [ 'SetOnce' ],
+	is       => 'rw',
+	isa      => 'XML::Compile::SOAP::Trace',
+	traits   => [ 'SetOnce' ],
+	init_arg => undef,
+	writer   => '_trace',
 );
 
 has _request_data => (
