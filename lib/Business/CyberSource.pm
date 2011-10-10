@@ -6,7 +6,8 @@ use namespace::autoclean;
 
 # VERSION
 
-use Moose::Role;
+use Moose;
+use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Path::Class qw( File Dir );

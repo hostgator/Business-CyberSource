@@ -7,6 +7,7 @@ use Carp;
 # VERSION
 
 use Moose;
+extends 'Business::CyberSource';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::BillingInfo

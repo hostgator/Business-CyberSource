@@ -3,11 +3,13 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
+use namespace::autoclean;
 
 # VERSION
 
 use Moose;
-use namespace::autoclean;
+
+extends 'Business::CyberSource';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo

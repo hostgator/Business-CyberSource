@@ -8,6 +8,7 @@ use Carp;
 # VERSION
 
 use Moose;
+extends 'Business::CyberSource';
 extends 'Business::CyberSource::Request::Credit';
 with qw(
 	Business::CyberSource::Request::Role::FollowUp

@@ -14,7 +14,6 @@ use MooseX::Types::URI     qw( Uri     );
 use MooseX::SetOnce 0.200001;
 
 with qw(
-	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::Credentials
 );

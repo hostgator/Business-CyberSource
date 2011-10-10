@@ -2,12 +2,13 @@ package Business::CyberSource::Request::DCC;
 use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 use Carp;
 
 # VERSION
 
 use Moose;
-use namespace::autoclean;
+extends 'Business::CyberSource';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
