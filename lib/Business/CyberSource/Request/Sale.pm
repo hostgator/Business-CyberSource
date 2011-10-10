@@ -20,11 +20,14 @@ with qw(
 use Business::CyberSource::Response;
 use MooseX::StrictConstructor;
 
-sub submit {
+before submit => sub {
 	my $self = shift;
-
 	$self->_request_data->{ccAuthService}{run} = 'true';
 	$self->_request_data->{ccCaptureService}{run} = 'true';
+};
+
+sub submit {
+	my $self = shift;
 
 	my $r = $self->_build_request;
 
