@@ -83,7 +83,7 @@ SKIP: {
 	note( $req->trace->request->decoded_content );
 	note( $req->trace->response->decoded_content );
 
-	is( $ret->accepted,       1,        'check success'        );
+	is( $ret->is_success,     1,        'check success'        );
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
 	is( $ret->reference_code, 't101',   'check reference_code' );
 	is( $ret->reason_code,     100,     'check reason_code'    );

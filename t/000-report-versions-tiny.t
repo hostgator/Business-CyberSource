@@ -63,6 +63,7 @@ eval { $v .= pmver('LWP::Protocol::https','any version') };
 eval { $v .= pmver('Locale::Country','any version') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };
+eval { $v .= pmver('MooseX::ABC','any version') };
 eval { $v .= pmver('MooseX::AbstractFactory','any version') };
 eval { $v .= pmver('MooseX::Aliases','any version') };
 eval { $v .= pmver('MooseX::SetOnce','0.200001') };

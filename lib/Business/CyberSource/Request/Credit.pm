@@ -3,11 +3,12 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
+use namespace::autoclean;
 
 our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose;
-use namespace::autoclean;
+extends 'Business::CyberSource';
 with qw(
 	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
@@ -229,14 +230,6 @@ Reader: dcc_indicator
 
 Type: MooseX::Types::CyberSource::DCCIndicator
 
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
-
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -244,6 +237,14 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
 
 =head2 client_name
 
