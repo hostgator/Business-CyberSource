@@ -18,12 +18,14 @@ has reference_code => (
 
 1;
 
+# ABSTRACT: Generic implementation of MerchantReferenceCode
+
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Role::MerchantReferenceCode
+Business::CyberSource::Role::MerchantReferenceCode - Generic implementation of MerchantReferenceCode
 
 =head1 VERSION
 

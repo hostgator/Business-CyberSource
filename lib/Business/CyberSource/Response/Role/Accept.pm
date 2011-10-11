@@ -28,12 +28,6 @@ has datetime => (
 	isa      => DateTimeW3C,
 );
 
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[50],
-);
-
 has request_specific_reason_code => (
 	required => 1,
 	is       => 'ro',

@@ -330,6 +330,14 @@ Type: MooseX::Types::Varchar::Varchar[60]
 
 Additional documentation: Second line of the billing street address.
 
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
+
 =head2 street3
 
 Reader: street3

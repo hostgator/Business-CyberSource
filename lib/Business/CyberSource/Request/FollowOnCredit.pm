@@ -171,13 +171,13 @@ Reader: dcc_indicator
 
 Type: MooseX::Types::CyberSource::DCCIndicator
 
-=head2 client_name
+=head2 reference_code
 
-Reader: client_name
+Reader: reference_code
 
-Type: Str
+Type: MooseX::Types::Varchar::Varchar[50]
 
-Additional documentation: provided by the library
+This attribute is required.
 
 =head2 foreign_currency
 
@@ -186,6 +186,14 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 client_name
+
+Reader: client_name
+
+Type: Str
+
+Additional documentation: provided by the library
 
 =head2 client_version
 

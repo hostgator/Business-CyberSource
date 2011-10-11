@@ -267,6 +267,14 @@ Type: MooseX::Types::CyberSource::CardTypeCode
 
 Additional documentation: Type of card to authorize
 
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
+
 =head2 cv_indicator
 
 Reader: cv_indicator

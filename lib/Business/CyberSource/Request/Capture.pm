@@ -159,6 +159,14 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::Varchar::Varchar[50]
+
+This attribute is required.
+
 =head2 currency
 
 Reader: currency
