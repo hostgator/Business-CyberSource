@@ -64,6 +64,6 @@ SKIP: {
 	ok( $ret, 'response exists' );
 	is( $ret->accepted,  1, 'check if the decision is ACCEPT' );
 
-	is( $res->decision, 'ACCEPT', 'response is ACCEPT' );
+	is( $ret->decision, 'ACCEPT', 'response is ACCEPT' );
 }
 done_testing;
