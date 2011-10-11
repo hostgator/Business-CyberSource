@@ -9,6 +9,7 @@ our $VERSION = 'v0.4.1'; # VERSION
 use Moose::Role;
 with qw(
 	Business::CyberSource::Role::Currency
+	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use MooseX::Types::Moose         qw( Num Int );

@@ -17,6 +17,7 @@ with qw(
 	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::Credentials
+	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 requires 'submit';
