@@ -4,29 +4,32 @@ use strict;
 use warnings;
 use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
-#use SOAP::Lite +trace => [ 'debug' ] ;
+use Test::Exception;
+use Data::Dumper;
 
-plan skip_all
-	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
-	unless $CYBS_ID and $CYBS_KEY
-	;
+my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
+
+$cybs_id  ||= 'test';
+$cybs_key ||= 'test';
 
 use Business::CyberSource::Request;
 
-
-my $factory
-	= Business::CyberSource::Request->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+my $factory;
+lives_ok {
+	$factory = Business::CyberSource::Request->new({
+		username       => $cybs_id,
+		password       => $cybs_key,
 		production     => 0,
-	});
+	})
+} 'new factory';
 
 ok( $factory, 'factory exists' );
 
-my $req = $factory->create(
+my $req;
+lives_ok {
+	$req = $factory->create(
 	'Authorization',
 	{
-		reference_code => '42',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -35,22 +38,32 @@ my $req = $factory->create(
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
+		total          => 3000.00,
 		currency       => 'USD',
 		credit_card    => '378282246310005',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-	}
-);
-
-ok( $req, 'request exists' );
+	})
+} 'create authorization';
 
 is( $req->card_type, '003', 'check card type is american express' );
+ok( $req, 'request exists' );
+note( Dumper $req->_request_data );
 
-my $res = $req->submit;
+ok( $req->reference_code , 'reference_code exists' );
 
-ok( $res, 'response exists' );
+SKIP: {
+	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
+		4
+		unless $CYBS_ID and $CYBS_KEY
+		;
 
-is( $res->decision, 'ACCEPT', 'response is ACCEPT' );
+	my $ret;
+	lives_ok { $ret = $req->submit } 'submit';
 
+	ok( $ret, 'response exists' );
+	is( $ret->accepted,  1, 'check if the decision is ACCEPT' );
+
+	is( $res->decision, 'ACCEPT', 'response is ACCEPT' );
+}
 done_testing;
