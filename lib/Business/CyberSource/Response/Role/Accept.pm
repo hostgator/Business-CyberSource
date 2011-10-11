@@ -9,6 +9,7 @@ use namespace::autoclean;
 use Moose::Role;
 with qw(
 	Business::CyberSource::Role::Currency
+	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use MooseX::Types::Moose         qw( Num Int );
@@ -26,12 +27,6 @@ has datetime => (
 	required => 0,
 	is       => 'ro',
 	isa      => DateTimeW3C,
-);
-
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[50],
 );
 
 has request_specific_reason_code => (
