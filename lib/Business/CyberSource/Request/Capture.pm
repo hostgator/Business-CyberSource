@@ -3,12 +3,11 @@ use 5.008;
 use strict;
 use warnings;
 use Carp;
-use namespace::autoclean;
 
 our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose;
-extends 'Business::CyberSource';
+use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
@@ -159,14 +158,6 @@ Type: MooseX::Types::Varchar::Varchar[30]
 This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
 
 =head2 currency
 

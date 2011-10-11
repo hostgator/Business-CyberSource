@@ -6,8 +6,7 @@ use namespace::autoclean;
 
 our $VERSION = 'v0.4.1'; # VERSION
 
-use Moose;
-use MooseX::ABC;
+use Moose::Role;
 
 use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Path::Class qw( File Dir );
@@ -155,54 +154,6 @@ If there are features that are part of CyberSource's API but are not
 documented, or are missing here, please file a bug. I'll be happy to add them,
 but due to the size of the upstream API, I have not had time to cover all the features
 and some are currently undocumented.
-
-=head1 ATTRIBUTES
-
-=head2 client_env
-
-Reader: client_env
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 cybs_wsdl
-
-Reader: cybs_wsdl
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
-=head2 cybs_api_version
-
-Reader: cybs_api_version
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
-=head2 client_name
-
-Reader: client_name
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 client_version
-
-Reader: client_version
-
-Type: Str
 
 =head1 ACKNOWLEDGEMENTS
 

@@ -36,6 +36,7 @@ lib/Business/CyberSource/Response/Role/ProcessorResponse.pm
 lib/Business/CyberSource/Response/Role/ReconciliationID.pm
 lib/Business/CyberSource/Role/Currency.pm
 lib/Business/CyberSource/Role/ForeignCurrency.pm
+lib/Business/CyberSource/Role/MerchantReferenceCode.pm
 lib/Business/CyberSource/Role/RequestID.pm
 lib/MooseX/Types/CyberSource.pm
 perlcritic.rc

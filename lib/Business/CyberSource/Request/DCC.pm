@@ -2,13 +2,12 @@ package Business::CyberSource::Request::DCC;
 use 5.008;
 use strict;
 use warnings;
-use namespace::autoclean;
 use Carp;
 
 our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose;
-extends 'Business::CyberSource';
+use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
@@ -250,14 +249,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
 =head2 credit_card
 
 Reader: credit_card
@@ -268,13 +259,13 @@ This attribute is required.
 
 Additional documentation: Customer's credit card number
 
-=head2 reference_code
+=head2 card_type
 
-Reader: reference_code
+Reader: card_type
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::CyberSource::CardTypeCode
 
-This attribute is required.
+Additional documentation: Type of card to authorize
 
 =head2 cv_indicator
 

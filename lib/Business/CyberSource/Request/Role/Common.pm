@@ -14,6 +14,7 @@ use MooseX::Types::URI     qw( Uri     );
 use MooseX::SetOnce 0.200001;
 
 with qw(
+	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::Credentials
 );
@@ -44,6 +45,7 @@ sub _build_request {
 		clientEnvironment     => $self->client_env,
 		clientLibrary         => $self->client_name,
 		clientLibraryVersion  => $self->client_version,
+		merchantReferenceCode => $self->reference_code,
 		%{ $self->_request_data },
 	);
 
@@ -95,16 +97,6 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 		}
 	}
 }
-
-has reference_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => Varchar[50],
-	trigger  => sub {
-		my $self = shift;
-		$self->_request_data->{merchantReferenceCode} = $self->reference_code;
-	},
-);
 
 has trace => (
 	is       => 'rw',

@@ -8,7 +8,6 @@ use Carp;
 our $VERSION = 'v0.4.1'; # VERSION
 
 use Moose;
-extends 'Business::CyberSource';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::BillingInfo
@@ -21,14 +20,10 @@ with qw(
 use Business::CyberSource::Response;
 use MooseX::StrictConstructor;
 
-before submit => sub {
-	my $self = shift;
-	$self->_request_data->{ccAuthService}{run} = 'true';
-};
-
 sub submit {
 	my $self = shift;
 
+	$self->_request_data->{ccAuthService}{run} = 'true';
 
 	my $r = $self->_build_request;
 
@@ -309,14 +304,6 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
 =head2 credit_card
 
 Reader: credit_card
@@ -327,6 +314,14 @@ This attribute is required.
 
 Additional documentation: Customer's credit card number
 
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
+
 =head2 street2
 
 Reader: street2
@@ -334,14 +329,6 @@ Reader: street2
 Type: MooseX::Types::Varchar::Varchar[60]
 
 Additional documentation: Second line of the billing street address.
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::Varchar::Varchar[50]
-
-This attribute is required.
 
 =head2 street3
 
@@ -361,14 +348,6 @@ Reader: ignore_avs_result
 
 Type: Bool
 
-=head2 cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Additional documentation: Flag that indicates whether a CVN code was sent
-
 =head2 last_name
 
 Reader: last_name
@@ -378,6 +357,14 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
+
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Additional documentation: Flag that indicates whether a CVN code was sent
 
 =head2 currency
 
@@ -451,6 +438,12 @@ Reader: ignore_validate_result
 
 Type: Bool
 
+=head2 full_name
+
+Reader: full_name
+
+Type: MooseX::Types::Varchar::Varchar[60]
+
 =head2 street1
 
 Reader: street1
@@ -460,12 +453,6 @@ Type: MooseX::Types::Varchar::Varchar[60]
 This attribute is required.
 
 Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
-
-=head2 full_name
-
-Reader: full_name
-
-Type: MooseX::Types::Varchar::Varchar[60]
 
 =head2 cc_exp_year
 
