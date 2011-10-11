@@ -30,6 +30,7 @@ lives_ok {
 	$req = $factory->create(
 	'Authorization',
 	{
+		reference_code => 't105',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
