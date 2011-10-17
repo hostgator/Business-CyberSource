@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.1'; # VERSION
+our $VERSION = 'v0.4.2'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Varchar qw( Varchar );
@@ -30,7 +30,7 @@ Business::CyberSource::Role::RequestID - Role to apply to requests and responses
 
 =head1 VERSION
 
-version v0.4.1
+version v0.4.2
 
 =head1 BUGS
 
