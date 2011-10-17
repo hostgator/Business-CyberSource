@@ -17,8 +17,8 @@ $cybs_key ||= 'test';
 my $factory;
 lives_ok {
 	$factory = Business::CyberSource::Request->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+		username       => $cybs_id,
+		password       => $cybs_key,
 		production     => 0,
 	})
 } 'new factory';
