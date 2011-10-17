@@ -1,6 +1,9 @@
 Revision history for Business-CyberSource
 
 v0.4.1    2011-10-17
+	- fix bug in test 403, where it wasn't providing test creds.
+	- trace setter should be setonce, no init arg, and a private setter, as it
+	  is only to be set internally once.
 
 v0.4.0    2011-10-06
 	- refactor guts to use moose triggers to build a request data hashref
