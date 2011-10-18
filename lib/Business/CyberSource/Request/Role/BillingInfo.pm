@@ -127,12 +127,12 @@ has country => (
 );
 
 has postal_code => (
-	required => 0,
-	alias    => 'zip',
-	is       => 'ro',
-	isa      => Varchar[10],
+	required  => 0,
+	alias     => 'zip',
+	is        => 'ro',
+	isa       => Varchar[10],
 	predicate => 'has_zip',
-	trigger  => sub {
+	trigger   => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{postalCode} = $self->postal_code;
 	},
@@ -140,6 +140,18 @@ has postal_code => (
 		. 'The postal code must consist of 5 to 9 digits. '
 		. 'Required if C<country> is "US" or "CA"'
 		. 'alias: C<postal_code>',
+);
+
+has phone_number => (
+	required  => 0,
+	alias     => 'phone',
+	is        => 'ro',
+	isa       => Varchar[20],
+	predicate => 'has_phone_number',
+	trigger   => sub {
+		my $self = shift;
+		$self->_request_data->{billTo}{phoneNumber} = $self->phone_number;
+	},
 );
 
 has email => (
