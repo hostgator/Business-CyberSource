@@ -58,6 +58,9 @@ is( $req->city,           'Houston',   'check city'           );
 is( $req->state,          'TX',        'check state'          );
 is( $req->country,        'US',        'check country'        );
 is( $req->ip->addr,       '192.168.42.39', 'check ip address' );
+is( $req->ip->addr, $req->_request_data->{billTo}{ipAddress},
+	'check that ip was added in the request right'
+);
 
 is( $req->email, 'xenoterracide@gmail.com', 'check email' );
 
