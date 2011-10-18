@@ -175,7 +175,7 @@ has ip_address => (
 	predicate => 'has_ip',
 	trigger  => sub {
 		my $self = shift;
-		$self->_request_data->{billTo}{ipAddress} = $self->ip_address;
+		$self->_request_data->{billTo}{ipAddress} = $self->ip_address->addr;
 	},
 	documentation => 'Customer\'s IP address. alias: C<ip_address>',
 );
