@@ -20,7 +20,7 @@ lives_ok {
 		username       => $cybs_id,
 		password       => $cybs_key,
 		production     => 0,
-		reference_code => '36',
+		reference_code => 't106',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street1        => '100 somewhere blvd',
@@ -49,7 +49,7 @@ is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
 ok( $req->client_env,                            'check client_env exists' );
 
 # check billing info
-is( $req->reference_code, '36',        'check reference_code' );
+is( $req->reference_code, 't106',      'check reference_code' );
 is( $req->first_name,     'Caleb',     'check first_name'     );
 is( $req->last_name,      'Cushing',   'check first_name'     );
 is( $req->street1,        '100 somewhere blvd', 'check street1');
@@ -86,7 +86,7 @@ SKIP: {
 	note( $req->trace->request->decoded_content );
 
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
-	is( $ret->reference_code, '36',     'check reference_code' );
+	is( $ret->reference_code, 't106',   'check reference_code' );
 	is( $ret->reason_code,     100,     'check reason_code'    );
 	is( $ret->currency,       'USD',    'check currency'       );
 	is( $ret->amount,         '5.00',    'check amount'        );
