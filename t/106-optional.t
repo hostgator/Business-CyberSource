@@ -31,7 +31,7 @@ lives_ok {
 		state          => 'TX',
 		postal_code    => '77064',
 		country        => 'US',
-		phone_number   => '+1(555)555-5555'
+		phone_number   => '+1(555)555-5555',
 		email          => 'xenoterracide@gmail.com',
 		total          => 5.00,
 		currency       => 'USD',
