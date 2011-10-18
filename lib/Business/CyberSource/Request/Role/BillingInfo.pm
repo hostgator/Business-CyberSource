@@ -13,7 +13,6 @@ use MooseX::Types::Varchar         qw( Varchar       );
 use MooseX::Types::Email           qw( EmailAddress  );
 use MooseX::Types::CyberSource     qw( CountryCode   );
 use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
-use MooseX::Types::PhoneNumber     qw( PhoneNumber   );
 
 has first_name => (
 	required => 1,
@@ -147,7 +146,7 @@ has phone_number => (
 	required  => 0,
 	alias     => 'phone',
 	is        => 'ro',
-	isa       => PhoneNumber,
+	isa       => Varchar[20],
 	predicate => 'has_phone_number',
 	trigger   => sub {
 		my $self = shift;

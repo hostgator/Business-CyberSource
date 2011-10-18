@@ -1,6 +1,8 @@
 Revision history for Business-CyberSource
 
-v0.4.2    2011-10-17
+v0.4.2    2011-10-18
+	- add a field for ->phone_number
+	- fix the way ->ip_address is transmitted
 
 v0.4.1    2011-10-17
 	- fix bug in test 403, where it wasn't providing test creds.

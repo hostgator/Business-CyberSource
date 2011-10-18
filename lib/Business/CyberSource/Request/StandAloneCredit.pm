@@ -148,7 +148,7 @@ Additional documentation: Card Verification Numbers
 
 Reader: phone_number
 
-Type: MooseX::Types::PhoneNumber::PhoneNumber
+Type: MooseX::Types::Varchar::Varchar[20]
 
 =head2 cc_exp_month
 
