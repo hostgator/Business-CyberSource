@@ -29,8 +29,9 @@ lives_ok {
 		street4        => 'idk, just putting something here',
 		city           => 'Houston',
 		state          => 'TX',
-		zip            => '77064',
+		postal_code    => '77064',
 		country        => 'US',
+		phone_number   => '+1(555)555-5555'
 		email          => 'xenoterracide@gmail.com',
 		total          => 5.00,
 		currency       => 'USD',

@@ -144,6 +144,12 @@ Type: MooseX::Types::CreditCard::CardSecurityCode
 
 Additional documentation: Card Verification Numbers
 
+=head2 phone_number
+
+Reader: phone_number
+
+Type: MooseX::Types::Varchar::Varchar[20]
+
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -172,6 +178,14 @@ This attribute is required.
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
+
 =head2 credit_card
 
 Reader: credit_card
@@ -181,14 +195,6 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
 
 =head2 street2
 
