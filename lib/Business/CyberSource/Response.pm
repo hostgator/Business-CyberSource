@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = 'v0.4.3'; # VERSION
+our $VERSION = '0.004003'; # VERSION
 
 use Moose;
 use namespace::autoclean;
@@ -170,7 +170,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version v0.4.3
+version 0.004003
 
 =head1 DESCRIPTION
 

@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.3'; # VERSION
+our $VERSION = '0.004003'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
@@ -138,7 +138,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.4.3
+version 0.004003
 
 =for Pod::Coverage BUILD
 
