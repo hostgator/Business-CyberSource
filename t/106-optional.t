@@ -43,7 +43,7 @@ lives_ok {
 			. 'coJ3!erf2*^zSelUpZH8skCchWmW5TO#tkPOBrsgvZ1OgFLLk6lXyu'
 			. '17xf0hVm#Bmd8oItEfc1VFw0t*fdhiVEzgZhtCRFaREIIk2mzi*YyH'
 			. 's&iMRx$@pF2h@LWf6uEwjce%KPKQrN#t9Fo&IB4NQNP3tUT5@^ahtN'
-			. 'fJ&8Y1*KwpkL!gIxtEPBuN$^UGow7HbBN2aE$6^JL!C8RiFZ6F*B',
+			. 'fJ&8Y1*KwpkL!gIxtEPBuN$^UGow7HbBN2aE$6^JL!C8RiFZ6F*Bls',
 		full_name      => 'Caleb Cushing',
 	})
 } 'new authorization';
