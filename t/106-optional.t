@@ -39,7 +39,7 @@ lives_ok {
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		ip             => '192.168.42.39',
-		comment        => 'aMrC@&@viibeT1Td&#PAZfgEFoHL@gBiGy&AMDmi@R'
+		comments       => 'aMrC@&@viibeT1Td&#PAZfgEFoHL@gBiGy&AMDmi@R'
 			. 'coJ3!erf2*^zSelUpZH8skCchWmW5TO#tkPOBrsgvZ1OgFLLk6lXyu'
 			. '17xf0hVm#Bmd8oItEfc1VFw0t*fdhiVEzgZhtCRFaREIIk2mzi*YyH'
 			. 's&iMRx$@pF2h@LWf6uEwjce%KPKQrN#t9Fo&IB4NQNP3tUT5@^ahtN'
