@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+v0.4.3    2011-10-23
+
 v0.4.2    2011-10-18
 	- add a field for ->phone_number
 	- fix the way ->ip_address is transmitted

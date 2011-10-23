@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.2'; # VERSION
+our $VERSION = 'v0.4.3'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
@@ -28,7 +28,7 @@ Business::CyberSource::Request::StandAloneCredit - CyberSource Credit Request Ob
 
 =head1 VERSION
 
-version v0.4.2
+version v0.4.3
 
 =head1 SYNOPSIS
 
@@ -83,6 +83,12 @@ Reader: cybs_wsdl
 Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
+
+=head2 comments
+
+Reader: comments
+
+Type: Str
 
 =head2 state
 

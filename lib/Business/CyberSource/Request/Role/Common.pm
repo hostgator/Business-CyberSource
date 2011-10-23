@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = 'v0.4.2'; # VERSION
+our $VERSION = 'v0.4.3'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
@@ -99,6 +99,15 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 	}
 }
 
+has comments => (
+	is       => 'ro',
+	isa      => Str,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{comments} = $self->comments;
+	},
+);
+
 has trace => (
 	is       => 'rw',
 	isa      => 'XML::Compile::SOAP::Trace',
@@ -129,7 +138,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version v0.4.2
+version v0.4.3
 
 =for Pod::Coverage BUILD
 

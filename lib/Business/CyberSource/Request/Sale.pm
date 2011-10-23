@@ -4,7 +4,7 @@ use warnings;
 use namespace::autoclean;
 use Carp;
 
-our $VERSION = 'v0.4.2'; # VERSION
+our $VERSION = 'v0.4.3'; # VERSION
 
 use Moose;
 with qw(
@@ -119,7 +119,7 @@ Business::CyberSource::Request::Sale - Sale Request Object
 
 =head1 VERSION
 
-version v0.4.2
+version v0.4.3
 
 =head1 SYNOPSIS
 
@@ -184,6 +184,12 @@ Reader: cybs_wsdl
 Type: MooseX::Types::Path::Class::File
 
 Additional documentation: provided by the library
+
+=head2 comments
+
+Reader: comments
+
+Type: Str
 
 =head2 state
 
@@ -257,14 +263,6 @@ Reader: phone_number
 
 Type: MooseX::Types::Varchar::Varchar[20]
 
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -274,6 +272,14 @@ Type: MooseX::Types::Varchar::Varchar[2]
 This attribute is required.
 
 Additional documentation: Two-digit month that the credit card expires in. Format: MM.
+
+=head2 total
+
+Reader: total
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
 
 =head2 username
 
