@@ -39,11 +39,7 @@ lives_ok {
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		ip             => '192.168.42.39',
-		comments       => 'aMrC@&@viibeT1Td&#PAZfgEFoHL@gBiGy&AMDmi@R'
-			. 'coJ3!erf2*^zSelUpZH8skCchWmW5TO#tkPOBrsgvZ1OgFLLk6lXyu'
-			. '17xf0hVm#Bmd8oItEfc1VFw0t*fdhiVEzgZhtCRFaREIIk2mzi*YyH'
-			. 's&iMRx$@pF2h@LWf6uEwjce%KPKQrN#t9Fo&IB4NQNP3tUT5@^ahtN'
-			. 'fJ&8Y1*KwpkL!gIxtEPBuN$^UGow7HbBN2aE$6^JL!C8RiFZ6F*Bls',
+		comments       => 'just a comment'
 		full_name      => 'Caleb Cushing',
 	})
 } 'new authorization';
