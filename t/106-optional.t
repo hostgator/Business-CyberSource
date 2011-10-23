@@ -39,6 +39,7 @@ lives_ok {
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		ip             => '192.168.42.39',
+		comments       => 'just a comment',
 		full_name      => 'Caleb Cushing',
 	})
 } 'new authorization';

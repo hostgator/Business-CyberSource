@@ -99,6 +99,15 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 	}
 }
 
+has comments => (
+	is       => 'ro',
+	isa      => Str,
+	trigger  => sub {
+		my $self = shift;
+		$self->_request_data->{comments} = $self->comments;
+	},
+);
+
 has trace => (
 	is       => 'rw',
 	isa      => 'XML::Compile::SOAP::Trace',
