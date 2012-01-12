@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300003, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "Dist::Zilla version 4.300006, CPAN::Meta::Converter version 2.113640",
    "license" : [
       "artistic_2"
    ],
@@ -78,7 +78,8 @@
             "File::Find" : 0,
             "File::Temp" : 0,
             "Test::Exception" : 0,
-            "Test::More" : "0.88"
+            "Test::More" : "0.88",
+            "Test::Requires" : 0
          }
       }
    },

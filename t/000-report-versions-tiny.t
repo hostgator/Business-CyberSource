@@ -85,6 +85,7 @@ eval { $v .= pmver('MooseX::Types::Varchar','any version') };
 eval { $v .= pmver('Path::Class','any version') };
 eval { $v .= pmver('Test::Exception','any version') };
 eval { $v .= pmver('Test::More','0.88') };
+eval { $v .= pmver('Test::Requires','any version') };
 eval { $v .= pmver('XML::Compile::SOAP11','any version') };
 eval { $v .= pmver('XML::Compile::SOAP::WSS','0.12') };
 eval { $v .= pmver('XML::Compile::Transport::SOAPHTTP','any version') };
