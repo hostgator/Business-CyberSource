@@ -25,7 +25,7 @@ DESCRIPTION
     them, but due to the size of the upstream API, I have not had time to
     cover all the features and some are currently undocumented.
 
-ACKNOWLEDGEMENTS
+ACKNOWLEDGMENTS
     *   Mark Overmeer
 
         for the help with getting XML::Compile::SOAP::WSS working.
