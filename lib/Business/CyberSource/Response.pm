@@ -16,6 +16,7 @@ with qw(
 use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use MooseX::Types::Moose qw( Str Int Bool );
+use MooseX::Types::Common::String 0.001005 qw( NumericCode );
 use MooseX::Types::CyberSource qw( Decision );
 use MooseX::Types::Varchar qw( Varchar );
 
@@ -29,7 +30,7 @@ has decision => (
 has reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => NumericCode,
 	documentation => 'Numeric value corresponding to the result '
 		. 'of the credit card authorization request',
 );
