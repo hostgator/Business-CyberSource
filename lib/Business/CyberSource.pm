@@ -143,7 +143,7 @@ documented, or are missing here, please file a bug. I'll be happy to add them,
 but due to the size of the upstream API, I have not had time to cover all the features
 and some are currently undocumented.
 
-=head1 ACKNOWLEDGEMENTS
+=head1 ACKNOWLEDGMENTS
 
 =over
 
