@@ -16,7 +16,7 @@ with qw(
 use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use MooseX::Types::Moose qw( Str Int Bool );
-use MooseX::Types::Common::String qw( NumericCode );
+use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 use MooseX::Types::CyberSource qw( Decision );
 use MooseX::Types::Varchar qw( Varchar );
 
@@ -39,7 +39,7 @@ has reason_text => (
 	required => 1,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => Str,
+	isa      => NonEmptySimpleStr,
 	builder  => '_build_reason_text',
 );
 
