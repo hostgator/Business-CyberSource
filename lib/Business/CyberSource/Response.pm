@@ -58,7 +58,7 @@ has is_accepted => (
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Bool,
-	alias    => [ qw( accepted is_accepted is_success ) ],
+	alias    => [ qw( accepted is_success ) ],
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
