@@ -16,7 +16,6 @@ with qw(
 use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use MooseX::Types::Moose qw( Str Int Bool );
-use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 use MooseX::Types::CyberSource qw( Decision );
 use MooseX::Types::Varchar qw( Varchar );
 
@@ -30,7 +29,7 @@ has decision => (
 has reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => NumericCode,
+	isa      => Int,
 	documentation => 'Numeric value corresponding to the result '
 		. 'of the credit card authorization request',
 );
@@ -39,8 +38,12 @@ has reason_text => (
 	required => 1,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => NonEmptySimpleStr,
+	isa      => Str,
 	builder  => '_build_reason_text',
+	documentation => 'official description of returned reason code. '
+		. 'warning: reason codes are returned by CyberSource and '
+		. 'occasionally do not reflect the real reason for the error '
+		. 'please inspect the trace request/response for issues',
 );
 
 has request_token => (
@@ -53,16 +56,18 @@ has request_token => (
 		. 'number. The string can contain up to 256 characters.',
 );
 
-has is_accepted => (
+has accepted => (
 	required => 0,
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Bool,
-	alias    => [ qw( accepted is_success ) ],
+	alias    => [ qw( is_success is_accepted ) ],
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
 	},
+	documentation => 'boolean way of determining whether the transaction was '
+		. 'accepted',
 );
 
 
@@ -187,17 +192,61 @@ Role|Business::CyberSource::Response::Role::Accept>
 
 =head2 reason_text
 
-official description of returned reason code.
+Reader: reason_text
 
-I<warning:> reason codes are returned by CyberSource and occasionally do not
-reflect the real reason for the error please inspect the trace request/response
-for issues
+Type: Str
 
-=head2 is_accepted
+This attribute is required.
+
+Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
+
+=head2 request_id
+
+Reader: request_id
+
+Type: MooseX::Types::Varchar::Varchar[29]
+
+This attribute is required.
+
+=head2 decision
+
+Reader: decision
+
+Type: MooseX::Types::CyberSource::Decision
+
+This attribute is required.
+
+Additional documentation: Summarizes the result of the overall request
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: Int
+
+This attribute is required.
+
+Additional documentation: Numeric value corresponding to the result of the credit card authorization request
+
+=head2 request_token
+
+Reader: request_token
+
+Type: MooseX::Types::Varchar::Varchar[256]
+
+This attribute is required.
+
+Additional documentation: Request token data created by CyberSource for each reply. The field is an encoded string that contains no confidential information, such as an account or card verification number. The string can contain up to 256 characters.
+
+=head2 accepted
+
+Reader: accepted
 
 Type: Bool
 
-if a transaction was rejected, or errored this will be false
+Additional documentation: boolean way of determining whether the transaction was accepted
+
+=head1 ATTRIBUTES
 
 =head2 amount
 

@@ -20,6 +20,7 @@ add_stopwords(<DATA>);
 all_pod_files_spelling_ok('bin', 'lib');
 __DATA__
 SubmittingPatches
+CyberSource
 CyberSource's
 Num
 Str
@@ -44,14 +45,13 @@ UATP
 YYYY
 timestamp
 overmeer
+ACKNOWLEDGEMENTS
 AVS
 MerchantReferenceCode
-errored
 Caleb
 Cushing
 lib
 Business
-CyberSource
 Request
 FollowOnCredit
 Role
