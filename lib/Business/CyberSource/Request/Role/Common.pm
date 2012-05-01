@@ -10,10 +10,14 @@ our $VERSION = '0.004004'; # VERSION
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::URI     qw( Uri     );
+use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::SetOnce 0.200001;
 
+use Path::Class;
+use File::ShareDir qw( dist_file );
+use Config;
+
 with qw(
-	Business::CyberSource
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::Credentials
 	Business::CyberSource::Role::MerchantReferenceCode
@@ -96,6 +100,111 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 				unless $self->has_zip;
 		}
 	}
+}
+
+
+has client_version => (
+	required => 0,
+	lazy     => 1,
+	init_arg => undef,
+	is       => 'ro',
+	isa      => Str,
+	default  => sub {
+		my $version
+			= $Business::CyberSource::VERSION ? $Business::CyberSource::VERSION
+			                                  : '0'
+			;
+		return $version;
+	},
+);
+
+has client_name => (
+	required => 0,
+	lazy     => 1,
+	init_arg => undef,
+	is       => 'ro',
+	isa      => Str,
+	default  => sub { return 'Business::CyberSource' },
+	documentation => 'provided by the library',
+);
+
+has client_env => (
+	required => 0,
+	lazy     => 1,
+	init_arg => undef,
+	is       => 'ro',
+	isa      => Str,
+	default  => sub {
+		return "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
+	},
+	documentation => 'provided by the library',
+);
+
+has cybs_api_version => (
+	required => 0,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => Str,
+	default  => '1.62',
+	documentation => 'provided by the library',
+);
+
+has cybs_wsdl => (
+	required  => 0,
+	lazy      => 1,
+	is        => 'ro',
+	isa       => File,
+	builder   => '_build_cybs_wsdl',
+	documentation => 'provided by the library',
+);
+
+has cybs_xsd => (
+	required => 0,
+	lazy     => 1,
+	is       => 'ro',
+	isa      => File,
+	builder  => '_build_cybs_xsd',
+	documentation => 'provided by the library',
+);
+
+sub _build_cybs_wsdl {
+		my $self = shift;
+
+		my $dir = $self->production ? 'production' : 'test';
+
+		my $file
+			= Path::Class::File->new(
+				dist_file(
+					'Business-CyberSource',
+					$dir
+					. '/'
+					. 'CyberSourceTransaction_'
+					. $self->cybs_api_version
+					. '.wsdl'
+				)
+			);
+
+		return $file;
+}
+
+sub _build_cybs_xsd {
+		my $self = shift;
+
+		my $dir = $self->production ? 'production' : 'test';
+
+		my $file
+			= Path::Class::File->new(
+				dist_file(
+					'Business-CyberSource',
+					$dir
+					. '/'
+					. 'CyberSourceTransaction_'
+					. $self->cybs_api_version
+					. '.xsd'
+				)
+			);
+
+		return $file;
 }
 
 has comments => (

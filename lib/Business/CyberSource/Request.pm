@@ -100,14 +100,6 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 
 Additional documentation: your SOAP transaction key
 
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-Additional documentation: 0: test server. 1: production server
-
 =head2 username
 
 Reader: username
@@ -115,6 +107,14 @@ Reader: username
 Type: __ANON__
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
+Additional documentation: 0: test server. 1: production server
 
 =head1 METHODS
 

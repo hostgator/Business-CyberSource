@@ -222,14 +222,6 @@ Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
 
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::CyberSource::_VarcharFifty
-
-This attribute is required.
-
 =head2 client_name
 
 Reader: client_name
@@ -237,6 +229,14 @@ Reader: client_name
 Type: Str
 
 Additional documentation: provided by the library
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::CyberSource::_VarcharFifty
+
+This attribute is required.
 
 =head2 client_version
 
