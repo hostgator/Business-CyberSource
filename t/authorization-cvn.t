@@ -1,18 +1,20 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
 use Data::Dumper;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
+
+my ( $cybs_id, $cybs_key )
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request::Authorization;
-
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
-$cybs_id  ||= 'test';
-$cybs_key ||= 'test';
 
 my $req;
 lives_ok {
@@ -45,13 +47,6 @@ note( Dumper $req->_request_data );
 is( $req->cvn,   '1111', 'check cvn'   );
 is( $req->total, '9000', 'check total' );
 
-
-SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		16
-		unless $CYBS_ID and $CYBS_KEY
-		;
-
 	my $ret;
 
 	lives_ok { $ret = $req->submit } 'submit';
@@ -75,5 +70,4 @@ SKIP: {
 	ok( $ret->request_token, 'check request_token exists' );
 	ok( $ret->datetime,      'check datetime exists'      );
 	ok( $ret->auth_record,   'check auth_record exists'   );
-}
 done_testing;

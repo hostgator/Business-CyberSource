@@ -1,14 +1,16 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
 
-plan skip_all
-	=> 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!'
-	unless $CYBS_ID and $CYBS_KEY
-	;
+my ( $CYBS_ID, $CYBS_KEY )
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::AuthReversal;

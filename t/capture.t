@@ -1,14 +1,16 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
 
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
-$cybs_id  ||= 'test';
-$cybs_key ||= 'test';
+my ( $cybs_id, $cybs_key)
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request::Authorization;
 use Business::CyberSource::Request::Capture;
@@ -35,12 +37,6 @@ my $req
 		cc_exp_year    => '2025',
 	})
 	;
-
-SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		9
-		unless $CYBS_ID and $CYBS_KEY
-		;
 
 	my $res;
 	eval { $res = $req->submit };
@@ -73,5 +69,4 @@ SKIP: {
 
 	ok( $cres->reconciliation_id, 'reconciliation_id exists' );
 	ok( $cres->request_id, 'check request_id exists' );
-}
 done_testing;

@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
 use Test::More;
@@ -75,6 +73,5 @@ my $req2
 		production     => 0,
 	});
 } qr/you must define either items or total/, 'check either items or total';
-
 
 done_testing;

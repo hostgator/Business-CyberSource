@@ -1,18 +1,20 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
 use Data::Dumper;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
+
+my ( $cybs_id, $cybs_key )
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request;
-
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
-$cybs_id  ||= 'test';
-$cybs_key ||= 'test';
 
 my $factory;
 lives_ok {
@@ -47,15 +49,6 @@ lives_ok {
 	})
 } 'create authorization';
 
-SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		16
-		unless $CYBS_ID and $CYBS_KEY
-		;
-
-	is( $req->username, $CYBS_ID,  'check username' );
-	is( $req->password, $CYBS_KEY, 'check key'      );
-
 	my $res;
 	lives_ok {
 		$res = $req->submit;
@@ -83,8 +76,8 @@ SKIP: {
 	lives_ok {
 		$credit_req = $factory->create( 'FollowOnCredit',
 		{
-			username       => $CYBS_ID,
-			password       => $CYBS_KEY,
+			username       => $cybs_id,
+			password       => $cybs_key,
 			reference_code => $req->reference_code,
 			total          => 5.00,
 			currency       => 'USD',
@@ -113,5 +106,4 @@ SKIP: {
 
 	ok( $credit->request_id,    'check request_id exists'    );
 	ok( $credit->datetime,      'check datetime exists'      );
-}
 done_testing;
