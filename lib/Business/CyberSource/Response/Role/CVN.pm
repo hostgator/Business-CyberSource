@@ -8,8 +8,7 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-use MooseX::Types::Varchar     qw( Varchar   );
-use MooseX::Types::CyberSource qw( CvResults );
+use MooseX::Types::CyberSource qw( CvResults _VarcharTen );
 
 has cv_code => (
 	required  => 0,
@@ -22,7 +21,7 @@ has cv_code_raw => (
 	required  => 0,
 	predicate => 'has_cv_code_raw',
 	is        => 'ro',
-	isa       => Varchar[10],
+	isa       => _VarcharTen,
 );
 
 1;

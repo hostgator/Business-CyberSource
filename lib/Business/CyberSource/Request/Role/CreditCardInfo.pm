@@ -10,9 +10,10 @@ use namespace::autoclean;
 use Moose::Role;
 use MooseX::Aliases;
 use MooseX::Types::Moose      qw( Int HashRef );
-use MooseX::Types::Varchar    qw( Varchar    );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
-use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
+use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode _VarcharSixty );
+
+use Moose::Util::TypeConstraints;
 
 use Business::CreditCard qw( cardtype );
 
@@ -43,7 +44,7 @@ has card_type => (
 has cc_exp_month => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[2],
+	isa      => subtype( Int, where { length("$_") <= 2 }),
 	alias    => [ qw( exp_month expiration_month ) ],
 	trigger  => sub {
 		my $self = shift;
@@ -56,7 +57,7 @@ has cc_exp_month => (
 has cc_exp_year => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[4],
+	isa      => subtype( Int, where { length("$_") <= 4 }),
 	alias    => [ qw( exp_year expiration_year ) ],
 	trigger  => sub {
 		my $self = shift;
@@ -100,7 +101,7 @@ has cvn => (
 has full_name => (
 	required => 0,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{card}{fullName} = $self->full_name;

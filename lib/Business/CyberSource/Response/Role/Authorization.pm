@@ -13,14 +13,14 @@ with qw(
 	Business::CyberSource::Response::Role::CVN
 );
 
-use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::Moose   qw( Str     );
+use MooseX::Types::CyberSource qw( _VarcharSeven );
 
 has auth_code => (
 	required  => 0,
 	predicate => 'has_auth_code',
 	is        => 'ro',
-	isa       => Varchar[7],
+	isa       => _VarcharSeven,
 );
 
 has auth_record => (

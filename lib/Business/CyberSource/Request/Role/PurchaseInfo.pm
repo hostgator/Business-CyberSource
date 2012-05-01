@@ -15,7 +15,6 @@ with qw(
 
 use MooseX::Types::Moose            qw( HashRef           );
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
-use MooseX::Types::Varchar          qw( Varchar           );
 use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
 has total => (

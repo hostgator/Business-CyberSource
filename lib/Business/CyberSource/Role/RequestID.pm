@@ -8,13 +8,15 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
-use MooseX::Types::Varchar qw( Varchar );
+
+use MooseX::Types::Common::String qw( NonEmptySimpleStr );
+use Moose::Util::TypeConstraints;
 
 has request_id => (
 	required  => 1,
 	predicate => 'has_request_id',
 	is        => 'ro',
-	isa       => Varchar[29],
+	isa       => subtype( NonEmptySimpleStr, where { length $_ <= 29 }),
 );
 
 1;

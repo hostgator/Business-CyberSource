@@ -15,9 +15,16 @@ use MooseX::Types -declare => [ qw(
 	DCCIndicator
 	Decision
 	Item
+	_VarcharOne
+	_VarcharSeven
+	_VarcharTen
+	_VarcharTwenty
+	_VarcharFifty
+	_VarcharSixty
 ) ];
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
 use MooseX::Types::Moose qw( Int Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Locale::Country;
@@ -50,6 +57,7 @@ enum CardTypeCode, [ qw(
 ) ];
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
+
 
 subtype Item,
 	as Dict[
@@ -88,6 +96,35 @@ coerce CountryCode,
 
 enum DCCIndicator, [ qw( 1 2 3 ) ];
 
+subtype _VarcharOne,
+	as NonEmptySimpleStr,
+	where { length $_ <= 1 }
+	;
+
+subtype _VarcharSeven,
+	as NonEmptySimpleStr,
+	where { length $_ <= 7 }
+	;
+
+subtype _VarcharTen,
+	as NonEmptySimpleStr,
+	where { length $_ <= 10 }
+	;
+
+subtype _VarcharTwenty,
+	as NonEmptySimpleStr,
+	where { length $_ <= 20 }
+	;
+
+subtype _VarcharFifty,
+	as NonEmptySimpleStr,
+	where { length $_ <= 50 }
+	;
+
+subtype _VarcharSixty,
+	as NonEmptySimpleStr,
+	where { length $_ <= 60 }
+	;
 1;
 
 # ABSTRACT: Moose Types specific to CyberSource

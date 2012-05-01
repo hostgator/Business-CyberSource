@@ -8,8 +8,7 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-use MooseX::Types::CyberSource qw( AVSResult );
-use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::CyberSource qw( AVSResult _VarcharTen );
 
 has avs_code => (
 	required => 0,
@@ -23,7 +22,7 @@ has avs_code_raw => (
 	required  => 0,
 	predicate => 'has_avs_code_raw',
 	is        => 'ro',
-	isa       => Varchar[10],
+	isa       => _VarcharTen,
 	documentation => 'AVS result code sent directly from the processor. '
 		. 'Returned only if a value is returned by the processor.',
 );
