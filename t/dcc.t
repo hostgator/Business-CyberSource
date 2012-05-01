@@ -1,18 +1,20 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
+
+my ( $cybs_id, $cybs_key )
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request::DCC;
 use Business::CyberSource::Request::Authorization;
-
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
-$cybs_id  ||= 'test';
-$cybs_key ||= 'test';
 
 my $dcc_req;
 lives_ok {
@@ -29,12 +31,6 @@ lives_ok {
 		foreign_currency => 'JPY',
 	})
 } 'DCC object initialized';
-
-SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		12
-		unless $CYBS_ID and $CYBS_KEY
-		;
 
 	note( '!!!: if this fails please ensure that cybersource has enabled DCC '
 		. 'for your account' )
@@ -62,6 +58,5 @@ SKIP: {
 	is( $dcc->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
 	ok( $dcc->valid_hours, 'check valid hours exists' );
 	is( $dcc->margin_rate_percentage, '03.0000', 'check margin rate percentage' );
-}
 
 done_testing;

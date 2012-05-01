@@ -7,7 +7,8 @@ use namespace::autoclean;
 our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
-use MooseX::Types::Moose qw( Bool ArrayRef Int );
+use MooseX::Types::Moose qw( Bool ArrayRef );
+use MooseX::Types::Common::String 0.001005 qw( NumericCode );
 use MooseX::Types::CyberSource qw( AVSResult );
 
 has ignore_avs_result => (
@@ -94,7 +95,7 @@ has decline_avs_flags => (
 has score_threshold => (
 	predicate => 'has_score_threshold',
 	required  => 0,
-	isa       => Int,
+	isa       => NumericCode,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{businessRules}{scoreThreshold}

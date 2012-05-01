@@ -1,21 +1,15 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
 use Test::More;
+use Test::Exception;
 
 use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::AuthReversal;
-use Business::CyberSource::Request::Credit;
-use Business::CyberSource::Request::Capture;
-use Business::CyberSource::Request::DCC;
 
-my $req0
+my $req
 	= Business::CyberSource::Request::Authorization->new({
-		username       => 'test',
+		username       => 'foobar',
 		password       => 'test',
-		production     => 0,
-		reference_code => 't100',
+		reference_code => 't001',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -24,13 +18,17 @@ my $req0
 		zip            => '77064',
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
-		total          => 3000.00,
+		ip             => '192.168.100.2',
+		total          => 5.00,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
+		production     => 0,
 	});
 
-ok( $req0, 'authorization object created' );
+is( $req->username, 'foobar',  'check username' );
+is( $req->password, 'test'  ,  'check password' );
 
+throws_ok { $req->submit } qr/SOAP Fault/, 'submit threw exception ok';
 done_testing;

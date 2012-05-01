@@ -335,7 +335,7 @@ Additional documentation: Third line of the billing street address.
 
 =head2 score_threshold
 
-Type: Int
+Type: MooseX::Types::Common::String::NumericCode
 
 =head2 ignore_avs_result
 

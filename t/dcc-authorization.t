@@ -1,17 +1,19 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Exception;
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
+
+my ( $cybs_id, $cybs_key )
+	= (
+		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+	);
 
 use Business::CyberSource::Request;
-
-my ( $cybs_id, $cybs_key ) = ( $CYBS_ID, $CYBS_KEY );
-
-$cybs_id  ||= 'test';
-$cybs_key ||= 'test';
 
 my $factory;
 lives_ok {
@@ -37,12 +39,6 @@ lives_ok {
 		foreign_currency => 'EUR',
 	})
 } 'DCC request object created';
-
-SKIP: {
-	skip 'You MUST set ENV variable CYBS_ID and CYBS_KEY to test this!',
-		7
-		unless $CYBS_ID and $CYBS_KEY
-		;
 
 	note( '!!!: if this fails please ensure that cybersource has enabled DCC '
 		. 'for your account' )
@@ -140,6 +136,5 @@ SKIP: {
 
 	is( $cred_res->is_accepted, 1, 'check that credit decicion is ACCEPT');
 	is( $cred_res->amount, '1.00', 'check that credit amount is 1.00' );
-}
 
 done_testing;
