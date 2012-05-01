@@ -195,7 +195,7 @@ Type: Str
 
 Reader: state
 
-Type: MooseX::Types::Varchar::Varchar[2]
+Type: __ANON__
 
 Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
 
@@ -231,7 +231,7 @@ Additional documentation: your SOAP transaction key
 
 Reader: postal_code
 
-Type: MooseX::Types::Varchar::Varchar[10]
+Type: MooseX::Types::CyberSource::_VarcharTen
 
 Additional documentation: Postal code for the billing address. The postal code must consist of 5 to 9 digits. Required if C<country> is "US" or "CA"alias: C<postal_code>
 
@@ -261,13 +261,13 @@ Additional documentation: Card Verification Numbers
 
 Reader: phone_number
 
-Type: MooseX::Types::Varchar::Varchar[20]
+Type: MooseX::Types::CyberSource::_VarcharTwenty
 
 =head2 cc_exp_month
 
 Reader: cc_exp_month
 
-Type: MooseX::Types::Varchar::Varchar[2]
+Type: __ANON__
 
 This attribute is required.
 
@@ -285,7 +285,7 @@ Additional documentation: Grand total for the order. You must include either thi
 
 Reader: username
 
-Type: MooseX::Types::Varchar::Varchar[30]
+Type: __ANON__
 
 This attribute is required.
 
@@ -313,7 +313,7 @@ Additional documentation: Type of card to authorize
 
 Reader: street2
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 Additional documentation: Second line of the billing street address.
 
@@ -321,7 +321,7 @@ Additional documentation: Second line of the billing street address.
 
 Reader: reference_code
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::CyberSource::_VarcharFifty
 
 This attribute is required.
 
@@ -329,7 +329,7 @@ This attribute is required.
 
 Reader: street3
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 Additional documentation: Third line of the billing street address.
 
@@ -347,7 +347,7 @@ Type: Bool
 
 Reader: last_name
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 This attribute is required.
 
@@ -373,7 +373,7 @@ This attribute is required.
 
 Reader: city
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::CyberSource::_VarcharFifty
 
 This attribute is required.
 
@@ -393,7 +393,7 @@ Additional documentation: 0: test server. 1: production server
 
 Reader: street4
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 Additional documentation: Fourth line of the billing street address.
 
@@ -437,13 +437,13 @@ Type: Bool
 
 Reader: full_name
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 =head2 street1
 
 Reader: street1
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 This attribute is required.
 
@@ -453,7 +453,7 @@ Additional documentation: First line of the billing street address as it appears
 
 Reader: cc_exp_year
 
-Type: MooseX::Types::Varchar::Varchar[4]
+Type: __ANON__
 
 This attribute is required.
 
@@ -515,7 +515,7 @@ Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 Reader: first_name
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 This attribute is required.
 

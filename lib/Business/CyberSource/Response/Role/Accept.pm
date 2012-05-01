@@ -13,7 +13,6 @@ with qw(
 );
 
 use MooseX::Types::Moose         qw( Num Int );
-use MooseX::Types::Varchar       qw( Varchar );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
 

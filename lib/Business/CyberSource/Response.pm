@@ -17,8 +17,9 @@ use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use MooseX::Types::Moose qw( Str Bool );
 use MooseX::Types::CyberSource qw( Decision );
-use MooseX::Types::Common::String 0.001005 qw( NumericCode );
-use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
+
+use Moose::Util::TypeConstraints;
 
 has decision => (
 	required => 1,
@@ -50,7 +51,7 @@ has reason_text => (
 has request_token => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[256],
+	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
 	documentation => 'Request token data created by CyberSource for each '
 		. 'reply. The field is an encoded string that contains no '
 		. 'confidential information, such as an account or card verification '
@@ -205,7 +206,7 @@ Additional documentation: official description of returned reason code. warning:
 
 Reader: request_id
 
-Type: MooseX::Types::Varchar::Varchar[29]
+Type: __ANON__
 
 This attribute is required.
 
@@ -233,7 +234,7 @@ Additional documentation: Numeric value corresponding to the result of the credi
 
 Reader: request_token
 
-Type: MooseX::Types::Varchar::Varchar[256]
+Type: __ANON__
 
 This attribute is required.
 
@@ -275,7 +276,7 @@ Request timestamp (will probably become a DateTime object at some point)
 
 =head2 reference_code
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: Varying character 50
 
 Condition: ACCEPT
 
@@ -292,7 +293,7 @@ e.g. for capture this is the ccCaptureReply_reasonCode.
 
 =head2 processor_response
 
-Type: MooseX::Types::Varchar::Varchar[10]
+Type: Varying character 10
 
 Condition: ACCEPT and be either an Authorization or Authorization Reversal
 
@@ -304,13 +305,13 @@ Condition: ACCEPT and be either a Credit or Capture
 
 =head2 avs_code
 
-Type: MooseX::Types::Varchar::Varchar[1]
+Type: Varying character 1
 
 Condition: ACCEPT and Authorization
 
 =head2 avs_code_raw
 
-Type: MooseX::Types::Varchar::Varchar[10]
+Type: Varying character 10
 
 Condition: ACCEPT and Authorization
 
@@ -322,13 +323,13 @@ Condition: ACCEPT and Authorization
 
 =head2 auth_code
 
-Type: MooseX::Types::Varchar::Varchar[7]
+Type: Varying character 7
 
 Condition: ACCEPT and Authorization
 
 =head2 cv_code
 
-Type: MooseX::Types::Varchar::Varchar[1]
+Type: Single Char
 
 Condition: ACCEPT, Authorization, and cv_code actually returned
 
@@ -336,7 +337,7 @@ you can use predicate has_cv_code to check if attribute is defined
 
 =head2 cv_code_raw
 
-Type: MooseX::Types::Varchar::Varchar[10]
+Type: Varying character 10
 
 Condition: ACCEPT, Authorization, and cv_code_raw actually returned
 

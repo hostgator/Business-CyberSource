@@ -112,7 +112,7 @@ Additional documentation: 0: test server. 1: production server
 
 Reader: username
 
-Type: MooseX::Types::Varchar::Varchar[30]
+Type: __ANON__
 
 Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
 

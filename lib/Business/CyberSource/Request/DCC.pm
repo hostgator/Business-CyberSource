@@ -231,7 +231,7 @@ Additional documentation: Card Verification Numbers
 
 Reader: cc_exp_month
 
-Type: MooseX::Types::Varchar::Varchar[2]
+Type: __ANON__
 
 This attribute is required.
 
@@ -249,7 +249,7 @@ Additional documentation: Grand total for the order. You must include either thi
 
 Reader: username
 
-Type: MooseX::Types::Varchar::Varchar[30]
+Type: __ANON__
 
 This attribute is required.
 
@@ -277,7 +277,7 @@ Additional documentation: Type of card to authorize
 
 Reader: reference_code
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::CyberSource::_VarcharFifty
 
 This attribute is required.
 
@@ -323,13 +323,13 @@ Type: Str
 
 Reader: full_name
 
-Type: MooseX::Types::Varchar::Varchar[60]
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 =head2 cc_exp_year
 
 Reader: cc_exp_year
 
-Type: MooseX::Types::Varchar::Varchar[4]
+Type: __ANON__
 
 This attribute is required.
 

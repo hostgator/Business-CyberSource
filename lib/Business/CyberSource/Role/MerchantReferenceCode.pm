@@ -8,12 +8,12 @@ use namespace::autoclean;
 our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
-use MooseX::Types::Varchar qw( Varchar );
+use MooseX::Types::CyberSource qw( _VarcharFifty );
 
 has reference_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[50],
+	isa      => _VarcharFifty,
 );
 
 1;

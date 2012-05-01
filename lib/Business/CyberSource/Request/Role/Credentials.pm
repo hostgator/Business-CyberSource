@@ -7,9 +7,10 @@ our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
 use namespace::autoclean;
-use MooseX::Types::Varchar        qw( Varchar  );
 use MooseX::Types::Moose          qw( Bool Str Object );
-use MooseX::Types::Common::String qw( NonEmptyStr );
+use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
+
+use Moose::Util::TypeConstraints;
 
 use XML::Compile::SOAP::WSS;
 
@@ -23,7 +24,7 @@ has production => (
 has username => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[30],
+	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
 	documentation => 'Your CyberSource merchant ID. Use the same merchantID '
 		. 'for evaluation, testing, and production',
 );

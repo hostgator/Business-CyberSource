@@ -121,7 +121,7 @@ Additional documentation: 0: test server. 1: production server
 
 Reader: request_id
 
-Type: MooseX::Types::Varchar::Varchar[29]
+Type: __ANON__
 
 This attribute is required.
 
@@ -157,7 +157,7 @@ Additional documentation: Grand total for the order. You must include either thi
 
 Reader: username
 
-Type: MooseX::Types::Varchar::Varchar[30]
+Type: __ANON__
 
 This attribute is required.
 
@@ -181,7 +181,7 @@ Type: MooseX::Types::CyberSource::DCCIndicator
 
 Reader: reference_code
 
-Type: MooseX::Types::Varchar::Varchar[50]
+Type: MooseX::Types::CyberSource::_VarcharFifty
 
 This attribute is required.
 

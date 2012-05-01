@@ -9,7 +9,6 @@ our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
-use MooseX::Types::Varchar qw( Varchar );
 use MooseX::Types::URI     qw( Uri     );
 use MooseX::SetOnce 0.200001;
 

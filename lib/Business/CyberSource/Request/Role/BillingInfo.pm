@@ -9,15 +9,24 @@ our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
-use MooseX::Types::Varchar         qw( Varchar       );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
 use MooseX::Types::Email           qw( EmailAddress  );
-use MooseX::Types::CyberSource     qw( CountryCode   );
 use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
+
+use MooseX::Types::CyberSource qw(
+	CountryCode
+	_VarcharTen
+	_VarcharTwenty
+	_VarcharFifty
+	_VarcharSixty
+);
+
+use Moose::Util::TypeConstraints;
 
 has first_name => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{firstName} = $self->first_name;
@@ -29,7 +38,7 @@ has first_name => (
 has last_name => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{lastName} = $self->last_name;
@@ -41,7 +50,7 @@ has last_name => (
 has street1 => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	alias    => 'street',
 	trigger  => sub {
 		my $self = shift;
@@ -55,7 +64,7 @@ has street1 => (
 has street2 => (
 	required => 0,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	predicate => 'has_street2',
 	trigger  => sub {
 		my $self = shift;
@@ -67,7 +76,7 @@ has street2 => (
 has street3 => (
 	required => 0,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	predicate => 'has_street3',
 	trigger  => sub {
 		my $self = shift;
@@ -79,7 +88,7 @@ has street3 => (
 has street4 => (
 	required => 0,
 	is       => 'ro',
-	isa      => Varchar[60],
+	isa      => _VarcharSixty,
 	predicate => 'has_street4',
 	trigger  => sub {
 		my $self = shift;
@@ -91,7 +100,7 @@ has street4 => (
 has city => (
 	required => 1,
 	is       => 'ro',
-	isa      => Varchar[50],
+	isa      => _VarcharFifty,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{city} = $self->city;
@@ -103,7 +112,7 @@ has state => (
 	required => 0,
 	alias    => 'province',
 	is       => 'ro',
-	isa      => Varchar[2],
+	isa      => subtype( NonEmptySimpleStr, where { length $_ == 2 }),
 	predicate => 'has_state',
 	trigger  => sub {
 		my $self = shift;
@@ -130,7 +139,7 @@ has postal_code => (
 	required  => 0,
 	alias     => 'zip',
 	is        => 'ro',
-	isa       => Varchar[10],
+	isa       => _VarcharTen,
 	predicate => 'has_zip',
 	trigger   => sub {
 		my $self = shift;
@@ -146,7 +155,7 @@ has phone_number => (
 	required  => 0,
 	alias     => 'phone',
 	is        => 'ro',
-	isa       => Varchar[20],
+	isa       => _VarcharTwenty,
 	predicate => 'has_phone_number',
 	trigger   => sub {
 		my $self = shift;
