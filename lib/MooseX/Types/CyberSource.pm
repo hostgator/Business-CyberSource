@@ -1,5 +1,4 @@
 package MooseX::Types::CyberSource;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -128,6 +127,7 @@ subtype _VarcharSixty,
 1;
 
 # ABSTRACT: Moose Types specific to CyberSource
+
 
 
 __END__

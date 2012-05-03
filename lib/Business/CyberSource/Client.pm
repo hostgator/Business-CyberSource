@@ -2,6 +2,7 @@ package Business::CyberSource::Client;
 use 5.010;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 our $VERSION = '0.004005'; # VERSION
 
@@ -15,7 +16,7 @@ use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
-
+use Carp qw( carp );
 use Path::Class;
 use File::ShareDir qw( dist_file );
 use Config;
@@ -48,143 +49,18 @@ sub run_transaction {
 		%{ $dto->serialize },
 	);
 
+	if ( $self->_debug ) {
+		carp "\n> " . $trace->request->as_string;
+		carp "\n< " . $trace->response->as_string;
+	}
+
 	$dto->_trace( $trace );
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	my $r = $answer->{result};
-
-	my $res;
-	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
-		my $prefix      = 'Business::CyberSource::';
-		my $req_prefix  = $prefix . 'Request::';
-		my $res_prefix  = $prefix . 'Response::';
-		my $role_prefix = $res_prefix . 'Role::';
-
-		my @traits;
-		my $e = { };
-
-		if ( $r->{decision} eq 'ACCEPT' ) {
-			push( @traits, $role_prefix .'Accept' );
-
-			$e->{currency} = $r->{purchaseTotals}{currency};
-			$e->{reference_code} = $r->{merchantReferenceCode};
-
-			given ( $dto ) {
-				when ( $_->isa( $req_prefix . 'Authorization') ) {
-					$e->{amount        } = $r->{ccAuthReply}->{amount};
-					$e->{datetime      } = $r->{ccAuthReply}{authorizedDateTime};
-					$e->{request_specific_reason_code}
-						= "$r->{ccAuthReply}->{reasonCode}";
-					continue;
-				}
-				when ( $_->isa( $req_prefix . 'Capture')
-					or $_->isa( $req_prefix . 'Sale' )
-					) {
-					push( @traits, $role_prefix . 'ReconciliationID');
-
-					$e->{datetime} = $r->{ccCaptureReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccCaptureReply}->{amount};
-					$e->{reconciliation_id}
-						= $r->{ccCaptureReply}->{reconciliationID};
-					$e->{request_specific_reason_code}
-						= "$r->{ccCaptureReply}->{reasonCode}";
-				}
-				when ( $_->isa( $req_prefix . 'Credit') ) {
-					push( @traits, $role_prefix . 'ReconciliationID');
-
-					$e->{datetime} = $r->{ccCreditReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccCreditReply}->{amount};
-					$e->{reconciliation_id} = $r->{ccCreditReply}->{reconciliationID};
-					$e->{request_specific_reason_code}
-						= "$r->{ccCreditReply}->{reasonCode}";
-				}
-				when ( $_->isa( $req_prefix . 'DCC') ) {
-					push ( @traits, $role_prefix . 'DCC' );
-					$e->{exchange_rate} = $r->{purchaseTotals}{exchangeRate};
-					$e->{exchange_rate_timestamp}
-						= $r->{purchaseTotals}{exchangeRateTimeStamp};
-					$e->{foreign_currency}
-						= $r->{purchaseTotals}{foreignCurrency};
-					$e->{foreign_amount} = $r->{purchaseTotals}{foreignAmount};
-					$e->{dcc_supported}
-						= $r->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0;
-					$e->{valid_hours} = $r->{ccDCCReply}{validHours};
-					$e->{margin_rate_percentage}
-						= $r->{ccDCCReply}{marginRatePercentage};
-					$e->{request_specific_reason_code}
-						= "$r->{ccDCCReply}{reasonCode}";
-				}
-				when ( $_->isa( $req_prefix . 'AuthReversal' ) ) {
-					push ( @traits, $role_prefix . 'ProcessorResponse' );
-
-					$e->{datetime} = $r->{ccAuthReversalReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccAuthReversalReply}->{amount};
-
-					$e->{request_specific_reason_code}
-						= "$r->{ccAuthReversalReply}->{reasonCode}";
-					$e->{processor_response}
-						= $r->{ccAuthReversalReply}->{processorResponse};
-				}
-			}
-		}
-
-		if ( $dto->isa( $req_prefix . 'Authorization') ) {
-				push( @traits, $role_prefix . 'Authorization' );
-					if ( $r->{ccAuthReply} ) {
-
-						$e->{auth_code}
-							=  $r->{ccAuthReply}{authorizationCode }
-							if $r->{ccAuthReply}{authorizationCode }
-							;
-
-
-						if ( $r->{ccAuthReply}{cvCode}
-							&& $r->{ccAuthReply}{cvCodeRaw}
-							) {
-							$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
-							$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
-						}
-
-						if ( $r->{ccAuthReply}{avsCode}
-							&& $r->{ccAuthReply}{avsCodeRaw}
-							) {
-							$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
-							$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
-						}
-
-						if ( $r->{ccAuthReply}{processorResponse} ) {
-							$e->{processor_response}
-								= $r->{ccAuthReply}{processorResponse}
-								;
-						}
-
-						if ( $r->{ccAuthReply}->{authRecord} ) {
-							$e->{auth_record} = $r->{ccAuthReply}->{authRecord};
-						}
-					}
-		}
-
-		$res
-			= use_module('Business::CyberSource::Response')
-			->with_traits( @traits )
-			->new({
-				request_id     => $r->{requestID},
-				decision       => $r->{decision},
-				# quote reason_code to stringify from BigInt
-				reason_code    => "$r->{reasonCode}",
-				request_token  => $r->{requestToken},
-			%{$e},
-			})
-			;
-	}
-	else {
-		confess 'decision defined, but not sane: ' . $r->{decision};
-	}
-
-	return $res;
+	return $self->_response_factory->create( $answer, $dto  );
 }
 
 sub _build_cybs_wsdl {
@@ -226,6 +102,27 @@ sub _build_cybs_xsd {
 
 		return $file;
 }
+
+has _response_factory => (
+	isa      => 'Business::CyberSource::ResponseFactory',
+	is       => 'ro',
+	lazy     => 1,
+	writer   => undef,
+	init_arg => undef,
+	default  => sub {
+		return use_module('Business::CyberSource::ResponseFactory')->new;
+	},
+);
+
+has debug => (
+	isa     => 'Bool',
+	reader  => '_debug',
+	is      => 'ro',
+	lazy    => 1,
+	default => sub {
+		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
+	},
+);
 
 has production => (
 	isa      => 'Bool',
@@ -360,6 +257,12 @@ Type: MooseX::Types::Common::String::NonEmptyStr
 
 This attribute is required.
 
+=head2 debug
+
+Reader: _debug
+
+Type: Bool
+
 =head2 cybs_api_version
 
 Reader: cybs_api_version
@@ -429,6 +332,12 @@ CyberSource API KEY
 
 Boolean value when true your requests will go to the production server, when
 false they will go to the testing server
+
+=head2 debug
+
+Boolean value that causes the HTTP request/response to be output to STDOUT
+when a transaction is run. defaults to value of the environment variable
+C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
 =head1 BUGS
 

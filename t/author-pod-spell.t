@@ -76,3 +76,4 @@ Items
 CreditCardInfo
 ForeignCurrency
 Sale
+ResponseFactory
