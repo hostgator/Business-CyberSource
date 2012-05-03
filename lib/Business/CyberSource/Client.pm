@@ -2,6 +2,7 @@ package Business::CyberSource::Client;
 use 5.010;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 
@@ -15,6 +16,7 @@ use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
+use Carp qw( carp );
 use Path::Class;
 use File::ShareDir qw( dist_file );
 use Config;
@@ -46,6 +48,11 @@ sub run_transaction {
 		merchantReferenceCode => $dto->reference_code,
 		%{ $dto->serialize },
 	);
+
+	if ( $self->_debug ) {
+		carp "\n> " . $trace->request->as_string;
+		carp "\n< " . $trace->response->as_string;
+	}
 
 	$dto->_trace( $trace );
 
@@ -104,6 +111,16 @@ has _response_factory => (
 	init_arg => undef,
 	default  => sub {
 		return use_module('Business::CyberSource::ResponseFactory')->new;
+	},
+);
+
+has debug => (
+	isa     => 'Bool',
+	reader  => '_debug',
+	is      => 'ro',
+	lazy    => 1,
+	default => sub {
+		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
 	},
 );
 
