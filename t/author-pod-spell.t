@@ -17,8 +17,6 @@ eval "use Test::Spelling 0.12; use Pod::Wordlist::hanekomu; 1" or die $@;
 add_stopwords(<DATA>);
 all_pod_files_spelling_ok('bin', 'lib');
 __DATA__
-SubmittingPatches
-CyberSource
 CyberSource's
 Num
 Str
@@ -31,7 +29,6 @@ cvn
 cvc
 cvv
 login
-AuthReversal
 SOAPI
 Bleue
 Carta
@@ -43,17 +40,19 @@ UATP
 YYYY
 timestamp
 overmeer
-ACKNOWLEDGEMENTS
 AVS
 MerchantReferenceCode
+env
 Caleb
 Cushing
 lib
 Business
+CyberSource
 Role
 Currency
 Request
 BusinessRules
+AuthReversal
 Authorization
 Response
 CVN
