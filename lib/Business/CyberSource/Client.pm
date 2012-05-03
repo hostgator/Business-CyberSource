@@ -319,7 +319,7 @@ __PACKAGE__->meta->make_immutable;
 
 	my $request = 'Some Business::CyberSource::Request Object';
 
-	my $client = Business::CyberSource:Request->new({
+	my $client = Business::CyberSource::Request->new({
 		username   => 'Merchant ID',
 		password   => 'API KEY',
 		production => 0,
