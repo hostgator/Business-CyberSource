@@ -96,6 +96,16 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 version 0.004004
 
+=head1 METHODS
+
+=head2 serialize
+
+returns a hashref suitable for passing to L<XML::Compile::SOAP>
+
+=head2 submit
+
+B<DEPRECATED> now calls L<Business::CyberSource::Client>
+
 =for Pod::Coverage BUILD
 
 =head1 BUGS
