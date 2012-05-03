@@ -341,7 +341,7 @@ a L<Business::CyberSource::Response>
 
 =attr username
 
-CyberSource MerchantID
+CyberSource Merchant ID
 
 =attr password
 
