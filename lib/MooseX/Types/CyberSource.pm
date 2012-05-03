@@ -1,5 +1,4 @@
 package MooseX::Types::CyberSource;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -136,6 +135,8 @@ LOCALE_CODE_ALPHA_2
 LOCALE_CODE_ALPHA_3
 
 =end Pod::Coverage
+
+=cut
 
 =head1 SYNOPSIS
 
