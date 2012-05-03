@@ -147,3 +147,10 @@ sub create {
 1;
 
 # ABSTRACT: A Response Factory
+
+=method create
+
+Pass the C<answer> from L<XML::Compile::SOAP> and the original Request Data
+Transfer Object.
+
+=cut
