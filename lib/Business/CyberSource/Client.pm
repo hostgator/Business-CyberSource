@@ -10,7 +10,6 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use MooseX::StrictConstructor;
-use MooseX::Aliases;
 
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
@@ -231,7 +230,6 @@ sub _build_cybs_xsd {
 has production => (
 	isa      => 'Bool',
 	reader   => '_production',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
@@ -239,7 +237,6 @@ has production => (
 has username => (
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
 	reader   => '_username',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
@@ -247,7 +244,6 @@ has username => (
 has password => (
 	isa      => NonEmptyStr,
 	reader   => '_password',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
