@@ -251,7 +251,7 @@ false they will go to the testing server
 
 =attr debug
 
-Boolean value that causes the http request/response to be output to stdout
+Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
