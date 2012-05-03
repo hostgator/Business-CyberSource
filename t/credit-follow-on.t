@@ -1,26 +1,28 @@
 use strict;
 use warnings;
 use Test::More;
-#use SOAP::Lite +trace => [ 'debug' ] ;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Test::Exception;
 
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::Capture;
-use Business::CyberSource::Request::Credit;
+use Module::Runtime qw( use_module );
 
-my $req
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $authc    = use_module('Business::CyberSource::Request::Authorization');
+my $capturec = use_module('Business::CyberSource::Request::Capture');
+my $creditc  = use_module('Business::CyberSource::Request::Credit');
+
+my $auth_req
+	= new_ok( $authc => [{
 		reference_code => '420',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -36,27 +38,23 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
-	})
+	}])
 	;
 
-my $res = $req->submit;
+my $auth_res = $client->run_transaction( $auth_req );
 
-my $capture
-	= Business::CyberSource::Request::Capture->new({
-		username       => $req->username,
-		password       => $req->password,
-		reference_code => $req->reference_code,
-		request_id     => $res->request_id,
-		total          => $res->amount,
-		currency       => $res->currency,
-		production     => 0,
-	})
+my $capture_req
+	= new_ok( $capturec => [{
+		reference_code => $auth_req->reference_code,
+		request_id     => $auth_res->request_id,
+		total          => $auth_res->amount,
+		currency       => $auth_res->currency,
+	}])
 	;
 
-my $cres = $capture->submit;
+my $capture_res = $client->run_transaction( $capture_req );
 
-ok( $cres, 'capture response exists' );
+isa_ok( $capture_res, 'Business::CyberSource::Response' );
 
 my $credit_req
 	= Business::CyberSource::Request::Credit
@@ -64,26 +62,23 @@ my $credit_req
 		FollowUp
 	})
 	->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		reference_code => $req->reference_code,
+		reference_code => $auth_req->reference_code,
 		total          => 5.00,
 		currency       => 'USD',
-		request_id     => $cres->request_id,
-		production     => 0,
+		request_id     => $capture_res->request_id,
 	})
 	;
 
-my $credit = $credit_req->submit;
+my $credit_res = $client->run_transaction( $credit_req );
 
-ok( $credit, 'credit response exists' );
+isa_ok( $credit_res, 'Business::CyberSource::Response' );
 
-is( $credit->reference_code, '420', 'check response reference code' );
-is( $credit->decision,       'ACCEPT', 'check decision'       );
-is( $credit->reason_code,     100,     'check reason_code'    );
-is( $credit->currency,       'USD',    'check currency'       );
-is( $credit->amount,         '5.00',    'check amount'        );
+is( $credit_res->reference_code, '420',    'response reference code' );
+is( $credit_res->decision,       'ACCEPT', 'decision'                );
+is( $credit_res->reason_code,     100,     'reason_code'             );
+is( $credit_res->currency,       'USD',    'currency'                );
+is( $credit_res->amount,         '5.00',    'amount'                 );
 
-ok( $credit->request_id,    'check request_id exists'    );
-ok( $credit->datetime,      'check datetime exists'      );
+ok( $credit_res->request_id,     'request_id exists'                 );
+ok( $credit_res->datetime,       'datetime exists'                   );
 done_testing;

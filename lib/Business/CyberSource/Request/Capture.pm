@@ -1,62 +1,25 @@
 package Business::CyberSource::Request::Capture;
-use 5.008;
 use strict;
 use warnings;
-use Carp;
+use namespace::autoclean;
 
 # VERSION
 
 use Moose;
-use namespace::autoclean;
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
 	Business::CyberSource::Request::Role::DCC
 );
 
-use Business::CyberSource::Response;
-use MooseX::StrictConstructor;
-
-sub submit {
+before serialize => sub {
 	my $self = shift;
 
 	$self->_request_data->{ccCaptureService}{run} = 'true';
 	$self->_request_data->{ccCaptureService}{authRequestID}
 		= $self->request_id
 		;
-
-	my $r = $self->_build_request;
-
-	my $res;
-	if ( $r->{decision} eq 'ACCEPT' ) {
-		$res
-			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::ReconciliationID
-			})
-			->new({
-				request_id     => $r->{requestID},
-				decision       => $r->{decision},
-				# quote reason_code to stringify from BigInt
-				reason_code    => "$r->{reasonCode}",
-				reference_code => $r->{merchantReferenceCode},
-				request_token  => $r->{requestToken},
-				currency       => $r->{purchaseTotals}->{currency},
-				datetime       => $r->{ccCaptureReply}->{requestDateTime},
-				amount         => $r->{ccCaptureReply}->{amount},
-				reconciliation_id => $r->{ccCaptureReply}->{reconciliationID},
-				request_specific_reason_code =>
-					"$r->{ccCaptureReply}->{reasonCode}",
-			})
-			;
-	}
-	else {
-		$res = $self->_handle_decision( $r );
-	}
-
-	return $res;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 1;

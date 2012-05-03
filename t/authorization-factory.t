@@ -2,7 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Exception;
-use Data::Dumper;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
@@ -51,15 +50,14 @@ lives_ok {
 
 is( $req->card_type, '003', 'check card type is american express' );
 ok( $req, 'request exists' );
-note( Dumper $req->_request_data );
 
 ok( $req->reference_code , 'reference_code exists' );
 
-	my $ret;
-	lives_ok { $ret = $req->submit } 'submit';
+my $ret;
+lives_ok { $ret = $req->submit } 'submit';
 
-	ok( $ret, 'response exists' );
-	is( $ret->accepted,  1, 'check if the decision is ACCEPT' );
+ok( $ret, 'response exists' );
+is( $ret->accepted,  1, 'check if the decision is ACCEPT' );
 
-	is( $ret->decision, 'ACCEPT', 'response is ACCEPT' );
+is( $ret->decision, 'ACCEPT', 'response is ACCEPT' );
 done_testing;

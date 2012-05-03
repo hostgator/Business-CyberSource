@@ -6,19 +6,22 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Test::Exception;
 
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::AuthReversal;
+use Module::Runtime qw( use_module );
+use Data::Dumper;
+
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
 my $auth_req
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+	= new_ok( $dtc => [{
 		reference_code => '404',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -33,31 +36,32 @@ my $auth_req
 		credit_card    => '5555 5555 5555 4444',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $auth = $auth_req->submit;
+my $auth = $client->run_transaction( $auth_req );
+
+isa_ok( $auth, 'Business::CyberSource::Response' )
+	or diag( $auth_req->trace->printResponse )
+	;
 
 is( $auth_req->card_type, '002', 'check card type is mastercard' );
 
-ok( $auth, 'authorization response exists' );
-note( 'request_id: ' . $auth->request_id );
+my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
-my $rev_req = Business::CyberSource::Request::AuthReversal->new({
-		username       => $auth_req->username,
-		password       => $auth_req->password,
+my $rev_req
+	= new_ok( $authrevc => [{
 		reference_code => $auth_req->reference_code,
 		request_id     => $auth->request_id,
 		total          => $auth->amount,
 		currency       => $auth->currency,
-		production     => 0,
-	})
+	}])
 	;
 
-my $rev = $rev_req->submit;
+my $rev = $client->run_transaction( $rev_req );
 
-note( $rev_req->trace->printRequest  );
-note( $rev_req->trace->printResponse );
+isa_ok( $rev, 'Business::CyberSource::Response' )
+	or diag( $rev_req->trace->printResponse )
+	;
 
 ok( $rev, 'reversal response exists' );
 

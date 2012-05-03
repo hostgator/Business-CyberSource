@@ -1,41 +1,45 @@
 package Business::CyberSource::Request::Role::Credentials;
-use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 
 use Moose::Role;
-use namespace::autoclean;
-use MooseX::Types::Moose          qw( Bool Str Object );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
 
-use XML::Compile::SOAP::WSS;
-
 has production => (
-	documentation => '0: test server. 1: production server',
-	required => 1,
+	isa      => 'Bool',
 	is       => 'ro',
-	isa      => Bool,
 );
 
 has username => (
-	required => 1,
-	is       => 'ro',
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	documentation => 'Your CyberSource merchant ID. Use the same merchantID '
-		. 'for evaluation, testing, and production',
+	is       => 'ro',
 );
 
 has password => (
-	documentation => 'your SOAP transaction key',
-	required => 1,
-	is       => 'ro',
 	isa      => NonEmptyStr,
+	is       => 'ro',
 );
 
 1;
 
 # ABSTRACT: CyberSource login credentials
+
+=attr production
+
+0: test server. 1: production server
+
+=attr username
+
+Your CyberSource merchant ID. Use the same merchantID for evaluation, testing,
+and production
+
+=attr password
+
+your SOAP transaction key
+
+=cut

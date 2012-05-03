@@ -1,9 +1,7 @@
 package Business::CyberSource::Request;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Carp;
 
 # VERSION
 
@@ -27,7 +25,7 @@ around 'create' => sub {
 		$args->{production} = $self->production unless defined $args->{production};
 	}
 	else {
-		croak 'args not a hashref';
+		confess 'args not a hashref';
 	}
 
 	$self->$orig( $imp, $args );

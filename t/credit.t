@@ -45,13 +45,8 @@ lives_ok {
 	})
 } 'new credit request';
 
-note( Dumper $req->_request_data );
-
 	my $ret;
 	lives_ok { $ret = $req->submit } 'submit';
-
-	note( $req->trace->request->decoded_content );
-	note( $req->trace->response->decoded_content );
 
 # check billing info
 	is( $req->reference_code, 't301',      'check reference_code' );

@@ -1,27 +1,26 @@
-#!/usr/bin/perl
-use 5.008;
 use strict;
 use warnings;
-use Env qw( CYBS_ID CYBS_KEY );
 use Test::More;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Test::Exception;
 
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::Capture;
+use Module::Runtime qw( use_module );
+
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $authc = use_module('Business::CyberSource::Request::Authorization');
 
 my $req
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+	= new_ok( $authc => [{
 		reference_code => 't202',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -37,29 +36,31 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
-	})
+	}])
 	;
 
 is( $req->country, 'JP', 'check country converted right' );
 
-my $res = $req->submit;
+my $res = $client->run_transaction( $req );
+
+isa_ok( $res, 'Business::CyberSource::Response' )
+	or diag( $req->trace->printResponse )
+	;
 
 my $capture
-	= Business::CyberSource::Request::Capture->new({
-		username       => $req->username,
-		password       => $req->password,
+	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
 		reference_code => $req->reference_code,
 		request_id     => $res->request_id,
 		total          => 2018.00,
 		currency       => $res->currency,
-		production     => 0,
-	})
+	}])
 	;
 
-my $cres = $capture->submit;
+my $cres = $client->run_transaction( $capture );
 
-ok( $cres, 'capture response exists' );
+isa_ok( $cres, 'Business::CyberSource::Response' )
+	or diag( $capture->trace->printResponse )
+	;
 
 is( $cres->decision, 'REJECT', 'check decision' );
 is( $cres->reason_code, 235, 'check reason_code' );
