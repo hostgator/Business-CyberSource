@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.004004'; # VERSION
+our $VERSION = '0.004005'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
@@ -94,7 +94,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version 0.004004
+version 0.004005
 
 =head1 METHODS
 

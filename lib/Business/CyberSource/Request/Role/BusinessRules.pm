@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004004'; # VERSION
+our $VERSION = '0.004005'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose qw( Bool ArrayRef );
@@ -117,7 +117,7 @@ Business::CyberSource::Request::Role::BusinessRules - Business Rules Role
 
 =head1 VERSION
 
-version 0.004004
+version 0.004005
 
 =head1 BUGS
 

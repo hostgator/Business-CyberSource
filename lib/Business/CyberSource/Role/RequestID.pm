@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.004004'; # VERSION
+our $VERSION = '0.004005'; # VERSION
 
 use Moose::Role;
 
@@ -32,7 +32,7 @@ Business::CyberSource::Role::RequestID - Role to apply to requests and responses
 
 =head1 VERSION
 
-version 0.004004
+version 0.004005
 
 =head1 BUGS
 
