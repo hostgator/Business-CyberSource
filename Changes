@@ -1,7 +1,22 @@
 Revision history for Business-CyberSource
 
 0.004004  2012-05-02
+	[NEWS]
+	- begin refactoring to patterns
 
+	[FEATURE]
+	- add Business::CyberSource::Client
+
+	[DEPRECATED]
+	- Business::CyberSource::Request (as a factory)
+	- Business::CyberSource::Request::*
+	  	- Methods
+	  		- submit
+	  	- Attributes
+	  	  	- username
+	  	  	- password
+	  	  	- production
+	  	
 0.004003  2011-10-23
 	- add ->comments field
 	- switch to decimal based versions
