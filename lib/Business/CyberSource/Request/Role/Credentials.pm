@@ -1,44 +1,34 @@
 package Business::CyberSource::Request::Role::Credentials;
-use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 our $VERSION = '0.004004'; # VERSION
 
 use Moose::Role;
-use namespace::autoclean;
-use MooseX::Types::Moose          qw( Bool Str Object );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
 
-use XML::Compile::SOAP::WSS;
-
 has production => (
-	documentation => '0: test server. 1: production server',
-	required => 1,
+	isa      => 'Bool',
 	is       => 'ro',
-	isa      => Bool,
 );
 
 has username => (
-	required => 1,
-	is       => 'ro',
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	documentation => 'Your CyberSource merchant ID. Use the same merchantID '
-		. 'for evaluation, testing, and production',
+	is       => 'ro',
 );
 
 has password => (
-	documentation => 'your SOAP transaction key',
-	required => 1,
-	is       => 'ro',
 	isa      => NonEmptyStr,
+	is       => 'ro',
 );
 
 1;
 
 # ABSTRACT: CyberSource login credentials
+
 
 __END__
 =pod
@@ -50,6 +40,21 @@ Business::CyberSource::Request::Role::Credentials - CyberSource login credential
 =head1 VERSION
 
 version 0.004004
+
+=head1 ATTRIBUTES
+
+=head2 production
+
+0: test server. 1: production server
+
+=head2 username
+
+Your CyberSource merchant ID. Use the same merchantID for evaluation, testing,
+and production
+
+=head2 password
+
+your SOAP transaction key
 
 =head1 BUGS
 

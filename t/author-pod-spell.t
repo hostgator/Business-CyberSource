@@ -66,6 +66,7 @@ FollowUp
 Capture
 RequestID
 FollowOnCredit
+Client
 PurchaseInfo
 MooseX
 Types

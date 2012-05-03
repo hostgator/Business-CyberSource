@@ -1,9 +1,7 @@
 package Business::CyberSource::Request;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Carp;
 
 our $VERSION = '0.004004'; # VERSION
 
@@ -27,7 +25,7 @@ around 'create' => sub {
 		$args->{production} = $self->production unless defined $args->{production};
 	}
 	else {
-		croak 'args not a hashref';
+		confess 'args not a hashref';
 	}
 
 	$self->$orig( $imp, $args );
@@ -89,32 +87,6 @@ version 0.004004
 This module provides a generic factory interface to creating request objects.
 It also allows us to not repeat ourselves when specifying attributes that are
 common to all requests such as authentication, and server destination.
-
-=head1 ATTRIBUTES
-
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-Additional documentation: your SOAP transaction key
-
-=head2 username
-
-Reader: username
-
-Type: __ANON__
-
-Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-Additional documentation: 0: test server. 1: production server
 
 =head1 METHODS
 

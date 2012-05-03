@@ -5,41 +5,39 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
+
 use Test::Exception;
 
 use Module::Runtime qw( use_module );
-
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => 'foobar',
-		password   => 'test',
-		production => 0,
-	}]);
+use Data::Dumper;
 
 my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
 my $req
 	= new_ok( $dtc => [{
-		reference_code => 't001',
+		username       => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password       => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production     => 0,
+		reference_code => '99',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
+		street         => '432 nowhere ave.',
+		city           => 'Detroit',
+		state          => 'MI',
 		zip            => '77064',
 		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		ip             => '192.168.100.2',
-		total          => 5.00,
+		email          => 'foobar@example.com',
+		total          => 3000.37,
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
+		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
 	}]);
 
-throws_ok { $client->run_transaction( $req ) }
-	qr/SOAP Fault/,
-	'run_transaction threw exception'
-	;
+my $ret;
+
+lives_ok { $ret = $req->submit } 'submit';
+
+is( $ret->is_success, 0, 'check success' );
 
 done_testing;

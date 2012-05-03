@@ -5,19 +5,22 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
+use Test::Exception;
+use Test::Moose;
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Authorization;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
 my $req0
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+	= new_ok( $dtc => [{
 		reference_code => '72',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -32,10 +35,9 @@ my $req0
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $ret0 = $req0->submit;
+my $ret0 = $client->run_transaction( $req0 );
 
 is( $ret0->decision,       'ACCEPT', 'check decision'       );
 is( $ret0->reason_code,     100,     'check reason_code'    );
@@ -45,9 +47,7 @@ is( $ret0->avs_code_raw,   'X',      'check avs_code_raw'   );
 
 
 my $req1
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
+	= new_ok( $dtc => [{
 		reference_code => '99',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -62,12 +62,19 @@ my $req1
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $ret1 = $req1->submit;
+my $ret1 = $client->run_transaction( $req1 );
 
-note( $req1->trace->printResponse );
+isa_ok( $ret1, 'Business::CyberSource::Response' )
+	or diag( $req1->trace->printResponse )
+	;
+
+does_ok( $ret1, 'Business::CyberSource::Response::Role::Authorization' )
+	or diag( $req1->trace->printResponse )
+	;
+
+does_ok( $ret1, 'Business::CyberSource::Response::Role::AVS'           );
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,    '200',    'check reason_code'    );

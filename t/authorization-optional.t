@@ -1,28 +1,26 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Exception;
-use Data::Dumper;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
+use Test::Exception;
 
-my ( $cybs_id, $cybs_key )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Authorization;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
 
-my $req;
-lives_ok {
-	$req = Business::CyberSource::Request::Authorization->new({
-		username       => $cybs_id,
-		password       => $cybs_key,
-		production     => 0,
-		reference_code => 't106',
+my $dtc = use_module('Business::CyberSource::Request::Authorization');
+
+my $req
+	= new_ok( $dtc => [{
+		reference_code => 'test-authorization-optional-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street1        => '100 somewhere blvd',
@@ -43,58 +41,37 @@ lives_ok {
 		ip             => '192.168.42.39',
 		comments       => 'just a comment',
 		full_name      => 'Caleb Cushing',
-	})
-} 'new authorization';
+	}]);
 
-note( Dumper $req->_request_data );
+# billing info
+is( $req->street1,   '100 somewhere blvd', 'street1'  );
+is( $req->street2,   '#514',               'street2'  );
+is( $req->full_name, 'Caleb Cushing',      'full_name');
+is( $req->ip->addr,  '192.168.42.39', 'ip address'    );
 
-is( $req->client_name , 'Business::CyberSource', 'check client_library'    );
-ok( $req->client_env,                            'check client_env exists' );
-
-# check billing info
-is( $req->reference_code, 't106',      'check reference_code' );
-is( $req->first_name,     'Caleb',     'check first_name'     );
-is( $req->last_name,      'Cushing',   'check first_name'     );
-is( $req->street1,        '100 somewhere blvd', 'check street1');
-is( $req->street2,        '#514',      'check street2'        );
-is( $req->city,           'Houston',   'check city'           );
-is( $req->state,          'TX',        'check state'          );
-is( $req->country,        'US',        'check country'        );
-is( $req->ip->addr,       '192.168.42.39', 'check ip address' );
 is( $req->ip->addr, $req->_request_data->{billTo}{ipAddress},
-	'check that ip was added in the request right'
+	'that ip was added in the request right'
 );
 
-is( $req->email, 'xenoterracide@gmail.com', 'check email' );
+my $ret = $client->run_transaction( $req );
 
-is( $req->total,      5, 'check total'      );
+isa_ok( $ret, 'Business::CyberSource::Response' )
+	or diag( $req->trace->printResponse )
+	;
 
-is( $req->currency, 'USD', 'check currency' );
+is( $ret->decision,       'ACCEPT', 'decision'       );
+is( $ret->reason_code,     100,     'reason_code'    );
+is( $ret->currency,       'USD',    'currency'       );
+is( $ret->amount,         '5.00',    'amount'        );
+is( $ret->avs_code,       'Y',       'avs_code'      );
+is( $ret->avs_code_raw,   'Y',       'avs_code_raw'  );
+is( $ret->processor_response, '00',  'processor_response');
+is( $ret->reason_text, 'Successful transaction', 'reason_text' );
 
-is( $req->credit_card,  '4111111111111111', 'check credit card number' );
-is( $req->full_name,    'Caleb Cushing'   , 'check full_name'          );
+ok( $ret->request_id,    'request_id exists'    );
+ok( $ret->request_token, 'request_token exists' );
+ok( $ret->auth_code,     'auth_code exists'     );
+ok( $ret->datetime,      'datetime exists'      );
+ok( $ret->auth_record,   'auth_record exists'   );
 
-is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
-is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
-
-	my $ret;
-	lives_ok { $ret = $req->submit } 'submit request';
-
-	note( $req->trace->request->decoded_content );
-
-	is( $ret->decision,       'ACCEPT', 'check decision'       );
-	is( $ret->reference_code, 't106',   'check reference_code' );
-	is( $ret->reason_code,     100,     'check reason_code'    );
-	is( $ret->currency,       'USD',    'check currency'       );
-	is( $ret->amount,         '5.00',    'check amount'        );
-	is( $ret->avs_code,       'Y',       'check avs_code'      );
-	is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-	is( $ret->processor_response, '00',  'check processor_response');
-	is( $ret->reason_text, 'Successful transaction', 'check reason_text' );
-
-	ok( $ret->request_id,    'check request_id exists'    );
-	ok( $ret->request_token, 'check request_token exists' );
-	ok( $ret->auth_code,     'check auth_code exists'     );
-	ok( $ret->datetime,      'check datetime exists'      );
-	ok( $ret->auth_record,   'check auth_record exists'   );
 done_testing;

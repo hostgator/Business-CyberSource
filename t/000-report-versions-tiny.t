@@ -12,7 +12,7 @@ my $v = "\n";
 
 eval {                     # no excuses!
     # report our Perl details
-    my $want = '5.008';
+    my $want = '5.010';
     my $pv = ($^V || $]);
     $v .= "perl: $pv (wanted $want) on $^O from $^X\n\n";
 };
@@ -61,6 +61,7 @@ eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('LWP::Protocol::https','any version') };
 eval { $v .= pmver('Locale::Country','any version') };
+eval { $v .= pmver('Module::Runtime','any version') };
 eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };
@@ -84,6 +85,7 @@ eval { $v .= pmver('MooseX::Types::Structured','any version') };
 eval { $v .= pmver('MooseX::Types::URI','any version') };
 eval { $v .= pmver('Path::Class','any version') };
 eval { $v .= pmver('Test::Exception','any version') };
+eval { $v .= pmver('Test::Moose','any version') };
 eval { $v .= pmver('Test::More','0.88') };
 eval { $v .= pmver('Test::Requires::Env','any version') };
 eval { $v .= pmver('XML::Compile::SOAP11','any version') };

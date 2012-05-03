@@ -1,13 +1,11 @@
 package Business::CyberSource::Request::Credit;
-use 5.008;
 use strict;
 use warnings;
-use Carp;
+use namespace::autoclean;
 
 our $VERSION = '0.004004'; # VERSION
 
 use Moose;
-use namespace::autoclean;
 with qw(
 	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
@@ -15,52 +13,19 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
-use Business::CyberSource::Response;
 use MooseX::StrictConstructor;
 
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
 
-sub submit {
+before serialize => sub {
 	my $self = shift;
 
 	$self->_request_data->{ccCreditService}{run} = 'true';
 	$self->_request_data->{ccCreditService}{captureRequestID}
 		= $self->request_id if $self->meta->has_attribute( 'request_id' );
-
-	my $r = $self->_build_request;
-
-	my $res;
-	if ( $r->{decision} eq 'ACCEPT' ) {
-		$res
-			= Business::CyberSource::Response
-			->with_traits(qw{
-				Business::CyberSource::Response::Role::Accept
-				Business::CyberSource::Response::Role::ReconciliationID
-			})
-			->new({
-				request_id     => $r->{requestID},
-				decision       => $r->{decision},
-				# quote reason_code to stringify from BigInt
-				reason_code    => "$r->{reasonCode}",
-				reference_code => $r->{merchantReferenceCode},
-				request_token  => $r->{requestToken},
-				currency       => $r->{purchaseTotals}->{currency},
-				datetime       => $r->{ccCreditReply}->{requestDateTime},
-				amount         => $r->{ccCreditReply}->{amount},
-				reconciliation_id  => $r->{ccCreditReply}->{reconciliationID},
-				request_specific_reason_code =>
-					"$r->{ccCreditReply}->{reasonCode}",
-			})
-			;
-	}
-	else {
-		$res = $self->_handle_decision( $r );
-	}
-
-	return $res;
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -116,160 +81,6 @@ This object allows you to create a request for a credit. If you do not want to
 apply traits (or are using the Request factory) then you can instantiate either the
 L<Business::CyberSource::Request::StandAloneCredit> or the
 L<Business::CyberSource::Request::FollowOnCredit>.
-
-=head1 ATTRIBUTES
-
-=head2 foreign_amount
-
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 client_env
-
-Reader: client_env
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 cybs_wsdl
-
-Reader: cybs_wsdl
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
-=head2 comments
-
-Reader: comments
-
-Type: Str
-
-=head2 trace
-
-Reader: trace
-
-Writer: _trace
-
-Type: XML::Compile::SOAP::Trace
-
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-This attribute is required.
-
-Additional documentation: your SOAP transaction key
-
-=head2 cybs_api_version
-
-Reader: cybs_api_version
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
-=head2 username
-
-Reader: username
-
-Type: __ANON__
-
-This attribute is required.
-
-Additional documentation: Your CyberSource merchant ID. Use the same merchantID for evaluation, testing, and production
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::CyberSource::_VarcharFifty
-
-This attribute is required.
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-This attribute is required.
-
-Additional documentation: 0: test server. 1: production server
-
-=head2 exchange_rate
-
-Reader: exchange_rate
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 exchange_rate_timestamp
-
-Reader: exchange_rate_timestamp
-
-Type: Str
-
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
-Additional documentation: provided by the library
-
-=head2 dcc_indicator
-
-Reader: dcc_indicator
-
-Type: MooseX::Types::CyberSource::DCCIndicator
-
-=head2 client_name
-
-Reader: client_name
-
-Type: Str
-
-Additional documentation: provided by the library
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=head2 client_version
-
-Reader: client_version
-
-Type: Str
-
-=head2 items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

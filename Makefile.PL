@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use 5.008;
+use 5.010;
 
 use ExtUtils::MakeMaker 6.30;
 
@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "Test::Exception" => 0,
+    "Test::Moose" => 0,
     "Test::More" => "0.88",
     "Test::Requires::Env" => 0
   },
@@ -38,6 +39,7 @@ my %WriteMakefileArgs = (
     "File::ShareDir" => 0,
     "LWP::Protocol::https" => 0,
     "Locale::Country" => 0,
+    "Module::Runtime" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,
     "Moose::Util::TypeConstraints" => 0,

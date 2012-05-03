@@ -38,6 +38,7 @@
             "File::ShareDir" : "0",
             "LWP::Protocol::https" : "0",
             "Locale::Country" : "0",
+            "Module::Runtime" : "0",
             "Moose" : "0",
             "Moose::Role" : "0",
             "Moose::Util::TypeConstraints" : "0",
@@ -65,7 +66,7 @@
             "XML::Compile::Transport::SOAPHTTP" : "0",
             "XML::Compile::WSDL11" : "0",
             "namespace::autoclean" : "0",
-            "perl" : "5.008",
+            "perl" : "5.010",
             "strict" : "0",
             "warnings" : "0"
          }
@@ -78,6 +79,7 @@
             "File::Find" : "0",
             "File::Temp" : "0",
             "Test::Exception" : "0",
+            "Test::Moose" : "0",
             "Test::More" : "0.88",
             "Test::Requires::Env" : "0"
          }
