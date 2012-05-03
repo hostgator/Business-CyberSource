@@ -85,4 +85,13 @@ has _request_data => (
 # ABSTRACT: Request Role
 
 =for Pod::Coverage BUILD
+
+=method serialize
+
+returns a hashref suitable for passing to L<XML::Compile::SOAP>
+
+=method submit
+
+B<DEPRECATED> now calls L<Business::CyberSource::Client>
+
 =cut
