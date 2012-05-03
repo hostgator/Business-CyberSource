@@ -357,7 +357,7 @@ a L<Business::CyberSource::Response>
 
 =head2 username
 
-CyberSource MerchantID
+CyberSource Merchant ID
 
 =head2 password
 
