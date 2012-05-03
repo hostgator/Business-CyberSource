@@ -130,7 +130,7 @@ sub create {
 	else {
 		confess 'decision defined, but not sane: ' . $r->{decision};
 	}
-	
+
 	return use_module('Business::CyberSource::Response')
 		->with_traits( @traits )
 		->new({
