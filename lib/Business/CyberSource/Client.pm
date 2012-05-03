@@ -316,3 +316,44 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: User Agent Responsible for transmitting the Response
+
+=head1 SYNOPSIS
+
+	use Business::CyberSource::Client;
+
+	my $request = 'Some Business::CyberSource::Request Object';
+
+	my $client = Business::CyberSource:Request->new({
+		username   => 'Merchant ID',
+		password   => 'API KEY',
+		production => 0,
+	});
+
+	my $response = $client->run_transaction( $request );
+
+=head1 DESCRIPTION
+
+A service object that is meant to provide a way to run the requested
+transactions.
+
+=method run_transaction
+
+	my $response = $client->run_transaction( $request );
+
+Takes a L<Business::CyberSource::Request> subclass as a parameter and returns
+a L<Business::CyberSource::Response>
+
+=attr username
+
+CyberSource MerchantID
+
+=attr password
+
+CyberSource API KEY
+
+=attr production
+
+Boolean value when true your requests will go to the production server, when
+false they will go to the testing server
+
+=cut
