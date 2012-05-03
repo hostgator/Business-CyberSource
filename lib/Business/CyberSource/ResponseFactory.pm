@@ -16,14 +16,14 @@ sub create {
 
 	my $r = $answer->{result};
 
+	my @traits;
+	my $e = { };
+
 	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
 		my $req_prefix  = $prefix . 'Request::';
 		my $res_prefix  = $prefix . 'Response::';
 		my $role_prefix = $res_prefix . 'Role::';
-
-		my @traits;
-		my $e = { };
 
 		if ( $r->{decision} eq 'ACCEPT' ) {
 			push( @traits, $role_prefix .'Accept' );
@@ -126,22 +126,21 @@ sub create {
 					}
 		}
 
-		my $res
-			= use_module('Business::CyberSource::Response')
-			->with_traits( @traits )
-			->new({
-				request_id     => $r->{requestID},
-				decision       => $r->{decision},
-				# quote reason_code to stringify from BigInt
-				reason_code    => "$r->{reasonCode}",
-				request_token  => $r->{requestToken},
-			%{$e},
-			})
-			;
 	}
 	else {
 		confess 'decision defined, but not sane: ' . $r->{decision};
 	}
+
+	return use_module('Business::CyberSource::Response')
+		->with_traits( @traits )
+		->new({
+			request_id     => $r->{requestID},
+			decision       => $r->{decision},
+			# quote reason_code to stringify from BigInt
+			reason_code    => "$r->{reasonCode}",
+			request_token  => $r->{requestToken},
+			%{$e},
+		});
 }
 
 1;
