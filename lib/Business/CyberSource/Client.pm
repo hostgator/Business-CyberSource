@@ -249,4 +249,10 @@ CyberSource API KEY
 Boolean value when true your requests will go to the production server, when
 false they will go to the testing server
 
+=attr debug
+
+Boolean value that causes the http request/response to be output to stdout
+when a transaction is run. defaults to value of the environment variable
+C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+
 =cut
