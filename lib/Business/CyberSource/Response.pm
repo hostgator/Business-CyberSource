@@ -192,6 +192,64 @@ Role|Business::CyberSource::Response::Role::Accept>
 
 =head1 ATTRIBUTES
 
+=head2 reason_text
+
+Reader: reason_text
+
+Type: Str
+
+This attribute is required.
+
+Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
+
+=head2 request_id
+
+Reader: request_id
+
+Type: __ANON__
+
+This attribute is required.
+
+=head2 decision
+
+Reader: decision
+
+Type: MooseX::Types::CyberSource::Decision
+
+This attribute is required.
+
+Additional documentation: Summarizes the result of the overall request
+
+=head2 reason_code
+
+Reader: reason_code
+
+Type: MooseX::Types::Common::String::NumericCode
+
+This attribute is required.
+
+Additional documentation: Numeric value corresponding to the result of the credit card authorization request
+
+=head2 request_token
+
+Reader: request_token
+
+Type: __ANON__
+
+This attribute is required.
+
+Additional documentation: Request token data created by CyberSource for each reply. The field is an encoded string that contains no confidential information, such as an account or card verification number. The string can contain up to 256 characters.
+
+=head2 accepted
+
+Reader: accepted
+
+Type: Bool
+
+Additional documentation: boolean way of determining whether the transaction was accepted
+
+=head1 ATTRIBUTES
+
 =head2 amount
 
 Type: Num

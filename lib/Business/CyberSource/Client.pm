@@ -344,6 +344,68 @@ version 0.004004
 A service object that is meant to provide a way to run the requested
 transactions.
 
+=head1 ATTRIBUTES
+
+=head2 cybs_wsdl
+
+Reader: cybs_wsdl
+
+Type: MooseX::Types::Path::Class::File
+
+=head2 password
+
+Reader: _password
+
+Type: MooseX::Types::Common::String::NonEmptyStr
+
+This attribute is required.
+
+=head2 cybs_api_version
+
+Reader: cybs_api_version
+
+Type: Str
+
+=head2 name
+
+Reader: name
+
+Type: Str
+
+=head2 username
+
+Reader: _username
+
+Type: __ANON__
+
+This attribute is required.
+
+=head2 production
+
+Reader: _production
+
+Type: Bool
+
+This attribute is required.
+
+=head2 version
+
+Reader: version
+
+Type: Str
+
+=head2 env
+
+Reader: env
+
+Type: Str
+
+=head2 cybs_xsd
+
+Reader: cybs_xsd
+
+Type: MooseX::Types::Path::Class::File
+
 =head1 METHODS
 
 =head2 run_transaction

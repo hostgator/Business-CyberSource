@@ -88,6 +88,26 @@ This module provides a generic factory interface to creating request objects.
 It also allows us to not repeat ourselves when specifying attributes that are
 common to all requests such as authentication, and server destination.
 
+=head1 ATTRIBUTES
+
+=head2 password
+
+Reader: password
+
+Type: MooseX::Types::Common::String::NonEmptyStr
+
+=head2 username
+
+Reader: username
+
+Type: __ANON__
+
+=head2 production
+
+Reader: production
+
+Type: Bool
+
 =head1 METHODS
 
 =head2 new([{ hashref }])
