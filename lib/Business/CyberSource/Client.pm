@@ -10,7 +10,6 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use MooseX::StrictConstructor;
-use MooseX::Aliases;
 
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
@@ -231,7 +230,6 @@ sub _build_cybs_xsd {
 has production => (
 	isa      => 'Bool',
 	reader   => '_production',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
@@ -239,7 +237,6 @@ has production => (
 has username => (
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
 	reader   => '_username',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
@@ -247,7 +244,6 @@ has username => (
 has password => (
 	isa      => NonEmptyStr,
 	reader   => '_password',
-	writer   => undef,
 	is       => 'ro',
 	required => 1,
 );
@@ -317,6 +313,7 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: User Agent Responsible for transmitting the Response
 
+
 __END__
 =pod
 
@@ -327,6 +324,49 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 =head1 VERSION
 
 version 0.004004
+
+=head1 SYNOPSIS
+
+	use Business::CyberSource::Client;
+
+	my $request = 'Some Business::CyberSource::Request Object';
+
+	my $client = Business::CyberSource:Request->new({
+		username   => 'Merchant ID',
+		password   => 'API KEY',
+		production => 0,
+	});
+
+	my $response = $client->run_transaction( $request );
+
+=head1 DESCRIPTION
+
+A service object that is meant to provide a way to run the requested
+transactions.
+
+=head1 METHODS
+
+=head2 run_transaction
+
+	my $response = $client->run_transaction( $request );
+
+Takes a L<Business::CyberSource::Request> subclass as a parameter and returns
+a L<Business::CyberSource::Response>
+
+=head1 ATTRIBUTES
+
+=head2 username
+
+CyberSource MerchantID
+
+=head2 password
+
+CyberSource API KEY
+
+=head2 production
+
+Boolean value when true your requests will go to the production server, when
+false they will go to the testing server
 
 =head1 BUGS
 
