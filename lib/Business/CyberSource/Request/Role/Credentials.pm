@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004005'; # VERSION
+our $VERSION = '0.004006'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
@@ -11,18 +11,21 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 use Moose::Util::TypeConstraints;
 
 has production => (
-	isa      => 'Bool',
-	is       => 'ro',
+	isa       => 'Bool',
+	predicate => 'has_production',
+	is        => 'ro',
 );
 
 has username => (
-	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	is       => 'ro',
+	isa       => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
+	predicate => 'has_username',
+	is        => 'ro',
 );
 
 has password => (
-	isa      => NonEmptyStr,
-	is       => 'ro',
+	isa       => NonEmptyStr,
+	predicate => 'has_password',
+	is        => 'ro',
 );
 
 1;
@@ -39,7 +42,7 @@ Business::CyberSource::Request::Role::Credentials - CyberSource login credential
 
 =head1 VERSION
 
-version 0.004005
+version 0.004006
 
 =head1 ATTRIBUTES
 

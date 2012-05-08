@@ -64,6 +64,7 @@ StandAloneCredit
 FollowUp
 Capture
 RequestID
+RequestFactory
 FollowOnCredit
 Client
 PurchaseInfo

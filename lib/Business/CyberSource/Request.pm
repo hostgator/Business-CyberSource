@@ -1,35 +1,32 @@
 package Business::CyberSource::Request;
+use 5.010;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004005'; # VERSION
+our $VERSION = '0.004006'; # VERSION
 
-use MooseX::AbstractFactory;
-use MooseX::StrictConstructor;
+use Moose;
 
-with qw(
-	 Business::CyberSource::Request::Role::Credentials
-);
+with 'Business::CyberSource::Request::Role::Credentials';
 
-has '+production' => ( required => 0 );
-has '+username'   => ( required => 0 );
-has '+password'   => ( required => 0 );
+use Module::Runtime qw( use_module );
 
-around 'create' => sub {
-	my ( $orig, $self, $imp, $args ) = @_;
+sub create {
+	my $self = shift;
+	my $impl = shift;
+	my ( $args ) = @_;
 
 	if ( ref($args) eq 'HASH' ) {
-		$args->{username} ||= $self->username;
-		$args->{password} ||= $self->password;
-		$args->{production} = $self->production unless defined $args->{production};
-	}
-	else {
-		confess 'args not a hashref';
+		$args->{username}   //= $self->username   if $self->has_username;
+		$args->{password}   //= $self->password   if $self->has_password;
+		$args->{production} //= $self->production if $self->has_production;
 	}
 
-	$self->$orig( $imp, $args );
-};
+	my $factory = use_module('Business::CyberSource::RequestFactory')->new;
+
+	return $factory->create( $impl, @_ );
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -46,7 +43,7 @@ Business::CyberSource::Request - CyberSource Request Factory Module
 
 =head1 VERSION
 
-version 0.004005
+version 0.004006
 
 =head1 SYNOPSIS
 

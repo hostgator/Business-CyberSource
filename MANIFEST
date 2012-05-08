@@ -26,6 +26,7 @@ lib/Business/CyberSource/Request/Role/Items.pm
 lib/Business/CyberSource/Request/Role/PurchaseInfo.pm
 lib/Business/CyberSource/Request/Sale.pm
 lib/Business/CyberSource/Request/StandAloneCredit.pm
+lib/Business/CyberSource/RequestFactory.pm
 lib/Business/CyberSource/Response.pm
 lib/Business/CyberSource/Response/Role/AVS.pm
 lib/Business/CyberSource/Response/Role/Accept.pm
@@ -88,5 +89,6 @@ t/release-pod-syntax.t
 t/release-synopsis.t
 t/release-test-version.t
 t/release-unused-vars.t
+t/request.t
 t/sale-reject.t
 t/sale.t

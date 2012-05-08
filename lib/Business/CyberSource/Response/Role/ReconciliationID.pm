@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004005'; # VERSION
+our $VERSION = '0.004006'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Moose qw( Int );
@@ -28,7 +28,7 @@ Business::CyberSource::Response::Role::ReconciliationID - Reconciliation Identif
 
 =head1 VERSION
 
-version 0.004005
+version 0.004006
 
 =head1 BUGS
 

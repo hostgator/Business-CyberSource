@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.004005'; # VERSION
+our $VERSION = '0.004006'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.004005
+version 0.004006
 
 =head1 DESCRIPTION
 
@@ -34,8 +34,8 @@ as it will provide further information on why what some things are and the
 general workflow.
 
 To get started you will want to read the documentation in
-L<Business::CyberSource::Request>. If you find any documentation unclear or
-outright missing, please file a bug.
+L<Business::CyberSource::Client> and L<Business::CyberSource::Request>. If you
+find any documentation unclear or outright missing, please file a bug.
 
 If there are features that are part of CyberSource's API but are not
 documented, or are missing here, please file a bug. I'll be happy to add them,
