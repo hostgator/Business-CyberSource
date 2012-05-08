@@ -11,18 +11,21 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 use Moose::Util::TypeConstraints;
 
 has production => (
-	isa      => 'Bool',
-	is       => 'ro',
+	isa       => 'Bool',
+	predicate => 'has_production',
+	is        => 'ro',
 );
 
 has username => (
-	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	is       => 'ro',
+	isa       => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
+	predicate => 'has_username',
+	is        => 'ro',
 );
 
 has password => (
-	isa      => NonEmptyStr,
-	is       => 'ro',
+	isa       => NonEmptyStr,
+	predicate => 'has_password',
+	is        => 'ro',
 );
 
 1;

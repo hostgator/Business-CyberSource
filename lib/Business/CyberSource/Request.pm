@@ -1,86 +1,45 @@
 package Business::CyberSource::Request;
+use 5.010;
 use strict;
 use warnings;
 use namespace::autoclean;
 
 # VERSION
 
-use MooseX::AbstractFactory;
-use MooseX::StrictConstructor;
+use Moose;
 
-with qw(
-	 Business::CyberSource::Request::Role::Credentials
-);
+with 'Business::CyberSource::Request::Role::Credentials';
 
-has '+production' => ( required => 0 );
-has '+username'   => ( required => 0 );
-has '+password'   => ( required => 0 );
+use Module::Runtime qw( use_module );
 
-around 'create' => sub {
-	my ( $orig, $self, $imp, $args ) = @_;
+sub create {
+	my $self = shift;
+	my $impl = shift;
+	my ( $args ) = @_;
 
 	if ( ref($args) eq 'HASH' ) {
-		$args->{username} ||= $self->username;
-		$args->{password} ||= $self->password;
-		$args->{production} = $self->production unless defined $args->{production};
-	}
-	else {
-		confess 'args not a hashref';
+		$args->{username}   //= $self->username   if $self->has_username;
+		$args->{password}   //= $self->password   if $self->has_password;
+		$args->{production} //= $self->production if $self->has_production;
 	}
 
-	$self->$orig( $imp, $args );
-};
+	my $factory = use_module('Business::CyberSource::RequestFactory')->new;
+
+	return $factory->create( $impl, @_ );
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource Request Factory Module
 
-=head1 SYNOPSIS
+=method new
 
-	my $CYBS_ID = 'myMerchantID';
-	my $CYBS_KEY = 'transaction key generated with cybersource';
+=method create
 
-	use Business::CyberSource::Request;
+B<DEPRECATED> consider using L<Business::CyberSource::RequestFactory> instead
 
-	my $request_factory
-		= Business::CyberSource::Request->new({
-			username       => $CYBS_ID,
-			password       => $CYBS_KEY,
-			production     => 0,
-		});
-
-	my $request_obj = $request_factory->create(
-		'Authorization',
-		{
-			reference_code => '42',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
-			credit_card    => '4111111111111111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2013',
-		}
-	);
-
-=head1 DESCRIPTION
-
-This module provides a generic factory interface to creating request objects.
-It also allows us to not repeat ourselves when specifying attributes that are
-common to all requests such as authentication, and server destination.
-
-=method new([{ hashref }])
-
-supports passing L<the attributes listed below|/ATTRIBUTES> as a hashref.
-
-=method create( $implementation, { hashref for new } )
+( $implementation, { hashref for new } )
 
 Create a new request object. C<create> takes a request implementation and a hashref to pass to the
 implementation's C<new> method. The implementation string accepts any
