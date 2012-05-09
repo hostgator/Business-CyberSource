@@ -56,7 +56,35 @@ __PACKAGE__->meta->make_immutable;
 
 extends L<Business::CyberSource::Message>
 
+Here are the provided Request subclasses.
+
+=over
+
+=item * L<Authorization|Business::CyberSource::Request::Authorization>
+
+=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+
+=item * L<Capture|Business::CyberSource::Request::Capture>
+
+=item * L<Follow-On Credit|Business::CyberSource::Request::FollowOnCredit>
+
+=item * L<Stand Alone Credit|Business::CyberSource::Request::StandAloneCredit>
+
+=item * L<DCC|Business::CyberSource::Request::DCC>
+
+=item * L<Sale|Business::CyberSource::Request::Sale>
+
+=back
+
+I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
+it requires traits to be applied depending on the type of request you need,
+and thus does not currently work with the factory.
+
 =method new
+
+=method serialize
+
+returns a hashref suitable for passing to L<XML::Compile::SOAP>
 
 =method create
 
@@ -81,34 +109,116 @@ C<Business::CyberSource::Request::>.
 Please see the following C<Business::CyberSource::Request::> packages for
 implementation and required attributes:
 
-=over
+=attr foreign_amount
 
-=item * L<Authorization|Business::CyberSource::Request::Authorization>
+Reader: foreign_amount
 
-=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
-=item * L<Capture|Business::CyberSource::Request::Capture>
+=attr comments
 
-=item * L<Follow-On Credit|Business::CyberSource::Request::FollowOnCredit>
+Reader: comments
 
-=item * L<Stand Alone Credit|Business::CyberSource::Request::StandAloneCredit>
+Type: Str
 
-=item * L<DCC|Business::CyberSource::Request::DCC>
+=attr cvn
 
-=item * L<Sale|Business::CyberSource::Request::Sale>
+Reader: cvn
 
-=back
+Type: MooseX::Types::CreditCard::CardSecurityCode
 
-I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
-it requires traits to be applied depending on the type of request you need,
-and thus does not currently work with the factory.
+Additional documentation: Card Verification Numbers
 
-=head1 SEE ALSO
+=attr total
 
-=over
+Reader: total
 
-=item * L<MooseX::AbstractFactory>
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
-=back
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
+=attr cc_exp_month
+
+Reader: cc_exp_month
+
+This attribute is required.
+
+Additional documentation: Two-digit month that the credit card expires in. Format: MM.
+
+=attr card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
+
+=attr credit_card
+
+Reader: credit_card
+
+Type: MooseX::Types::CreditCard::CreditCard
+
+Customer's credit card number
+
+=attr reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::CyberSource::_VarcharFifty
+
+=attr cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Flag that indicates whether a CVN code was sent
+
+=attr currency
+
+Reader: currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+=attr exchange_rate
+
+Reader: exchange_rate
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=attr exchange_rate_timestamp
+
+Reader: exchange_rate_timestamp
+
+Type: Str
+
+=attr full_name
+
+Reader: full_name
+
+Type: MooseX::Types::CyberSource::_VarcharSixty
+
+=attr cc_exp_year
+
+Reader: cc_exp_year
+
+Four-digit year that the credit card expires in. Format: YYYY.
+
+=attr foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=attr items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
+
+=for Pod::Coverage BUILD
 
 =cut
