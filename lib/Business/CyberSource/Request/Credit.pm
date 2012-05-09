@@ -65,16 +65,6 @@ For standalone credit requests requests you need to apply C<BillingInfo> and
 C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
 on credits require that you specify a C<request_id> in order to work.
 
-=method new
-
-Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
-
-=method submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
-
 =head1 SEE ALSO
 
 =over
