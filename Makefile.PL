@@ -61,7 +61,6 @@ my %WriteMakefileArgs = (
     "MooseX::Types::Path::Class" => 0,
     "MooseX::Types::Structured" => 0,
     "MooseX::Types::URI" => 0,
-    "Path::Class" => 0,
     "XML::Compile::SOAP11" => 0,
     "XML::Compile::SOAP::WSS" => "0.12",
     "XML::Compile::Transport::SOAPHTTP" => 0,

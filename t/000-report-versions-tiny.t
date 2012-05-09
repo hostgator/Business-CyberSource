@@ -83,7 +83,6 @@ eval { $v .= pmver('MooseX::Types::NetAddr::IP','any version') };
 eval { $v .= pmver('MooseX::Types::Path::Class','any version') };
 eval { $v .= pmver('MooseX::Types::Structured','any version') };
 eval { $v .= pmver('MooseX::Types::URI','any version') };
-eval { $v .= pmver('Path::Class','any version') };
 eval { $v .= pmver('Test::Exception','any version') };
 eval { $v .= pmver('Test::Moose','any version') };
 eval { $v .= pmver('Test::More','0.88') };

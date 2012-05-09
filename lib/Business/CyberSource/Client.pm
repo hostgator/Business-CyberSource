@@ -17,7 +17,6 @@ use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Carp qw( carp );
-use Path::Class;
 use File::ShareDir qw( dist_file );
 use Config;
 use Module::Runtime qw( use_module );
@@ -29,6 +28,9 @@ use XML::Compile::Transport::SOAPHTTP;
 
 sub run_transaction {
 	my ( $self, $dto ) = @_;
+
+	confess 'Not a Business::CyberSource::Request'
+		unless $dto && blessed $dto eq 'Business::CyberSource::Request';
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -64,43 +66,37 @@ sub run_transaction {
 }
 
 sub _build_cybs_wsdl {
-		my $self = shift;
+	my $self = shift;
 
-		my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->_production ? 'production' : 'test';
 
-		my $file
-			= Path::Class::File->new(
-				dist_file(
-					'Business-CyberSource',
-					$dir
-					. '/'
-					. 'CyberSourceTransaction_'
-					. $self->cybs_api_version
-					. '.wsdl'
-				)
-			);
-
-		return $file;
+	return use_module('Path::Class::File')->new(
+			dist_file(
+				'Business-CyberSource',
+				$dir
+				. '/'
+				. 'CyberSourceTransaction_'
+				. $self->cybs_api_version
+				. '.wsdl'
+			)
+		);
 }
 
 sub _build_cybs_xsd {
-		my $self = shift;
+	my $self = shift;
 
-		my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->_production ? 'production' : 'test';
 
-		my $file
-			= Path::Class::File->new(
-				dist_file(
-					'Business-CyberSource',
-					$dir
-					. '/'
-					. 'CyberSourceTransaction_'
-					. $self->cybs_api_version
-					. '.xsd'
-				)
-			);
-
-		return $file;
+	return use_module('Path::Class::File')->new(
+			dist_file(
+				'Business-CyberSource',
+				$dir
+				. '/'
+				. 'CyberSourceTransaction_'
+				. $self->cybs_api_version
+				. '.xsd'
+			)
+		);
 }
 
 has _response_factory => (
