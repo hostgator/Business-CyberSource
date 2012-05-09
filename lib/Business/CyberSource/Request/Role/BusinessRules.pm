@@ -107,3 +107,17 @@ has score_threshold => (
 1;
 
 # ABSTRACT: Business Rules Role
+
+=attr ignore_avs_result
+
+=attr ignore_cv_result
+
+=attr ignore_dav_result
+
+=attr ignore_export_result
+
+=attr ignore_validate_result
+
+=attr decline_avs_flags
+
+=attr score_threshold

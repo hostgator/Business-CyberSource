@@ -28,3 +28,17 @@ has dcc_indicator => (
 1;
 
 # ABSTRACT: Role for DCC follow up requests
+
+=head1 DESCRIPTION
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
+
+=back
+
+=attr dcc_indicator
+
+=cut

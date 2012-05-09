@@ -28,7 +28,6 @@ has credit_card => (
 		$self->_request_data->{card}{accountNumber} = $self->credit_card;
 		$self->_request_data->{card}{cardType}      = $self->card_type;
 	},
-	documentation => 'Customer\'s credit card number',
 );
 
 has card_type => (
@@ -38,7 +37,6 @@ has card_type => (
 	is        => 'ro',
 	isa       => CardTypeCode,
 	builder   => '_build_card_type',
-	documentation => 'Type of card to authorize',
 );
 
 has cc_exp_month => (
@@ -95,7 +93,6 @@ has cvn => (
 		$self->_request_data->{card}{cvNumber} = $self->cvn;
 		$self->_request_data->{card}{cvIndicator} = $self->cv_indicator;
 	},
-	documentation => 'Card Verification Numbers',
 );
 
 has full_name => (
@@ -133,3 +130,29 @@ sub _build_card_type {
 1;
 
 # ABSTRACT: credit card info role
+
+=attr card_type
+
+Type of card to authorize, e.g. Visa, MasterCard
+
+=attr credit_card
+
+Customer's credit card number
+
+=attr cvn
+
+B<alias:> cvv cvv2  cvc2 cid
+
+Card Verification Numbers
+
+=attr full_name
+
+Full Name on the Credit Card
+
+=attr cc_exp_month
+
+=attr cc_exp_year
+
+Card's Expiration Year
+
+=cut

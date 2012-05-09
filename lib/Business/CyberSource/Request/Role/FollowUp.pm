@@ -1,8 +1,6 @@
 package Business::CyberSource::Request::Role::FollowUp;
-use 5.008;
 use strict;
 use warnings;
-use Carp;
 use namespace::autoclean;
 
 # VERSION
@@ -15,3 +13,13 @@ with qw(
 1;
 
 # ABSTRACT: Role to apply to requests that are follow ups to a previous request
+
+=head1 DESCRIPTION
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::RequestID>
+
+=back

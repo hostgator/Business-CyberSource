@@ -68,3 +68,9 @@ has items => (
 1;
 
 # ABSTRACT: Role that provides Items
+
+=attr items
+
+an array of L<Items|MooseX::Types::CyberSource/"Items">
+
+=cut
