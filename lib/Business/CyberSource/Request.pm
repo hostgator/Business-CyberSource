@@ -17,7 +17,7 @@ use Module::Runtime qw( use_module );
 
 use MooseX::SetOnce 0.200001;
 
-sub create {
+sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 	my $self = shift;
 	my $impl = shift;
 	my ( $args ) = @_;
