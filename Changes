@@ -2,6 +2,14 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.004006  2012-05-09
+	- improve documentation
+	- Message Abstract Class
+	- Request/Response Extend Message
+	- Request Subclasses now subclass Request
+	- trace now exists on both request and response
+	- update to version 1.71 of CyberSource API
+
 0.004005  2012-05-02
 	[FEATURE]
 	- add debug on BC::Client
