@@ -31,9 +31,6 @@ __PACKAGE__->meta->make_immutable;
 	use Business::CyberSource::Request::Authorization;
 
 	my $req = Business::CyberSource::Request::Authorization->new({
-		username       => 'merchantID',
-		password       => 'transaction key',
-		production     => 0,
 		reference_code => '42',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -50,14 +47,9 @@ __PACKAGE__->meta->make_immutable;
 		cc_exp_year    => '2025',
 	});
 
-	my $response = $req->submit;
-
 	# or if you want to use items instead of just giving a total
 
 	my $oreq = Business::CyberSource::Request::Authorization->new({
-		username       => 'merchantID',
-		password       => 'transaction key',
-		production     => 0,
 		reference_code => '42',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -83,8 +75,6 @@ __PACKAGE__->meta->make_immutable;
 		cc_exp_year    => '2025',
 	});
 
-	my $oresponse = $oreq->submit;
-
 =head1 DESCRIPTION
 
 Offline authorization means that when you submit an order using a credit card,
@@ -93,16 +83,6 @@ receive confirmation of payment. You typically will not ship the goods until
 you receive this payment confirmation. For offline credit cards, it will take
 typically five days longer to receive payment confirmation than for online
 cards.
-
-=method new
-
-Instantiates a request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
-
-=method submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
 
 =head1 SEE ALSO
 
