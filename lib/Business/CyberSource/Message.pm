@@ -14,11 +14,12 @@ use MooseX::ABC;
 use MooseX::SetOnce 0.200001;
 
 has trace => (
-	isa      => 'XML::Compile::SOAP::Trace',
-	is       => 'rw',
-	traits   => [ 'SetOnce' ],
-	init_arg => undef,
-	writer   => '_trace',
+	isa       => 'XML::Compile::SOAP::Trace',
+	predicate => 'has_trace',
+	is        => 'rw',
+	traits    => [ 'SetOnce' ],
+	init_arg  => undef,
+	writer    => '_trace',
 );
 
 __PACKAGE__->meta->make_immutable;
