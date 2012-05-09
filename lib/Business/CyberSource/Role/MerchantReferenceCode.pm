@@ -5,7 +5,7 @@ use warnings;
 use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.004006'; # VERSION
+our $VERSION = '0.004007'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::CyberSource qw( _VarcharFifty );
@@ -29,7 +29,7 @@ Business::CyberSource::Role::MerchantReferenceCode - Generic implementation of M
 
 =head1 VERSION
 
-version 0.004006
+version 0.004007
 
 =head1 BUGS
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004006'; # VERSION
+our $VERSION = '0.004007'; # VERSION
 
 use MooseX::AbstractFactory;
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
@@ -22,7 +22,7 @@ Business::CyberSource::RequestFactory - CyberSource Request Factory Module
 
 =head1 VERSION
 
-version 0.004006
+version 0.004007
 
 =head1 SYNOPSIS
 
