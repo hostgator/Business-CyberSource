@@ -1,11 +1,12 @@
 package Business::CyberSource::Request::DCC;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo

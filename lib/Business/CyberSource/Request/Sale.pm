@@ -1,7 +1,7 @@
 package Business::CyberSource::Request::Sale;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 # VERSION
 

@@ -40,9 +40,9 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This module provides a generic factory interface to creating request objects.
-It also allows us to not repeat ourselves when specifying attributes that are
-common to all requests such as authentication, and server destination.
+This Module is to provide a replacement for what
+L<Business::CyberSource::Request> originally was, a factory. Once backwards
+compatibility is no longer needed this code may be removed.
 
 =method new
 

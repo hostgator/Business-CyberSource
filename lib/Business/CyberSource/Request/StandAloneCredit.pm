@@ -1,8 +1,7 @@
 package Business::CyberSource::Request::StandAloneCredit;
-use 5.008;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 # VERSION
 

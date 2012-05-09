@@ -10,7 +10,6 @@ use Moose::Role;
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::URI     qw( Uri     );
 use MooseX::Types::Path::Class qw( File Dir );
-use MooseX::SetOnce 0.200001;
 
 with qw(
 	Business::CyberSource::Request::Role::Credentials
@@ -63,13 +62,6 @@ has comments => (
 	},
 );
 
-has trace => (
-	is       => 'rw',
-	isa      => 'XML::Compile::SOAP::Trace',
-	traits   => [ 'SetOnce' ],
-	init_arg => undef,
-	writer   => '_trace',
-);
 
 has _request_data => (
 	required => 1,

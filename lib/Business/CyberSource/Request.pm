@@ -7,8 +7,11 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Message';
 
-with 'Business::CyberSource::Request::Role::Credentials';
+with qw(
+	Business::CyberSource::Request::Role::Credentials
+);
 
 use Module::Runtime qw( use_module );
 
@@ -16,6 +19,9 @@ sub create {
 	my $self = shift;
 	my $impl = shift;
 	my ( $args ) = @_;
+
+	confess 'Business::CyberSource::RequestFactory is now the factory'
+		unless __PACKAGE__ eq ref $self;
 
 	if ( ref($args) eq 'HASH' ) {
 		$args->{username}   //= $self->username   if $self->has_username;
@@ -27,6 +33,10 @@ sub create {
 
 	return $factory->create( $impl, @_ );
 }
+
+has '+_trait_namespace' => (
+	default => 'Business::CyberSource::Request::Role',
+);
 
 __PACKAGE__->meta->make_immutable;
 1;

@@ -1,22 +1,16 @@
 package Business::CyberSource::Request::Credit;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
-	MooseX::Traits
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::DCC
-);
-
-use MooseX::StrictConstructor;
-
-has '+_trait_namespace' => (
-	default => 'Business::CyberSource::Request::Role',
 );
 
 before serialize => sub {
@@ -42,9 +36,6 @@ __PACKAGE__->meta->make_immutable;
 			CreditCardInfo
 		})
 		->new({
-			username       => 'merchantID',
-			password       => 'transaction key',
-			production     => 0,
 			reference_code => 'merchant reference code',
 			first_name     => 'Caleb',
 			last_name      => 'Cushing',
@@ -60,8 +51,6 @@ __PACKAGE__->meta->make_immutable;
 			cc_exp_month   => '09',
 			cc_exp_year    => '2025',
 		});
-
-	my $res = $req->submit;
 
 =head1 DESCRIPTION
 

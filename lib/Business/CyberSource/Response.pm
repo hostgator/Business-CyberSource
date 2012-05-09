@@ -1,15 +1,14 @@
 package Business::CyberSource::Response;
-use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean -also => [ qw( create ) ];
 
 # VERSION
 
 use Moose;
-use namespace::autoclean;
+extends 'Business::CyberSource::Message';
 
 with qw(
-	MooseX::Traits
 	Business::CyberSource::Role::RequestID
 );
 
