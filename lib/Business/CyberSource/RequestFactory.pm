@@ -30,7 +30,7 @@ version 0.004006
 
 	my $factory = Business::CyberSource::RequestFactory->new;
 
-	my $request_obj = $request_factory->create(
+	my $request_obj = $factory->create(
 		'Authorization',
 		{
 			reference_code => '42',
@@ -55,8 +55,6 @@ version 0.004006
 This Module is to provide a replacement for what
 L<Business::CyberSource::Request> originally was, a factory. Once backwards
 compatibility is no longer needed this code may be removed.
-
-=head1 ATTRIBUTES
 
 =head1 METHODS
 

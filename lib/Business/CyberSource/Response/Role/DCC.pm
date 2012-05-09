@@ -37,6 +37,7 @@ has margin_rate_percentage => (
 
 # ABSTRACT: Role that provides attributes specific to responses for DCC
 
+
 __END__
 =pod
 
@@ -47,6 +48,14 @@ Business::CyberSource::Response::Role::DCC - Role that provides attributes speci
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 dcc_supported
+
+=head2 valid_hours
+
+=head2 margin_rate_percentage
 
 =head1 BUGS
 

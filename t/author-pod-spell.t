@@ -43,6 +43,9 @@ overmeer
 AVS
 MerchantReferenceCode
 env
+WSDL
+XSD
+subclasses
 Caleb
 Cushing
 lib

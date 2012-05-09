@@ -3,7 +3,6 @@ use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Carp;
 
 our $VERSION = '0.004006'; # VERSION
 
@@ -31,8 +30,6 @@ has first_name => (
 		my $self = shift;
 		$self->_request_data->{billTo}{firstName} = $self->first_name;
 	},
-	documentation => 'Customer\'s first name.The value should be the same as '
-		. 'the one that is on the card.',
 );
 
 has last_name => (
@@ -43,8 +40,6 @@ has last_name => (
 		my $self = shift;
 		$self->_request_data->{billTo}{lastName} = $self->last_name;
 	},
-	documentation => 'Customer\'s last name. The value should be the same as '
-		. 'the one that is on the card.'
 );
 
 has street1 => (
@@ -57,8 +52,6 @@ has street1 => (
 		$self->_request_data->{billTo}{street1} = $self->street1;
 		street1    => $self->street1,
 	},
-	documentation => 'First line of the billing street address as it '
-		. 'appears on the credit card issuer\'s records. alias: C<street1>',
 );
 
 has street2 => (
@@ -70,7 +63,6 @@ has street2 => (
 		my $self = shift;
 		$self->_request_data->{billTo}{street2} = $self->street2;
 	},
-	documentation => 'Second line of the billing street address.',
 );
 
 has street3 => (
@@ -82,7 +74,6 @@ has street3 => (
 		my $self = shift;
 		$self->_request_data->{billTo}{street3} = $self->street3;
 	},
-	documentation => 'Third line of the billing street address.',
 );
 
 has street4 => (
@@ -94,7 +85,6 @@ has street4 => (
 		my $self = shift;
 		$self->_request_data->{billTo}{street4} = $self->street4;
 	},
-	documentation => 'Fourth line of the billing street address.',
 );
 
 has city => (
@@ -105,7 +95,6 @@ has city => (
 		my $self = shift;
 		$self->_request_data->{billTo}{city} = $self->city;
 	},
-	documentation => 'City of the billing address.',
 );
 
 has state => (
@@ -118,8 +107,6 @@ has state => (
 		my $self = shift;
 		$self->_request_data->{billTo}{state} = $self->state;
 	},
-	documentation => 'State or province of the billing address. '
-		. 'Use the two-character codes. alias: C<province>',
 );
 
 has country => (
@@ -131,8 +118,6 @@ has country => (
 		my $self = shift;
 		$self->_request_data->{billTo}{country} = $self->country;
 	},
-	documentation => 'ISO 2 character country code '
-		. '(as it would apply to a credit card billing statement)',
 );
 
 has postal_code => (
@@ -145,10 +130,6 @@ has postal_code => (
 		my $self = shift;
 		$self->_request_data->{billTo}{postalCode} = $self->postal_code;
 	},
-	documentation => 'Postal code for the billing address. '
-		. 'The postal code must consist of 5 to 9 digits. '
-		. 'Required if C<country> is "US" or "CA"'
-		. 'alias: C<postal_code>',
 );
 
 has phone_number => (
@@ -171,8 +152,6 @@ has email => (
 		my $self = shift;
 		$self->_request_data->{billTo}{email} = $self->email;
 	},
-	documentation => 'Customer\'s email address, including the full domain '
-		. 'name',
 );
 
 has ip_address => (
@@ -186,12 +165,12 @@ has ip_address => (
 		my $self = shift;
 		$self->_request_data->{billTo}{ipAddress} = $self->ip_address->addr;
 	},
-	documentation => 'Customer\'s IP address. alias: C<ip_address>',
 );
 
 1;
 
 # ABSTRACT: Role for requests that require "bill to" information
+
 
 __END__
 =pod
@@ -203,6 +182,56 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 ip_address
+
+Customer's IP address, meaning the IP that the request was made from.
+
+=head2 first_name
+
+Customer's first name. The value should be the same as the one that is on the
+card.
+
+=head2 last_name
+
+Customer's last name. The value should be the same as the one that is on the card.
+
+=head2 email
+
+Customer's email address, including the full domain name
+
+=head2 phone_number
+
+=head2 street1
+
+First line of the billing street address as it appears on the credit card issuer's records.
+
+=head2 street2
+
+=head2 street3
+
+=head2 street4
+
+=head2 city
+
+City of the billing address.
+
+=head2 state
+
+State or province of the billing address. Use the two-character codes. alias: C<province>
+
+=head2 country
+
+ISO 2 character country code (as it would apply to a credit card billing statement)
+
+=head2 postal_code
+
+Postal code for the billing address. The postal code must consist of 5 to 9
+digits.
+
+Required if C<country> is "US" or "CA".
 
 =head1 BUGS
 

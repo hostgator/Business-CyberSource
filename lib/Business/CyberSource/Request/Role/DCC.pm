@@ -29,6 +29,7 @@ has dcc_indicator => (
 
 # ABSTRACT: Role for DCC follow up requests
 
+
 __END__
 =pod
 
@@ -39,6 +40,20 @@ Business::CyberSource::Request::Role::DCC - Role for DCC follow up requests
 =head1 VERSION
 
 version 0.004006
+
+=head1 DESCRIPTION
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
+
+=back
+
+=head1 ATTRIBUTES
+
+=head2 dcc_indicator
 
 =head1 BUGS
 

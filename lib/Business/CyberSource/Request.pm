@@ -17,7 +17,7 @@ use Module::Runtime qw( use_module );
 
 use MooseX::SetOnce 0.200001;
 
-sub create {
+sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 	my $self = shift;
 	my $impl = shift;
 	my ( $args ) = @_;
@@ -68,37 +68,37 @@ version 0.004006
 
 extends L<Business::CyberSource::Message>
 
-=head1 ATTRIBUTES
+Here are the provided Request subclasses.
 
-=head2 trace
+=over
 
-Reader: trace
+=item * L<Authorization|Business::CyberSource::Request::Authorization>
 
-Writer: _trace
+=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
 
-Type: XML::Compile::SOAP::Trace
+=item * L<Capture|Business::CyberSource::Request::Capture>
 
-=head2 password
+=item * L<Follow-On Credit|Business::CyberSource::Request::FollowOnCredit>
 
-Reader: password
+=item * L<Stand Alone Credit|Business::CyberSource::Request::StandAloneCredit>
 
-Type: MooseX::Types::Common::String::NonEmptyStr
+=item * L<DCC|Business::CyberSource::Request::DCC>
 
-=head2 username
+=item * L<Sale|Business::CyberSource::Request::Sale>
 
-Reader: username
+=back
 
-Type: __ANON__
-
-=head2 production
-
-Reader: production
-
-Type: Bool
+I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
+it requires traits to be applied depending on the type of request you need,
+and thus does not currently work with the factory.
 
 =head1 METHODS
 
 =head2 new
+
+=head2 serialize
+
+returns a hashref suitable for passing to L<XML::Compile::SOAP>
 
 =head2 create
 
@@ -123,35 +123,119 @@ C<Business::CyberSource::Request::>.
 Please see the following C<Business::CyberSource::Request::> packages for
 implementation and required attributes:
 
-=over
+=head1 ATTRIBUTES
 
-=item * L<Authorization|Business::CyberSource::Request::Authorization>
+=head2 foreign_amount
 
-=item * L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+Reader: foreign_amount
 
-=item * L<Capture|Business::CyberSource::Request::Capture>
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
-=item * L<Follow-On Credit|Business::CyberSource::Request::FollowOnCredit>
+=head2 comments
 
-=item * L<Stand Alone Credit|Business::CyberSource::Request::StandAloneCredit>
+Reader: comments
 
-=item * L<DCC|Business::CyberSource::Request::DCC>
+Type: Str
 
-=item * L<Sale|Business::CyberSource::Request::Sale>
+=head2 cvn
 
-=back
+Reader: cvn
 
-I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
-it requires traits to be applied depending on the type of request you need,
-and thus does not currently work with the factory.
+Type: MooseX::Types::CreditCard::CardSecurityCode
 
-=head1 SEE ALSO
+Additional documentation: Card Verification Numbers
 
-=over
+=head2 total
 
-=item * L<MooseX::AbstractFactory>
+Reader: total
 
-=back
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
+=head2 cc_exp_month
+
+Reader: cc_exp_month
+
+This attribute is required.
+
+Additional documentation: Two-digit month that the credit card expires in. Format: MM.
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
+
+=head2 credit_card
+
+Reader: credit_card
+
+Type: MooseX::Types::CreditCard::CreditCard
+
+Customer's credit card number
+
+=head2 reference_code
+
+Reader: reference_code
+
+Type: MooseX::Types::CyberSource::_VarcharFifty
+
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Flag that indicates whether a CVN code was sent
+
+=head2 currency
+
+Reader: currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+=head2 exchange_rate
+
+Reader: exchange_rate
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 exchange_rate_timestamp
+
+Reader: exchange_rate_timestamp
+
+Type: Str
+
+=head2 full_name
+
+Reader: full_name
+
+Type: MooseX::Types::CyberSource::_VarcharSixty
+
+=head2 cc_exp_year
+
+Reader: cc_exp_year
+
+Four-digit year that the credit card expires in. Format: YYYY.
+
+=head2 foreign_currency
+
+Reader: foreign_currency
+
+Type: MooseX::Types::Locale::Currency::CurrencyCode
+
+Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 items
+
+Reader: items
+
+Type: ArrayRef[MooseX::Types::CyberSource::Item]
+
+=for Pod::Coverage BUILD
 
 =head1 BUGS
 

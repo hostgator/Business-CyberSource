@@ -34,6 +34,7 @@ has auth_record => (
 
 # ABSTRACT: CyberSource Authorization Response only attributes
 
+
 __END__
 =pod
 
@@ -44,6 +45,28 @@ Business::CyberSource::Response::Role::Authorization - CyberSource Authorization
 =head1 VERSION
 
 version 0.004006
+
+=head1 DESCRIPTION
+
+If the transaction did Authorization then this role is applied
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Response::Role::ProcessorResponse>
+
+=item L<Business::CyberSource::Response::Role::AVS>
+
+=item L<Business::CyberSource::Response::Role::CVN>
+
+=back
+
+=head1 ATTRIBUTES
+
+=head2 auth_code
+
+=head2 auth_record
 
 =head1 BUGS
 

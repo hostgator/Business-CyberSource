@@ -20,6 +20,7 @@ has processor_response => (
 
 # ABSTRACT: Processor Response attribute
 
+
 __END__
 =pod
 
@@ -30,6 +31,10 @@ Business::CyberSource::Response::Role::ProcessorResponse - Processor Response at
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 processor_response
 
 =head1 BUGS
 

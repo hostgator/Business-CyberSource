@@ -42,9 +42,6 @@ version 0.004006
 =head1 SYNOPSIS
 
 	my $capture = Business::CyberSource::Request::Capture->new({
-		username       => 'merchantID',
-		password       => 'transaction key',
-		production     => 0,
 		reference_code => 'merchant reference code',
 		request_id     => 'authorization response request_id',
 		total          => 5.01,  # same amount as in authorization
@@ -55,128 +52,17 @@ version 0.004006
 
 This object allows you to create a request for a capture.
 
-=head1 ATTRIBUTES
+=head2 inherits
 
-=head2 foreign_amount
+L<Business::CyberSource::Request>
 
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 comments
-
-Reader: comments
-
-Type: Str
-
-=head2 trace
-
-Reader: trace
-
-Writer: _trace
-
-Type: XML::Compile::SOAP::Trace
-
-=head2 password
-
-Reader: password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
-=head2 username
-
-Reader: username
-
-Type: __ANON__
-
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::CyberSource::_VarcharFifty
-
-This attribute is required.
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
-=head2 production
-
-Reader: production
-
-Type: Bool
-
-=head2 request_id
-
-Reader: request_id
-
-Type: __ANON__
-
-This attribute is required.
-
-=head2 exchange_rate
-
-Reader: exchange_rate
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 exchange_rate_timestamp
-
-Reader: exchange_rate_timestamp
-
-Type: Str
-
-=head2 dcc_indicator
-
-Reader: dcc_indicator
-
-Type: MooseX::Types::CyberSource::DCCIndicator
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=head2 items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
-
-=head1 METHODS
-
-=head2 new
-
-Instantiates a authorization reversal request object, see
-L<the attributes listed below|/ATTRIBUTES> for which ones are required and
-which are optional.
-
-=head2 submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
-
-=head1 SEE ALSO
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::FollowUp>
+
+=item L<Business::CyberSource::Request::Role::DCC>
 
 =back
 

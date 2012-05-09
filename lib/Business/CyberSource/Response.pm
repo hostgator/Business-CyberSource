@@ -24,15 +24,12 @@ has decision => (
 	required => 1,
 	is       => 'ro',
 	isa      => Decision,
-	documentation => 'Summarizes the result of the overall request',
 );
 
 has reason_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => NumericCode,
-	documentation => 'Numeric value corresponding to the result '
-		. 'of the credit card authorization request',
 );
 
 has reason_text => (
@@ -41,20 +38,12 @@ has reason_text => (
 	is       => 'ro',
 	isa      => Str,
 	builder  => '_build_reason_text',
-	documentation => 'official description of returned reason code. '
-		. 'warning: reason codes are returned by CyberSource and '
-		. 'occasionally do not reflect the real reason for the error '
-		. 'please inspect the trace request/response for issues',
 );
 
 has request_token => (
 	required => 1,
 	is       => 'ro',
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
-	documentation => 'Request token data created by CyberSource for each '
-		. 'reply. The field is an encoded string that contains no '
-		. 'confidential information, such as an account or card verification '
-		. 'number. The string can contain up to 256 characters.',
 );
 
 has accepted => (
@@ -67,10 +56,7 @@ has accepted => (
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
 	},
-	documentation => 'boolean way of determining whether the transaction was '
-		. 'accepted',
 );
-
 
 sub _build_reason_text {
 	my $self = shift;
@@ -189,71 +175,46 @@ All of the responses contain the attributes here, however if the response is
 C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
 
+=head2 inherits
+
+L<Business::CyberSource::Message>;
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::RequestID>
+
+=back
+
 =head1 ATTRIBUTES
-
-=head2 trace
-
-Reader: trace
-
-Type: XML::Compile::SOAP::Trace
-
-=head2 reason_text
-
-Reader: reason_text
-
-Type: Str
-
-This attribute is required.
-
-Additional documentation: official description of returned reason code. warning: reason codes are returned by CyberSource and occasionally do not reflect the real reason for the error please inspect the trace request/response for issues
-
-=head2 request_id
-
-Reader: request_id
-
-Type: __ANON__
-
-This attribute is required.
 
 =head2 decision
 
-Reader: decision
-
-Type: MooseX::Types::CyberSource::Decision
-
-This attribute is required.
-
-Additional documentation: Summarizes the result of the overall request
+Summarizes the result of the overall request
 
 =head2 reason_code
 
-Reader: reason_code
+Numeric value corresponding to the result of the credit card authorization
+request
 
-Type: MooseX::Types::Common::String::NumericCode
+=head2 reason_text
 
-This attribute is required.
+official description of returned reason code.
 
-Additional documentation: Numeric value corresponding to the result of the credit card authorization request
+I<warning:> reason codes are returned by CyberSource and occasionally do not
+reflect the real reason for the error please inspect the
+L<trace|Business::Cybersource::Message/"trace"> request/response for issues
 
 =head2 request_token
 
-Reader: request_token
-
-Type: __ANON__
-
-This attribute is required.
-
-Additional documentation: Request token data created by CyberSource for each reply. The field is an encoded string that contains no confidential information, such as an account or card verification number. The string can contain up to 256 characters.
+Request token data created by CyberSource for each reply. The field is an
+encoded string that contains no confidential information, such as an account
+or card verification number. The string can contain up to 256 characters.
 
 =head2 accepted
 
-Reader: accepted
-
-Type: Bool
-
-Additional documentation: boolean way of determining whether the transaction was accepted
-
-=head1 ATTRIBUTES
+boolean way of determining whether the transaction was accepted
 
 =head2 amount
 

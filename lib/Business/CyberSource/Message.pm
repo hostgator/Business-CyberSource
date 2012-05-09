@@ -38,14 +38,6 @@ version 0.004006
 
 =head2 trace
 
-Reader: trace
-
-Type: XML::Compile::SOAP::Trace
-
-=head1 ATTRIBUTES
-
-=head2 trace
-
 A L<XML::Compile::SOAP::Trace> object which is populated only after the object
 has been submitted to CyberSource by a L<Business::CyberSource::Client>.
 

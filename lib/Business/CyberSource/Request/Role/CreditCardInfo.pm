@@ -28,7 +28,6 @@ has credit_card => (
 		$self->_request_data->{card}{accountNumber} = $self->credit_card;
 		$self->_request_data->{card}{cardType}      = $self->card_type;
 	},
-	documentation => 'Customer\'s credit card number',
 );
 
 has card_type => (
@@ -38,7 +37,6 @@ has card_type => (
 	is        => 'ro',
 	isa       => CardTypeCode,
 	builder   => '_build_card_type',
-	documentation => 'Type of card to authorize',
 );
 
 has cc_exp_month => (
@@ -95,7 +93,6 @@ has cvn => (
 		$self->_request_data->{card}{cvNumber} = $self->cvn;
 		$self->_request_data->{card}{cvIndicator} = $self->cv_indicator;
 	},
-	documentation => 'Card Verification Numbers',
 );
 
 has full_name => (
@@ -134,6 +131,7 @@ sub _build_card_type {
 
 # ABSTRACT: credit card info role
 
+
 __END__
 =pod
 
@@ -144,6 +142,32 @@ Business::CyberSource::Request::Role::CreditCardInfo - credit card info role
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 card_type
+
+Type of card to authorize, e.g. Visa, MasterCard
+
+=head2 credit_card
+
+Customer's credit card number
+
+=head2 cvn
+
+B<alias:> cvv cvv2  cvc2 cid
+
+Card Verification Numbers
+
+=head2 full_name
+
+Full Name on the Credit Card
+
+=head2 cc_exp_month
+
+=head2 cc_exp_year
+
+Card's Expiration Year
 
 =head1 BUGS
 

@@ -19,6 +19,7 @@ has reconciliation_id => (
 
 # ABSTRACT: Reconciliation Identifier
 
+
 __END__
 =pod
 
@@ -29,6 +30,10 @@ Business::CyberSource::Response::Role::ReconciliationID - Reconciliation Identif
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 reconciliation_id
 
 =head1 BUGS
 

@@ -28,6 +28,7 @@ has cv_code_raw => (
 
 # ABSTRACT: CVN Role
 
+
 __END__
 =pod
 
@@ -38,6 +39,12 @@ Business::CyberSource::Response::Role::CVN - CVN Role
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 cv_code
+
+=head2 cv_Code_raw
 
 =head1 BUGS
 

@@ -1,5 +1,4 @@
 package Business::CyberSource::Response::Role::AVS;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -15,7 +14,6 @@ has avs_code => (
 	predicate => 'has_avs_code',
 	is       => 'ro',
 	isa      => AVSResult,
-	documentation => 'AVS results.',
 );
 
 has avs_code_raw => (
@@ -23,13 +21,12 @@ has avs_code_raw => (
 	predicate => 'has_avs_code_raw',
 	is        => 'ro',
 	isa       => _VarcharTen,
-	documentation => 'AVS result code sent directly from the processor. '
-		. 'Returned only if a value is returned by the processor.',
 );
 
 1;
 
 # ABSTRACT: AVS Role
+
 
 __END__
 =pod
@@ -41,6 +38,17 @@ Business::CyberSource::Response::Role::AVS - AVS Role
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 avs_code
+
+AVS results
+
+=head2 avs_code_raw
+
+AVS result code sent directly from the processor. Returned only if a value is
+returned by the processor.
 
 =head1 BUGS
 

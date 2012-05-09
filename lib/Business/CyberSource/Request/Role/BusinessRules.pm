@@ -108,6 +108,7 @@ has score_threshold => (
 
 # ABSTRACT: Business Rules Role
 
+
 __END__
 =pod
 
@@ -118,6 +119,22 @@ Business::CyberSource::Request::Role::BusinessRules - Business Rules Role
 =head1 VERSION
 
 version 0.004006
+
+=head1 ATTRIBUTES
+
+=head2 ignore_avs_result
+
+=head2 ignore_cv_result
+
+=head2 ignore_dav_result
+
+=head2 ignore_export_result
+
+=head2 ignore_validate_result
+
+=head2 decline_avs_flags
+
+=head2 score_threshold
 
 =head1 BUGS
 

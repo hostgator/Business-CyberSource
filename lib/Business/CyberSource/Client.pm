@@ -241,74 +241,6 @@ version 0.004006
 A service object that is meant to provide a way to run the requested
 transactions.
 
-=head1 ATTRIBUTES
-
-=head2 cybs_wsdl
-
-Reader: cybs_wsdl
-
-Type: MooseX::Types::Path::Class::File
-
-=head2 password
-
-Reader: _password
-
-Type: MooseX::Types::Common::String::NonEmptyStr
-
-This attribute is required.
-
-=head2 debug
-
-Reader: _debug
-
-Type: Bool
-
-=head2 cybs_api_version
-
-Reader: cybs_api_version
-
-Type: Str
-
-=head2 name
-
-Reader: name
-
-Type: Str
-
-=head2 username
-
-Reader: _username
-
-Type: __ANON__
-
-This attribute is required.
-
-=head2 production
-
-Reader: _production
-
-Type: Bool
-
-This attribute is required.
-
-=head2 version
-
-Reader: version
-
-Type: Str
-
-=head2 env
-
-Reader: env
-
-Type: Str
-
-=head2 cybs_xsd
-
-Reader: cybs_xsd
-
-Type: MooseX::Types::Path::Class::File
-
 =head1 METHODS
 
 =head2 run_transaction
@@ -350,6 +282,18 @@ Client Version defaults to the version of this library
 =head2 env
 
 defaults to specific parts of perl's config hash
+
+=head2 cybs_wsdl
+
+A L<Path::Class::File> to the WSDL definition file
+
+=head2 cybs_xsd
+
+A L<Path::Class::File> to the XSD definition file
+
+=head2 cybs_api_version
+
+CyberSource API version, currently 1.71
 
 =head1 BUGS
 

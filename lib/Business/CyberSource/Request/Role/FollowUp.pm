@@ -1,8 +1,6 @@
 package Business::CyberSource::Request::Role::FollowUp;
-use 5.008;
 use strict;
 use warnings;
-use Carp;
 use namespace::autoclean;
 
 our $VERSION = '0.004006'; # VERSION
@@ -16,6 +14,7 @@ with qw(
 
 # ABSTRACT: Role to apply to requests that are follow ups to a previous request
 
+
 __END__
 =pod
 
@@ -26,6 +25,16 @@ Business::CyberSource::Request::Role::FollowUp - Role to apply to requests that 
 =head1 VERSION
 
 version 0.004006
+
+=head1 DESCRIPTION
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::RequestID>
+
+=back
 
 =head1 BUGS
 

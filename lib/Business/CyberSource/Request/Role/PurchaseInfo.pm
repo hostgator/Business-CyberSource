@@ -1,5 +1,4 @@
 package Business::CyberSource::Request::Role::PurchaseInfo;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -26,13 +25,12 @@ has total => (
 		my $self = shift;
 		$self->_request_data->{purchaseTotals}{grandTotalAmount} = $self->total;
 	},
-	documentation => 'Grand total for the order. You must include '
-		. 'either this field or item_#_unitPrice in your request',
 );
 
 1;
 
 # ABSTRACT: CyberSource Purchase Information Role
+
 
 __END__
 =pod
@@ -44,6 +42,27 @@ Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Inform
 =head1 VERSION
 
 version 0.004006
+
+=head1 DESCRIPTION
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::Currency>
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
+
+=item L<Business::CyberSource::Request::Role::Items>
+
+=back
+
+=head1 ATTRIBUTES
+
+=head2 total
+
+Grand total for the order. You must include either this field or item unit
+price in your request.
 
 =head1 BUGS
 
