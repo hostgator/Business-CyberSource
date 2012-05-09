@@ -24,15 +24,12 @@ has decision => (
 	required => 1,
 	is       => 'ro',
 	isa      => Decision,
-	documentation => 'Summarizes the result of the overall request',
 );
 
 has reason_code => (
 	required => 1,
 	is       => 'ro',
 	isa      => NumericCode,
-	documentation => 'Numeric value corresponding to the result '
-		. 'of the credit card authorization request',
 );
 
 has reason_text => (
@@ -41,20 +38,12 @@ has reason_text => (
 	is       => 'ro',
 	isa      => Str,
 	builder  => '_build_reason_text',
-	documentation => 'official description of returned reason code. '
-		. 'warning: reason codes are returned by CyberSource and '
-		. 'occasionally do not reflect the real reason for the error '
-		. 'please inspect the trace request/response for issues',
 );
 
 has request_token => (
 	required => 1,
 	is       => 'ro',
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
-	documentation => 'Request token data created by CyberSource for each '
-		. 'reply. The field is an encoded string that contains no '
-		. 'confidential information, such as an account or card verification '
-		. 'number. The string can contain up to 256 characters.',
 );
 
 has accepted => (
@@ -67,10 +56,7 @@ has accepted => (
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
 	},
-	documentation => 'boolean way of determining whether the transaction was '
-		. 'accepted',
 );
-
 
 sub _build_reason_text {
 	my $self = shift;
@@ -176,6 +162,45 @@ C<decision> is and what was sent in the request itself.
 All of the responses contain the attributes here, however if the response is
 C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
+
+=head2 inherits
+
+L<Business::CyberSource::Message>;
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::RequestID>
+
+=back
+
+=attr decision
+
+Summarizes the result of the overall request
+
+=attr reason_code
+
+Numeric value corresponding to the result of the credit card authorization
+request
+
+=attr reason_text
+
+official description of returned reason code.
+
+I<warning:> reason codes are returned by CyberSource and occasionally do not
+reflect the real reason for the error please inspect the
+L<trace|Business::Cybersource::Message/"trace"> request/response for issues
+
+=attr request_token
+
+Request token data created by CyberSource for each reply. The field is an
+encoded string that contains no confidential information, such as an account
+or card verification number. The string can contain up to 256 characters.
+
+=attr accepted
+
+boolean way of determining whether the transaction was accepted
 
 =attr amount
 
