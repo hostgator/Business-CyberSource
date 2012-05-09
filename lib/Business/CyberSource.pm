@@ -67,9 +67,9 @@ version 0.004007
 
 			if ( $auth_request->has_trace ) {
 				carp 'REQUEST: '
-				. $auth_request->trace->request->as_string;
+				. $auth_request->trace->request->as_string
 				. 'RESPONSE: '
-				. $auth_request->trace->response->as_string;
+				. $auth_request->trace->response->as_string
 				;
 			}
 		};
@@ -94,9 +94,9 @@ version 0.004007
 
 			if ( $capture_request->has_trace ) {
 				carp 'REQUEST: '
-				. $capture_request->trace->request->as_string;
+				. $capture_request->trace->request->as_string
 				. 'RESPONSE: '
-				. $capture_request->trace->response->as_string;
+				. $capture_request->trace->response->as_string
 				;
 			}
 		};
@@ -109,7 +109,11 @@ version 0.004007
 
 This code is not meant to be DRY, but more of a top to bottom example. Also
 note that if you really want to do Authorization and Capture at one time use a
-L<Sale|Business::CyberSource::Request::Sale>.
+L<Sale|Business::CyberSource::Request::Sale>. Most common Reasons for
+Exceptions would be bad input into the request object (which validates things)
+or CyberSource just randomly throwing an ERROR, in which case you can usually
+just retry later. You don't have to print the response on error during
+development, you can easily just use the L<DEBUG Environment variable|/"debug">
 
 =head1 DESCRIPTION
 
