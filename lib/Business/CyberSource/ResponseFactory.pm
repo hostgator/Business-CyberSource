@@ -139,6 +139,7 @@ sub create {
 			# quote reason_code to stringify from BigInt
 			reason_code    => "$result->{reasonCode}",
 			request_token  => $result->{requestToken},
+			trace          => $dto->trace,
 			%{$e},
 		});
 }

@@ -15,6 +15,8 @@ with qw(
 
 use Module::Runtime qw( use_module );
 
+use MooseX::SetOnce 0.200001;
+
 sub create {
 	my $self = shift;
 	my $impl = shift;
@@ -36,6 +38,13 @@ sub create {
 
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
+);
+
+has '+trace' => (
+	is        => 'rw',
+	writer    => '_trace',
+	traits    => [ 'SetOnce' ],
+	init_arg  => undef
 );
 
 __PACKAGE__->meta->make_immutable;
