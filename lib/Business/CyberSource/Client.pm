@@ -30,6 +30,9 @@ use XML::Compile::Transport::SOAPHTTP;
 sub run_transaction {
 	my ( $self, $dto ) = @_;
 
+	confess 'Not a Business::CyberSource::Request'
+		unless $dto && blessed $dto eq 'Business::CyberSource::Request';
+
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
 	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
