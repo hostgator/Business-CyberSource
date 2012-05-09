@@ -255,4 +255,16 @@ Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
+=attr name
+
+Client Name defaults to L<Business::CyberSource>
+
+=attr version
+
+Client Version defaults to the version of this library
+
+=attr env
+
+defaults to specific parts of perl's config hash
+
 =cut
