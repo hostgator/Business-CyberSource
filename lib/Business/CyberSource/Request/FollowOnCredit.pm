@@ -20,38 +20,26 @@ __PACKAGE__->meta->make_immutable;
 
 	use Business::CyberSource::Request::FollowOnCredit;
 
-	my $req = Business::CyberSource::Request::FollowOnCredit
-		->new({
-			username       => 'merchantID',
-			password       => 'transaction key',
-			production     => 0,
+	my $credit = Business::CyberSource::Request::FollowOnCredit->new({
 			reference_code => 'merchant reference code',
 			total          => 5.00,
 			currency       => 'USD',
 			request_id     => 'capture request_id',
 		});
 
-	my $res = $req->submit;
-
 =head1 DESCRIPTION
 
-This object allows you to create a request for a Follow-On credit.
+Follow-On credit Data Transfer Object.
 
-=method new
+=head2 inherits
 
-Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
+L<Business::CyberSource::Request::Credit>
 
-=method submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
-
-=head1 SEE ALSO
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item * L<Business::CyberSource::Request::Role::FollowUp>
 
 =back
 
