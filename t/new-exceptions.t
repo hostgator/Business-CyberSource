@@ -10,8 +10,6 @@ use Business::CyberSource::Request::Authorization;
 throws_ok {
 my $req0
 	= Business::CyberSource::Request::Authorization->new({
-		username       => 'foobar',
-		password       => 'test',
 		reference_code => 't003-1',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -26,15 +24,12 @@ my $req0
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
 	});
 } qr/Attribute \(country\)/, 'country invalid';
 
 throws_ok {
 my $req1
 	= Business::CyberSource::Request::Authorization->new({
-		username       => 'foobar',
-		password       => 'test',
 		production     => 0,
 		reference_code => 't003-2',
 		first_name     => 'Caleb',
@@ -55,8 +50,6 @@ my $req1
 throws_ok {
 my $req2
 	= Business::CyberSource::Request::Authorization->new({
-		username       => 'foobar',
-		password       => 'test',
 		reference_code => 't108',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -70,7 +63,6 @@ my $req2
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
 	});
 } qr/you must define either items or total/, 'check either items or total';
 

@@ -339,6 +339,18 @@ Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
+=head2 name
+
+Client Name defaults to L<Business::CyberSource>
+
+=head2 version
+
+Client Version defaults to the version of this library
+
+=head2 env
+
+defaults to specific parts of perl's config hash
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website

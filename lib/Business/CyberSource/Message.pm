@@ -11,20 +11,17 @@ with 'MooseX::Traits';
 use MooseX::StrictConstructor;
 use MooseX::ABC;
 
-use MooseX::SetOnce 0.200001;
-
 has trace => (
-	isa      => 'XML::Compile::SOAP::Trace',
-	is       => 'rw',
-	traits   => [ 'SetOnce' ],
-	init_arg => undef,
-	writer   => '_trace',
+	isa       => 'XML::Compile::SOAP::Trace',
+	predicate => 'has_trace',
+	is        => 'ro',
 );
 
 __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Abstract Message Class;
+
 
 __END__
 =pod
@@ -43,9 +40,14 @@ version 0.004006
 
 Reader: trace
 
-Writer: _trace
-
 Type: XML::Compile::SOAP::Trace
+
+=head1 ATTRIBUTES
+
+=head2 trace
+
+A L<XML::Compile::SOAP::Trace> object which is populated only after the object
+has been submitted to CyberSource by a L<Business::CyberSource::Client>.
 
 =head1 BUGS
 

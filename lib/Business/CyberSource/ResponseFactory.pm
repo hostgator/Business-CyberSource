@@ -14,29 +14,29 @@ use Module::Runtime qw( use_module );
 sub create {
 	my ( $self, $answer, $dto )  = @_;
 
-	my $r = $answer->{result};
+	my $result = $answer->{result};
 
 	my @traits;
 	my $e = { };
 
-	if ( $r->{decision} eq 'ACCEPT' or $r->{decision} eq 'REJECT' ) {
+	if ( $result->{decision} eq 'ACCEPT' or $result->{decision} eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
 		my $req_prefix  = $prefix . 'Request::';
 		my $res_prefix  = $prefix . 'Response::';
 		my $role_prefix = $res_prefix . 'Role::';
 
-		if ( $r->{decision} eq 'ACCEPT' ) {
+		if ( $result->{decision} eq 'ACCEPT' ) {
 			push( @traits, $role_prefix .'Accept' );
 
-			$e->{currency} = $r->{purchaseTotals}{currency};
-			$e->{reference_code} = $r->{merchantReferenceCode};
+			$e->{currency} = $result->{purchaseTotals}{currency};
+			$e->{reference_code} = $result->{merchantReferenceCode};
 
 			given ( $dto ) {
 				when ( $_->isa( $req_prefix . 'Authorization') ) {
-					$e->{amount        } = $r->{ccAuthReply}->{amount};
-					$e->{datetime      } = $r->{ccAuthReply}{authorizedDateTime};
+					$e->{amount        } = $result->{ccAuthReply}->{amount};
+					$e->{datetime      } = $result->{ccAuthReply}{authorizedDateTime};
 					$e->{request_specific_reason_code}
-						= "$r->{ccAuthReply}->{reasonCode}";
+						= "$result->{ccAuthReply}->{reasonCode}";
 					continue;
 				}
 				when ( $_->isa( $req_prefix . 'Capture')
@@ -44,101 +44,102 @@ sub create {
 					) {
 					push( @traits, $role_prefix . 'ReconciliationID');
 
-					$e->{datetime} = $r->{ccCaptureReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccCaptureReply}->{amount};
+					$e->{datetime} = $result->{ccCaptureReply}->{requestDateTime};
+					$e->{amount}   = $result->{ccCaptureReply}->{amount};
 					$e->{reconciliation_id}
-						= $r->{ccCaptureReply}->{reconciliationID};
+						= $result->{ccCaptureReply}->{reconciliationID};
 					$e->{request_specific_reason_code}
-						= "$r->{ccCaptureReply}->{reasonCode}";
+						= "$result->{ccCaptureReply}->{reasonCode}";
 				}
 				when ( $_->isa( $req_prefix . 'Credit') ) {
 					push( @traits, $role_prefix . 'ReconciliationID');
 
-					$e->{datetime} = $r->{ccCreditReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccCreditReply}->{amount};
-					$e->{reconciliation_id} = $r->{ccCreditReply}->{reconciliationID};
+					$e->{datetime} = $result->{ccCreditReply}->{requestDateTime};
+					$e->{amount}   = $result->{ccCreditReply}->{amount};
+					$e->{reconciliation_id} = $result->{ccCreditReply}->{reconciliationID};
 					$e->{request_specific_reason_code}
-						= "$r->{ccCreditReply}->{reasonCode}";
+						= "$result->{ccCreditReply}->{reasonCode}";
 				}
 				when ( $_->isa( $req_prefix . 'DCC') ) {
 					push ( @traits, $role_prefix . 'DCC' );
-					$e->{exchange_rate} = $r->{purchaseTotals}{exchangeRate};
+					$e->{exchange_rate} = $result->{purchaseTotals}{exchangeRate};
 					$e->{exchange_rate_timestamp}
-						= $r->{purchaseTotals}{exchangeRateTimeStamp};
+						= $result->{purchaseTotals}{exchangeRateTimeStamp};
 					$e->{foreign_currency}
-						= $r->{purchaseTotals}{foreignCurrency};
-					$e->{foreign_amount} = $r->{purchaseTotals}{foreignAmount};
+						= $result->{purchaseTotals}{foreignCurrency};
+					$e->{foreign_amount} = $result->{purchaseTotals}{foreignAmount};
 					$e->{dcc_supported}
-						= $r->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0;
-					$e->{valid_hours} = $r->{ccDCCReply}{validHours};
+						= $result->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0;
+					$e->{valid_hours} = $result->{ccDCCReply}{validHours};
 					$e->{margin_rate_percentage}
-						= $r->{ccDCCReply}{marginRatePercentage};
+						= $result->{ccDCCReply}{marginRatePercentage};
 					$e->{request_specific_reason_code}
-						= "$r->{ccDCCReply}{reasonCode}";
+						= "$result->{ccDCCReply}{reasonCode}";
 				}
 				when ( $_->isa( $req_prefix . 'AuthReversal' ) ) {
 					push ( @traits, $role_prefix . 'ProcessorResponse' );
 
-					$e->{datetime} = $r->{ccAuthReversalReply}->{requestDateTime};
-					$e->{amount}   = $r->{ccAuthReversalReply}->{amount};
+					$e->{datetime} = $result->{ccAuthReversalReply}->{requestDateTime};
+					$e->{amount}   = $result->{ccAuthReversalReply}->{amount};
 
 					$e->{request_specific_reason_code}
-						= "$r->{ccAuthReversalReply}->{reasonCode}";
+						= "$result->{ccAuthReversalReply}->{reasonCode}";
 					$e->{processor_response}
-						= $r->{ccAuthReversalReply}->{processorResponse};
+						= $result->{ccAuthReversalReply}->{processorResponse};
 				}
 			}
 		}
 
 		if ( $dto->isa( $req_prefix . 'Authorization') ) {
 				push( @traits, $role_prefix . 'Authorization' );
-					if ( $r->{ccAuthReply} ) {
+					if ( $result->{ccAuthReply} ) {
 
 						$e->{auth_code}
-							=  $r->{ccAuthReply}{authorizationCode }
-							if $r->{ccAuthReply}{authorizationCode }
+							=  $result->{ccAuthReply}{authorizationCode }
+							if $result->{ccAuthReply}{authorizationCode }
 							;
 
 
-						if ( $r->{ccAuthReply}{cvCode}
-							&& $r->{ccAuthReply}{cvCodeRaw}
+						if ( $result->{ccAuthReply}{cvCode}
+							&& $result->{ccAuthReply}{cvCodeRaw}
 							) {
-							$e->{cv_code}     = $r->{ccAuthReply}{cvCode};
-							$e->{cv_code_raw} = $r->{ccAuthReply}{cvCodeRaw};
+							$e->{cv_code}     = $result->{ccAuthReply}{cvCode};
+							$e->{cv_code_raw} = $result->{ccAuthReply}{cvCodeRaw};
 						}
 
-						if ( $r->{ccAuthReply}{avsCode}
-							&& $r->{ccAuthReply}{avsCodeRaw}
+						if ( $result->{ccAuthReply}{avsCode}
+							&& $result->{ccAuthReply}{avsCodeRaw}
 							) {
-							$e->{avs_code}     = $r->{ccAuthReply}{avsCode};
-							$e->{avs_code_raw} = $r->{ccAuthReply}{avsCodeRaw};
+							$e->{avs_code}     = $result->{ccAuthReply}{avsCode};
+							$e->{avs_code_raw} = $result->{ccAuthReply}{avsCodeRaw};
 						}
 
-						if ( $r->{ccAuthReply}{processorResponse} ) {
+						if ( $result->{ccAuthReply}{processorResponse} ) {
 							$e->{processor_response}
-								= $r->{ccAuthReply}{processorResponse}
+								= $result->{ccAuthReply}{processorResponse}
 								;
 						}
 
-						if ( $r->{ccAuthReply}->{authRecord} ) {
-							$e->{auth_record} = $r->{ccAuthReply}->{authRecord};
+						if ( $result->{ccAuthReply}->{authRecord} ) {
+							$e->{auth_record} = $result->{ccAuthReply}->{authRecord};
 						}
 					}
 		}
 
 	}
 	else {
-		confess 'decision defined, but not sane: ' . $r->{decision};
+		confess 'decision defined, but not sane: ' . $result->{decision};
 	}
 
 	return use_module('Business::CyberSource::Response')
 		->with_traits( @traits )
 		->new({
-			request_id     => $r->{requestID},
-			decision       => $r->{decision},
+			request_id     => $result->{requestID},
+			decision       => $result->{decision},
 			# quote reason_code to stringify from BigInt
-			reason_code    => "$r->{reasonCode}",
-			request_token  => $r->{requestToken},
+			reason_code    => "$result->{reasonCode}",
+			request_token  => $result->{requestToken},
+			trace          => $dto->trace,
 			%{$e},
 		});
 }

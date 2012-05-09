@@ -8,6 +8,7 @@ our $VERSION = '0.004006'; # VERSION
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
+	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::DCC
 );
@@ -47,9 +48,6 @@ version 0.004006
 			CreditCardInfo
 		})
 		->new({
-			username       => 'merchantID',
-			password       => 'transaction key',
-			production     => 0,
 			reference_code => 'merchant reference code',
 			first_name     => 'Caleb',
 			last_name      => 'Cushing',
@@ -65,8 +63,6 @@ version 0.004006
 			cc_exp_month   => '09',
 			cc_exp_year    => '2025',
 		});
-
-	my $res = $req->submit;
 
 =head1 DESCRIPTION
 

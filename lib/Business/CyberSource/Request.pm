@@ -10,11 +10,12 @@ use Moose;
 extends 'Business::CyberSource::Message';
 
 with qw(
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::Credentials
 );
 
 use Module::Runtime qw( use_module );
+
+use MooseX::SetOnce 0.200001;
 
 sub create {
 	my $self = shift;
@@ -39,10 +40,17 @@ has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
 
+has '+trace' => (
+	is        => 'rw',
+	writer    => '_trace',
+	traits    => [ 'SetOnce' ],
+	init_arg  => undef
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Request Factory Module
+# ABSTRACT: Abstract Request Class
 
 
 __END__
@@ -50,25 +58,17 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request - CyberSource Request Factory Module
+Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
 version 0.004006
 
+=head1 DESCRIPTION
+
+extends L<Business::CyberSource::Message>
+
 =head1 ATTRIBUTES
-
-=head2 foreign_amount
-
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 comments
-
-Reader: comments
-
-Type: Str
 
 =head2 trace
 
@@ -84,67 +84,17 @@ Reader: password
 
 Type: MooseX::Types::Common::String::NonEmptyStr
 
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
 =head2 username
 
 Reader: username
 
 Type: __ANON__
 
-=head2 reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::CyberSource::_VarcharFifty
-
-This attribute is required.
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-This attribute is required.
-
 =head2 production
 
 Reader: production
 
 Type: Bool
-
-=head2 exchange_rate
-
-Reader: exchange_rate
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 exchange_rate_timestamp
-
-Reader: exchange_rate_timestamp
-
-Type: Str
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=head2 items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
 
 =head1 METHODS
 

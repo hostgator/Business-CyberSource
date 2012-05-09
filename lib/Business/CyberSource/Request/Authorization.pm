@@ -8,6 +8,7 @@ our $VERSION = '0.004006'; # VERSION
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
+	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
@@ -107,17 +108,17 @@ cards.
 
 =head1 ATTRIBUTES
 
-=head2 ignore_cv_result
-
-Reader: ignore_cv_result
-
-Type: Bool
-
 =head2 foreign_amount
 
 Reader: foreign_amount
 
 Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+=head2 ignore_cv_result
+
+Reader: ignore_cv_result
+
+Type: Bool
 
 =head2 comments
 
@@ -185,6 +186,14 @@ Reader: phone_number
 
 Type: MooseX::Types::CyberSource::_VarcharTwenty
 
+=head2 total
+
+Reader: total
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -194,14 +203,6 @@ Type: __ANON__
 This attribute is required.
 
 Additional documentation: Two-digit month that the credit card expires in. Format: MM.
-
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
 
 =head2 username
 
@@ -347,12 +348,6 @@ Reader: ignore_validate_result
 
 Type: Bool
 
-=head2 full_name
-
-Reader: full_name
-
-Type: MooseX::Types::CyberSource::_VarcharSixty
-
 =head2 street1
 
 Reader: street1
@@ -362,6 +357,12 @@ Type: MooseX::Types::CyberSource::_VarcharSixty
 This attribute is required.
 
 Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
+
+=head2 full_name
+
+Reader: full_name
+
+Type: MooseX::Types::CyberSource::_VarcharSixty
 
 =head2 cc_exp_year
 
@@ -379,12 +380,6 @@ Reader: dcc_indicator
 
 Type: MooseX::Types::CyberSource::DCCIndicator
 
-=head2 ignore_dav_result
-
-Reader: ignore_dav_result
-
-Type: Bool
-
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -392,6 +387,12 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=head2 ignore_dav_result
+
+Reader: ignore_dav_result
+
+Type: Bool
 
 =head2 decline_avs_flags
 

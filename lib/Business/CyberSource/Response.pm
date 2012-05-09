@@ -1,15 +1,14 @@
 package Business::CyberSource::Response;
-use 5.008;
 use strict;
 use warnings;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
 use Moose;
-use namespace::autoclean;
+extends 'Business::CyberSource::Message';
 
 with qw(
-	MooseX::Traits
 	Business::CyberSource::Role::RequestID
 );
 
@@ -191,6 +190,12 @@ C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
 
 =head1 ATTRIBUTES
+
+=head2 trace
+
+Reader: trace
+
+Type: XML::Compile::SOAP::Trace
 
 =head2 reason_text
 

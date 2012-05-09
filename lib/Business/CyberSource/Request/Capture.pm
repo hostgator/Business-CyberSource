@@ -8,6 +8,7 @@ our $VERSION = '0.004006'; # VERSION
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
+	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
 	Business::CyberSource::Request::Role::DCC
 );
