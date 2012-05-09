@@ -1,7 +1,7 @@
 package Business::CyberSource::Request::Sale;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
@@ -66,17 +66,17 @@ electronic goods and for services that you can turn on immediately.
 
 =head1 ATTRIBUTES
 
-=head2 foreign_amount
-
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
 =head2 ignore_cv_result
 
 Reader: ignore_cv_result
 
 Type: Bool
+
+=head2 foreign_amount
+
+Reader: foreign_amount
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
 
 =head2 comments
 
@@ -92,14 +92,6 @@ Type: __ANON__
 
 Additional documentation: State or province of the billing address. Use the two-character codes. alias: C<province>
 
-=head2 trace
-
-Reader: trace
-
-Writer: _trace
-
-Type: XML::Compile::SOAP::Trace
-
 =head2 email
 
 Reader: email
@@ -109,6 +101,14 @@ Type: MooseX::Types::Email::EmailAddress
 This attribute is required.
 
 Additional documentation: Customer's email address, including the full domain name
+
+=head2 trace
+
+Reader: trace
+
+Writer: _trace
+
+Type: XML::Compile::SOAP::Trace
 
 =head2 password
 
@@ -144,14 +144,6 @@ Reader: phone_number
 
 Type: MooseX::Types::CyberSource::_VarcharTwenty
 
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -162,11 +154,27 @@ This attribute is required.
 
 Additional documentation: Two-digit month that the credit card expires in. Format: MM.
 
+=head2 total
+
+Reader: total
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
 =head2 username
 
 Reader: username
 
 Type: __ANON__
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
 
 =head2 credit_card
 
@@ -177,14 +185,6 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
 
 =head2 street2
 
@@ -220,6 +220,14 @@ Reader: ignore_avs_result
 
 Type: Bool
 
+=head2 cv_indicator
+
+Reader: cv_indicator
+
+Type: MooseX::Types::CyberSource::CvIndicator
+
+Additional documentation: Flag that indicates whether a CVN code was sent
+
 =head2 last_name
 
 Reader: last_name
@@ -229,14 +237,6 @@ Type: MooseX::Types::CyberSource::_VarcharSixty
 This attribute is required.
 
 Additional documentation: Customer's last name. The value should be the same as the one that is on the card.
-
-=head2 cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Additional documentation: Flag that indicates whether a CVN code was sent
 
 =head2 currency
 
@@ -306,6 +306,12 @@ Reader: ignore_validate_result
 
 Type: Bool
 
+=head2 full_name
+
+Reader: full_name
+
+Type: MooseX::Types::CyberSource::_VarcharSixty
+
 =head2 street1
 
 Reader: street1
@@ -315,12 +321,6 @@ Type: MooseX::Types::CyberSource::_VarcharSixty
 This attribute is required.
 
 Additional documentation: First line of the billing street address as it appears on the credit card issuer's records. alias: C<street1>
-
-=head2 full_name
-
-Reader: full_name
-
-Type: MooseX::Types::CyberSource::_VarcharSixty
 
 =head2 cc_exp_year
 
@@ -338,6 +338,12 @@ Reader: dcc_indicator
 
 Type: MooseX::Types::CyberSource::DCCIndicator
 
+=head2 ignore_dav_result
+
+Reader: ignore_dav_result
+
+Type: Bool
+
 =head2 foreign_currency
 
 Reader: foreign_currency
@@ -345,12 +351,6 @@ Reader: foreign_currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 Additional documentation: Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=head2 ignore_dav_result
-
-Reader: ignore_dav_result
-
-Type: Bool
 
 =head2 decline_avs_flags
 

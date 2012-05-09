@@ -1,13 +1,13 @@
 package Business::CyberSource::Request::Capture;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::FollowUp
 	Business::CyberSource::Request::Role::DCC
 );

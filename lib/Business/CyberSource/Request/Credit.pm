@@ -1,22 +1,15 @@
 package Business::CyberSource::Request::Credit;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
-	MooseX::Traits
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::DCC
-);
-
-use MooseX::StrictConstructor;
-
-has '+_trait_namespace' => (
-	default => 'Business::CyberSource::Request::Role',
 );
 
 before serialize => sub {

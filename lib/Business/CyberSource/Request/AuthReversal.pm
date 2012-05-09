@@ -1,13 +1,13 @@
 package Business::CyberSource::Request::AuthReversal;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::FollowUp
 );
@@ -70,14 +70,6 @@ Reader: comments
 
 Type: Str
 
-=head2 trace
-
-Reader: trace
-
-Writer: _trace
-
-Type: XML::Compile::SOAP::Trace
-
 =head2 currency
 
 Reader: currency
@@ -85,6 +77,14 @@ Reader: currency
 Type: MooseX::Types::Locale::Currency::CurrencyCode
 
 This attribute is required.
+
+=head2 trace
+
+Reader: trace
+
+Writer: _trace
+
+Type: XML::Compile::SOAP::Trace
 
 =head2 password
 

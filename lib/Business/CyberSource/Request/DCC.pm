@@ -1,13 +1,13 @@
 package Business::CyberSource::Request::DCC;
 use strict;
 use warnings;
-use namespace::autoclean;
+use namespace::autoclean -also => [ qw( create ) ];
 
 our $VERSION = '0.004006'; # VERSION
 
 use Moose;
+extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Role::ForeignCurrency
@@ -156,14 +156,6 @@ Type: MooseX::Types::CreditCard::CardSecurityCode
 
 Additional documentation: Card Verification Numbers
 
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
 =head2 cc_exp_month
 
 Reader: cc_exp_month
@@ -174,19 +166,19 @@ This attribute is required.
 
 Additional documentation: Two-digit month that the credit card expires in. Format: MM.
 
+=head2 total
+
+Reader: total
+
+Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+
+Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
+
 =head2 username
 
 Reader: username
 
 Type: __ANON__
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
 
 =head2 credit_card
 
@@ -197,6 +189,14 @@ Type: MooseX::Types::CreditCard::CreditCard
 This attribute is required.
 
 Additional documentation: Customer's credit card number
+
+=head2 card_type
+
+Reader: card_type
+
+Type: MooseX::Types::CyberSource::CardTypeCode
+
+Additional documentation: Type of card to authorize
 
 =head2 reference_code
 
