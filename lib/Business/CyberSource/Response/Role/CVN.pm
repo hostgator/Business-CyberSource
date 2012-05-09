@@ -27,3 +27,7 @@ has cv_code_raw => (
 1;
 
 # ABSTRACT: CVN Role
+
+=attr cv_code
+
+=attr cv_Code_raw

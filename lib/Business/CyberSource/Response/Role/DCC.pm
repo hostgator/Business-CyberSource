@@ -36,3 +36,9 @@ has margin_rate_percentage => (
 1;
 
 # ABSTRACT: Role that provides attributes specific to responses for DCC
+
+=attr dcc_supported
+
+=attr valid_hours
+
+=attr margin_rate_percentage

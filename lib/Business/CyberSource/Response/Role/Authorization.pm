@@ -33,3 +33,25 @@ has auth_record => (
 1;
 
 # ABSTRACT: CyberSource Authorization Response only attributes
+
+=head1 DESCRIPTION
+
+If the transaction did Authorization then this role is applied
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Response::Role::ProcessorResponse>
+
+=item L<Business::CyberSource::Response::Role::AVS>
+
+=item L<Business::CyberSource::Response::Role::CVN>
+
+=back
+
+=attr auth_code
+
+=attr auth_record
+
+=cut

@@ -19,3 +19,5 @@ has processor_response => (
 1;
 
 # ABSTRACT: Processor Response attribute
+
+=attr processor_response

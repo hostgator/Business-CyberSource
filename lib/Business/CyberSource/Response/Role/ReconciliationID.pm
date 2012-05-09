@@ -18,3 +18,5 @@ has reconciliation_id => (
 1;
 
 # ABSTRACT: Reconciliation Identifier
+
+=attr reconciliation_id

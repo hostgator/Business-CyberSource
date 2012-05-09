@@ -1,5 +1,4 @@
 package Business::CyberSource::Response::Role::Accept;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -41,5 +40,21 @@ has request_specific_reason_code => (
 =head1 DESCRIPTION
 
 If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Role::Currency>
+
+=item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=back
+
+=attr amount
+
+=attr datetime
+
+=attr request_specific_reason_code
 
 =cut
