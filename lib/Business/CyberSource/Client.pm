@@ -185,7 +185,7 @@ has cybs_api_version => (
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Str,
-	default  => '1.62',
+	default  => '1.71',
 );
 
 has cybs_wsdl => (
