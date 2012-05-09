@@ -267,4 +267,16 @@ Client Version defaults to the version of this library
 
 defaults to specific parts of perl's config hash
 
+=attr cybs_wsdl
+
+A L<Path::Class::File> to the WSDL definition file
+
+=attr cybs_xsd
+
+A L<Path::Class::File> to the XSD definition file
+
+=attr cybs_api_version
+
+CyberSource API version, currently 1.71
+
 =cut
