@@ -2,7 +2,6 @@ package Business::CyberSource::Request::Role::Common;
 use 5.008;
 use strict;
 use warnings;
-use Carp;
 use namespace::autoclean;
 
 # VERSION
@@ -43,13 +42,13 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 
 	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
 		unless ( $self->has_items or $self->has_total ) {
-			croak 'you must define either items or total';
+			confess 'you must define either items or total';
 		}
 	}
 
 	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo' ) ) {
 		if ( $self->country eq 'US' or $self->country eq 'CA' ) {
-			croak 'zip code is required for US or Canada'
+			confess 'zip code is required for US or Canada'
 				unless $self->has_zip;
 		}
 	}
