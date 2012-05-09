@@ -18,7 +18,7 @@ __PACKAGE__->meta->make_immutable;
 
 	my $factory = Business::CyberSource::RequestFactory->new;
 
-	my $request_obj = $request_factory->create(
+	my $request_obj = $factory->create(
 		'Authorization',
 		{
 			reference_code => '42',
