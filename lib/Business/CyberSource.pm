@@ -28,8 +28,8 @@ version 0.004007
 	use Try::Tiny;
 
 	use Business::CyberSource::Client;
-	use Business::CyberSource::Authorization;
-	use Business::CyberSource::Capture;
+	use Business::CyberSource::Request::Authorization;
+	use Business::CyberSource::Request::Capture;
 
 	my $client = Business::CyberSource::Client->new({
 		username   => 'Merchant ID',
