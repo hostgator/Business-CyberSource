@@ -30,7 +30,10 @@ sub run_transaction {
 	my ( $self, $dto ) = @_;
 
 	confess 'Not a Business::CyberSource::Request'
-		unless $dto && blessed $dto eq 'Business::CyberSource::Request';
+		unless defined $dto
+			&& blessed $dto
+			&& $dto->isa('Business::CyberSource::Request')
+			;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
