@@ -50,7 +50,11 @@ has '+trace' => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: CyberSource Request Factory Module
+# ABSTRACT: Abstract Request Class
+
+=head1 DESCRIPTION
+
+extends L<Business::CyberSource::Message>
 
 =method new
 
