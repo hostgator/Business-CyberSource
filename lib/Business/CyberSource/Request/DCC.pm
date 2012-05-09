@@ -43,11 +43,19 @@ __PACKAGE__->meta->make_immutable;
 
 This object allows you to create a request for Direct Currency Conversion.
 
-=head1 SEE ALSO
+=head2 inherits
+
+L<Business::CyberSource::Request>
+
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::PurchaseInfo>
+
+=item L<Business::CyberSource::Request::Role::CreditCardInfo>
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
 
 =back
 

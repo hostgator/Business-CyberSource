@@ -39,7 +39,7 @@ L<Business::CyberSource::Request::Credit>
 
 =over
 
-=item * L<Business::CyberSource::Request::Role::FollowUp>
+=item L<Business::CyberSource::Request::Role::FollowUp>
 
 =back
 

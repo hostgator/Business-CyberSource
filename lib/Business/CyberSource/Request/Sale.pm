@@ -24,8 +24,6 @@ __PACKAGE__->meta->make_immutable;
 
 	my $req
 		= Business::CyberSource::Request::Sale->new({
-			username       => 'merchantID',
-			password       => 'transaction key',
 			reference_code => 't601',
 			first_name     => 'Caleb',
 			last_name      => 'Cushing',
@@ -40,10 +38,7 @@ __PACKAGE__->meta->make_immutable;
 			credit_card    => '4111-1111-1111-1111',
 			cc_exp_month   => '09',
 			cc_exp_year    => '2025',
-			production     => 0,
 		});
-
-	my $res = $req->submit;
 
 =head1 DESCRIPTION
 
@@ -52,12 +47,8 @@ separate authorization and capture if there is no delay between taking a
 customer's order and shipping the goods. A sale is typically used for
 electronic goods and for services that you can turn on immediately.
 
-=head1 SEE ALSO
+=head2 inherits
 
-=over
-
-=item * L<Business::CyberSource::Response>
-
-=back
+L<Business::CyberSource::Request::Authorization>
 
 =cut

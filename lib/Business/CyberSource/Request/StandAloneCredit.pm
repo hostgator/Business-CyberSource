@@ -22,9 +22,6 @@ __PACKAGE__->meta->make_immutable;
 	use Business::CyberSource::Request::StandAloneCredit;
 
 	my $req = Business::CyberSource::Request::StandAloneCredit->new({
-		username       => 'merchantID',
-		password       => 'transaction key',
-		production     => 0,
 		reference_code => 'merchant reference code',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -41,27 +38,21 @@ __PACKAGE__->meta->make_immutable;
 		cc_exp_year    => '2025',
 	});
 
-	my $res = $req->submit;
-
 =head1 DESCRIPTION
 
 This object allows you to create a request for a standalone credit.
 
-=method new
+=head2 inherits
 
-Instantiates a credit request object, see L<the attributes listed below|/ATTRIBUTES>
-for which ones are required and which are optional.
+L<Business::CyberSource::Request::Credit>
 
-=method submit
-
-Actually sends the required data to CyberSource for processing and returns a
-L<Business::CyberSource::Response> object.
-
-=head1 SEE ALSO
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::BillingInfo>
+
+=item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
 =back
 

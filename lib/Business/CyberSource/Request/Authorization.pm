@@ -84,11 +84,23 @@ you receive this payment confirmation. For offline credit cards, it will take
 typically five days longer to receive payment confirmation than for online
 cards.
 
-=head1 SEE ALSO
+=head2 inherits
+
+L<Business::CyberSource::Request>
+
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::BillingInfo>
+
+=item L<Business::CyberSource::Request::Role::PurchaseInfo>
+
+=item L<Business::CyberSource::Request::Role::CreditCardInfo>
+
+=item L<Business::CyberSource::Request::Role::BusinessRules>
+
+=item L<Business::CyberSource::Request::Role::DCC>
 
 =back
 

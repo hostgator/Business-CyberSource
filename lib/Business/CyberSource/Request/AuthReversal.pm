@@ -40,11 +40,17 @@ __PACKAGE__->meta->make_immutable;
 
 This allows you to reverse an authorization request.
 
-=head1 SEE ALSO
+=head2 inherits
+
+L<Business::CyberSource::Request>
+
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::PurchaseInfo>
+
+=item L<Business::CyberSource::Request::Role::FollowUp>
 
 =back
 

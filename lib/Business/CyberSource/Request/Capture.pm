@@ -40,11 +40,17 @@ __PACKAGE__->meta->make_immutable;
 
 This object allows you to create a request for a capture.
 
-=head1 SEE ALSO
+=head2 inherits
+
+L<Business::CyberSource::Request>
+
+=head2 composes
 
 =over
 
-=item * L<Business::CyberSource::Request>
+=item L<Business::CyberSource::Request::Role::FollowUp>
+
+=item L<Business::CyberSource::Request::Role::DCC>
 
 =back
 

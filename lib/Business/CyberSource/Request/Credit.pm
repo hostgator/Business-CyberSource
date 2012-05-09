@@ -59,18 +59,24 @@ apply traits (or are using the Request factory) then you can instantiate either 
 L<Business::CyberSource::Request::StandAloneCredit> or the
 L<Business::CyberSource::Request::FollowOnCredit>.
 
+=head2 inherits
+
+L<Business::CyberSource::Request>
+
+=head2 composes
+
+=over
+
+=item L<Business::CyberSource::Request::Role::PurchaseInfo>
+
+=item L<Business::CyberSource::Request::Role::DCC>
+
+=back
+
 =method with_traits
 
 For standalone credit requests requests you need to apply C<BillingInfo> and
 C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
 on credits require that you specify a C<request_id> in order to work.
-
-=head1 SEE ALSO
-
-=over
-
-=item * L<Business::CyberSource::Request>
-
-=back
 
 =cut
