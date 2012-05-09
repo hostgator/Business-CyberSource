@@ -26,3 +26,10 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Abstract Message Class;
+
+=attr trace
+
+A L<XML::Compile::SOAP::Trace> object which is populated only after the object
+has been submitted to CyberSource by a L<Business::CyberSource::Client>.
+
+=cut
