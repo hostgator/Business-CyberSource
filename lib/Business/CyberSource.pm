@@ -65,7 +65,7 @@ version 0.004007
 		catch {
 			carp $_;
 
-			if ( $request->has_trace ) {
+			if ( $auth_request->has_trace ) {
 				carp 'REQUEST: '
 				. $auth_request->trace->request->as_string;
 				. 'RESPONSE: '
