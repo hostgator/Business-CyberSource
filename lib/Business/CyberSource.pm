@@ -48,7 +48,7 @@ all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
 
 =head2 DEBUG
 
-causes all requests to be C<carp>ed to STDERROR
+causes all requests to be C<carp>ed to STDERR
 
 =head2 Testing
 
@@ -66,7 +66,7 @@ tests.
 
 =head4 DCC_CC_YYYY
 
-sets the test credit card expiration year for both visa and mastercard
+sets the test credit card expiration year for both Visa and MasterCard
 
 =head4 DCC_CC_MM
 

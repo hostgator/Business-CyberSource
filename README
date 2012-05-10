@@ -29,7 +29,7 @@ ENVIRONMENT
     all environment variables are prefixed with "PERL_BUSINESS_CYBERSOURCE_"
 
   DEBUG
-    causes all requests to be "carp"ed to STDERROR
+    causes all requests to be "carp"ed to STDERR
 
   Testing
    Credentials
@@ -39,7 +39,7 @@ ENVIRONMENT
 
    Direct Currency Conversion
    DCC_CC_YYYY
-    sets the test credit card expiration year for both visa and mastercard
+    sets the test credit card expiration year for both Visa and MasterCard
 
    DCC_CC_MM
     sets the test credit card expiration month for both visa and mastercard
