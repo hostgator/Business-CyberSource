@@ -1,6 +1,9 @@
 Revision history for Business-CyberSource
 
 0.004007  2012-05-10
+	- refactor tests
+	- more documentation improvements
+	- fix bug where ->create was exposed
 
 0.004006  2012-05-09
 	- improve documentation
