@@ -30,6 +30,138 @@ documented, or are missing here, please file a bug. I'll be happy to add them,
 but due to the size of the upstream API, I have not had time to cover all the features
 and some are currently undocumented.
 
+=head1 ENVIRONMENT
+
+all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
+
+=head2 DEBUG
+
+causes all requests to be C<carp>ed to STDERR
+
+=head2 Testing
+
+=head3 Credentials
+
+=head4 USERNAME
+
+=head4 PASSWORD
+
+set's the L<username|Busines::CyberSource::Client/"username"> and
+L<password|Busines::CyberSource::Client/"password"> in the client for running
+tests.
+
+=head3 Direct Currency Conversion
+
+=head4 DCC_CC_YYYY
+
+sets the test credit card expiration year for both Visa and MasterCard
+
+=head4 DCC_CC_MM
+
+sets the test credit card expiration month for both Visa and MasterCard
+
+=head4 DCC_MASTERCARD
+
+A test credit card number provided by your your credit card processor
+
+=head4 DCC_VISA
+
+A test credit card number provided by your your credit card processor
+
+=head1 EXAMPLE
+
+	use 5.010;
+	use Carp;
+	use Try::Tiny;
+
+	use Business::CyberSource::Client;
+	use Business::CyberSource::Request::Authorization;
+	use Business::CyberSource::Request::Capture;
+
+	my $client = Business::CyberSource::Client->new({
+		username   => 'Merchant ID',
+		password   => 'API Key',
+		production => 1,
+	});
+
+	my $auth_request = try {
+			Business::CyberSource::Request::Authorization->new({
+				reference_code => '42',
+				first_name     => 'Caleb',
+				last_name      => 'Cushing',
+				street         => '100 somewhere st',
+				city           => 'Houston',
+				state          => 'TX',
+				zip            => '77064',
+				country        => 'US',
+				email          => 'xenoterracide@gmail.com',
+				credit_card    => '4111111111111111',
+				cc_exp_month   => '09',
+				cc_exp_year    => '2025',
+				currency       => 'USD',
+				total          => 5.00,
+			});
+		}
+		catch {
+			carp $_;
+		};
+
+	my $auth_response = try {
+			$client->run_transaction( $auth_request );
+		}
+		catch {
+			carp $_;
+
+			if ( $auth_request->has_trace ) {
+				carp 'REQUEST: '
+				. $auth_request->trace->request->as_string
+				. 'RESPONSE: '
+				. $auth_request->trace->response->as_string
+				;
+			}
+		};
+
+	unless( $auth_response->is_accepted ) {
+		carp $auth_response->reason_text;
+	}
+	else {
+		my $capture_request
+			= Business::CyberSource::Request::Capture->new({
+				reference_code => $auth_request->reference_code,
+				request_id     => $auth_response->request_id,
+				total          => $auth_response->amount,
+				currency       => $auth_response->currency,
+			});
+
+		my $capture_response = try {
+			$client->run_transaction( $capture_request );
+		}
+		catch {
+			carp $_;
+
+			if ( $capture_request->has_trace ) {
+				carp 'REQUEST: '
+				. $capture_request->trace->request->as_string
+				. 'RESPONSE: '
+				. $capture_request->trace->response->as_string
+				;
+			}
+		};
+
+		if ( $capture_response->is_accepted ) {
+			# you probably want to record this
+			say $capture_response->reconcilliation_id;
+		}
+	}
+
+This code is not meant to be DRY, but more of a top to bottom example. Also
+note that if you really want to do Authorization and Capture at one time use a
+L<Sale|Business::CyberSource::Request::Sale>. Most common Reasons for
+Exceptions would be bad input into the request object (which validates things)
+or CyberSource just randomly throwing an ERROR, in which case you can usually
+just retry later. You don't have to print the response on error during
+development, you can easily just use the L<DEBUG Environment variable|/"DEBUG">
+
 =head1 ACKNOWLEDGMENTS
 
 =over
