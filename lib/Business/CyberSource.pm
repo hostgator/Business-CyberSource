@@ -107,6 +107,16 @@ version 0.004007
 		}
 	}
 
+=head2 caption
+
+This code is not meant to be DRY, but more of a top to bottom example. Also
+note that if you really want to do Authorization and Capture at one time use a
+L<Sale|Business::CyberSource::Request::Sale>. Most common Reasons for
+Exceptions would be bad input into the request object (which validates things)
+or CyberSource just randomly throwing an ERROR, in which case you can usually
+just retry later. You don't have to print the response on error during
+development, you can easily just use the L<DEBUG Environment variable|/"debug">
+
 =head1 DESCRIPTION
 
 This library is a Perl interface to the CyberSource Simple Order SOAP API built
