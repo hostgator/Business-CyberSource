@@ -1,5 +1,4 @@
 package Business::CyberSource::Request::Role::CreditCardInfo;
-use 5.008;
 use strict;
 use warnings;
 use Carp;
@@ -48,8 +47,6 @@ has cc_exp_month => (
 		my $self = shift;
 		$self->_request_data->{card}{expirationMonth} = $self->cc_exp_month;
 	},
-	documentation => 'Two-digit month that the credit card expires '
-		. 'in. Format: MM.',
 );
 
 has cc_exp_year => (
@@ -61,8 +58,6 @@ has cc_exp_year => (
 		my $self = shift;
 		$self->_request_data->{card}{expirationYear} = $self->cc_exp_year;
 	},
-	documentation => 'Four-digit year that the credit card expires in. '
-		. 'Format: YYYY.',
 );
 
 has cv_indicator => (
@@ -79,7 +74,6 @@ has cv_indicator => (
 			return 0;
 		}
 	},
-	documentation => 'Flag that indicates whether a CVN code was sent'
 );
 
 has cvn => (
@@ -151,8 +145,14 @@ Full Name on the Credit Card
 
 =attr cc_exp_month
 
+Two-digit month that the credit card expires in. Format: MM
+
 =attr cc_exp_year
 
-Card's Expiration Year
+Four-digit year that the credit card expires in. Format: YYYY
+
+=attr cv_indicator
+
+Flag that indicates whether a CVN code was sent
 
 =cut
