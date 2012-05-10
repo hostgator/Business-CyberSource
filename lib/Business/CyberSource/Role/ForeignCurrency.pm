@@ -7,16 +7,19 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::Moose            qw( Str );
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 
 has foreign_currency => (
-	required  => 0,
-	predicate => 'has_foreign_currency',
-	is        => 'ro',
 	isa       => CurrencyCode,
-	trigger => sub {
+	predicate => 'has_foreign_currency',
+	traits    => ['SetOnce'],
+	is        => 'rw',
+	trigger   => sub {
 		my $self = shift;
 		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
 			$self->_request_data->{purchaseTotals}{foreignCurrency}
@@ -29,11 +32,11 @@ has foreign_currency => (
 );
 
 has foreign_amount => (
+	isa       => PositiveOrZeroNum,
 	predicate => 'has_foreign_amount',
-	required => 0,
-	is       => 'ro',
-	isa      => PositiveOrZeroNum,
-	trigger => sub {
+	traits    => ['SetOnce'],
+	is        => 'rw',
+	trigger   => sub {
 		my $self = shift;
 		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
 			$self->_request_data->{purchaseTotals}{foreignAmount}
@@ -44,11 +47,11 @@ has foreign_amount => (
 );
 
 has exchange_rate => (
+	isa       => PositiveOrZeroNum,
 	predicate => 'has_exchange_rate',
-	required => 0,
-	is       => 'ro',
-	isa      => PositiveOrZeroNum,
-	trigger => sub {
+	traits    => ['SetOnce'],
+	is        => 'rw',
+	trigger   => sub {
 		my $self = shift;
 		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
 			$self->_request_data->{purchaseTotals}{exchangeRate}
@@ -59,11 +62,11 @@ has exchange_rate => (
 );
 
 has exchange_rate_timestamp => (
+	isa       => Str,
 	predicate => 'has_exchange_rate_timestamp',
-	required => 0,
-	is       => 'ro',
-	isa      => Str,
-	trigger => sub {
+	traits    => ['SetOnce'],
+	is        => 'rw',
+	trigger   => sub {
 		my $self = shift;
 		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
 			$self->_request_data->{purchaseTotals}{exchangeRateTimeStamp}
