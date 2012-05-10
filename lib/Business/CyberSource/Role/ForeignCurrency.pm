@@ -27,8 +27,6 @@ has foreign_currency => (
 				;
 		}
 	},
-	documentation => 'Billing currency returned by the DCC service. '
-		. 'For the possible values, see the ISO currency codes',
 );
 
 has foreign_amount => (
@@ -79,3 +77,9 @@ has exchange_rate_timestamp => (
 1;
 
 # ABSTRACT: Role to apply to requests and responses that require currency
+
+=attr foreign_currency
+
+Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+
+=cut
