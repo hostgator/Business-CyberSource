@@ -6,20 +6,19 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Sale;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
 
+my $salec = use_module('Business::CyberSource::Request::Sale');
 my $req0
-	= Business::CyberSource::Request::Sale->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		production     => 0,
-		reference_code => 't602',
+	= new_ok( $salec => [{
+		reference_code => 'test-sale-reject-0-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => '432 nowhere ave.',
@@ -33,17 +32,15 @@ my $req0
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
-	});
+	}]);
 
-my $ret0;
+my $ret0 = $client->run_transaction( $req0 );
 
-eval { $ret0 = $req0->submit };
+isa_ok $ret0, 'Business::CyberSource::Response';
 
-note( $req0->trace->printResponse );
-
-is( $ret0->is_success,     0,        'check success'        );
-is( $ret0->decision,       'REJECT', 'check decision'       );
-is( $ret0->reason_code,     202,     'check reason_code'    );
+ok( ! $ret0->accepted,              'not accepted'      );
+is(   $ret0->decision,   'REJECT',  'check decision'    );
+is(   $ret0->reason_code, 202,      'check reason_code' );
 is(
 	$ret0->reason_text,
 	'Expired card. You might also receive this if the expiration date you '
@@ -57,10 +54,8 @@ ok( $ret0->request_id,    'check request_id exists'    );
 ok( $ret0->request_token, 'check request_token exists' );
 
 my $req1
-	= Business::CyberSource::Request::Sale->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		reference_code => '99',
+	= new_ok( $salec => [{
+		reference_code => 'test-sale-reject-1-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => '432 nowhere ave.',
@@ -74,12 +69,9 @@ my $req1
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $ret1 = $req1->submit;
-
-note( $req1->trace->printResponse );
+my $ret1 = $client->run_transaction( $req1 );
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,     201,     'check reason_code'    );

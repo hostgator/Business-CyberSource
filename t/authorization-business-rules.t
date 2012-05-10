@@ -5,7 +5,6 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
-use Test::Exception;
 
 use Module::Runtime qw( use_module );
 
@@ -43,7 +42,6 @@ my $auth_res0 = $client->run_transaction( $auth_req0 );
 isa_ok $auth_res0, 'Business::CyberSource::Response';
 
 is( $auth_res0->decision,       'ACCEPT', 'check decision'       );
-is( $auth_res0->reference_code, 't109-0', 'check reference_code' );
 is( $auth_res0->reason_code,     100,     'check reason_code'    );
 is( $auth_res0->currency,       'USD',    'check currency'       );
 is( $auth_res0->amount,         '9001.00',    'check amount'     );
@@ -83,7 +81,6 @@ my $auth_res1 = $client->run_transaction( $auth_req1 );
 isa_ok $auth_res1, 'Business::CyberSource::Response';
 
 is( $auth_res1->decision,       'ACCEPT', 'check decision'       );
-is( $auth_res1->reference_code, 't109-1', 'check reference_code' );
 is( $auth_res1->reason_code,     100,     'check reason_code'    );
 is( $auth_res1->currency,       'USD',    'check currency'       );
 is( $auth_res1->amount,         '5005.00',    'check amount'     );
@@ -100,7 +97,7 @@ ok( $auth_res1->auth_record,   'check auth_record exists'   );
 
 my $auth_req2
 	= new_ok( $authc => [{
-		reference_code => 't109-2',
+		reference_code => 'test-auth-business-rules-2-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',

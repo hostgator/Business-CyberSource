@@ -1,7 +1,7 @@
 package Business::CyberSource::Request::StandAloneCredit;
 use strict;
 use warnings;
-use namespace::autoclean -also => [ qw( create ) ];
+use namespace::autoclean;
 
 our $VERSION = '0.004007'; # VERSION
 

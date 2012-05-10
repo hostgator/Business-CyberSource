@@ -49,7 +49,6 @@ share/test/CyberSourceTransaction_1.71.wsdl
 share/test/CyberSourceTransaction_1.71.xsd
 t/00-compile.t
 t/000-report-versions-tiny.t
-t/auth-reversal-factory.t
 t/auth-reversal-reject.t
 t/auth-reversal.t
 t/author-critic.t
@@ -57,18 +56,15 @@ t/author-pod-spell.t
 t/author-test-eol.t
 t/authorization-accept.t
 t/authorization-avs.t
-t/authorization-backcompat.t
 t/authorization-business-rules.t
 t/authorization-cvn.t
-t/authorization-factory.t
 t/authorization-items.t
 t/authorization-optional.t
 t/authorization-reject.t
+t/backcompat.t
 t/bad-credentials.t
 t/capture-reject.t
 t/capture.t
-t/credit-factory-follow-on.t
-t/credit-factory.t
 t/credit-follow-on.t
 t/credit.t
 t/dcc-authorization.t

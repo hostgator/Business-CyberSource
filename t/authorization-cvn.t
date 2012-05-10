@@ -1,27 +1,25 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Exception;
-use Data::Dumper;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $cybs_id, $cybs_key )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Authorization;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
 
-my $req;
-lives_ok {
-	$req = Business::CyberSource::Request::Authorization->new({
-		username       => $cybs_id,
-		password       => $cybs_key,
-		reference_code => 't104',
+my $authc = use_module('Business::CyberSource::Request::Authorization');
+
+my $req
+	= new_ok( $authc => [{
+		reference_code => 'test-auth-cvn-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -36,38 +34,30 @@ lives_ok {
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		cvn            => '1111',
-		production     => 0,
-	})
-} 'Authorization object initialized';
-
-
-note( Dumper $req->_request_data );
+	}]);
 
 # check billing info
 is( $req->cvn,   '1111', 'check cvn'   );
 is( $req->total, '9000', 'check total' );
 
-	my $ret;
+my $ret = $client->run_transaction( $req );
 
-	lives_ok { $ret = $req->submit } 'submit';
+isa_ok $ret, 'Business::CyberSource::Response';
 
-	note( $req->trace->printRequest  );
-	note( $req->trace->printResponse );
+is( $ret->decision,       'ACCEPT', 'check decision'       );
+is( $ret->reason_code,     100,     'check reason_code'    );
+is( $ret->currency,       'USD',    'check currency'       );
+is( $ret->amount,         '9000.00', 'check amount'        );
+is( $ret->avs_code,       'Y',       'check avs_code'      );
+is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
+is( $ret->processor_response, '00',  'check processor_response');
+is( $ret->auth_code, '831000', 'check auth_code is 83100'  );
+is( $ret->cv_code,     'M',          'check cv_code'       );
+is( $ret->cv_code_raw, 'M',          'check cv_code'       );
 
-	is( $ret->decision,       'ACCEPT', 'check decision'       );
-	is( $ret->reference_code, 't104',   'check reference_code' );
-	is( $ret->reason_code,     100,     'check reason_code'    );
-	is( $ret->currency,       'USD',    'check currency'       );
-	is( $ret->amount,         '9000.00', 'check amount'        );
-	is( $ret->avs_code,       'Y',       'check avs_code'      );
-	is( $ret->avs_code_raw,   'Y',       'check avs_code_raw'  );
-	is( $ret->processor_response, '00',  'check processor_response');
-	is( $ret->auth_code, '831000', 'check auth_code is 83100'  );
-	is( $ret->cv_code,     'M',          'check cv_code'       );
-	is( $ret->cv_code_raw, 'M',          'check cv_code'       );
+ok( $ret->request_id,    'check request_id exists'    );
+ok( $ret->request_token, 'check request_token exists' );
+ok( $ret->datetime,      'check datetime exists'      );
+ok( $ret->auth_record,   'check auth_record exists'   );
 
-	ok( $ret->request_id,    'check request_id exists'    );
-	ok( $ret->request_token, 'check request_token exists' );
-	ok( $ret->datetime,      'check datetime exists'      );
-	ok( $ret->auth_record,   'check auth_record exists'   );
 done_testing;

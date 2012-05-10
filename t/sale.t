@@ -6,19 +6,20 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Sale;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $salec = use_module('Business::CyberSource::Request::Sale');
 
 my $req
-	= Business::CyberSource::Request::Sale->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		reference_code => 't601',
+	= new_ok( $salec => [{
+		reference_code => 'test-sale-reject-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -32,13 +33,9 @@ my $req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $ret = $req->submit;
-
-note( $req->trace->printRequest  );
-note( $req->trace->printResponse );
+my $ret = $client->run_transaction( $req );
 
 is( $ret->decision,       'ACCEPT', 'check decision'       );
 is( $ret->reason_code,     100,     'check reason_code'    );
