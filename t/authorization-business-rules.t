@@ -38,7 +38,7 @@ my $auth_req0
 		ignore_cv_result => 1,
 	}]);
 
-my $auth_res0 = $client->run_transaction( $auth_req );
+my $auth_res0 = $client->run_transaction( $auth_req0 );
 
 isa_ok $auth_res0, 'Business::CyberSource::Response';
 
