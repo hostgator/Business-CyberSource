@@ -1,7 +1,7 @@
 package Business::CyberSource::Request::Authorization;
 use strict;
 use warnings;
-use namespace::autoclean -also => [ qw( create ) ];
+use namespace::autoclean;
 
 # VERSION
 

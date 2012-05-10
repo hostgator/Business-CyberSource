@@ -6,6 +6,8 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
+use Test::Exception;
+
 use Module::Runtime qw( use_module );
 
 my $dtc = use_module('Business::CyberSource::Request::Authorization');
@@ -35,7 +37,8 @@ can_ok $req, 'submit';
 can_ok $req, 'username';
 can_ok $req, 'password';
 can_ok $req, 'production';
-ok ( ! $req->can('create'), 'can not create');
+
+throws_ok { $req->create } qr/Business::CyberSource::RequestFactory/, 'create dies';
 
 my $ret = $req->submit;
 
