@@ -5,7 +5,6 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
-use Test::Exception;
 
 use Module::Runtime qw( use_module );
 
