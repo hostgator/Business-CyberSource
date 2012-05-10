@@ -7,6 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::SetOnce 0.200001;
 
 with qw(
 	Business::CyberSource::Role::ForeignCurrency
@@ -15,10 +16,10 @@ with qw(
 use MooseX::Types::CyberSource qw( DCCIndicator );
 
 has dcc_indicator => (
-	required  => 0,
-	predicate => 'has_dcc_indicator',
-	is        => 'ro',
 	isa       => DCCIndicator,
+	traits    => [ 'SetOnce' ],
+	is        => 'rw',
+	predicate => 'has_dcc_indicator',
 	trigger   => sub {
 		my $self = shift;
 		$self->_request_data->{dcc}{dccIndicator} = $self->dcc_indicator;

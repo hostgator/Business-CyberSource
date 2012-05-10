@@ -11,10 +11,9 @@ use MooseX::Types::CyberSource qw( Item );
 use MooseX::Types::Moose       qw( ArrayRef );
 
 has items => (
-	required  => 0,
-	predicate => 'has_items',
-	is        => 'ro',
 	isa       => ArrayRef[Item],
+	predicate => 'has_items',
+	is        => 'rw',
 	traits    => ['Array'],
 	handles   => {
 		items_is_empty => 'is_empty',
