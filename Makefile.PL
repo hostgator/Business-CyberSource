@@ -15,7 +15,6 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Caleb Cushing <xenoterracide\@gmail.com>",
   "BUILD_REQUIRES" => {
     "Data::Dumper" => 0,
-    "Env" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
     "Test::Exception" => 0,
