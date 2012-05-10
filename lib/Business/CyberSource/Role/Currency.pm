@@ -1,5 +1,4 @@
 package Business::CyberSource::Role::Currency;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
