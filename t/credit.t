@@ -1,33 +1,31 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Exception;
-use Data::Dumper;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $cybs_id, $cybs_key )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Credit;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
 
-my $req;
-lives_ok {
-	$req = Business::CyberSource::Request::Credit
-	->with_traits(qw{
+my $creditc = use_module('Business::CyberSource::Request::Credit');
+
+my $anonc
+	= $creditc->with_traits(qw{
 		BillingInfo
 		CreditCardInfo
-	})
-	->new({
-		username       => $cybs_id,
-		password       => $cybs_key,
-		production     => 0,
-		reference_code => 't301',
+	});
+
+my $req
+	= new_ok( $anonc => [{
+		reference_code => 'test-credit-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -42,36 +40,18 @@ lives_ok {
 		credit_card    => '3566 1111 1111 1113',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-	})
-} 'new credit request';
+	}]);
 
-	my $ret;
-	lives_ok { $ret = $req->submit } 'submit';
+isa_ok $req, $creditc;
 
-# check billing info
-	is( $req->reference_code, 't301',      'check reference_code' );
-	is( $req->first_name,     'Caleb',     'check first_name'     );
-	is( $req->last_name,      'Cushing',   'check first_name'     );
-	is( $req->street,         'somewhere', 'check street'         );
-	is( $req->city,           'Houston',   'check city'           );
-	is( $req->state,          'TX',        'check state'          );
-	is( $req->country,        'US',        'check country'        );
+is( $req->ip->addr,   '192.168.100.2',          'check ip'    );
+is( $req->card_type, '007', 'check card type is JCB' );
 
-	is( $req->ip->addr,   '192.168.100.2',          'check ip'    );
-	is( $req->email, 'xenoterracide@gmail.com', 'check email' );
+my $ret = $client->run_transaction( $req );
 
-	is( $req->total,      5, 'check total'      );
+isa_ok $ret, 'Business::CyberSource::Response';
 
-	is( $req->currency, 'USD', 'check currency' );
 
-	is( $req->cc_exp_month, '09',   'check credit card expiration year'  );
-	is( $req->cc_exp_year,  '2025', 'check credit card expiration month' );
-
-	is( $req->card_type, '007', 'check card type is JCB' );
-
-	ok( $ret, 'request response exists' );
-
-	is( $ret->reference_code, 't301', 'check response reference code' );
 	is( $ret->decision,       'ACCEPT', 'check decision'       );
 	is( $ret->reason_code,     100,     'check reason_code'    );
 	is( $ret->currency,       'USD',    'check currency'       );
@@ -79,4 +59,5 @@ lives_ok {
 
 	ok( $ret->request_id,    'check request_id exists'    );
 	ok( $ret->datetime,      'check datetime exists'      );
+
 done_testing;
