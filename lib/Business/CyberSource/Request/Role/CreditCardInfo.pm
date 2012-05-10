@@ -1,7 +1,6 @@
 package Business::CyberSource::Request::Role::CreditCardInfo;
 use strict;
 use warnings;
-use Carp;
 use namespace::autoclean;
 
 # VERSION
@@ -115,7 +114,7 @@ sub _build_card_type {
 		:                                  undef
 		;
 
-	croak $ct . ' card_type was unable to be detected please define it manually'
+	confess $ct . ' card_type was unable to be detected please define it manually'
 		unless $code;
 
 	return $code;
