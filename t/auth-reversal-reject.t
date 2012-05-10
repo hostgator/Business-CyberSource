@@ -6,20 +6,20 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-my ( $CYBS_ID, $CYBS_KEY )
-	= (
-		$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-	);
+use Module::Runtime qw( use_module );
 
-use Business::CyberSource::Request::Authorization;
-use Business::CyberSource::Request::AuthReversal;
+my $client
+	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
+		production => 0,
+	}]);
+
+my $authc = use_module('Business::CyberSource::Request::Authorization');
 
 my $auth_req
-	= Business::CyberSource::Request::Authorization->new({
-		username       => $CYBS_ID,
-		password       => $CYBS_KEY,
-		reference_code => '404',
+	= new_ok( $authc => [{
+		reference_code => 'test-auth-reversal-reject-' . time,
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
 		street         => 'somewhere',
@@ -33,31 +33,28 @@ my $auth_req
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
-		production     => 0,
-	});
+	}]);
 
-my $auth = $auth_req->submit;
+my $auth_res = $client->run_transaction( $auth_req );
 
-ok( $auth, 'authorization response exists' );
+my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
-my $rev_req = Business::CyberSource::Request::AuthReversal->new({
-		username       => $auth_req->username,
-		password       => $auth_req->password,
+my $rev_req
+	= new_ok( $authrevc => [{
 		reference_code => $auth_req->reference_code,
 		request_id     => '834',
-		total          => $auth->amount,
-		currency       => $auth->currency,
-		production     => 0,
-	})
+		total          => $auth_res->amount,
+		currency       => $auth_res->currency,
+	}])
 	;
 
-my $rev = $rev_req->submit;
+my $rev_res = $client->run_transaction( $rev_req );
 
-ok( $rev, 'reversal response exists' );
+isa_ok $rev_res, 'Business::CyberSource::Response';
 
-is( $rev->decision, 'REJECT', 'check decision' );
-is( $rev->reason_code, 102, 'check reason_code' );
+is( $rev_res->decision, 'REJECT', 'check decision' );
+is( $rev_res->reason_code, 102, 'check reason_code' );
 
-ok( $rev->request_token, 'request token exists' );
+ok( $rev_res->request_token, 'request token exists' );
 
 done_testing;
