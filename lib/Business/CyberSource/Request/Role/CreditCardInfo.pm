@@ -7,6 +7,9 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::Aliases;
+use MooseX::SetOnce 0.200001;
+
+
 use MooseX::Types::Moose      qw( Int HashRef );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
 use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode _VarcharSixty );
@@ -29,7 +32,6 @@ has credit_card => (
 );
 
 has card_type => (
-	required  => 0,
 	lazy      => 1,
 	predicate => 'has_card_type',
 	is        => 'ro',
@@ -60,7 +62,6 @@ has cc_exp_year => (
 );
 
 has cv_indicator => (
-	required => 0,
 	init_arg => undef,
 	lazy     => 1,
 	is       => 'ro',
@@ -76,12 +77,12 @@ has cv_indicator => (
 );
 
 has cvn => (
-	required  => 0,
+	isa       => CardSecurityCode,
+	traits    => [ 'SetOnce' ],
 	alias     => [ qw( cvv cvv2  cvc2 cid ) ],
 	predicate => 'has_cvn',
-	is        => 'ro',
-	isa       => CardSecurityCode,
-	trigger  => sub {
+	is        => 'rw',
+	trigger   => sub {
 		my $self = shift;
 		$self->_request_data->{card}{cvNumber} = $self->cvn;
 		$self->_request_data->{card}{cvIndicator} = $self->cv_indicator;
@@ -89,9 +90,9 @@ has cvn => (
 );
 
 has full_name => (
-	required => 0,
-	is       => 'ro',
 	isa      => _VarcharSixty,
+	traits   => [ 'SetOnce' ],
+	is       => 'rw',
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{card}{fullName} = $self->full_name;
