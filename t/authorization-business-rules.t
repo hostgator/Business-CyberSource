@@ -75,7 +75,7 @@ my $auth_req1
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		ignore_avs_result => 1,
-	});
+	}]);
 
 
 my $auth_res1 = $client->run_transaction( $auth_req1 );
@@ -115,7 +115,7 @@ my $auth_req2
 		cc_exp_month   => '09',
 		cc_exp_year    => '2025',
 		decline_avs_flags => [ qw( Y N ) ],
-	});
+	}]);
 
 my $auth_res2 = $client->run_transaction( $auth_req2 );
 
