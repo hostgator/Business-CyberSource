@@ -7,6 +7,8 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::URI     qw( Uri     );
 use MooseX::Types::Path::Class qw( File Dir );
@@ -54,8 +56,9 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 }
 
 has comments => (
-	is       => 'ro',
 	isa      => Str,
+	traits   => ['SetOnce'],
+	is       => 'rw',
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{comments} = $self->comments;
