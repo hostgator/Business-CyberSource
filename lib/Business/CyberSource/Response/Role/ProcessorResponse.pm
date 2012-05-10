@@ -7,13 +7,16 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::CyberSource qw( _VarcharTen );
 
 has processor_response => (
-	required  => 0,
-	predicate => 'has_processor_response',
-	is        => 'ro',
 	isa       => _VarcharTen,
+	predicate => 'has_processor_response',
+	traits    => ['SetOnce'],
+	is        => 'rw',
 );
 
 1;
@@ -21,3 +24,5 @@ has processor_response => (
 # ABSTRACT: Processor Response attribute
 
 =attr processor_response
+
+=cut

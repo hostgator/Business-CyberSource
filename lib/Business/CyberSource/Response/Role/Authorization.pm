@@ -1,5 +1,4 @@
 package Business::CyberSource::Response::Role::Authorization;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -13,21 +12,22 @@ with qw(
 	Business::CyberSource::Response::Role::CVN
 );
 
-use MooseX::Types::Moose   qw( Str     );
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::CyberSource qw( _VarcharSeven );
 
 has auth_code => (
-	required  => 0,
-	predicate => 'has_auth_code',
-	is        => 'ro',
 	isa       => _VarcharSeven,
+	predicate => 'has_auth_code',
+	traits    => ['SetOnce'],
+	is        => 'rw',
 );
 
 has auth_record => (
-	required  => 0,
+	isa       => 'Str',
 	predicate => 'has_auth_record',
-	is        => 'ro',
-	isa       => Str,
+	traits    => ['SetOnce'],
+	is        => 'rw',
 );
 
 1;

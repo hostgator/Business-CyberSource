@@ -7,20 +7,22 @@ use namespace::autoclean;
 
 use Moose::Role;
 
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::CyberSource qw( AVSResult _VarcharTen );
 
 has avs_code => (
-	required => 0,
+	isa       => AVSResult,
 	predicate => 'has_avs_code',
-	is       => 'ro',
-	isa      => AVSResult,
+	traits    => ['SetOnce'],
+	is        => 'rw',
 );
 
 has avs_code_raw => (
-	required  => 0,
-	predicate => 'has_avs_code_raw',
-	is        => 'ro',
 	isa       => _VarcharTen,
+	predicate => 'has_avs_code_raw',
+	traits    => ['SetOnce'],
+	is        => 'rw',
 );
 
 1;
