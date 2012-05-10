@@ -3,23 +3,11 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.004007'; # VERSION
+# VERSION
 
 1;
 
 # ABSTRACT: Perl interface to the CyberSource Simple Order SOAP API
-
-
-__END__
-=pod
-
-=head1 NAME
-
-Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
-
-=head1 VERSION
-
-version 0.004007
 
 =head1 DESCRIPTION
 
@@ -50,35 +38,14 @@ all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
 
 causes all requests to be C<carp>ed to STDERROR
 
-=head2 Testing
+=head2 USERNAME
 
-=head3 Credentials
+set's the L<username in the client|Busines::CyberSource::Client/"username">
+for testing
 
-=head4 USERNAME
+=head2 PASSWORD
 
-=head4 PASSWORD
-
-set's the L<username|Busines::CyberSource::Client/"username"> and
-L<password|Busines::CyberSource::Client/"password"> in the client for running
-tests.
-
-=head3 Direct Currency Conversion
-
-=head4 DCC_CC_YYYY
-
-sets the test credit card expiration year for both visa and mastercard
-
-=head4 DCC_CC_MM
-
-sets the test credit card expiration month for both visa and mastercard
-
-=head4 DCC_MASTERCARD
-
-A test credit card number provided by your your credit card processor
-
-=head4 DCC_VISA
-
-A test credit card number provided by your your credit card processor
+set's the L<e in the client|Busines::CyberSource::Client/"username">
 
 =head1 EXAMPLE
 
@@ -194,26 +161,4 @@ for the help with getting L<XML::Compile::SOAP::WSS> working.
 
 =back
 
-=head1 BUGS
-
-Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Business-CyberSource/issues
-
-When submitting a bug or request, please include a test-file or a
-patch to an existing test-file that illustrates the bug or desired
-feature.
-
-=head1 AUTHOR
-
-Caleb Cushing <xenoterracide@gmail.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is Copyright (c) 2011 by Caleb Cushing.
-
-This is free software, licensed under:
-
-  The Artistic License 2.0 (GPL Compatible)
-
 =cut
-

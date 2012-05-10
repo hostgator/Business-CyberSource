@@ -5,7 +5,52 @@ NAME
 VERSION
     version 0.004007
 
-SYNOPSIS
+DESCRIPTION
+    This library is a Perl interface to the CyberSource Simple Order SOAP
+    API built on Moose and XML::Compile::SOAP technologies. This library
+    aims to eventually provide a full interface the SOAPI.
+
+    You may wish to read the Official CyberSource Documentation on Credit
+    Card Services for the Simpler Order API
+    <http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO
+    _API/html/> as it will provide further information on why what some
+    things are and the general workflow.
+
+    To get started you will want to read the documentation in
+    Business::CyberSource::Client and Business::CyberSource::Request. If you
+    find any documentation unclear or outright missing, please file a bug.
+
+    If there are features that are part of CyberSource's API but are not
+    documented, or are missing here, please file a bug. I'll be happy to add
+    them, but due to the size of the upstream API, I have not had time to
+    cover all the features and some are currently undocumented.
+
+ENVIRONMENT
+    all environment variables are prefixed with "PERL_BUSINESS_CYBERSOURCE_"
+
+  DEBUG
+    causes all requests to be "carp"ed to STDERROR
+
+  Testing
+   Credentials
+   USERNAME
+   PASSWORD
+    set's the username and password in the client for running tests.
+
+   Direct Currency Conversion
+   DCC_CC_YYYY
+    sets the test credit card expiration year for both visa and mastercard
+
+   DCC_CC_MM
+    sets the test credit card expiration month for both visa and mastercard
+
+   DCC_MASTERCARD
+    A test credit card number provided by your your credit card processor
+
+   DCC_VISA
+    A test credit card number provided by your your credit card processor
+
+EXAMPLE
             use 5.010;
             use Carp;
             use Try::Tiny;
@@ -90,7 +135,6 @@ SYNOPSIS
                     }
             }
 
-  caption
     This code is not meant to be DRY, but more of a top to bottom example.
     Also note that if you really want to do Authorization and Capture at one
     time use a Sale. Most common Reasons for Exceptions would be bad input
@@ -99,30 +143,6 @@ SYNOPSIS
     later. You don't have to print the response on error during development,
     you can easily just use the DEBUG Environment variable
 
-DESCRIPTION
-    This library is a Perl interface to the CyberSource Simple Order SOAP
-    API built on Moose and XML::Compile::SOAP technologies. This library
-    aims to eventually provide a full interface the SOAPI.
-
-    You may wish to read the Official CyberSource Documentation on Credit
-    Card Services for the Simpler Order API
-    <http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO
-    _API/html/> as it will provide further information on why what some
-    things are and the general workflow.
-
-    To get started you will want to read the documentation in
-    Business::CyberSource::Client and Business::CyberSource::Request. If you
-    find any documentation unclear or outright missing, please file a bug.
-
-    If there are features that are part of CyberSource's API but are not
-    documented, or are missing here, please file a bug. I'll be happy to add
-    them, but due to the size of the upstream API, I have not had time to
-    cover all the features and some are currently undocumented.
-
-ENVIRONMENT
-    all environment variables are prefixed with "PERL_BUSINESS_CYBERSOURCE_"
-
-  DEBUG
 ACKNOWLEDGMENTS
     *   Mark Overmeer
 
