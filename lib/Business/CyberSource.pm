@@ -70,7 +70,7 @@ sets the test credit card expiration year for both Visa and MasterCard
 
 =head4 DCC_CC_MM
 
-sets the test credit card expiration month for both visa and mastercard
+sets the test credit card expiration month for both Visa and MasterCard
 
 =head4 DCC_MASTERCARD
 

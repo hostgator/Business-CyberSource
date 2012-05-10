@@ -42,7 +42,7 @@ ENVIRONMENT
     sets the test credit card expiration year for both Visa and MasterCard
 
    DCC_CC_MM
-    sets the test credit card expiration month for both visa and mastercard
+    sets the test credit card expiration month for both Visa and MasterCard
 
    DCC_MASTERCARD
     A test credit card number provided by your your credit card processor
