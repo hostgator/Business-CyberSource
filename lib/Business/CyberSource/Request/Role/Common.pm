@@ -18,8 +18,7 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
-use Business::CyberSource::Client;
-
+use Module::Runtime qw( use_module );
 use Carp;
 our @CARP_NOT = ( __PACKAGE__ );
 
@@ -39,7 +38,7 @@ before submit => sub {
 sub submit {
 	my $self = shift;
 
-	my $client = Business::CyberSource::Client->new({
+	my $client = use_module('Business::CyberSource::Client')->new({
 		username   => $self->username,
 		password   => $self->password,
 		production => $self->production,
