@@ -14,7 +14,9 @@ use MooseX::ABC;
 has trace => (
 	isa       => 'XML::Compile::SOAP::Trace',
 	predicate => 'has_trace',
-	is        => 'ro',
+	traits    => [ 'SetOnce' ],
+	is        => 'rw',
+	writer    => '_trace',
 );
 
 __PACKAGE__->meta->make_immutable;

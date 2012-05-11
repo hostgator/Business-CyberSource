@@ -42,8 +42,6 @@ has '+_trait_namespace' => (
 
 has '+trace' => (
 	is        => 'rw',
-	writer    => '_trace',
-	traits    => [ 'SetOnce' ],
 	init_arg  => undef
 );
 
