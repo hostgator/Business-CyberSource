@@ -13,8 +13,8 @@ use Module::Runtime qw( use_module );
 
 use Exception::Base (
 	'Business::CyberSource::Exception' => {
-		has               => [ qw( decision reason_text ) ],
-		string_attributes => [ qw( decision reason_text ) ],
+		has               => [ qw( decision reason_text response_text ) ],
+		string_attributes => [ qw( decision reason_text response_text ) ],
 	},
 	verbosity      => 4,
 	ignore_package => [ __PACKAGE__, 'Business::CyberSource::Client' ],
@@ -162,6 +162,8 @@ sub create {
 		decision    => $response->decision,
 		reason_text => $response->reason_text,
 		value       => $response->reason_code,
+		response_text
+			=> $response->has_trace ? $response->trace->response->as_string : ''
 	) if $exception;
 
 	return $response;
