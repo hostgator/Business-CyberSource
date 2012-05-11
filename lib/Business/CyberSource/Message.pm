@@ -8,6 +8,7 @@ use namespace::autoclean;
 use Moose;
 with 'MooseX::Traits';
 
+use MooseX::SetOnce 0.200001;
 use MooseX::StrictConstructor;
 use MooseX::ABC;
 
