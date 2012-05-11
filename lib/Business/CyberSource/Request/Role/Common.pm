@@ -1,5 +1,4 @@
 package Business::CyberSource::Request::Role::Common;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -21,10 +20,21 @@ with qw(
 
 use Business::CyberSource::Client;
 
+use Carp;
+our @CARP_NOT = ( __PACKAGE__ );
+
 sub serialize {
 	my $self = shift;
 	return $self->_request_data;
 }
+
+before submit => sub {
+	local @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
+	carp 'DEPRECATED: using submit on a request object is deprecated. '
+		. 'Please pass the object to Business::CyberSource::Client directly '
+		. 'instead.'
+		;
+};
 
 sub submit {
 	my $self = shift;
