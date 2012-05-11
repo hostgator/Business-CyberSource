@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.004008  2012-05-11
+	- make optional attributes read-write and setonce
+	- throw an exception object on receipt of an ERROR from cybersource
+
 0.004007  2012-05-10
 	- refactor tests
 	- more documentation improvements
