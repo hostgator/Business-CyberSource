@@ -14,6 +14,7 @@ use MooseX::Types -declare => [ qw(
 	DCCIndicator
 	Decision
 	Item
+	CreditCard
 	_VarcharOne
 	_VarcharSeven
 	_VarcharTen
@@ -24,7 +25,7 @@ use MooseX::Types -declare => [ qw(
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
-use MooseX::Types::Moose qw( Int Num Str );
+use MooseX::Types::Moose qw( Int Num Str HashRef );
 use MooseX::Types::Structured qw( Dict Optional );
 use Locale::Country;
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
@@ -94,6 +95,14 @@ coerce CountryCode,
 	;
 
 enum DCCIndicator, [ qw( 1 2 3 ) ];
+
+class_type CreditCard, { class => 'Business::CyberSource::CreditCard' };
+
+coerce CreditCard,
+	from HashRef,
+	via {
+		return use_module('Business::CyberSource::CreditCard')->new( $_ );
+	};
 
 subtype _VarcharOne,
 	as NonEmptySimpleStr,
