@@ -16,8 +16,6 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode _VarcharSixty );
 
 use Moose::Util::TypeConstraints;
 
-use Business::CreditCard qw( cardtype );
-
 has credit_card => (
 	required => 1,
 	alias    => 'account_number',
@@ -102,7 +100,8 @@ has full_name => (
 sub _build_card_type {
 	my $self = shift;
 
-	my $ct = cardtype( $self->credit_card );
+	require Business::CreditCard;
+	my $ct = Business::CreditCard::cardtype( $self->credit_card );
 
 	my $code
 		= $ct =~ /visa             /ixms ? '001'
