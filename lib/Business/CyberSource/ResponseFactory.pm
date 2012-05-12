@@ -12,9 +12,13 @@ use MooseX::StrictConstructor;
 use Module::Runtime qw( use_module );
 
 use Exception::Base (
-	'Business::CyberSource::Exception' => {
-		has               => [ qw( decision reason_text response_text ) ],
-		string_attributes => [ qw( decision reason_text response_text ) ],
+	'Business::CyberSource::Exception',
+	'Business::CyberSource::Response::Exception' => {
+		isa => 'Business::CyberSource::Exception',
+		has => [
+			qw(decision reason_text reason_code request_id request_token trace)
+		],
+		string_attributes => [ qw( message decision reason_text ) ],
 	},
 	verbosity      => 4,
 	ignore_package => [ __PACKAGE__, 'Business::CyberSource::Client' ],
@@ -28,7 +32,7 @@ sub create {
 
 	my @traits;
 	my $e = { };
-	my $exception;
+	my $error = 0;
 
 	if ( $result->{decision} eq 'ACCEPT' or $result->{decision} eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
@@ -139,7 +143,7 @@ sub create {
 
 	}
 	elsif ( $result->{decision} eq 'ERROR' ) {
-		$exception = 1;
+		$error = 1;
 	}
 	else {
 		confess 'decision defined, but not handled: ' . $result->{decision};
@@ -158,13 +162,20 @@ sub create {
 
 	$response->_trace( $dto->trace ) if $dto->has_trace;
 
-	Business::CyberSource::Exception->throw(
-		decision    => $response->decision,
-		reason_text => $response->reason_text,
-		value       => $response->reason_code,
-		response_text
-			=> $response->has_trace ? $response->trace->response->as_string : ''
-	) if $exception;
+	if ( $error ) {
+		my %exception = (
+			message       => 'message from CyberSource\'s API',
+			decision      => $response->decision,
+			reason_text   => $response->reason_text,
+			reason_code   => $response->reason_code,
+			value         => $response->reason_code,
+			request_id    => $response->request_id,
+			request_token => $response->request_token,
+		);
+		$exception{trace} = $response->trace if $response->has_trace;
+
+		Business::CyberSource::Response::Exception->throw( %exception );
+	}
 
 	return $response;
 }

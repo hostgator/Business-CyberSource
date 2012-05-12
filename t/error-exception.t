@@ -32,18 +32,21 @@ my $auth_req
 my $error = {
 	result => {
 		decision     => 'ERROR',
-		requestID    => 'test',
+		requestID    => '3367880563740176056428',
 		reasonCode   => '150',
-		requestToken => 'dflkjdlkja',
+		requestToken => 'AhhRbwSRbSV2sdn3CQDYD6QQqAAaSZV0ekrReBEA5lFa',
 	},
 };
 
 my $exception = exception { $factory->create( $error, $auth_req ) };
 
 isa_ok( $exception, 'Business::CyberSource::Exception' );
+
 like(  "$exception",         qr/error/i, 'stringify'   );
 is  (   $exception->decision,'ERROR',    'decision'    );
 is  (   $exception+0,        150,        'numerify'    );
 is  (   $exception->value ,  150,        'value'       );
+
+note $exception;
 
 done_testing;
