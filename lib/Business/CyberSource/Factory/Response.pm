@@ -12,7 +12,9 @@ extends 'Business::CyberSource::Factory';
 use Module::Runtime qw( use_module );
 
 use Exception::Base (
-	'Business::CyberSource::Exception',
+	'Business::CyberSource::Exception' => {
+		has => [ qw( answer ) ],
+	},
 	'Business::CyberSource::Response::Exception' => {
 		isa => 'Business::CyberSource::Exception',
 		has => [
@@ -45,7 +47,12 @@ sub create {
 	my $result = $answer->{result};
 	my $decision = $result->{decision};
 
-	confess 'decision not defined' unless defined $decision;
+	Business::CyberSource::Exception->throw(
+			message  => 'decision not defined',
+			answer   => $answer,
+		)
+		unless defined $decision
+		;
 
 	my @traits;
 	my $e = { };

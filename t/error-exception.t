@@ -11,7 +11,7 @@ can_ok( $factory, 'create' );
 
 my $authc = use_module('Business::CyberSource::Request::Authorization');
 
-my $auth_req
+my $dto
 	= new_ok( $authc => [{
 		reference_code => 'random',
 		first_name     => 'Caleb',
@@ -29,7 +29,7 @@ my $auth_req
 		cc_exp_year    => '2025',
 	}]);
 
-my $error = {
+my $answer = {
 	result => {
 		decision     => 'ERROR',
 		requestID    => '3367880563740176056428',
@@ -38,7 +38,7 @@ my $error = {
 	},
 };
 
-my $exception = exception { $factory->create( $error, $auth_req ) };
+my $exception = exception { $factory->create( $dto, $answer ) };
 
 isa_ok( $exception, 'Business::CyberSource::Exception' );
 
