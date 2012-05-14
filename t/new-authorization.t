@@ -38,8 +38,8 @@ is( $dto->country,        'US',        $dtc .'->country'         );
 is( $dto->total,          '3000',      $dtc .'->total'           );
 is( $dto->currency,       'USD',       $dtc .'->currency'        );
 
-is( $dto->cc_exp_month,   '09',        $dtc .'->cc_exp_month'    );
-is( $dto->cc_exp_year,    '2025',      $dtc .'->cc_exp_year'     );
+is( $dto->cc_exp_month,   9,           $dtc .'->cc_exp_month'    );
+is( $dto->cc_exp_year,    2025,        $dtc .'->cc_exp_year'     );
 is( $dto->card_type,      '001',       $dtc . '->card_type'      );
 
 is( $dto->credit_card, '4111111111111111', $dtc .'->credit_card' );

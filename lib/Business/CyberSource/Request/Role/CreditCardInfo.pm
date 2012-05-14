@@ -58,6 +58,15 @@ has card => (
 	required => 1,
 	is       => 'ro',
 	coerce   => 1,
+	handles  => {
+		credit_card   => 'account_number',
+		cvn           => 'security_code',
+		full_name     => 'holder',
+		has_cvn       => 'has_cvn',
+		has_full_name => 'has_full_name',
+		cc_exp_month  => sub { shift->card->expiration->month },
+		cc_exp_year   => sub { shift->card->expiration->year  },
+	},
 	trigger  => sub {
 		my $self = shift;
 
