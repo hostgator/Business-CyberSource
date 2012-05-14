@@ -35,9 +35,8 @@ sub run_transaction {
 			&& $dto->isa('Business::CyberSource::Request')
 			;
 
-	if ( $dto->is_skipable ) {
+	if ( $dto->is_skipable && ! $self->ignore_skipable ) {
 		return $self->_response_factory->create( $dto );
-		confess 'FUCK';
 	}
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
@@ -116,6 +115,13 @@ has _response_factory => (
 	default  => sub {
 		return use_module('Business::CyberSource::Factory::Response')->new;
 	},
+);
+
+has ignore_skipable => (
+	isa     => 'Bool',
+	is      => 'rw',
+	lazy    => 1,
+	default => sub { return 0 },
 );
 
 has debug => (
@@ -258,6 +264,13 @@ false they will go to the testing server
 Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+
+=attr ignore_skipable
+
+requests with expired credit cards are currently "skip-able" and will not be
+sent by default, instead you will get a response object that has filled out the
+most important parts of a REJECT response and mocked other required fields. If
+you want to send these requests always set this in the client.
 
 =attr name
 
