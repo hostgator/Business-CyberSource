@@ -1,10 +1,12 @@
-package Business::CyberSource::RequestFactory;
+package Business::CyberSource::Factory::Request;
 use strict;
 use warnings;
 use namespace::autoclean;
 
 # VERSION
 
+use Moose;
+extends 'Business::CyberSource::Factory';
 use MooseX::AbstractFactory;
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 

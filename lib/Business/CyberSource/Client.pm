@@ -103,13 +103,13 @@ sub _build_cybs_xsd {
 }
 
 has _response_factory => (
-	isa      => 'Business::CyberSource::ResponseFactory',
+	isa      => 'Business::CyberSource::Factory::Response',
 	is       => 'ro',
 	lazy     => 1,
 	writer   => undef,
 	init_arg => undef,
 	default  => sub {
-		return use_module('Business::CyberSource::ResponseFactory')->new;
+		return use_module('Business::CyberSource::Factory::Response')->new;
 	},
 );
 

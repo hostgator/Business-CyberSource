@@ -1,4 +1,4 @@
-package Business::CyberSource::ResponseFactory;
+package Business::CyberSource::Factory::Response;
 use 5.010;
 use strict;
 use warnings;
@@ -7,7 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::StrictConstructor;
+extends 'Business::CyberSource::Factory';
 
 use Module::Runtime qw( use_module );
 

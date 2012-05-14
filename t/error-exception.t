@@ -5,7 +5,7 @@ use Test::Fatal;
 
 use Module::Runtime qw( use_module );
 
-my $factory = new_ok( use_module('Business::CyberSource::ResponseFactory') );
+my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
 can_ok( $factory, 'create' );
 
