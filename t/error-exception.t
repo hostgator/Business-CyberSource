@@ -47,6 +47,4 @@ is  (   $exception->decision,'ERROR',    'decision'    );
 is  (   $exception+0,        150,        'numerify'    );
 is  (   $exception->value ,  150,        'value'       );
 
-note $exception;
-
 done_testing;
