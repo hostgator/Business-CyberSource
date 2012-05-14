@@ -14,6 +14,7 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode CreditCard);
 
 use Moose::Util::TypeConstraints;
 
+use Carp qw( carp );
 use Module::Runtime qw( use_module );
 
 around BUILDARGS => sub {
@@ -23,31 +24,50 @@ around BUILDARGS => sub {
 	my $args = $class->$orig( @_ );
 
 	unless ( defined $args->{card}
-		&& blessed $args->{card}
-		&& $args->{card}->isa('Business::CyberSource::CreditCard')
+			&& blessed $args->{card}
+			&& $args->{card}->isa('Business::CyberSource::CreditCard')
 		) {
-			my %cc_args = (
-				account_number => delete $args->{credit_card},
-				expiration     => {
-					month => delete $args->{cc_exp_month},
-					year  => delete $args->{cc_exp_year},
-				},
-			);
 
-			$cc_args{security_code}
-				=  delete  $args->{cvn}
-				if defined $args->{cvn}
-				;
+		my $deprecation_notice = 'please pass a '
+			. 'Business::CyberSource::CreditCard to card '
+			. 'in the constructor'
+			;
 
-			$cc_args{holder}
-				=  delete  $args->{full_name}
-				if defined $args->{full_name}
+		unless ( $args->{credit_card}
+				&& $args->{cc_exp_month}
+				&& $args->{cc_exp_year}
+			) {
+			confess $deprecation_notice;
+		}
+		else {
+			carp 'DEPRECATED: using credit_card, cc_exp_month, and '
+				. 'cc_exp_year are deprecated. '
+				. $deprecation_notice
 				;
+		}
 
-			$args->{card}
-				= use_module('Business::CyberSource::CreditCard')
-				->new( \%cc_args )
-				;
+		my %cc_args = (
+			account_number => delete $args->{credit_card},
+			expiration     => {
+				month => delete $args->{cc_exp_month},
+				year  => delete $args->{cc_exp_year},
+			},
+		);
+
+		$cc_args{security_code}
+			=  delete  $args->{cvn}
+			if defined $args->{cvn}
+			;
+
+		$cc_args{holder}
+			=  delete  $args->{full_name}
+			if defined $args->{full_name}
+			;
+
+		$args->{card}
+			= use_module('Business::CyberSource::CreditCard')
+			->new( \%cc_args )
+			;
 	}
 
 	return $args;

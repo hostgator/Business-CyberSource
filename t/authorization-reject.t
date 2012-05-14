@@ -31,7 +31,7 @@ my $req0
 		zip            => '77064',
 		country        => 'US',
 		email          => 'foobar@example.com',
-		total          => 3000.37,
+		total          => 3000.37, # magic make me expired value
 		currency       => 'USD',
 		credit_card    => '4111-1111-1111-1111',
 		cc_exp_month   => '12',

@@ -35,6 +35,11 @@ sub run_transaction {
 			&& $dto->isa('Business::CyberSource::Request')
 			;
 
+	if ( $dto->is_skipable ) {
+		return $self->_response_factory->create( $dto );
+		confess 'FUCK';
+	}
+
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
 	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
@@ -65,7 +70,7 @@ sub run_transaction {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $answer, $dto  );
+	return $self->_response_factory->create( $dto, $answer );
 }
 
 sub _build_cybs_wsdl {

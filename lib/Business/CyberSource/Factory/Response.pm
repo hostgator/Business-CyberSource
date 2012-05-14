@@ -26,15 +26,32 @@ use Exception::Base (
 
 
 sub create {
-	my ( $self, $answer, $dto )  = @_;
+	my ( $self, $dto, $answer ) = @_;
+
+	if ( ! defined $answer ) {
+		confess 'answer not defined and not skipable'
+			unless $dto->is_skipable;
+
+		# right now the only reason to do this expired card
+		$answer = { result => {
+			merchantReferenceCode => $dto->reference_code,
+			decision              => 'REJECT',
+			reasonCode            => '202',
+			requestID             => 0,
+			requestToken          => 0,
+		}};
+	}
 
 	my $result = $answer->{result};
+	my $decision = $result->{decision};
+
+	confess 'decision not defined' unless defined $decision;
 
 	my @traits;
 	my $e = { };
 	my $error = 0;
 
-	if ( $result->{decision} eq 'ACCEPT' or $result->{decision} eq 'REJECT' ) {
+	if ( $decision eq 'ACCEPT' or $decision eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
 		my $req_prefix  = $prefix . 'Request::';
 		my $res_prefix  = $prefix . 'Response::';
@@ -106,54 +123,54 @@ sub create {
 		}
 
 		if ( $dto->isa( $req_prefix . 'Authorization') ) {
+			if ( $result->{ccAuthReply} ) {
 				push( @traits, $role_prefix . 'Authorization' );
-					if ( $result->{ccAuthReply} ) {
 
-						$e->{auth_code}
-							=  $result->{ccAuthReply}{authorizationCode }
-							if $result->{ccAuthReply}{authorizationCode }
-							;
+				$e->{auth_code}
+					=  $result->{ccAuthReply}{authorizationCode}
+					if $result->{ccAuthReply}{authorizationCode}
+					;
 
 
-						if ( $result->{ccAuthReply}{cvCode}
-							&& $result->{ccAuthReply}{cvCodeRaw}
-							) {
-							$e->{cv_code}     = $result->{ccAuthReply}{cvCode};
-							$e->{cv_code_raw} = $result->{ccAuthReply}{cvCodeRaw};
-						}
+				if ( $result->{ccAuthReply}{cvCode}
+					&& $result->{ccAuthReply}{cvCodeRaw}
+					) {
+					$e->{cv_code}     = $result->{ccAuthReply}{cvCode};
+					$e->{cv_code_raw} = $result->{ccAuthReply}{cvCodeRaw};
+				}
 
-						if ( $result->{ccAuthReply}{avsCode}
-							&& $result->{ccAuthReply}{avsCodeRaw}
-							) {
-							$e->{avs_code}     = $result->{ccAuthReply}{avsCode};
-							$e->{avs_code_raw} = $result->{ccAuthReply}{avsCodeRaw};
-						}
+				if ( $result->{ccAuthReply}{avsCode}
+					&& $result->{ccAuthReply}{avsCodeRaw}
+					) {
+					$e->{avs_code}     = $result->{ccAuthReply}{avsCode};
+					$e->{avs_code_raw} = $result->{ccAuthReply}{avsCodeRaw};
+				}
 
-						if ( $result->{ccAuthReply}{processorResponse} ) {
-							$e->{processor_response}
-								= $result->{ccAuthReply}{processorResponse}
-								;
-						}
+				if ( $result->{ccAuthReply}{processorResponse} ) {
+					$e->{processor_response}
+						= $result->{ccAuthReply}{processorResponse}
+						;
+				}
 
-						if ( $result->{ccAuthReply}->{authRecord} ) {
-							$e->{auth_record} = $result->{ccAuthReply}->{authRecord};
-						}
-					}
+				if ( $result->{ccAuthReply}->{authRecord} ) {
+					$e->{auth_record} = $result->{ccAuthReply}->{authRecord};
+				}
+			}
 		}
 
 	}
-	elsif ( $result->{decision} eq 'ERROR' ) {
+	elsif ( $decision eq 'ERROR' ) {
 		$error = 1;
 	}
 	else {
-		confess 'decision defined, but not handled: ' . $result->{decision};
+		confess 'decision defined, but not handled: ' . $decision;
 	}
 
 	my $response = use_module('Business::CyberSource::Response')
 		->with_traits( @traits )
 		->new({
 			request_id     => $result->{requestID},
-			decision       => $result->{decision},
+			decision       => $decision,
 			# quote reason_code to stringify from BigInt
 			reason_code    => "$result->{reasonCode}",
 			request_token  => $result->{requestToken},
