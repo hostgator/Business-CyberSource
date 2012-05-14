@@ -14,6 +14,45 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode CreditCard);
 
 use Moose::Util::TypeConstraints;
 
+use Module::Runtime qw( use_module );
+
+around BUILDARGS => sub {
+	my $orig  = shift;
+	my $class = shift;
+
+	my $args = $class->$orig( @_ );
+
+	unless ( defined $args->{card}
+		&& blessed $args->{card}
+		&& $args->{card}->isa('Business::CyberSource::CreditCard')
+		) {
+			my %cc_args = (
+				account_number => delete $args->{credit_card},
+				expiration     => {
+					month => delete $args->{cc_exp_month},
+					year  => delete $args->{cc_exp_year},
+				},
+			);
+
+			$cc_args{security_code}
+				=  delete  $args->{cvn}
+				if defined $args->{cvn}
+				;
+
+			$cc_args{holder}
+				=  delete  $args->{full_name}
+				if defined $args->{full_name}
+				;
+
+			$args->{card}
+				= use_module('Business::CyberSource::CreditCard')
+				->new( \%cc_args )
+				;
+	}
+
+	return $args;
+};
+
 has card => (
 	isa      => CreditCard,
 	required => 1,
