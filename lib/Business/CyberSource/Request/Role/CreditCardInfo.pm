@@ -53,6 +53,14 @@ around BUILDARGS => sub {
 	return $args;
 };
 
+sub _build_skipable {
+	my $self = shift;
+
+	return 1 if $self->card->is_expired;
+
+	return 0;
+}
+
 has card => (
 	isa      => CreditCard,
 	required => 1,

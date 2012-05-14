@@ -55,6 +55,16 @@ sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 	return $factory->create( $impl, @_ );
 }
 
+# the default is false, override in subclass
+sub _build_skipable { return 0 }
+
+has is_skipable => (
+	isa     => 'Bool',
+	builder => '_build_skipable',
+	is      => 'ro',
+	lazy    => 1,
+);
+
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
@@ -235,6 +245,14 @@ Billing currency returned by the DCC service. For the possible values, see the I
 Reader: items
 
 Type: ArrayRef[MooseX::Types::CyberSource::Item]
+
+=attr is_skipable
+
+Type: Bool
+
+an optimization to see if we can skip sending the request and just construct a
+response. This attribute is for use by L<Business::CyberSource::Client> only
+and may change names later.
 
 =for Pod::Coverage BUILD
 
