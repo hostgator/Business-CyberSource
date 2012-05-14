@@ -5,8 +5,6 @@ use namespace::autoclean;
 
 # VERSION
 
-use Moose;
-extends 'Business::CyberSource::Factory';
 use MooseX::AbstractFactory;
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 
@@ -16,9 +14,18 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
-	use Business::CyberSource::RequestFactory;
+	use Business::CyberSource::Factory::Request;
+	use Business::CyberSource::CreditCard;
 
-	my $factory = Business::CyberSource::RequestFactory->new;
+	my $factory = Business::CyberSource::Factory::Request->new;
+
+	my $credit_card = Business::CyberSource::CreditCard->new({
+		account_number => '411111111111111',
+		expiration     => {
+			month => '05',
+			year  => '2012'
+		}
+	);
 
 	my $request_obj = $factory->create(
 		'Authorization',
@@ -34,9 +41,6 @@ __PACKAGE__->meta->make_immutable;
 			email          => 'xenoterracide@gmail.com',
 			total          => 5.00,
 			currency       => 'USD',
-			credit_card    => '4111111111111111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2013',
 		}
 	);
 
