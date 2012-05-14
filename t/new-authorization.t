@@ -5,6 +5,15 @@ use Module::Runtime qw( use_module );
 
 my $dtc = use_module 'Business::CyberSource::Request::Authorization';
 
+my $credit_card
+	= new_ok( use_module('Business::CyberSource::CreditCard') => [{
+		account_number => '4111-1111-1111-1111',
+		expiration     => {
+			month => 9,
+			year  => 2025,
+		},
+	}]);
+
 my $dto
 	= new_ok( $dtc => [{
 		reference_code => my $code = $dtc . '->new',
@@ -18,9 +27,7 @@ my $dto
 		email          => 'xenoterracide@gmail.com',
 		total          => 3000.00,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	}]);
 
 can_ok( $dto, 'submit' );
