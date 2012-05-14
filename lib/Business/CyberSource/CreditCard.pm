@@ -48,17 +48,17 @@ sub _compare_date_against_expiration {
 	# the card could be expired at UTC but not the issuer
 	$exp->add( days => 1 );
 
-	my $cmp = DateTime->compare( $exp, $date );
+	my $cmp = DateTime->compare( $date, $exp );
 
 	given ( $cmp ) {
-		when ( -1 ) { # expiration less than current date
-			return 1;
+		when ( -1 ) { # current date is before than the expiration date
+			return 0;
 		}
 		when ( 0 ) { # expiration equal to current date
 			return 0;
 		}
-		when ( 1 ) { # expiration greater than current date
-			return 0;
+		when ( 1 ) { # current date is past the expiration date
+			return 1;
 		}
 	}
 }
