@@ -152,8 +152,8 @@ month, and year, it will actually contain the last day of that month/year.
 
 Boolean, returns true if the card is older than
 L<expiration date|/"expiration"> plus one day. This is done to compensate for
-unknown Issuer timezones as we can't be sure that all issuers shut cards of on
-the first of every month UTC. In fact I have been told that some Issuers will
+unknown issuer time zones as we can't be sure that all issuers shut cards of on
+the first of every month UTC. In fact I have been told that some issuers will
 allow renewed cards to be run with expired dates. Use this at your discretion.
 
 =attr security_code
