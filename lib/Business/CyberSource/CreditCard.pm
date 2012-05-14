@@ -40,7 +40,7 @@ sub _build_expired {
 	return $self->_compare_date_against_expiration( DateTime->now );
 }
 
-sub _compare_date_against_expiration {
+sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalReturn)
 	my ( $self, $date ) = @_;
 
 	my $exp = $self->expiration->clone;
