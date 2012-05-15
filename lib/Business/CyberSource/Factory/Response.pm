@@ -170,7 +170,9 @@ sub create {
 		$error = 1;
 	}
 	else {
-		confess 'decision defined, but not handled: ' . $decision;
+		Business::CyberSource::Exception->throw(
+			message => 'decision defined, but not handled: ' . $decision
+		);
 	}
 
 	my $response = use_module('Business::CyberSource::Response')
