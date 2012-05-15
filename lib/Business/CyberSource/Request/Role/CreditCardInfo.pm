@@ -40,6 +40,7 @@ around BUILDARGS => sub {
 			confess $deprecation_notice;
 		}
 		else {
+			our @CARP_NOT = ( __PACKAGE__ , 'Class::MOP::Method::Wrapped' );
 			carp 'DEPRECATED: using credit_card, cc_exp_month, and '
 				. 'cc_exp_year are deprecated. '
 				. $deprecation_notice
