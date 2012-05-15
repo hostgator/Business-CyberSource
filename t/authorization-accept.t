@@ -5,16 +5,14 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
-use Test::Exception;
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $client      = $t->resolve( service => '/client/object'    );
+my $credit_card = $t->resolve( service => '/credit_card/visa' );
 
 my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
@@ -31,23 +29,15 @@ my $req
 		email          => 'xenoterracide@gmail.com',
 		total          => 3000.00,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	}]);
 
 
 # billing info
 
-my $ret;
-lives_ok { $ret = $client->run_transaction( $req ) } $dtc .'->runtransaction';
+my $ret = $client->run_transaction( $req );
 
 isa_ok( $ret, 'Business::CyberSource::Response' );
-
-unless ( $ret ) {
-	note( $req->trace->request->decoded_content );
-	note( $req->trace->response->decoded_content );
-}
 
 like(
 	$ret->reference_code,
@@ -69,7 +59,6 @@ ok( $ret->request_id,     'request_id exists'    );
 ok( $ret->request_token,  'request_token exists' );
 ok( $ret->datetime,       'datetime exists'      );
 ok( $ret->auth_record,    'auth_record exists'   );
-
 is( $ret->processor_response, '00','processor_response');
 
 done_testing;

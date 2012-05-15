@@ -37,13 +37,25 @@ is $card0->_compare_date_against_expiration( $dt3 ), 1, 'june expired';
 
 my $card1
 	= new_ok( $card_c => [{
-		account_number => '4111111111111111',
+		account_number => '5555 5555 5555 4444',
 		expiration     => {
 			year  => '2012',
 			month => '04',
 		},
 	}]);
 
-is $card1->is_expired, 1, 'card1 expired';
+is $card1->type,      'MASTERCARD', 'mastercard';
+is $card1->is_expired, 1,           'card1 expired';
+
+my $card2
+	= new_ok( $card_c => [{
+		account_number => '3566 1111 1111 1113',
+		expiration     => {
+			year  => '2012',
+			month => '04',
+		},
+	}]);
+
+is( $card2->type, 'JCB', 'JCB' );
 
 done_testing;

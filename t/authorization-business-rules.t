@@ -7,13 +7,12 @@ use Test::Requires::Env qw(
 );
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $client      = $t->resolve( service => '/client/object'    );
+my $credit_card = $t->resolve( service  =>'/credit_card/visa' );
 
 my $authc = use_module('Business::CyberSource::Request::Authorization');
 
@@ -30,11 +29,8 @@ my $auth_req0
 		email          => 'xenoterracide@gmail.com',
 		total          => 9001.00,
 		currency       => 'USD',
-		credit_card    => '4111111111111111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-		cvn            => '1111',
 		ignore_cv_result => 1,
+		card           => $credit_card,
 	}]);
 
 my $auth_res0 = $client->run_transaction( $auth_req0 );
@@ -69,10 +65,8 @@ my $auth_req1
 		email          => 'xenoterracide@gmail.com',
 		total          => 5005.00,
 		currency       => 'USD',
-		credit_card    => '4111111111111111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
 		ignore_avs_result => 1,
+		card           => $credit_card,
 	}]);
 
 
@@ -108,10 +102,8 @@ my $auth_req2
 		email          => 'xenoterracide@gmail.com',
 		total          => 5001.00,
 		currency       => 'USD',
-		credit_card    => '4111111111111111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
 		decline_avs_flags => [ qw( Y N ) ],
+		card           => $credit_card,
 	}]);
 
 my $auth_res2 = $client->run_transaction( $auth_req2 );

@@ -6,50 +6,17 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-use Test::Exception;
-
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
-
-my $req
-	= new_ok( $authc => [{
-		reference_code => 't202',
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'Japan',
-		email          => 'xenoterracide@gmail.com',
-		ip             => '192.168.100.2',
-		total          => 5.00,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-	}])
-	;
-
-is( $req->country, 'JP', 'check country converted right' );
-
-my $res = $client->run_transaction( $req );
-
-isa_ok( $res, 'Business::CyberSource::Response' )
-	or diag( $req->trace->printResponse )
-	;
+my $client = $t->resolve( service => '/client/object'    );
+my $res    = $t->resolve( service  =>'/response/authorization/visa' );
 
 my $capture
 	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
-		reference_code => $req->reference_code,
+		reference_code => $res->reference_code,
 		request_id     => $res->request_id,
 		total          => 2018.00,
 		currency       => $res->currency,

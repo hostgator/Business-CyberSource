@@ -8,40 +8,18 @@ use Test::Requires::Env qw(
 
 use Module::Runtime qw( use_module );
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $auth_req
-	= new_ok( $authc => [{
-		reference_code => 'test-auth-reversal-reject-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-	}]);
-
-my $auth_res = $client->run_transaction( $auth_req );
+my $client   = $t->resolve( service => '/client/object'    );
+my $auth_res = $t->resolve( service  =>'/response/authorization/visa' );
 
 my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
 my $rev_req
 	= new_ok( $authrevc => [{
-		reference_code => $auth_req->reference_code,
+		reference_code => $auth_res->reference_code,
 		request_id     => '834',
 		total          => $auth_res->amount,
 		currency       => $auth_res->currency,
