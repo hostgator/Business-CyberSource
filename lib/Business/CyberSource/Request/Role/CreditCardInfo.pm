@@ -14,7 +14,7 @@ use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode CreditCard);
 
 use Moose::Util::TypeConstraints;
 
-use Carp qw( carp );
+use Carp qw( cluck );
 use Module::Runtime qw( use_module );
 
 around BUILDARGS => sub {
@@ -40,8 +40,8 @@ around BUILDARGS => sub {
 			confess $deprecation_notice;
 		}
 		else {
-			our @CARP_NOT = ( __PACKAGE__ , 'Class::MOP::Method::Wrapped' );
-			carp 'DEPRECATED: using credit_card, cc_exp_month, and '
+			our @CARP_NOT = ( __PACKAGE__ , 'Class::MOP::Method::Wrapped');
+			cluck 'DEPRECATED: using credit_card, cc_exp_month, and '
 				. 'cc_exp_year are deprecated. '
 				. $deprecation_notice
 				;

@@ -19,8 +19,7 @@ with qw(
 );
 
 use Module::Runtime qw( use_module );
-use Carp;
-our @CARP_NOT = ( __PACKAGE__ );
+use Carp qw( cluck );
 
 sub serialize {
 	my $self = shift;
@@ -28,8 +27,8 @@ sub serialize {
 }
 
 before submit => sub {
-	local @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
-	carp 'DEPRECATED: using submit on a request object is deprecated. '
+	our @CARP_NOT = ( __PACKAGE__, 'Class::MOP::Method::Wrapped' );
+	cluck 'DEPRECATED: using submit on a request object is deprecated. '
 		. 'Please pass the object to Business::CyberSource::Client directly '
 		. 'instead.'
 		;

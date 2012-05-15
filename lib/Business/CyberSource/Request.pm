@@ -17,11 +17,11 @@ use Module::Runtime qw( use_module );
 
 use MooseX::SetOnce 0.200001;
 
-use Carp;
+use Carp qw( cluck );
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
 
 before create => sub {
-	carp 'DEPRECATED: calling create and using Request object as a factory '
+	cluck 'DEPRECATED: calling create and using Request object as a factory '
 		. ' is deprecated. '
 		. 'This class will be converted to an Abstract in the future. '
 		. 'If you require a factory please use '
@@ -30,7 +30,7 @@ before create => sub {
 };
 
 before [ qw( username password production ) ] => sub {
-	carp 'DEPRECATED: please do not set username, password, or production '
+	cluck 'DEPRECATED: please do not set username, password, or production '
 		. 'attributes on Request objects anymore, these instead should be set '
 		. 'on Business::CyberSource::Client'
 		;
