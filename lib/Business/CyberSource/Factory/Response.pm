@@ -49,7 +49,9 @@ sub create {
 	if ( $result->{decision} eq 'ACCEPT' ) {
 		push( @traits, $role_prefix .'Accept' );
 
-		$e->{currency}       = $result->{purchaseTotals}{currency};
+		my $ptotals = $result->{purchaseTotals};
+
+		$e->{currency}       = $ptotals->{currency};
 		$e->{reference_code} = $result->{merchantReferenceCode};
 		$e->{amount}         = $reply->{amount} if $reply->{amount};
 		$e->{request_specific_reason_code} = "$reply->{reasonCode}";
@@ -64,18 +66,20 @@ sub create {
 
 		if ( $dto->isa( $req_prefix . 'DCC') ) {
 				push ( @traits, $role_prefix . 'DCC' );
-				$e->{exchange_rate} = $result->{purchaseTotals}{exchangeRate};
-				$e->{exchange_rate_timestamp}
-					= $result->{purchaseTotals}{exchangeRateTimeStamp};
-				$e->{foreign_currency}
-					= $result->{purchaseTotals}{foreignCurrency};
-				$e->{foreign_amount} = $result->{purchaseTotals}{foreignAmount};
+				$e->{exchange_rate   } = $ptotals->{exchangeRate};
+				$e->{foreign_currency} = $ptotals->{foreignCurrency};
+				$e->{foreign_amount  } = $ptotals->{foreignAmount};
+				$e->{valid_hours     } = $reply->{validHours};
 
 				$e->{dcc_supported}
-					= $result->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0;
-				$e->{valid_hours} = $result->{ccDCCReply}{validHours};
-				$e->{margin_rate_percentage}
-					= $result->{ccDCCReply}{marginRatePercentage};
+						=$reply->{dccSupported} eq 'TRUE' ? 1 : 0
+						;
+
+				$e->{exchange_rate_timestamp}
+						= $ptotals->{exchangeRateTimeStamp}
+						;
+
+				$e->{margin_rate_percentage} = $reply->{marginRatePercentage};
 		}
 	}
 
