@@ -37,7 +37,8 @@ my $req
 
 my $ret = $client->run_transaction( $req );
 
-isa_ok( $ret, 'Business::CyberSource::Response' );
+isa_ok( $ret,           'Business::CyberSource::Response' );
+isa_ok( $ret->datetime, 'DateTime'                        );
 
 like(
 	$ret->reference_code,
@@ -57,7 +58,6 @@ is( $ret->auth_code,      '831000',                 'auth_code'    );
 
 ok( $ret->request_id,     'request_id exists'    );
 ok( $ret->request_token,  'request_token exists' );
-ok( $ret->datetime,       'datetime exists'      );
 ok( $ret->auth_record,    'auth_record exists'   );
 is( $ret->processor_response, '00','processor_response');
 
