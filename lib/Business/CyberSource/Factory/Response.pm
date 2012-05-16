@@ -35,7 +35,7 @@ sub create {
 	my $decision = $self->_get_decision( $result );
 
 	my @traits;
-	my $e = { };
+	my $e = { }; # response constructor args
 
 	if ( $decision eq 'ACCEPT' or $decision eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
