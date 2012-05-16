@@ -34,6 +34,11 @@ sub create {
 
 	my $decision = $self->_get_decision( $result );
 
+
+	# the reply is a subsection of result named after the specic request, e.g
+	# ccAuthReply
+	my $reply = $self->_get_reply( $result );
+
 	my @traits;
 	my $e = { }; # response constructor args
 	my $prefix      = 'Business::CyberSource::';
@@ -44,39 +49,20 @@ sub create {
 	if ( $result->{decision} eq 'ACCEPT' ) {
 		push( @traits, $role_prefix .'Accept' );
 
-		$e->{currency} = $result->{purchaseTotals}{currency};
+		$e->{currency}       = $result->{purchaseTotals}{currency};
 		$e->{reference_code} = $result->{merchantReferenceCode};
+		$e->{amount}         = $reply->{amount} if $reply->{amount};
+		$e->{request_specific_reason_code} = "$reply->{reasonCode}";
 
-		given ( $dto ) {
-			when ( $_->isa( $req_prefix . 'Authorization') ) {
-				$e->{amount        } = $result->{ccAuthReply}->{amount};
-				$e->{datetime      } = $result->{ccAuthReply}{authorizedDateTime};
-				$e->{request_specific_reason_code}
-					= "$result->{ccAuthReply}->{reasonCode}";
-				continue;
-			}
-			when ( $_->isa( $req_prefix . 'Capture')
-				or $_->isa( $req_prefix . 'Sale' )
-				) {
-				push( @traits, $role_prefix . 'ReconciliationID');
+		my $datetime   = $self->_get_datetime( $reply );
+		$e->{datetime} = $datetime if $datetime;
 
-				$e->{datetime} = $result->{ccCaptureReply}->{requestDateTime};
-				$e->{amount}   = $result->{ccCaptureReply}->{amount};
-				$e->{reconciliation_id}
-					= $result->{ccCaptureReply}->{reconciliationID};
-				$e->{request_specific_reason_code}
-					= "$result->{ccCaptureReply}->{reasonCode}";
-			}
-			when ( $_->isa( $req_prefix . 'Credit') ) {
-				push( @traits, $role_prefix . 'ReconciliationID');
+		if( $reply->{reconciliationID} ) {
+			push( @traits, $role_prefix . 'ReconciliationID');
+			$e->{reconciliation_id} = $reply->{reconciliationID};
+		}
 
-				$e->{datetime} = $result->{ccCreditReply}->{requestDateTime};
-				$e->{amount}   = $result->{ccCreditReply}->{amount};
-				$e->{reconciliation_id} = $result->{ccCreditReply}->{reconciliationID};
-				$e->{request_specific_reason_code}
-					= "$result->{ccCreditReply}->{reasonCode}";
-			}
-			when ( $_->isa( $req_prefix . 'DCC') ) {
+		if ( $dto->isa( $req_prefix . 'DCC') ) {
 				push ( @traits, $role_prefix . 'DCC' );
 				$e->{exchange_rate} = $result->{purchaseTotals}{exchangeRate};
 				$e->{exchange_rate_timestamp}
@@ -84,26 +70,18 @@ sub create {
 				$e->{foreign_currency}
 					= $result->{purchaseTotals}{foreignCurrency};
 				$e->{foreign_amount} = $result->{purchaseTotals}{foreignAmount};
+
 				$e->{dcc_supported}
 					= $result->{ccDCCReply}{dccSupported} eq 'TRUE' ? 1 : 0;
 				$e->{valid_hours} = $result->{ccDCCReply}{validHours};
 				$e->{margin_rate_percentage}
 					= $result->{ccDCCReply}{marginRatePercentage};
-				$e->{request_specific_reason_code}
-					= "$result->{ccDCCReply}{reasonCode}";
-			}
-			when ( $_->isa( $req_prefix . 'AuthReversal' ) ) {
-				push ( @traits, $role_prefix . 'ProcessorResponse' );
-
-				$e->{datetime} = $result->{ccAuthReversalReply}->{requestDateTime};
-				$e->{amount}   = $result->{ccAuthReversalReply}->{amount};
-
-				$e->{request_specific_reason_code}
-					= "$result->{ccAuthReversalReply}->{reasonCode}";
-				$e->{processor_response}
-					= $result->{ccAuthReversalReply}->{processorResponse};
-			}
 		}
+	}
+
+	if ( defined $reply->{processorResponse} ) {
+		push ( @traits, $role_prefix . 'ProcessorResponse' );
+		$e->{processor_response} = $reply->{processorResponse};
 	}
 
 	if ( $dto->isa( $req_prefix . 'Authorization') ) {
@@ -111,34 +89,22 @@ sub create {
 			push( @traits, $role_prefix . 'Authorization' );
 
 			$e->{auth_code}
-				=  $result->{ccAuthReply}{authorizationCode}
-				if $result->{ccAuthReply}{authorizationCode}
+				=  $reply->{authorizationCode}
+				if $reply->{authorizationCode}
 				;
 
 
-			if ( $result->{ccAuthReply}{cvCode}
-				&& $result->{ccAuthReply}{cvCodeRaw}
-				) {
-				$e->{cv_code}     = $result->{ccAuthReply}{cvCode};
-				$e->{cv_code_raw} = $result->{ccAuthReply}{cvCodeRaw};
+			if ( $reply->{cvCode} && $reply->{cvCodeRaw}) {
+				$e->{cv_code}     = $reply->{cvCode};
+				$e->{cv_code_raw} = $reply->{cvCodeRaw};
 			}
 
-			if ( $result->{ccAuthReply}{avsCode}
-				&& $result->{ccAuthReply}{avsCodeRaw}
-				) {
-				$e->{avs_code}     = $result->{ccAuthReply}{avsCode};
-				$e->{avs_code_raw} = $result->{ccAuthReply}{avsCodeRaw};
+			if ( $reply->{avsCode} && $reply->{avsCodeRaw}) {
+				$e->{avs_code}     = $reply->{avsCode};
+				$e->{avs_code_raw} = $reply->{avsCodeRaw};
 			}
 
-			if ( $result->{ccAuthReply}{processorResponse} ) {
-				$e->{processor_response}
-					= $result->{ccAuthReply}{processorResponse}
-					;
-			}
-
-			if ( $result->{ccAuthReply}->{authRecord} ) {
-				$e->{auth_record} = $result->{ccAuthReply}->{authRecord};
-			}
+			$e->{auth_record} = $reply->{authRecord} if $reply->{authRecord};
 		}
 	}
 
@@ -171,6 +137,38 @@ sub create {
 	}
 
 	return $response;
+}
+
+sub _get_datetime {
+	my ( $self, $reply ) = @_;
+
+	my $datetime
+		= $reply->{requestDateTime} ? $reply->{requestDateTime}
+		:                             $reply->{authorizedDateTime}
+		;
+
+	return $datetime;
+}
+
+sub _get_reply {
+	my ( $self, $result ) = @_;
+	my $_;
+
+	my $reply;
+	foreach ( sort keys %{ $result } ) {
+		if ( $_ =~ m/Reply/x ) {
+			unless ( defined $reply ) {
+				$reply = $result->{$_}
+			}
+			else {
+				# sale's have 2 Reply sections, this merges them
+				require  Hash::Merge;
+				$reply = Hash::Merge::merge( $result->{$_}, $reply );
+			}
+		}
+	}
+
+	return $reply;
 }
 
 sub _get_decision {
