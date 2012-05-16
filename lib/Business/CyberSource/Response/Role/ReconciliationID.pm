@@ -10,7 +10,7 @@ use Moose::Role;
 has reconciliation_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => 'Int',
+	isa      => 'Str',
 );
 
 1;
