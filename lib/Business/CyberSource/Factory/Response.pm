@@ -30,29 +30,9 @@ use Exception::Base (
 sub create {
 	my ( $self, $dto, $answer ) = @_;
 
-	if ( ! defined $answer ) {
-		confess 'answer not defined and not skipable'
-			unless $dto->is_skipable;
+	my $result = $self->_get_result( $dto, $answer );
 
-		# right now the only reason to do this expired card
-		$answer = { result => {
-			merchantReferenceCode => $dto->reference_code,
-			decision              => 'REJECT',
-			reasonCode            => '202',
-			requestID             => 0,
-			requestToken          => 0,
-		}};
-	}
-
-	my $result = $answer->{result};
-	my $decision = $result->{decision};
-
-	Business::CyberSource::Exception->throw(
-			message  => 'decision not defined',
-			answer   => $answer,
-		)
-		unless defined $decision
-		;
+	my $decision = $self->_get_decision( $result );
 
 	my @traits;
 	my $e = { };
@@ -169,11 +149,6 @@ sub create {
 	elsif ( $decision eq 'ERROR' ) {
 		$error = 1;
 	}
-	else {
-		Business::CyberSource::Exception->throw(
-			message => 'decision defined, but not handled: ' . $decision
-		);
-	}
 
 	my $response = use_module('Business::CyberSource::Response')
 		->with_traits( @traits )
@@ -204,6 +179,45 @@ sub create {
 	}
 
 	return $response;
+}
+
+sub _get_decision {
+	my ( $self, $result ) = @_;
+	my $_;
+
+	my ( $decision )
+		= grep {
+			$_ eq $result->{decision}
+		}
+		qw( ERROR ACCEPT REJECT )
+		or Business::CyberSource::Exception->throw(
+			message  => 'decision not defined or not handled',
+			answer   => $result,
+		)
+		;
+
+	return $decision;
+}
+
+sub _get_result {
+	my ( $self, $dto, $answer ) = @_;
+
+	return $answer->{result} if $answer->{result};
+
+		Business::CyberSource::Exception->throw(
+				message => 'answer not defined and not skipable'
+			)
+			unless $dto->is_skipable
+			;
+
+		# right now the only reason to do this expired card
+		return {
+			merchantReferenceCode => $dto->reference_code,
+			decision              => 'REJECT',
+			reasonCode            => '202',
+			requestID             => 0,
+			requestToken          => 0,
+		};
 }
 
 1;
