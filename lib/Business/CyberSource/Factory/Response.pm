@@ -36,7 +36,6 @@ sub create {
 
 	my @traits;
 	my $e = { };
-	my $error = 0;
 
 	if ( $decision eq 'ACCEPT' or $decision eq 'REJECT' ) {
 		my $prefix      = 'Business::CyberSource::';
@@ -146,9 +145,6 @@ sub create {
 		}
 
 	}
-	elsif ( $decision eq 'ERROR' ) {
-		$error = 1;
-	}
 
 	my $response = use_module('Business::CyberSource::Response')
 		->with_traits( @traits )
@@ -163,7 +159,7 @@ sub create {
 
 	$response->_trace( $dto->trace ) if $dto->has_trace;
 
-	if ( $error ) {
+	if ( $decision eq 'ERROR' ) {
 		my %exception = (
 			message       => 'message from CyberSource\'s API',
 			decision      => $response->decision,
