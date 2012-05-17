@@ -71,7 +71,7 @@ If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
 
 =attr datetime
 
-isa DateTime object
+Is a L<DateTime> object
 
 =attr request_specific_reason_code
 

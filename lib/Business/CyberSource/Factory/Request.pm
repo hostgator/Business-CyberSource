@@ -25,7 +25,7 @@ __PACKAGE__->meta->make_immutable;
 			month => '05',
 			year  => '2012'
 		}
-	);
+	});
 
 	my $request_obj = $factory->create(
 		'Authorization',
