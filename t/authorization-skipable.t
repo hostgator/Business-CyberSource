@@ -16,7 +16,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object'    );
 my $cc
 	= $t->resolve(
-		service    => '/credit_card/visa',	
+		service    => '/credit_card/visa',
 		parameters => { expiration => { month => 5, year => 2010 }, },
 	);
 
@@ -36,7 +36,7 @@ ok( $req0->is_skipable, 'skipable' );
 
 my $ret0 = $client->run_transaction( $req0 );
 
-isa_ok( $ret0, 'Business::CyberSource::Response' ); 
+isa_ok( $ret0, 'Business::CyberSource::Response' );
 
 is( $ret0->is_success,          0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );
