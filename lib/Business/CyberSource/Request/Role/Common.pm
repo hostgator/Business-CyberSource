@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 use MooseX::SetOnce 0.200001;
@@ -96,7 +96,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version 0.005000
+version 0.004009
 
 =head1 METHODS
 

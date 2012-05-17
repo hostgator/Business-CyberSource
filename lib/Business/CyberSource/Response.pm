@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean -also => [ qw( create ) ];
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
@@ -158,7 +158,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version 0.005000
+version 0.004009
 
 =head1 DESCRIPTION
 

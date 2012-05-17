@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -44,7 +44,7 @@ Business::CyberSource::Response::Role::Authorization - CyberSource Authorization
 
 =head1 VERSION
 
-version 0.005000
+version 0.004009
 
 =head1 DESCRIPTION
 
