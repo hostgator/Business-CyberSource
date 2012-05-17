@@ -13,7 +13,11 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client   = $t->resolve( service => '/client/object'    );
-my $auth_res = $t->resolve( service  =>'/response/authorization/visa' );
+
+my $auth_res
+	= $client->run_transaction(
+		$t->resolve( service => '/request/authorization/visa' )
+	);
 
 my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
