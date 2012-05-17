@@ -36,7 +36,7 @@ ok( $req0->is_skipable, 'skipable' );
 
 my $ret0 = $client->run_transaction( $req0 );
 
-isa_ok( $ret0, 'Business::CyberSource::Response' ); 
+isa_ok( $ret0, 'Business::CyberSource::Response' );
 
 is( $ret0->is_success,          0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );
