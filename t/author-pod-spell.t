@@ -52,9 +52,10 @@ lib
 Business
 CyberSource
 Message
+Factory
+Request
 Role
 Currency
-Request
 BusinessRules
 AuthReversal
 Authorization
@@ -64,11 +65,11 @@ ProcessorResponse
 ReconciliationID
 Common
 Credentials
+CreditCard
 StandAloneCredit
 FollowUp
 Capture
 RequestID
-RequestFactory
 FollowOnCredit
 Client
 PurchaseInfo
@@ -81,4 +82,3 @@ Items
 CreditCardInfo
 ForeignCurrency
 Sale
-ResponseFactory

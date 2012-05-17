@@ -4,10 +4,12 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
 use MooseX::Types::Email           qw( EmailAddress  );
 use MooseX::Types::NetAddr::IP     qw( NetAddrIPv4   );
@@ -55,9 +57,9 @@ has street1 => (
 );
 
 has street2 => (
-	required => 0,
-	is       => 'ro',
 	isa      => _VarcharSixty,
+	traits   => ['SetOnce'],
+	is       => 'rw',
 	predicate => 'has_street2',
 	trigger  => sub {
 		my $self = shift;
@@ -66,9 +68,9 @@ has street2 => (
 );
 
 has street3 => (
-	required => 0,
-	is       => 'ro',
 	isa      => _VarcharSixty,
+	traits   => ['SetOnce'],
+	is       => 'rw',
 	predicate => 'has_street3',
 	trigger  => sub {
 		my $self = shift;
@@ -77,9 +79,9 @@ has street3 => (
 );
 
 has street4 => (
-	required => 0,
-	is       => 'ro',
 	isa      => _VarcharSixty,
+	traits   => ['SetOnce'],
+	is       => 'rw',
 	predicate => 'has_street4',
 	trigger  => sub {
 		my $self = shift;
@@ -88,9 +90,9 @@ has street4 => (
 );
 
 has city => (
+	isa      => _VarcharFifty,
 	required => 1,
 	is       => 'ro',
-	isa      => _VarcharFifty,
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{city} = $self->city;
@@ -98,10 +100,10 @@ has city => (
 );
 
 has state => (
-	required => 0,
+	isa      => subtype( NonEmptySimpleStr, where { length $_ == 2 }),
+	traits   => ['SetOnce'],
 	alias    => 'province',
 	is       => 'ro',
-	isa      => subtype( NonEmptySimpleStr, where { length $_ == 2 }),
 	predicate => 'has_state',
 	trigger  => sub {
 		my $self = shift;
@@ -121,10 +123,10 @@ has country => (
 );
 
 has postal_code => (
-	required  => 0,
-	alias     => 'zip',
-	is        => 'ro',
 	isa       => _VarcharTen,
+	traits    => ['SetOnce'],
+	alias     => 'zip',
+	is        => 'rw',
 	predicate => 'has_zip',
 	trigger   => sub {
 		my $self = shift;
@@ -133,10 +135,10 @@ has postal_code => (
 );
 
 has phone_number => (
-	required  => 0,
-	alias     => 'phone',
-	is        => 'ro',
 	isa       => _VarcharTwenty,
+	traits    => ['SetOnce'],
+	alias     => 'phone',
+	is        => 'rw',
 	predicate => 'has_phone_number',
 	trigger   => sub {
 		my $self = shift;
@@ -155,13 +157,13 @@ has email => (
 );
 
 has ip_address => (
-	required => 0,
-	alias    => 'ip',
-	coerce   => 1,
-	is       => 'ro',
-	isa      => NetAddrIPv4,
+	traits    => ['SetOnce'],
+	is        => 'rw',
+	alias     => 'ip',
+	coerce    => 1,
+	isa       => NetAddrIPv4,
 	predicate => 'has_ip',
-	trigger  => sub {
+	trigger   => sub {
 		my $self = shift;
 		$self->_request_data->{billTo}{ipAddress} = $self->ip_address->addr;
 	},
@@ -181,7 +183,7 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 ATTRIBUTES
 

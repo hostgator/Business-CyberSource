@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -11,26 +11,42 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
-use MooseX::Types::Moose         qw( Num Int );
+use MooseX::SetOnce 0.200001;
+
+use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
+use MooseX::Types::DateTime      qw( DateTime );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
+use Module::Runtime qw( use_module );
+
+subtype DateTimeFromW3C, as DateTime;
+
+coerce DateTimeFromW3C,
+	from DateTimeW3C,
+	via {
+		return use_module('DateTime::Format::W3CDTF')
+			->new
+			->parse_datetime( $_ )
+			;
+	};
 
 has amount => (
-	required => 0,
-	is       => 'ro',
-	isa      => Num,
+	isa      => 'Num',
+	traits   => ['SetOnce'],
+	is       => 'rw',
 );
 
 has datetime => (
-	required => 0,
-	is       => 'ro',
-	isa      => DateTimeW3C,
+	isa      => DateTimeFromW3C,
+	is       => 'rw',
+	traits   => ['SetOnce'],
+	coerce   => 1,
 );
 
 has request_specific_reason_code => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => 'Int',
 );
 
 1;
@@ -47,7 +63,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 DESCRIPTION
 
@@ -68,6 +84,8 @@ If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
 =head2 amount
 
 =head2 datetime
+
+Is a L<DateTime> object
 
 =head2 request_specific_reason_code
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose;
 
@@ -34,6 +34,10 @@ sub run_transaction {
 			&& blessed $dto
 			&& $dto->isa('Business::CyberSource::Request')
 			;
+
+	if ( $dto->is_skipable && ! $self->ignore_skipable ) {
+		return $self->_response_factory->create( $dto );
+	}
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
@@ -65,7 +69,7 @@ sub run_transaction {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $answer, $dto  );
+	return $self->_response_factory->create( $dto, $answer );
 }
 
 sub _build_cybs_wsdl {
@@ -103,14 +107,21 @@ sub _build_cybs_xsd {
 }
 
 has _response_factory => (
-	isa      => 'Business::CyberSource::ResponseFactory',
+	isa      => 'Business::CyberSource::Factory::Response',
 	is       => 'ro',
 	lazy     => 1,
 	writer   => undef,
 	init_arg => undef,
 	default  => sub {
-		return use_module('Business::CyberSource::ResponseFactory')->new;
+		return use_module('Business::CyberSource::Factory::Response')->new;
 	},
+);
+
+has ignore_skipable => (
+	isa     => 'Bool',
+	is      => 'rw',
+	lazy    => 1,
+	default => sub { return 0 },
 );
 
 has debug => (
@@ -219,7 +230,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 SYNOPSIS
 
@@ -269,6 +280,13 @@ false they will go to the testing server
 Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+
+=head2 ignore_skipable
+
+requests with expired credit cards are currently "skip-able" and will not be
+sent by default, instead you will get a response object that has filled out the
+most important parts of a REJECT response and mocked other required fields. If
+you want to send these requests always set this in the client.
 
 =head2 name
 

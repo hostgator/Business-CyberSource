@@ -1,32 +1,27 @@
-package Business::CyberSource::Role::RequestID;
+package Business::CyberSource::Factory;
 use strict;
 use warnings;
 use namespace::autoclean;
 
 our $VERSION = '0.004009'; # VERSION
 
-use Moose::Role;
+use Moose;
+use MooseX::StrictConstructor;
+use MooseX::ABC 0.06;
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use Moose::Util::TypeConstraints;
+#requires 'create';
 
-has request_id => (
-	required  => 1,
-	predicate => 'has_request_id',
-	is        => 'ro',
-	isa       => subtype( NonEmptySimpleStr, where { length $_ <= 29 }),
-);
-
+__PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: Role to apply to requests and responses that require request id's
+# ABSTRACT: Factory Base Class
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Role::RequestID - Role to apply to requests and responses that require request id's
+Business::CyberSource::Factory - Factory Base Class
 
 =head1 VERSION
 

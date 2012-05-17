@@ -1,12 +1,13 @@
 package Business::CyberSource::Request::Role::Common;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::URI     qw( Uri     );
 use MooseX::Types::Path::Class qw( File Dir );
@@ -17,17 +18,26 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
-use Business::CyberSource::Client;
+use Module::Runtime qw( use_module );
+use Carp qw( cluck );
 
 sub serialize {
 	my $self = shift;
 	return $self->_request_data;
 }
 
+before submit => sub {
+	our @CARP_NOT = ( __PACKAGE__, 'Class::MOP::Method::Wrapped' );
+	cluck 'DEPRECATED: using submit on a request object is deprecated. '
+		. 'Please pass the object to Business::CyberSource::Client directly '
+		. 'instead.'
+		;
+};
+
 sub submit {
 	my $self = shift;
 
-	my $client = Business::CyberSource::Client->new({
+	my $client = use_module('Business::CyberSource::Client')->new({
 		username   => $self->username,
 		password   => $self->password,
 		production => $self->production,
@@ -54,8 +64,9 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 }
 
 has comments => (
-	is       => 'ro',
 	isa      => Str,
+	traits   => ['SetOnce'],
+	is       => 'rw',
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{comments} = $self->comments;
@@ -85,7 +96,7 @@ Business::CyberSource::Request::Role::Common - Request Role
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 METHODS
 

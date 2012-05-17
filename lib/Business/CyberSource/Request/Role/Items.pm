@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 
@@ -11,10 +11,9 @@ use MooseX::Types::CyberSource qw( Item );
 use MooseX::Types::Moose       qw( ArrayRef );
 
 has items => (
-	required  => 0,
-	predicate => 'has_items',
-	is        => 'ro',
 	isa       => ArrayRef[Item],
+	predicate => 'has_items',
+	is        => 'rw',
 	traits    => ['Array'],
 	handles   => {
 		items_is_empty => 'is_empty',
@@ -79,7 +78,7 @@ Business::CyberSource::Request::Role::Items - Role that provides Items
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 ATTRIBUTES
 

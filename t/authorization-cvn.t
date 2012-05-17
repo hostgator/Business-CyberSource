@@ -7,34 +7,17 @@ use Test::Requires::Env qw(
 );
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
+my $client      = $t->resolve( service => '/client/object'    );
 
 my $req
-	= new_ok( $authc => [{
-		reference_code => 'test-auth-cvn-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 9000.00,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-		cvn            => '1111',
-	}]);
+	= $t->resolve(
+		service => '/request/authorization/visa',
+		parameters => { total => 9000.00 },
+	);
 
 # check billing info
 is( $req->cvn,   '1111', 'check cvn'   );

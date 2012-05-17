@@ -4,9 +4,10 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
+use MooseX::SetOnce 0.200001;
 
 with qw(
 	Business::CyberSource::Role::ForeignCurrency
@@ -15,10 +16,10 @@ with qw(
 use MooseX::Types::CyberSource qw( DCCIndicator );
 
 has dcc_indicator => (
-	required  => 0,
-	predicate => 'has_dcc_indicator',
-	is        => 'ro',
 	isa       => DCCIndicator,
+	traits    => [ 'SetOnce' ],
+	is        => 'rw',
+	predicate => 'has_dcc_indicator',
 	trigger   => sub {
 		my $self = shift;
 		$self->_request_data->{dcc}{dccIndicator} = $self->dcc_indicator;
@@ -39,7 +40,7 @@ Business::CyberSource::Request::Role::DCC - Role for DCC follow up requests
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 DESCRIPTION
 

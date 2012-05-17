@@ -7,13 +7,12 @@ use Test::Requires::Env qw(
 );
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $client      = $t->resolve( service => '/client/object'    );
+my $credit_card = $t->resolve( service => '/credit_card/visa' );
 
 my $salec = use_module('Business::CyberSource::Request::Sale');
 my $req0
@@ -29,9 +28,7 @@ my $req0
 		email          => 'foobar@example.com',
 		total          => 3000.37,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '12',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	}]);
 
 my $ret0 = $client->run_transaction( $req0 );
@@ -66,9 +63,7 @@ my $req1
 		email          => 'foobar@example.com',
 		total          => 3000.04,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '12',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	}]);
 
 my $ret1 = $client->run_transaction( $req1 );

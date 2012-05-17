@@ -1,11 +1,9 @@
 package Business::CyberSource::Role::MerchantReferenceCode;
-use 5.008;
 use strict;
 use warnings;
-use Carp;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::CyberSource qw( _VarcharFifty );
@@ -29,7 +27,7 @@ Business::CyberSource::Role::MerchantReferenceCode - Generic implementation of M
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 BUGS
 

@@ -1,18 +1,16 @@
 package Business::CyberSource::Response::Role::ReconciliationID;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
-use MooseX::Types::Moose qw( Int );
 
 has reconciliation_id => (
 	required => 1,
 	is       => 'ro',
-	isa      => Int,
+	isa      => 'Str',
 );
 
 1;
@@ -29,7 +27,7 @@ Business::CyberSource::Response::Role::ReconciliationID - Reconciliation Identif
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 ATTRIBUTES
 

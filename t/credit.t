@@ -7,13 +7,12 @@ use Test::Requires::Env qw(
 );
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $client      = $t->resolve( service => '/client/object'    );
+my $credit_card = $t->resolve( service => '/credit_card/visa' );
 
 my $creditc = use_module('Business::CyberSource::Request::Credit');
 
@@ -37,15 +36,12 @@ my $req
 		ip             => '192.168.100.2',
 		total          => 5.00,
 		currency       => 'USD',
-		credit_card    => '3566 1111 1111 1113',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	}]);
 
 isa_ok $req, $creditc;
 
 is( $req->ip->addr,   '192.168.100.2',          'check ip'    );
-is( $req->card_type, '007', 'check card type is JCB' );
 
 my $ret = $client->run_transaction( $req );
 

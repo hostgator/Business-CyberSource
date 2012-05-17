@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
@@ -16,6 +16,25 @@ with qw(
 use Module::Runtime qw( use_module );
 
 use MooseX::SetOnce 0.200001;
+
+use Carp qw( cluck );
+our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
+
+before create => sub {
+	cluck 'DEPRECATED: calling create and using Request object as a factory '
+		. ' is deprecated. '
+		. 'This class will be converted to an Abstract in the future. '
+		. 'If you require a factory please use '
+		. 'Business::CyberSource::RequestFactory directly instead'
+		;
+};
+
+before [ qw( username password production ) ] => sub {
+	cluck 'DEPRECATED: please do not set username, password, or production '
+		. 'attributes on Request objects anymore, these instead should be set '
+		. 'on Business::CyberSource::Client'
+		;
+};
 
 sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 	my $self = shift;
@@ -36,14 +55,22 @@ sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 	return $factory->create( $impl, @_ );
 }
 
+# the default is false, override in subclass
+sub _build_skipable { return 0 }
+
+has is_skipable => (
+	isa     => 'Bool',
+	builder => '_build_skipable',
+	is      => 'ro',
+	lazy    => 1,
+);
+
 has '+_trait_namespace' => (
 	default => 'Business::CyberSource::Request::Role',
 );
 
 has '+trace' => (
 	is        => 'rw',
-	writer    => '_trace',
-	traits    => [ 'SetOnce' ],
 	init_arg  => undef
 );
 
@@ -62,7 +89,7 @@ Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 DESCRIPTION
 
@@ -234,6 +261,14 @@ Billing currency returned by the DCC service. For the possible values, see the I
 Reader: items
 
 Type: ArrayRef[MooseX::Types::CyberSource::Item]
+
+=head2 is_skipable
+
+Type: Bool
+
+an optimization to see if we can skip sending the request and just construct a
+response. This attribute is for use by L<Business::CyberSource::Client> only
+and may change names later.
 
 =for Pod::Coverage BUILD
 

@@ -1,15 +1,24 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Exception;
+use Test::Fatal;
+
+use Module::Runtime qw( use_module );
+my $credit_card
+	= new_ok( use_module('Business::CyberSource::CreditCard') => [{
+		account_number => '4111-1111-1111-1111',
+		expiration     => {
+			month => 5,
+			year  => 2012
+		},
+	}]);
+
+my $authc = use_module('Business::CyberSource::Request::Authorization');
 
 # If no items and no totals throw exception
 
-use Business::CyberSource::Request::Authorization;
-
-throws_ok {
-my $req0
-	= Business::CyberSource::Request::Authorization->new({
+my $exception0
+	= exception { $authc->new({
 		reference_code => 't003-1',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -21,16 +30,14 @@ my $req0
 		total          => 45.95,
 		email          => 'xenoterracide@gmail.com',
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
-	});
-} qr/Attribute \(country\)/, 'country invalid';
+		card           => $credit_card,
+	})
+};
 
-throws_ok {
-my $req1
-	= Business::CyberSource::Request::Authorization->new({
-		production     => 0,
+like $exception0, qr/Attribute \(country\)/, 'country invalid';
+
+my $exception1
+	= exception { $authc->new({
 		reference_code => 't003-2',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -41,15 +48,14 @@ my $req1
 		email          => 'xenoterracide@gmail.com',
 		total          => 3000.00,
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	});
-} qr/zip code is required for US or Canada/, 'us/ca require a zip code';
+};
 
-throws_ok {
-my $req2
-	= Business::CyberSource::Request::Authorization->new({
+like $exception1, qr/zip code is required for US or Canada/, 'us/ca require a zip code';
+
+my $exception2
+	= exception { $authc->new({
 		reference_code => 't108',
 		first_name     => 'Caleb',
 		last_name      => 'Cushing',
@@ -60,10 +66,10 @@ my $req2
 		country        => 'US',
 		email          => 'xenoterracide@gmail.com',
 		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		card           => $credit_card,
 	});
-} qr/you must define either items or total/, 'check either items or total';
+};
+
+like $exception2, qr/you must define either items or total/, 'check either items or total';
 
 done_testing;

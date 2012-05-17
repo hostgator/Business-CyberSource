@@ -6,43 +6,22 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-use Test::Exception;
-
 use Module::Runtime qw( use_module );
-use Data::Dumper;
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $dtc = use_module('Business::CyberSource::Request::Authorization');
+my $client      = $t->resolve( service => '/client/object'    );
 
-my $req0
-	= new_ok( $dtc => [{
-		reference_code => 'test-authorization-reject-0-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 3000.37,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '12',
-		cc_exp_year    => '2025',
-	}]);
+my $ret0
+	= $client->run_transaction(
+		$t->resolve(
+			service => '/request/authorization/visa',
+			parameters => { total => 3000.37 }, # magic make me expired
+		)
+	);
 
-my $ret0 = $client->run_transaction( $req0 );
-
-isa_ok( $ret0, 'Business::CyberSource::Response' )
-	or diag( $req0->trace->printResponse )
-	;
+isa_ok( $ret0, 'Business::CyberSource::Response' );
 
 is( $ret0->is_success,          0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );
@@ -60,29 +39,15 @@ is(
 	'reason_text',
 );
 
-my $req1
-	= new_ok( $dtc => [{
-		reference_code => 'test-authorization-reject-1-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 3000.04,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '12',
-		cc_exp_year    => '2025',
-	}]);
+my $ret1
+	= $client->run_transaction(
+		$t->resolve(
+			service => '/request/authorization/visa',
+			parameters => { total => 3000.04 },
+		)
+	);
 
-my $ret1 = $client->run_transaction( $req1 );
-
-isa_ok( $ret1, 'Business::CyberSource::Response' )
-	or diag( $req1->trace->printResponse )
-	;
+isa_ok( $ret1, 'Business::CyberSource::Response' );
 
 
 is( $ret1->decision,       'REJECT', 'decision'       );
@@ -95,33 +60,5 @@ is(
 	,
 	'reason_text',
 );
-
-my $req2
-	= new_ok( $dtc => [{
-		reference_code => 'test-authorization-reject-2-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 35.00,
-		currency       => 'USD',
-		credit_card    => '6304 9850 2809 0561 515',
-		cc_exp_month   => '12',
-		cc_exp_year    => '2010',
-	}]);
-
-my $ret2 = $client->run_transaction( $req2 );
-
-isa_ok( $ret2, 'Business::CyberSource::Response' )
-	or diag( $req2->trace->printResponse )
-	;
-
-is( $ret2->is_success,     0,        'success'        );
-is( $ret2->decision,       'REJECT', 'decision'       );
-is( $ret2->reason_code,     202,     'reason_code'    );
 
 done_testing;

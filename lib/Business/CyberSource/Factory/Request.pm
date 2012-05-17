@@ -1,9 +1,9 @@
-package Business::CyberSource::RequestFactory;
+package Business::CyberSource::Factory::Request;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use MooseX::AbstractFactory;
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
@@ -18,17 +18,26 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::RequestFactory - CyberSource Request Factory Module
+Business::CyberSource::Factory::Request - CyberSource Request Factory Module
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 SYNOPSIS
 
-	use Business::CyberSource::RequestFactory;
+	use Business::CyberSource::Factory::Request;
+	use Business::CyberSource::CreditCard;
 
-	my $factory = Business::CyberSource::RequestFactory->new;
+	my $factory = Business::CyberSource::Factory::Request->new;
+
+	my $credit_card = Business::CyberSource::CreditCard->new({
+		account_number => '411111111111111',
+		expiration     => {
+			month => '05',
+			year  => '2012'
+		}
+	});
 
 	my $request_obj = $factory->create(
 		'Authorization',
@@ -44,9 +53,6 @@ version 0.004007
 			email          => 'xenoterracide@gmail.com',
 			total          => 5.00,
 			currency       => 'USD',
-			credit_card    => '4111111111111111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2013',
 		}
 	);
 

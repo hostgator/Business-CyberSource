@@ -3,24 +3,27 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 use Moose::Role;
+
 with qw(
 	Business::CyberSource::Role::Currency
 	Business::CyberSource::Role::ForeignCurrency
 	Business::CyberSource::Request::Role::Items
 );
 
+use MooseX::SetOnce 0.200001;
+
 use MooseX::Types::Moose            qw( HashRef           );
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 use MooseX::Types::Locale::Currency qw( CurrencyCode      );
 
 has total => (
-	required  => 0,
-	predicate => 'has_total',
-	is        => 'ro',
 	isa       => PositiveOrZeroNum,
+	traits    => [ 'SetOnce' ],
+	is        => 'rw',
+	predicate => 'has_total',
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{purchaseTotals}{grandTotalAmount} = $self->total;
@@ -41,7 +44,7 @@ Business::CyberSource::Request::Role::PurchaseInfo - CyberSource Purchase Inform
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 DESCRIPTION
 

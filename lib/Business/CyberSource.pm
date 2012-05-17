@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.004007'; # VERSION
+our $VERSION = '0.004009'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.004007
+version 0.004009
 
 =head1 DESCRIPTION
 
@@ -87,6 +87,7 @@ A test credit card number provided by your your credit card processor
 	use Try::Tiny;
 
 	use Business::CyberSource::Client;
+	use Business::CyberSource::CreditCard;
 	use Business::CyberSource::Request::Authorization;
 	use Business::CyberSource::Request::Capture;
 
@@ -96,8 +97,18 @@ A test credit card number provided by your your credit card processor
 		production => 1,
 	});
 
+	my $credit_card
+		= Business::CyberSource::CreditCard->new({
+			account_number => '4111111111111111',
+			expiration => {
+				month => 9,
+				year  => 2025,
+			},
+		);
+
 	my $auth_request = try {
 			Business::CyberSource::Request::Authorization->new({
+				card           => $credit_card,
 				reference_code => '42',
 				first_name     => 'Caleb',
 				last_name      => 'Cushing',
@@ -107,9 +118,6 @@ A test credit card number provided by your your credit card processor
 				zip            => '77064',
 				country        => 'US',
 				email          => 'xenoterracide@gmail.com',
-				credit_card    => '4111111111111111',
-				cc_exp_month   => '09',
-				cc_exp_year    => '2025',
 				currency       => 'USD',
 				total          => 5.00,
 			});
