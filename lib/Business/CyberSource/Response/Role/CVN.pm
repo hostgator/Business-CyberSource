@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.004009'; # VERSION
+our $VERSION = '0.005000'; # VERSION
 
 use Moose::Role;
 
@@ -40,7 +40,7 @@ Business::CyberSource::Response::Role::CVN - CVN Role
 
 =head1 VERSION
 
-version 0.004009
+version 0.005000
 
 =head1 ATTRIBUTES
 

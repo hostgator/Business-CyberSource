@@ -1,0 +1,14 @@
+0.004009
+
+	[NEWS]
+	- massive test refactoring including use of Bread::Board to simplify tests
+	- carp on deprecated API's
+	- move factories into Factory namespace
+	- improve logic of Factory::Response 
+
+	[FEATURE]
+	- New CreditCard object
+	- Reject without sending request if credit card expiration date is in the past
+
+	[REMOVAL]
+	- datetimes are no longer strings but DateTime objects
