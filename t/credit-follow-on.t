@@ -12,7 +12,10 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client   = $t->resolve( service => '/client/object'    );
-my $auth_res = $t->resolve( service  =>'/response/authorization/visa' );
+my $auth_res
+	= $client->run_transaction(
+		$t->resolve( service => '/request/authorization/visa' )
+	);
 
 my $capturec = use_module('Business::CyberSource::Request::Capture');
 my $creditc  = use_module('Business::CyberSource::Request::Credit');
