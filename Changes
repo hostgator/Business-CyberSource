@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.005000  2012-05-17
 	[NEWS]
 	- massive test refactoring including use of Bread::Board to simplify tests
 	- carp on deprecated API's
