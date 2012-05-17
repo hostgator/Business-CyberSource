@@ -16,7 +16,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object'    );
 my $cc
 	= $t->resolve(
-		service    => '/credit_card/visa',	
+		service    => '/credit_card/visa',
 		parameters => { expiration => { month => 5, year => 2010 }, },
 	);
 
