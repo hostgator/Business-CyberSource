@@ -24,9 +24,6 @@ sub BUILD {
 
 		container credit_card => as {
 			service holder     => 'Caleb Cushing';
-			service expiration => (
-				block => sub { return { month => 5, year => 2025 } },
-			);
 			service security_code => '1111';
 			service visa_test_number => '4111-1111-1111-1111';
 			service visa => (
@@ -34,17 +31,24 @@ sub BUILD {
 				lifecycle    => 'Singleton',
 				dependencies => {
 					account_number => depends_on('visa_test_number'),
-					expiration     => depends_on('expiration'),
 					security_code  => depends_on('security_code'),
 					holder         => depends_on('holder'),
+				},
+				parameters => {
+					expiration => {
+						isa => 'HashRef',
+						default => {
+							month => 5,
+							year  => 2025,
+						},
+					},
 				},
 			);
 		};
 
 		container request => as {
 			service reference_code => (
-				lifecycle => 'Singleton',
-				block     => sub { return 'test-' . time },
+				block => sub { return 'test-' . time },
 			);
 			service first_name     => 'Caleb';
 			service last_name      => 'Cushing';
@@ -55,7 +59,6 @@ sub BUILD {
 			service country        => 'USA';
 			service email          => 'xenoterracide@gmail.com';
 			service ip_address     => '192.168.100.2';
-			service total          => 5.00;
 			service currency       => 'USD';
 			container authorization => as {
 				service visa => (
@@ -72,26 +75,29 @@ sub BUILD {
 						country        => depends_on('../country'),
 						email          => depends_on('../email'),
 						ip_address     => depends_on('../ip_address'),
-						total          => depends_on('../total'),
 						currency       => depends_on('../currency'),
 					},
-				);
-			};
-		};
-
-		container response => as {
-			container authorization => as {
-				service visa => (
-					block => sub {
-						my $s = shift;
-
-						return $s
-							->param('client')
-							->run_transaction( $s->param('auth') );
-					},
-					dependencies => {
-						client => depends_on('/client/object'),
-						auth   => depends_on('/request/authorization/visa'),
+					parameters => {
+						card  => {
+							isa => 'Business::CyberSource::CreditCard',
+							optional => 1,
+						},
+						total => {
+							isa => 'Num',
+							default => 5.00,
+						},
+						ignore_cv_result => {
+							isa      => 'Bool',
+							optional => 1,
+						},
+						ignore_avs_result => {
+							isa      => 'Bool',
+							optional => 1,
+						},
+						decline_avs_flags => {
+							isa      => 'ArrayRef',
+							optional => 1,
+						},
 					},
 				);
 			};

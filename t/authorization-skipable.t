@@ -9,51 +9,34 @@ use Test::Requires::Env qw(
 use Test::Exception;
 
 use Module::Runtime qw( use_module );
-use Data::Dumper;
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $dtc = use_module('Business::CyberSource::Request::Authorization');
+my $client = $t->resolve( service => '/client/object'    );
+my $cc
+	= $t->resolve(
+		service    => '/credit_card/visa',	
+		parameters => { expiration => { month => 5, year => 2010 }, },
+	);
 
-my $credit_card
-	= new_ok( use_module('Business::CyberSource::CreditCard') => [{
-		account_number => '4111-1111-1111-1111',
-		expiration     => {
-			month => '04',
-			year => '2010',
-		},
-	}]);
-
-#ok( $credit_card->is_expired, 'expired' );
+is( $cc->expiration->year, 2010, 'expiration year' );
+ok( $cc->is_expired, 'card expired' );
 
 my $req0
-	= new_ok( $dtc => [{
-		reference_code => 'test-authorization-reject-0-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 3000.37, # magic make me expired value
-		currency       => 'USD',
-		card           => $credit_card,
-	}]);
+	= $t->resolve(
+		service => '/request/authorization/visa',
+		parameters => {
+			total => 3000.00,
+			card  => $cc
+		},
+	);
 
 ok( $req0->is_skipable, 'skipable' );
 
 my $ret0 = $client->run_transaction( $req0 );
 
-isa_ok( $ret0, 'Business::CyberSource::Response' )
-	or diag( $req0->trace->printResponse )
-	;
+isa_ok( $ret0, 'Business::CyberSource::Response' ); 
 
 is( $ret0->is_success,          0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );

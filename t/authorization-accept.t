@@ -12,39 +12,17 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/visa' );
 
-my $dtc = use_module('Business::CyberSource::Request::Authorization');
-
-my $req
-	= new_ok( $dtc => [{
-		reference_code => 'test-authorization-accept-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 3000.00,
-		currency       => 'USD',
-		card           => $credit_card,
-	}]);
-
-
-# billing info
-
-my $ret = $client->run_transaction( $req );
+my $ret
+	= $client->run_transaction(
+		$t->resolve(
+			service => '/request/authorization/visa',
+			parameters => { total => 3000.00 },
+		)
+	);
 
 isa_ok( $ret,           'Business::CyberSource::Response' );
 isa_ok( $ret->datetime, 'DateTime'                        );
-
-like(
-	$ret->reference_code,
-	qr/^test-authorization-accept-\d+$/,
-	'reference_code'
-);
 
 is( $ret->is_success,     1,                        'success'      );
 is( $ret->decision,       'ACCEPT',                 'decision'     );

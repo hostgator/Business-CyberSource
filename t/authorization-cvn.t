@@ -12,25 +12,12 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/visa' );
-
-my $authc = use_module('Business::CyberSource::Request::Authorization');
 
 my $req
-	= new_ok( $authc => [{
-		reference_code => 'test-auth-cvn-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 9000.00,
-		currency       => 'USD',
-		card           => $credit_card,
-	}]);
+	= $t->resolve(
+		service => '/request/authorization/visa',
+		parameters => { total => 9000.00 },
+	);
 
 # check billing info
 is( $req->cvn,   '1111', 'check cvn'   );
