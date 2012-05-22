@@ -21,13 +21,19 @@ use Business::CreditCard qw( cardtype );
 use Module::Runtime qw( use_module );
 use DateTime 0.74;
 
+use Exception::Base (
+	verbosity => 4,
+	ignore_package => [ __PACKAGE__ ],
+);
 
 sub _build_type {
 	my $self = shift;
 
 	my $ct = cardtype( $self->account_number );
 
-	confess $ct if $ct =~ /not a credit card/ixms;
+	Exception::Base->throw( message => $ct )
+		if $ct =~ /not a credit card/ixms
+		;
 
 	$ct =~ s/[\s]card//xms;
 
