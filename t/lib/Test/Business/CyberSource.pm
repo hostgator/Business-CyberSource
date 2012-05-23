@@ -22,19 +22,21 @@ sub BUILD {
 			);
 		};
 
-		container credit_card => as {
+		container card => as {
 			service holder     => 'Caleb Cushing';
 			service security_code => '1111';
-			service visa_test_number => '4111-1111-1111-1111';
-			service visa => (
-				class        => 'Business::CyberSource::CreditCard',
+			service object => (
+				class        => 'Business::CyberSource::Helper::Card',
 				lifecycle    => 'Singleton',
 				dependencies => {
-					account_number => depends_on('visa_test_number'),
 					security_code  => depends_on('security_code'),
 					holder         => depends_on('holder'),
 				},
 				parameters => {
+					account_number => {
+						isa     => 'Str',
+						default => '4111111111111111',
+					},
 					expiration => {
 						isa => 'HashRef',
 						default => {
@@ -46,36 +48,48 @@ sub BUILD {
 			);
 		};
 
+		container helper => as {
+			container billing => as {
+				service first_name  => 'Caleb';
+				service last_name   => 'Cushing';
+				service street      => 'somewhere';
+				service city        => 'Houston';
+				service state       => 'TX';
+				service postal_code => '77064';
+				service country     => 'US';
+				service email       => 'xenoterracide@gmail.com';
+				service ip_address  => '192.168.100.2';
+				service info => (
+					class        => 'Business::CyberSource::Helper::BillingInfo',
+					lifecycle    => 'Singleton',
+					dependencies => {
+						first_name     => depends_on('first_name' ),
+						last_name      => depends_on('last_name'  ),
+						street         => depends_on('street'     ),
+						city           => depends_on('city'       ),
+						state          => depends_on('state'      ),
+						postal_code    => depends_on('postal_code'),
+						country        => depends_on('country'    ),
+						email          => depends_on('email'      ),
+						ip_address     => depends_on('ip_address' ),
+					},
+				);
+			};
+		};
+
 		container request => as {
 			service reference_code => (
 				block => sub { return 'test-' . time },
 			);
-			service first_name     => 'Caleb';
-			service last_name      => 'Cushing';
-			service street         => 'somewhere';
-			service city           => 'Houston';
-			service state          => 'TX';
-			service postal_code    => '77064';
-			service country        => 'USA';
-			service email          => 'xenoterracide@gmail.com';
-			service ip_address     => '192.168.100.2';
 			service currency       => 'USD';
 			container authorization => as {
 				service visa => (
 					class => 'Business::CyberSource::Request::Authorization',
 					dependencies => {
-						card           => depends_on('/credit_card/visa'),
+						card           => depends_on('/card/object'),
 						reference_code => depends_on('../reference_code'),
-						first_name     => depends_on('../first_name'),
-						last_name      => depends_on('../last_name'),
-						street         => depends_on('../street'),
-						city           => depends_on('../city'),
-						state          => depends_on('../state'),
-						postal_code    => depends_on('../postal_code'),
-						country        => depends_on('../country'),
-						email          => depends_on('../email'),
-						ip_address     => depends_on('../ip_address'),
 						currency       => depends_on('../currency'),
+						billing_info   => depends_on('/helper/billing/info'),
 					},
 					parameters => {
 						card  => {

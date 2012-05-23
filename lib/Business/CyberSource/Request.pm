@@ -11,6 +11,7 @@ extends 'Business::CyberSource::Message';
 
 with qw(
 	Business::CyberSource::Request::Role::Credentials
+	Business::CyberSource::Interface::Composite
 );
 
 use Module::Runtime qw( use_module );
