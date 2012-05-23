@@ -9,41 +9,34 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
 );
-use Test::Exception;
-
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my ( $credit_card, $cc_mon, $cc_year ) = (
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM},
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY},
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $card = $t->resolve(
+		service => '/credit_card/object',
+		parameters => {
+			account_number => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
+			expiration     => {
+				month => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM},
+				year  => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY},
+			},
+		},
 );
-
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
 
 my $dcc_req
 	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
-		reference_code   => 't503',
+		reference_code   => 'test-dcc-authorization-' . time,
 		currency         => 'USD',
-		credit_card      => $credit_card,
-		exp_month        => $cc_mon,
-		exp_year         => $cc_year,
+		card             => $card,
 		total            => '1.00',
 		foreign_currency => 'JPY',
 	}]);
 
-my $dcc;
+my $client = $t->resolve( service => '/client/object' );
 
-lives_ok { $dcc = $client->run_transaction( $dcc_req ) }
-	'dcc run_transaction'
-	or diag( '!!!: please ensure that cybersource has enabled DCC '
-	. 'for your account' )
-	;
+my $dcc = $client->run_transaction( $dcc_req );
 
 is( $dcc->foreign_currency, 'JPY', 'check foreign currency' );
 is( $dcc->foreign_amount, 116, 'check foreign amount' );
@@ -63,21 +56,17 @@ my $sale_req
 			zip              => '77064',
 			country          => 'US',
 			email            => 'xenoterracide@gmail.com',
-			credit_card      => $dcc_req->credit_card,
 			total            => $dcc_req->total,
 			currency         => $dcc->currency,
 			foreign_currency => $dcc->foreign_currency,
 			foreign_amount   => $dcc->foreign_amount,
 			exchange_rate    => $dcc->exchange_rate,
-			cc_exp_month     => '04',
-			cc_exp_year      => '2012',
 			dcc_indicator    => 1,
+			card             => $card,
 			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 		}]);
 
-my $sale_res;
-lives_ok { $sale_res = $client->run_transaction( $sale_req ) }
-	'sale transaction';
+my $sale_res = $client->run_transaction( $sale_req );
 
 ok( $sale_res->is_accepted, 'sale accepted' )
 	or diag $sale_res->reason_text;
