@@ -25,8 +25,7 @@ sub BUILD {
 		container credit_card => as {
 			service holder     => 'Caleb Cushing';
 			service security_code => '1111';
-			service visa_test_number => '4111-1111-1111-1111';
-			service visa => (
+			service object => (
 				class        => 'Business::CyberSource::CreditCard',
 				lifecycle    => 'Singleton',
 				dependencies => {
@@ -35,6 +34,10 @@ sub BUILD {
 					holder         => depends_on('holder'),
 				},
 				parameters => {
+					account_number => {
+						isa => 'Str',
+						default => '4111111111111111'
+					},
 					expiration => {
 						isa => 'HashRef',
 						default => {
