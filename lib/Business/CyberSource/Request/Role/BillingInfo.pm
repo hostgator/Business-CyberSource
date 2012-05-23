@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.005001'; # VERSION
 
 use Moose::Role;
 use MooseX::Aliases;
@@ -183,7 +183,7 @@ Business::CyberSource::Request::Role::BillingInfo - Role for requests that requi
 
 =head1 VERSION
 
-version 0.005000
+version 0.005001
 
 =head1 ATTRIBUTES
 

@@ -11,8 +11,8 @@ use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/visa' );
+my $client      = $t->resolve( service => '/client/object'      );
+my $credit_card = $t->resolve( service => '/credit_card/object' );
 
 my $creditc = use_module('Business::CyberSource::Request::Credit');
 

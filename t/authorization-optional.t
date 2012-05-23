@@ -5,7 +5,6 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
-use Test::Exception;
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -13,7 +12,7 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/visa' );
+my $credit_card = $t->resolve( service => '/credit_card/object' );
 
 my $dtc = use_module('Business::CyberSource::Request::Authorization');
 

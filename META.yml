@@ -5,11 +5,9 @@ author:
 build_requires:
   Bread::Board: 0
   Bread::Board::Container: 0
-  Data::Dumper::Concise: 0
   File::Find: 0
   File::Temp: 0
   FindBin: 0
-  Test::Exception: 0
   Test::Fatal: 0
   Test::Moose: 0
   Test::More: 0.88
@@ -77,4 +75,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.005000
+version: 0.005001

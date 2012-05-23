@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005000'; # VERSION
+our $VERSION = '0.005001'; # VERSION
 
 use Moose;
 
@@ -131,7 +131,7 @@ Business::CyberSource::CreditCard - A Credit Card Value Object
 
 =head1 VERSION
 
-version 0.005000
+version 0.005001
 
 =head1 DESCRIPTION
 
