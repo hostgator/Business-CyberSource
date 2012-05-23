@@ -1,6 +1,8 @@
 Revision history for Business-CyberSource
 
 0.005001  2012-05-23
+	- remove Test::Exception and Data::Dumper::Concise from deps
+	- cleanup tests more
 
 0.005000  2012-05-17
 	[NEWS]
