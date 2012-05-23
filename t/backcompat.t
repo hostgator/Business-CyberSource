@@ -6,7 +6,7 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-use Test::Exception;
+use Test::Fatal;
 
 use Module::Runtime qw( use_module );
 
@@ -38,7 +38,8 @@ can_ok $req, 'username';
 can_ok $req, 'password';
 can_ok $req, 'production';
 
-throws_ok { $req->create } qr/Business::CyberSource::RequestFactory/, 'create dies';
+my $exception = exception { $req->create };
+like $exception, qr/Business::CyberSource::RequestFactory/, 'create dies';
 
 my $ret = $req->submit;
 

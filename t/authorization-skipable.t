@@ -6,8 +6,6 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 );
 
-use Test::Exception;
-
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
@@ -16,7 +14,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object'    );
 my $cc
 	= $t->resolve(
-		service    => '/credit_card/visa',
+		service    => '/credit_card/object',
 		parameters => { expiration => { month => 5, year => 2010 }, },
 	);
 
