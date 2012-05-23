@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Exception;
 use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_USERNAME
 	PERL_BUSINESS_CYBERSOURCE_PASSWORD
@@ -9,45 +8,36 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
 );
-use Test::Exception;
-
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
-my ( $credit_card, $cc_mon, $cc_year ) = (
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM},
-	$ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY},
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
+my $client = $t->resolve( service => '/client/object' );
+
+my $card = $t->resolve(
+		service => '/credit_card/object',
+		parameters => {
+			account_number => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
+			expiration     => {
+				month => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM},
+				year  => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY},
+			},
+		},
 );
-
-my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME},
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD},
-		production => 0,
-	}]);
 
 my $dcc_req
 	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
 		reference_code   => 't503',
 		currency         => 'USD',
-		credit_card      => $credit_card,
-		exp_month        => $cc_mon,
-		exp_year         => $cc_year,
+		card             => $card,
 		total            => '1.00',
 		foreign_currency => 'JPY',
 	}]);
 
-my $dcc;
+my $dcc = $client->run_transaction( $dcc_req );
 
-lives_ok { $dcc = $client->run_transaction( $dcc_req ) }
-	'dcc run_transaction'
-	or diag( '!!!: please ensure that cybersource has enabled DCC '
-	. 'for your account' )
-	;
-
-ok ( $dcc_req->trace, 'trace exists' );
-
-ok( $dcc, 'authorization response exists' );
+isa_ok $dcc, 'Business::CyberSource::Response';
 
 
 ok( $dcc->reference_code, 'reference code exists' );
