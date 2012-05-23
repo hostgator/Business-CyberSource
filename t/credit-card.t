@@ -4,7 +4,6 @@ use Test::More;
 use Test::Fatal;
 use Module::Runtime qw( use_module );
 use DateTime;
-use Data::Dumper::Concise;
 
 my $card_c = use_module('Business::CyberSource::CreditCard');
 
