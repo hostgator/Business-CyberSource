@@ -77,7 +77,6 @@ t/dcc-sale.t
 t/dcc.t
 t/error-exception.t
 t/lib/Test/Business/CyberSource.pm
-t/lib/Test/Business/CyberSource.pm.orig
 t/new-authorization.t
 t/new-client.t
 t/new-exceptions.t

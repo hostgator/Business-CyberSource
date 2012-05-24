@@ -1,8 +1,8 @@
 package Test::Business::CyberSource;
+use Test::Requires 'Bread::Board';
 use Moose;
 
 BEGIN {
-	eval "use Bread::Board; 1;" or confess $@;
 	eval "extends 'Bread::Board::Container'; 1;" or confess $@;
 }
 
