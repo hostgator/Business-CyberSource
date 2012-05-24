@@ -3,7 +3,6 @@ abstract: 'Perl interface to the CyberSource Simple Order SOAP API'
 author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
 build_requires:
-  Bread::Board: 0
   Bread::Board::Container: 0
   File::Find: 0
   File::Temp: 0

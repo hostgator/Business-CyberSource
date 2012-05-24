@@ -77,7 +77,6 @@
       },
       "test" : {
          "requires" : {
-            "Bread::Board" : "0",
             "Bread::Board::Container" : "0",
             "File::Find" : "0",
             "File::Temp" : "0",

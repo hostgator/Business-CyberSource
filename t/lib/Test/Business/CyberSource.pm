@@ -1,8 +1,9 @@
 package Test::Business::CyberSource;
 use Moose;
-use Bread::Board;
+use Test::Requires 'Bread::Board';
 
-extends 'Bread::Board::Container';
+extends
+	'Bread::Board::Container';
 
 sub BUILD {
 	my $self = shift;
