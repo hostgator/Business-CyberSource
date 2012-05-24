@@ -46,6 +46,7 @@ my %WriteMakefileArgs = (
     "Moose::Role" => 0,
     "Moose::Util::TypeConstraints" => 0,
     "MooseX::ABC" => "0.06",
+    "MooseX::AbstractFactory" => 0,
     "MooseX::Aliases" => 0,
     "MooseX::SetOnce" => "0.200001",
     "MooseX::StrictConstructor" => 0,
