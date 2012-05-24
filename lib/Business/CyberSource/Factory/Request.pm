@@ -10,7 +10,7 @@ BEGIN {
 		. "implementation_class_via "
 		. "sub { 'Business::CyberSource::Request::' .  shift };"
 		. "1;"
-	);
+		;
 }
 
 __PACKAGE__->meta->make_immutable;
