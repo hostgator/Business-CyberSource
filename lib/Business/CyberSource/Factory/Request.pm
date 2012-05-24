@@ -6,9 +6,10 @@ use namespace::autoclean;
 our $VERSION = '0.005002'; # VERSION
 
 BEGIN {
-	eval "use MooseX::AbstractFactory; 1;";
+	if ( eval "use MooseX::AbstractFactory; 1;" ) {
+		implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
+	}
 }
-implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 
 __PACKAGE__->meta->make_immutable;
 1;
