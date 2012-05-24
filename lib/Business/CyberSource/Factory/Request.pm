@@ -5,11 +5,11 @@ use namespace::autoclean;
 
 our $VERSION = '0.005002'; # VERSION
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( try_load_class );
 
 BEGIN {
-	my $factory_c = use_module('MooseX::AbstractFactory');
-	$factory_c->import;
+	try_load_class('MooseX::AbstractFactory');
+	MooseX::AbtractFactory->import;
 }
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 
