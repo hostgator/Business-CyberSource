@@ -9,9 +9,9 @@ use Class::Load qw( try_load_class );
 
 BEGIN {
 	try_load_class('MooseX::AbstractFactory');
-	MooseX::AbtractFactory->import;
+	MooseX::AbtractFactory->import( 'implementation_class_via' );
 }
-MooseX::AbstractFactory::implementation_class_via(
+implementation_class_via(
 		sub { 'Business::CyberSource::Request::' . shift }
 	);
 
