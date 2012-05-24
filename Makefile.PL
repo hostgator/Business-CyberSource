@@ -22,6 +22,7 @@ my %WriteMakefileArgs = (
     "Test::Fatal" => 0,
     "Test::Moose" => 0,
     "Test::More" => "0.88",
+    "Test::Requires" => 0,
     "Test::Requires::Env" => 0
   },
   "CONFIGURE_REQUIRES" => {
@@ -74,7 +75,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.005001",
+  "VERSION" => "0.005002",
   "test" => {
     "TESTS" => "t/*.t"
   }

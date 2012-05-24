@@ -9,8 +9,9 @@ use Test::Fatal;
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
+use Test::Requires qw( Test::Business::CyberSource );
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = new_ok('Test::Business::CyberSource');
 
 my $req = $t->resolve( service  =>'/request/authorization/visa' );
 

@@ -91,6 +91,7 @@ eval { $v .= pmver('MooseX::Types::URI','any version') };
 eval { $v .= pmver('Test::Fatal','any version') };
 eval { $v .= pmver('Test::Moose','any version') };
 eval { $v .= pmver('Test::More','0.88') };
+eval { $v .= pmver('Test::Requires','any version') };
 eval { $v .= pmver('Test::Requires::Env','any version') };
 eval { $v .= pmver('XML::Compile::SOAP11','any version') };
 eval { $v .= pmver('XML::Compile::SOAP::WSS','0.12') };

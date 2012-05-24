@@ -11,6 +11,7 @@ build_requires:
   Test::Fatal: 0
   Test::Moose: 0
   Test::More: 0.88
+  Test::Requires: 0
   Test::Requires::Env: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
@@ -75,4 +76,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.005001
+version: 0.005002
