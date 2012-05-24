@@ -1,6 +1,10 @@
 Revision history for Business-CyberSource
 
 0.005002  2012-05-23
+	- remove Bread::Board as a request Test Dependency, it's mostly used in
+	  cases where credentials are required.
+	- remove MooseX::AbstractFactory as a dependency, BC::Factory::Request is
+	  optional and not even recommended.
 
 0.005001  2012-05-23
 	- remove Test::Exception and Data::Dumper::Concise from deps
