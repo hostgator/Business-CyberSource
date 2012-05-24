@@ -7,7 +7,7 @@ our $VERSION = '0.005002'; # VERSION
 
 use Moose;
 BEGIN {
-	eval "use MooseX::AbstractFactory;"
+	eval "use MooseX::AbstractFactory;" ## no critic (BuiltinFunctions::ProhibitStringyEval)
 		. "implementation_class_via "
 		. "sub { 'Business::CyberSource::Request::' .  shift };"
 		. "1;"
