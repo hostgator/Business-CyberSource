@@ -1,8 +1,10 @@
 package Test::Business::CyberSource;
 use Moose;
-use Bread::Board;
 
-extends 'Bread::Board::Container';
+BEGIN {
+	eval "use Bread::Board; 1;" or confess $@;
+	eval "extends 'Bread::Board::Container'; 1;" or confess $@;
+}
 
 sub BUILD {
 	my $self = shift;
