@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.005002'; # VERSION
+our $VERSION = '0.005003'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.005002
+version 0.005003
 
 =head1 DESCRIPTION
 

@@ -52,6 +52,7 @@ eval { $v .= pmver('Business::CreditCard','any version') };
 eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Config','any version') };
 eval { $v .= pmver('DateTime','0.74') };
+eval { $v .= pmver('DateTime::Format::W3CDTF','0.06') };
 eval { $v .= pmver('Exception::Base','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Find','any version') };

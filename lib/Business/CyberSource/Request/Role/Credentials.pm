@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005002'; # VERSION
+our $VERSION = '0.005003'; # VERSION
 
 use Moose::Role;
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
@@ -42,7 +42,7 @@ Business::CyberSource::Request::Role::Credentials - CyberSource login credential
 
 =head1 VERSION
 
-version 0.005002
+version 0.005003
 
 =head1 ATTRIBUTES
 
