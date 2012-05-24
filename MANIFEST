@@ -44,7 +44,6 @@ lib/Business/CyberSource/Role/ForeignCurrency.pm
 lib/Business/CyberSource/Role/MerchantReferenceCode.pm
 lib/Business/CyberSource/Role/RequestID.pm
 lib/MooseX/Types/CyberSource.pm
-nytprof.out
 perlcritic.rc
 share/production/CyberSourceTransaction_1.71.wsdl
 share/production/CyberSourceTransaction_1.71.xsd
