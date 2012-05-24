@@ -11,7 +11,9 @@ BEGIN {
 	try_load_class('MooseX::AbstractFactory');
 	MooseX::AbtractFactory->import;
 }
-implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
+MooseX::AbstractFactory::implementation_class_via
+	sub { 'Business::CyberSource::Request::' . shift }
+	;
 
 __PACKAGE__->meta->make_immutable;
 1;
