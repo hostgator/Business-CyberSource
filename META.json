@@ -80,7 +80,7 @@
       },
       "test" : {
          "recommends" : {
-            "Bread::Board" : "0"
+            "Bread::Board" : "0.25"
          },
          "requires" : {
             "File::Find" : "0",
