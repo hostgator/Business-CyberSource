@@ -5,6 +5,7 @@ use namespace::autoclean;
 
 our $VERSION = '0.005002'; # VERSION
 
+use Moose;
 BEGIN {
 	eval "use MooseX::AbstractFactory; 1;"
 		. "implementation_class_via "
