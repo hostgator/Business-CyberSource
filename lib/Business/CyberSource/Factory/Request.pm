@@ -26,7 +26,7 @@ version 0.005002
 
 =head1 SYNOPSIS
 
-	use Module:Runtime qw( use_module );
+	use Module::Runtime qw( use_module );
 	use Business::CyberSource::CreditCard;
 
 	my $factory = use_module('Business::CyberSource::Factory::Request')->new;
