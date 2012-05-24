@@ -29,7 +29,6 @@ sub BUILD {
 			service security_code => '1111';
 			service object => (
 				class        => 'Business::CyberSource::Helper::Card',
-				lifecycle    => 'Singleton',
 				dependencies => {
 					security_code  => depends_on('security_code'),
 					holder         => depends_on('holder'),
