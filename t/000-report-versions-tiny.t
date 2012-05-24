@@ -50,7 +50,6 @@ sub pmver {
 
 eval { $v .= pmver('Business::CreditCard','any version') };
 eval { $v .= pmver('Carp','any version') };
-eval { $v .= pmver('Class::Load','any version') };
 eval { $v .= pmver('Config','any version') };
 eval { $v .= pmver('DateTime','0.74') };
 eval { $v .= pmver('Exception::Base','any version') };

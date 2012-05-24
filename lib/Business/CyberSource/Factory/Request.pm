@@ -5,14 +5,10 @@ use namespace::autoclean;
 
 our $VERSION = '0.005002'; # VERSION
 
-use Class::Load qw( try_load_class );
-
 BEGIN {
-	if ( try_load_class('MooseX::AbstractFactory') ) {
-		MooseX::AbtractFactory->import( 'implementation_class_via' );
-		implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
-	}
+	eval "use MooseX::AbstractFactory; 1;";
 }
+implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -32,10 +28,10 @@ version 0.005002
 
 =head1 SYNOPSIS
 
-	use Module::Runtime qw( use_module );
+	use Business::CyberSource::Factory::Request;
 	use Business::CyberSource::CreditCard;
 
-	my $factory = use_module('Business::CyberSource::Factory::Request')->new;
+	my $factory = Business::CyberSource::Factory::Request->new;
 
 	my $credit_card = Business::CyberSource::CreditCard->new({
 		account_number => '411111111111111',

@@ -34,7 +34,6 @@
          "requires" : {
             "Business::CreditCard" : "0",
             "Carp" : "0",
-            "Class::Load" : "0",
             "Config" : "0",
             "DateTime" : "0.74",
             "Exception::Base" : "0",
