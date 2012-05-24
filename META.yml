@@ -28,6 +28,8 @@ no_index:
     - Business::CyberSource::Request::Role
     - Business::CyberSource::Response::Role
     - Business::CyberSource::Role
+recommends:
+  MooseX::AbstractFactory: 0.004
 requires:
   Business::CreditCard: 0
   Carp: 0
@@ -74,4 +76,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.005003
+version: 0.005004

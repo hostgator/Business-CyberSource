@@ -31,6 +31,9 @@
          }
       },
       "runtime" : {
+         "recommends" : {
+            "MooseX::AbstractFactory" : "0.004"
+         },
          "requires" : {
             "Business::CreditCard" : "0",
             "Carp" : "0",
@@ -76,6 +79,9 @@
          }
       },
       "test" : {
+         "recommends" : {
+            "Bread::Board" : "0"
+         },
          "requires" : {
             "File::Find" : "0",
             "File::Temp" : "0",
@@ -100,6 +106,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "0.005003"
+   "version" : "0.005004"
 }
 

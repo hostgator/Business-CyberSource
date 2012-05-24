@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005003'; # VERSION
+our $VERSION = '0.005004'; # VERSION
 
 use Moose::Role;
 use MooseX::SetOnce 0.200001;
@@ -40,7 +40,7 @@ Business::CyberSource::Request::Role::DCC - Role for DCC follow up requests
 
 =head1 VERSION
 
-version 0.005003
+version 0.005004
 
 =head1 DESCRIPTION
 

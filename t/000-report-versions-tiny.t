@@ -48,6 +48,7 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
+eval { $v .= pmver('Bread::Board','any version') };
 eval { $v .= pmver('Business::CreditCard','any version') };
 eval { $v .= pmver('Carp','any version') };
 eval { $v .= pmver('Config','any version') };
@@ -68,6 +69,7 @@ eval { $v .= pmver('Moose','any version') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };
 eval { $v .= pmver('MooseX::ABC','0.06') };
+eval { $v .= pmver('MooseX::AbstractFactory','0.004') };
 eval { $v .= pmver('MooseX::Aliases','any version') };
 eval { $v .= pmver('MooseX::SetOnce','0.200001') };
 eval { $v .= pmver('MooseX::StrictConstructor','any version') };
