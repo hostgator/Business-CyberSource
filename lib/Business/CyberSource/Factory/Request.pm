@@ -5,7 +5,12 @@ use namespace::autoclean;
 
 our $VERSION = '0.005002'; # VERSION
 
-use MooseX::AbstractFactory;
+use Module::Runtime qw( use_module );
+BEGIN {
+	my $factoryc = use_module('MooseX::AbstractFactory');
+	$factoryc->import;
+}
+
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
 
 __PACKAGE__->meta->make_immutable;
