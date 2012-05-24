@@ -5,8 +5,14 @@ use namespace::autoclean;
 
 # VERSION
 
-use MooseX::AbstractFactory;
-implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
+use Moose;
+BEGIN {
+	eval "use MooseX::AbstractFactory;" ## no critic (BuiltinFunctions::ProhibitStringyEval)
+		. "implementation_class_via "
+		. "sub { 'Business::CyberSource::Request::' .  shift };"
+		. "1;"
+		;
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
