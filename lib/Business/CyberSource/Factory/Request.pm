@@ -26,10 +26,10 @@ version 0.005002
 
 =head1 SYNOPSIS
 
-	use Business::CyberSource::Factory::Request;
+	use Module:Runtime qw( use_module );
 	use Business::CyberSource::CreditCard;
 
-	my $factory = Business::CyberSource::Factory::Request->new;
+	my $factory = use_module('Business::CyberSource::Factory::Request')->new;
 
 	my $credit_card = Business::CyberSource::CreditCard->new({
 		account_number => '411111111111111',
