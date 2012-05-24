@@ -2,9 +2,7 @@ package Test::Business::CyberSource;
 use Test::Requires 'Bread::Board';
 use Moose;
 
-BEGIN {
-	eval "extends 'Bread::Board::Container'; 1;" or confess $@;
-}
+extends 'Bread::Board::Container';
 
 sub BUILD {
 	my $self = shift;
