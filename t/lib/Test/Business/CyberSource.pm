@@ -10,8 +10,14 @@ sub BUILD {
 	my $self = shift;
 	return container $self => as {
 		container client => as {
-			service username   => "$ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME}";
-			service password   => "$ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD}";
+			service 'username'
+					=> $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME}
+					||'test'
+					;
+			service 'password'
+					=> $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD}
+					|| 'test'
+					;
 			service production => 0;
 			service object     => (
 				class        => 'Business::CyberSource::Client',
