@@ -6,7 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
-use MooseX::RemoteName;
+use MooseX::RemoteHelper;
 
 use MooseX::SetOnce 0.200001;
 

@@ -6,8 +6,13 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
+with 'MooseX::RemoteHelper::CompositeSerialization';
+
+
 use MooseX::SetOnce 0.200001;
 use MooseX::RemoteHelper;
+
+use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 
 with qw(
 	Business::CyberSource::Role::Currency
