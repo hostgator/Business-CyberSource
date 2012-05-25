@@ -19,7 +19,7 @@ my $billto
 	}]);
 
 isa_ok ( $billto->ip_address, 'NetAddr::IP'                                 );
-does_ok( $billto,             'Business::CyberSource::Interface::Composite' );
+does_ok( $billto,             'MooseX::RemoteHelper::CompositeSerialization');
 can_ok ( $billto,             'serialize'                                   );
 
 is( $billto->first_name,      'Caleb',                   '->first_name'     );

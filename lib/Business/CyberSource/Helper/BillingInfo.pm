@@ -6,7 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'Business::CyberSource::Interface::Composite';
+with 'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Aliases;
 use MooseX::SetOnce 0.200001;
