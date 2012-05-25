@@ -7,27 +7,11 @@ use namespace::autoclean;
 
 use Moose::Role;
 
-with qw(
-	Business::CyberSource::Role::Currency
-	Business::CyberSource::Role::ForeignCurrency
-	Business::CyberSource::Request::Role::Items
-);
-
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types::Moose            qw( HashRef           );
-use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
-use MooseX::Types::Locale::Currency qw( CurrencyCode      );
-
-has total => (
-	isa       => PositiveOrZeroNum,
-	traits    => [ 'SetOnce' ],
-	is        => 'rw',
-	predicate => 'has_total',
-	trigger  => sub {
-		my $self = shift;
-		$self->_request_data->{purchaseTotals}{grandTotalAmount} = $self->total;
-	},
+has purchase_totals => (
+	isa         => 'Business::CyberSource::Helper::PurchaseTotals',
+	remote_name => 'purchaseTotals',
+	is          => 'ro',
+	required    => 1,
 );
 
 1;
