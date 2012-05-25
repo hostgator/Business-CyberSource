@@ -33,7 +33,7 @@ foreach ( @test_pairs ) {
 			},
 	}]);
 
-	does_ok $card, 'Business::CyberSource::Interface::Composite';
+	does_ok $card, 'MooseX::RemoteHelper::CompositeSerialization';
 	can_ok  $card, 'serialize';
 
 	is $card->type          , $type,      'Type: '      . $type;

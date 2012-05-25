@@ -9,7 +9,7 @@ use Moose;
 use MooseX::RemoteHelper;
 
 extends 'Business::CyberSource::CreditCard';
-with    'Business::CyberSource::Interface::Composite';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
