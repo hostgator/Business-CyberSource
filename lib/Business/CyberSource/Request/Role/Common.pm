@@ -7,6 +7,7 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::SetOnce 0.200001;
+use MooseX::RemoteHelper;
 
 use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::URI     qw( Uri     );
@@ -15,16 +16,12 @@ use MooseX::Types::Path::Class qw( File Dir );
 with qw(
 	Business::CyberSource::Request::Role::Credentials
 	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::Items
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use Module::Runtime qw( use_module );
 use Carp qw( cluck );
-
-sub serialize {
-	my $self = shift;
-	return $self->_request_data;
-}
 
 before submit => sub {
 	our @CARP_NOT = ( __PACKAGE__, 'Class::MOP::Method::Wrapped' );
@@ -54,23 +51,13 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 			confess 'you must define either items or total';
 		}
 	}
-
-	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo' ) ) {
-		if ( $self->country eq 'US' or $self->country eq 'CA' ) {
-			confess 'zip code is required for US or Canada'
-				unless $self->has_zip;
-		}
-	}
 }
 
 has comments => (
-	isa      => Str,
-	traits   => ['SetOnce'],
-	is       => 'rw',
-	trigger  => sub {
-		my $self = shift;
-		$self->_request_data->{comments} = $self->comments;
-	},
+	remote_name => 'comments',
+	isa         => Str,
+	traits      => ['SetOnce'],
+	is          => 'rw',
 );
 
 

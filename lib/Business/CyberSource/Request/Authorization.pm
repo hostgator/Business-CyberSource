@@ -16,9 +16,14 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
-before serialize => sub {
+around serialize => sub {
+	my $orig = shift;
 	my $self = shift;
-	$self->_request_data->{ccAuthService}{run} = 'true';
+
+	my $serialized = $self->$orig( @_ );
+	$serialized->{ccAuthService}{run} = 'true';
+
+	return $serialized;
 };
 
 __PACKAGE__->meta->make_immutable;
