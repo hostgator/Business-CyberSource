@@ -23,6 +23,8 @@ use MooseX::Types -declare => [ qw(
 	_VarcharSixty
 ) ];
 
+use Module::Runtime qw( use_module );
+
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
 use MooseX::Types::Moose qw( Int Num Str HashRef );
@@ -58,19 +60,13 @@ enum CardTypeCode, [ qw(
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
+class_type Item, { class => 'Business::CyberSource::Helper::Item' };
 
-subtype Item,
-	as Dict[
-		unit_price   => PositiveOrZeroNum,
-		quantity     => Int,
-		product_code => Optional[Str],
-		product_name => Optional[Str],
-		product_sku  => Optional[Str],
-		product_risk => Optional[Str],
-		tax_amount   => Optional[PositiveOrZeroNum],
-		tax_rate     => Optional[PositiveOrZeroNum],
-		national_tax => Optional[PositiveOrZeroNum],
-	];
+coerce Item,
+	from HashRef,
+	via {
+		use_module('Business::CyberSource::Helper::Item')->new( $_ );
+	};
 
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
