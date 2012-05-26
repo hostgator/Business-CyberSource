@@ -60,8 +60,8 @@ sub BUILD {
 				service street        => 'somewhere';
 				service city          => 'Houston';
 				service state         => 'TX';
-				service postal_code   => '77064';
 				service country       => 'US';
+				service postal_code   => '77064';
 				service email         => 'xenoterracide@gmail.com';
 				service ip_address    => '192.168.100.2';
 				service currency      => 'USD';
@@ -99,9 +99,9 @@ sub BUILD {
 					city           => depends_on('services/city'       ),
 					state          => depends_on('services/state'      ),
 					postal_code    => depends_on('services/postal_code'),
-					country        => depends_on('services/country'    ),
 					email          => depends_on('services/email'      ),
 					ip_address     => depends_on('services/ip_address' ),
+					country        => depends_on('services/country'    ),
 				},
 			);
 

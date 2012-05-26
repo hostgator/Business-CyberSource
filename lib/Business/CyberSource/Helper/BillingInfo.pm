@@ -28,11 +28,9 @@ use Moose::Util::TypeConstraints;
 
 sub BUILD {
 	my $self = shift;
-	if ( $self->does('Business::CyberSource::Request::Role::BillingInfo' ) ) {
-		if ( $self->country eq 'US' or $self->country eq 'CA' ) {
-			confess 'postal code is required for US or Canada'
-				unless $self->has_postal_code;
-		}
+	if ( $self->country eq 'US' or $self->country eq 'CA' ) {
+		confess 'postal code is required for US or Canada'
+			unless $self->has_postal_code;
 	}
 }
 
