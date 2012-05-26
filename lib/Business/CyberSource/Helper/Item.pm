@@ -14,13 +14,6 @@ use MooseX::SetOnce;
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum PositiveOrZeroInt );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
 
-has id => (
-	isa         => PositiveOrZeroInt,
-	remote_name => 'id',
-	is          => 'ro',
-	required    => 1,
-);
-
 has quantity => (
 	isa         => PositiveOrZeroInt,
 	remote_name => 'quantity',
