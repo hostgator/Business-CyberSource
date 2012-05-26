@@ -123,40 +123,37 @@ sub BUILD {
 			service reference_code => (
 				block => sub { return 'test-' . time },
 			);
-			container authorization => as {
-				service visa => (
-					class => 'Business::CyberSource::Request::Authorization',
-					dependencies => {
-						card            => depends_on('/helper/card'),
-						reference_code  => depends_on('../reference_code'),
-						purchase_totals => depends_on('/helper/purchase_totals'),
-						currency        => depends_on('../currency'),
-						billing_info    => depends_on('/helper/billing/info'),
+			service authorization => (
+				class => 'Business::CyberSource::Request::Authorization',
+				dependencies => {
+					card            => depends_on('/helper/card'),
+					reference_code  => depends_on('reference_code'),
+					purchase_totals => depends_on('/helper/purchase_totals'),
+					billing_info    => depends_on('/helper/bill_to'),
+				},
+				parameters => {
+					card  => {
+						isa      => 'Business::CyberSource::Helper::Card',
+						optional => 1,
 					},
-					parameters => {
-						card  => {
-							isa      => 'Business::CyberSource::Helper::Card',
-							optional => 1,
-						},
-						purcase_totals => {
-							isa => 'Business::CyberSource::Helper::PurchaseTotals',
-							optional => 1,
-						},
-						ignore_cv_result => {
-							isa      => 'Bool',
-							optional => 1,
-						},
-						ignore_avs_result => {
-							isa      => 'Bool',
-							optional => 1,
-						},
-						decline_avs_flags => {
-							isa      => 'ArrayRef',
-							optional => 1,
-						},
+					purcase_totals => {
+						isa => 'Business::CyberSource::Helper::PurchaseTotals',
+						optional => 1,
 					},
-				);
-			};
+					ignore_cv_result => {
+						isa      => 'Bool',
+						optional => 1,
+					},
+					ignore_avs_result => {
+						isa      => 'Bool',
+						optional => 1,
+					},
+					decline_avs_flags => {
+						isa      => 'ArrayRef',
+						optional => 1,
+					},
+				},
+			);
 		};
 	};
 }

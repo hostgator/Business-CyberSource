@@ -4,37 +4,13 @@ use Test::More;
 use Test::Fatal;
 
 use Module::Runtime qw( use_module );
+use FindBin; use lib "$FindBin::Bin/lib";
 
 my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
 can_ok( $factory, 'create' );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
-
-my $credit_card
-	= new_ok( use_module('Business::CyberSource::CreditCard') => [{
-		account_number => '4111-1111-1111-1111',
-		expiration     => {
-			month => 5,
-			year  => 2012
-		},
-	}]);
-
-my $dto
-	= new_ok( $authc => [{
-		reference_code => 'random',
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 3000.00,
-		currency       => 'USD',
-		card           => $credit_card,
-	}]);
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $answer = {
 	result => {
@@ -45,9 +21,17 @@ my $answer = {
 	},
 };
 
-my $exception = exception { $factory->create( $dto, $answer ) };
+my $exception
+	= exception {
+		$factory->create(
+			$t->resolve( service => '/request/authorization' ),
+			$answer,
+		)
+	};
 
-isa_ok( $exception, 'Business::CyberSource::Exception' );
+isa_ok( $exception, 'Business::CyberSource::Exception' )
+	or diag "$exception"
+	;
 
 like(  "$exception",         qr/error/i, 'stringify'   );
 is  (   $exception->decision,'ERROR',    'decision'    );
