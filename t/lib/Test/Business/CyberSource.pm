@@ -136,7 +136,7 @@ sub BUILD {
 						isa      => 'Business::CyberSource::Helper::Card',
 						optional => 1,
 					},
-					purcase_totals => {
+					purchase_totals => {
 						isa => 'Business::CyberSource::Helper::PurchaseTotals',
 						optional => 1,
 					},
