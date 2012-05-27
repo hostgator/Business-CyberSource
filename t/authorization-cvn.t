@@ -15,13 +15,16 @@ my $client      = $t->resolve( service => '/client/object'    );
 
 my $req
 	= $t->resolve(
-		service => '/request/authorization/visa',
-		parameters => { total => 9000.00 },
+		service    => '/request/authorization',
+		parameters => {
+			purchase_totals => $t->resolve(
+				service    => '/helper/purchase_totals',
+				parameters => {
+					total => 9000.00,
+				},
+			),
+		},
 	);
-
-# check billing info
-is( $req->cvn,   '1111', 'check cvn'   );
-is( $req->total, '9000', 'check total' );
 
 my $ret = $client->run_transaction( $req );
 
@@ -40,7 +43,8 @@ is( $ret->cv_code_raw, 'M',          'check cv_code'       );
 
 ok( $ret->request_id,    'check request_id exists'    );
 ok( $ret->request_token, 'check request_token exists' );
-ok( $ret->datetime,      'check datetime exists'      );
 ok( $ret->auth_record,   'check auth_record exists'   );
+
+isa_ok( $ret->datetime, 'DateTime' );
 
 done_testing;
