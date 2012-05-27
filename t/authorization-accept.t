@@ -15,10 +15,7 @@ my $client      = $t->resolve( service => '/client/object'    );
 
 my $ret
 	= $client->run_transaction(
-		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 3000.00 },
-		)
+		$t->resolve( service => '/request/authorization' )
 	);
 
 isa_ok( $ret,           'Business::CyberSource::Response' );
