@@ -4,7 +4,7 @@ use Test::More;
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $dtc   = use_module('Business::CyberSource::Request::Authorization');
+my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
@@ -31,6 +31,42 @@ foreach ( @test_pairs ) {
 
 	can_ok( $dto, 'submit' );
 	can_ok( $dto, 'serialize' );
+
+	isa_ok $dto->billing_info,    'Business::CyberSource::Helper::BillingInfo';
+	isa_ok $dto->purchase_totals, 'Business::CyberSource::Helper::PurchaseTotals';
+	isa_ok $dto->card,            'Business::CyberSource::Helper::Card';
+
+	my %expected = (
+		billTo => {
+			firstName   => 'Caleb',
+			lastName    => 'Cushing',
+			country     => 'US',
+			ipAddress   => '192.168.100.2',
+			street1     => 'somewhere',
+			state       => 'TX',
+			email       => 'xenoterracide@gmail.com',
+			city        => 'Houston',
+			postalCode => '77064',
+		},
+		card => {
+			accountNumber   => $acct_num,
+			cardType        => $type_code,
+			cvIndicator     => 1,
+			cvNumber        => 1111,
+			expirationMonth => 5,
+			expirationYear  => 2025,
+			fullName        => 'Caleb Cushing',
+		},
+		ccAuthService => {
+			run => 'true',
+		},
+		purchaseTotals => {
+			currency         => 'USD',
+			grandTotalAmount => 3000.00,
+		},
+	);
+
+	is_deeply $dto->serialize, \%expected, 'serialize';
 
 	is( ref( $dto->serialize ), 'HASH', 'serialize returns a hashref'     );
 	is( $dto->reference_code, $code,       $dtc .'->reference_code'       );
