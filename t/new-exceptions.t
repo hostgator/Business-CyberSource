@@ -14,17 +14,17 @@ my $ptc = use_module('Business::CyberSource::Helper::PurchaseTotals');
 
 my $ptotals = new_ok( $ptc => [{ currency => 'USD' }]);
 
-my $exception2
-	= exception {
-		$authc->new({
-			reference_code  => $t->resolve(
+my $auth
+	= $authc->new({
+		reference_code  => $t->resolve(
 				service => '/request/reference_code'
 			),
 			billing_info    => $t->resolve( service => '/helper/bill_to' ),
 			card            => $t->resolve( service => '/helper/card' ),
 			purchase_totals => $ptotals,
 	});
-};
+
+my $exception2 = exception { $auth->serialize };
 
 like $exception2, qr/you must define either items or total/, 'check either items or total';
 

@@ -43,7 +43,7 @@ sub submit {
 	return $client->run_transaction( $self );
 }
 
-sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
+before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
 	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
@@ -51,7 +51,7 @@ sub BUILD { ## no critic qw( Subroutines::RequireFinalReturn )
 			confess 'you must define either items or total';
 		}
 	}
-}
+};
 
 has comments => (
 	remote_name => 'comments',
