@@ -16,10 +16,18 @@ use Class::Load qw( load_class );
 sub add_item {
 	my ( $self, $args ) = @_;
 
-	load_class 'Business::CyberSource::Helper::Item';
-	$self->push_item(
-			Business::CyberSource::Helper::Item->new( $args )
-		);
+	my $item;
+	unless ( blessed $args
+			&& $args->isa( 'Business::CyberSource::Helper::Item' )
+		) {
+		load_class 'Business::CyberSource::Helper::Item';
+		$item = Business::CyberSource::Helper::Item->new( $args )
+	}
+	else {
+		$item = $args;
+	}
+
+	return $self->_push_item( $item );
 }
 
 has items => (
@@ -32,7 +40,7 @@ has items => (
 		items_is_empty => 'is_empty',
 		next_item      => [ natatime => 1 ],
 		list_items     => 'elements',
-		push_item       => 'push',
+		_push_item       => 'push',
 	},
 	serializer => sub {
 		my ( $attr, $instance ) = @_;
@@ -56,6 +64,11 @@ has items => (
 1;
 
 # ABSTRACT: Role that provides Items
+
+=method add_item
+
+Add an L<Item|Business::CyberSource::Helper::Item> to L<items|/"items">.
+Accepts an item object or a hashref to construct an item object.
 
 =attr items
 
