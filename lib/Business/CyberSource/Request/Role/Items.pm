@@ -11,6 +11,17 @@ use MooseX::RemoteHelper;
 use MooseX::Types::CyberSource qw( Item );
 use MooseX::Types::Moose       qw( ArrayRef );
 
+use Class::Load qw( load_class );
+
+sub add_item {
+	my ( $self, $args ) = @_;
+
+	load_class 'Business::CyberSource::Helper::Item';
+	$self->push_item(
+			Business::CyberSource::Helper::Item->new( $args )
+		);
+}
+
 has items => (
 	isa         => ArrayRef[Item],
 	remote_name => 'item',
@@ -21,6 +32,7 @@ has items => (
 		items_is_empty => 'is_empty',
 		next_item      => [ natatime => 1 ],
 		list_items     => 'elements',
+		push_item       => 'push',
 	},
 	serializer => sub {
 		my ( $attr, $instance ) = @_;
@@ -39,6 +51,7 @@ has items => (
 		return \@serialized;
 	},
 );
+
 
 1;
 
