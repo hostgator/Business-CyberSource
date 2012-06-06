@@ -144,16 +144,8 @@ sub BUILD {
 						isa => 'Business::CyberSource::Helper::PurchaseTotals',
 						optional => 1,
 					},
-					ignore_cv_result => {
-						isa      => 'Bool',
-						optional => 1,
-					},
-					ignore_avs_result => {
-						isa      => 'Bool',
-						optional => 1,
-					},
-					decline_avs_flags => {
-						isa      => 'ArrayRef',
+					business_rules => {
+						isa => 'Business::CyberSource::Helper::BusinessRules',
 						optional => 1,
 					},
 				},

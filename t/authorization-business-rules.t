@@ -9,13 +9,22 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client = $t->resolve( service => '/client/object'    );
 
-my $ret0
-	= $client->run_transaction(
-		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 9001.00, ignore_cv_result => 1 },
-		)
+my $brc = use_module('Business::CyberSource::Helper::BusinessRules');
+
+my $req0
+	= $t->resolve(
+		service    => '/request/authorization',
+		parameters => {
+			purchase_totals => $t->resolve(
+				service    => '/helper/purchase_totals',
+				parameters => { total => 9001.00 }, # magic REJECT
+			),
+			business_rules => $brc->new({ ignore_cv_result => 1 }),
+		},
 	);
+
+my $ret0 = $client->run_transaction( $req0 );
+
 isa_ok $ret0, 'Business::CyberSource::Response';
 
 is( $ret0->decision,       'ACCEPT', 'check decision'       );
@@ -33,13 +42,19 @@ ok( $ret0->request_token, 'check request_token exists' );
 ok( $ret0->datetime,      'check datetime exists'      );
 ok( $ret0->auth_record,   'check auth_record exists'   );
 
-my $ret1
-	= $client->run_transaction(
-		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 5005.00, ignore_avs_result => 1 },
-		)
+my $req1
+	= $t->resolve(
+		service    => '/request/authorization',
+		parameters => {
+			purchase_totals => $t->resolve(
+				service    => '/helper/purchase_totals',
+				parameters => { total => 5005.00 }, # magic REJECT
+			),
+			business_rules => $brc->new({ ignore_avs_result => 1 }),
+		},
 	);
+
+my $ret1 = $client->run_transaction( $req1 );
 
 isa_ok $ret1, 'Business::CyberSource::Response';
 
@@ -58,16 +73,21 @@ ok( $ret1->request_token, 'check request_token exists' );
 ok( $ret1->datetime,      'check datetime exists'      );
 ok( $ret1->auth_record,   'check auth_record exists'   );
 
-my $ret2
-	= $client->run_transaction(
-		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => {
-				total             => 5001.00,
-				decline_avs_flags => [qw( Y N )],
-			},
-		)
+my $req2
+	= $t->resolve(
+		service    => '/request/authorization',
+		parameters => {
+			purchase_totals => $t->resolve(
+				service    => '/helper/purchase_totals',
+				parameters => { total => 5001.00 }, # magic ACCEPT
+			),
+			business_rules => $brc->new({
+				decline_avs_flags => [ qw( Y N ) ]
+			}),
+		},
 	);
+
+my $ret2 = $client->run_transaction( $req2 );
 
 isa_ok $ret2, 'Business::CyberSource::Response';
 
