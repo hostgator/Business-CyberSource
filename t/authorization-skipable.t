@@ -10,7 +10,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object'    );
 my $cc
 	= $t->resolve(
-		service    => '/credit_card/object',
+		service    => '/helper/card',
 		parameters => { expiration => { month => 5, year => 2010 }, },
 	);
 
@@ -19,10 +19,13 @@ ok( $cc->is_expired, 'card expired' );
 
 my $req0
 	= $t->resolve(
-		service => '/request/authorization/visa',
+		service => '/request/authorization',
 		parameters => {
-			total => 3000.00,
-			card  => $cc
+			purchase_totals => $t->resolve(
+				service    => '/helper/purchase_totals',
+				parameters => { total => 3000.00 }, # magic ACCEPT
+			),
+			card  => $cc,
 		},
 	);
 
@@ -31,6 +34,8 @@ ok( $req0->is_skipable, 'skipable' );
 my $ret0 = $client->run_transaction( $req0 );
 
 isa_ok( $ret0, 'Business::CyberSource::Response' );
+
+ok ! $ret0->has_trace, 'does not have trace';
 
 is( $ret0->is_success,          0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );

@@ -18,6 +18,8 @@ use Moose::Util::TypeConstraints;
 use Carp qw( cluck );
 use Module::Runtime qw( use_module );
 
+sub _build_skipable { return $_[0]->card->is_expired }
+
 around BUILDARGS => sub {
 	my $orig  = shift;
 	my $class = shift;
