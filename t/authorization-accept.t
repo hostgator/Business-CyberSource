@@ -7,7 +7,7 @@ use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $client      = $t->resolve( service => '/client/object'    );
+my $client = $t->resolve( service => '/client/object'    );
 
 my $ret
 	= $client->run_transaction(
