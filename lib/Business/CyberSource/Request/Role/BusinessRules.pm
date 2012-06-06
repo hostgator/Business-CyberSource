@@ -102,7 +102,7 @@ has score_threshold => (
 	trigger  => sub {
 		my $self = shift;
 		$self->_request_data->{businessRules}{scoreThreshold}
-			= $self->ignore_cv_result
+			= $self->score_threshold
 			;
 	},
 );
