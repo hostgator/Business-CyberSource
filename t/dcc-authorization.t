@@ -66,8 +66,6 @@ my $auth_req
 		exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 		}]);
 
-my $auth_res;
-
 my $auth_res = $client->run_transaction( $auth_req );
 
 ok $auth_res->is_accepted, 'card authorized'
