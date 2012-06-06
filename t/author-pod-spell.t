@@ -62,8 +62,8 @@ Authorization
 Response
 CVN
 ProcessorResponse
-ReconciliationID
 Common
+ReconciliationID
 Credentials
 CreditCard
 StandAloneCredit

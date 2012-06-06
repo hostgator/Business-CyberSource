@@ -5,7 +5,6 @@ META.json
 META.yml
 Makefile.PL
 README
-TODO
 lib/Business/CyberSource.pm
 lib/Business/CyberSource/Client.pm
 lib/Business/CyberSource/CreditCard.pm

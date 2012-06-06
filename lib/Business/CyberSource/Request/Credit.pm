@@ -93,15 +93,6 @@ For standalone credit requests requests you need to apply C<BillingInfo> and
 C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
 on credits require that you specify a C<request_id> in order to work.
 
-=head1 BUGS
-
-Please report any bugs or feature requests on the bugtracker website
-https://github.com/xenoterracide/Business-CyberSource/issues
-
-When submitting a bug or request, please include a test-file or a
-patch to an existing test-file that illustrates the bug or desired
-feature.
-
 =head1 AUTHOR
 
 Caleb Cushing <xenoterracide@gmail.com>
