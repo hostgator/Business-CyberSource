@@ -1,5 +1,9 @@
 package Test::Business::CyberSource;
 use Test::Requires 'Bread::Board';
+use Test::Requires::Env qw(
+	PERL_BUSINESS_CYBERSOURCE_USERNAME
+	PERL_BUSINESS_CYBERSOURCE_PASSWORD
+);
 use Moose;
 
 extends 'Bread::Board::Container';

@@ -6,11 +6,11 @@ use Test::Fatal;
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
+my $t = new_ok( use_module('Test::Business::CyberSource') );
+
 my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
 can_ok( $factory, 'create' );
-
-my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $answer = {
 	result => {
