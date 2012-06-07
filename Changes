@@ -1,6 +1,10 @@
 Revision history for Business-CyberSource
 
 0.005004  2012-06-06
+	- Make optional dependencies recommended
+	- fix bug where score threshold in authorization business rules would
+	  not have been set correctly
+	- fix duplicate initialization in dcc test
 
 0.005003  2012-05-24
 	- Add Missing Dependency DateTime::Format::W3CDTF
