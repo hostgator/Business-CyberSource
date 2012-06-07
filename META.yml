@@ -72,5 +72,6 @@ requires:
   perl: 5.010
   strict: 0
   warnings: 0
-resources: {}
+resources:
+  repository: git://github.com/xenoterracide@gmail.com/Business-CyberSource.git
 version: 0.005004

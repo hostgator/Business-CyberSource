@@ -95,7 +95,13 @@
       }
    },
    "release_status" : "stable",
-   "resources" : {},
+   "resources" : {
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/xenoterracide@gmail.com/Business-CyberSource.git",
+         "web" : "https://github.com/xenoterracide@gmail.com/Business-CyberSource"
+      }
+   },
    "version" : "0.005004"
 }
 
