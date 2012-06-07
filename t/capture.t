@@ -1,10 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -14,7 +10,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object'    );
 my $res
 	= $client->run_transaction(
-		$t->resolve( service => '/request/authorization/visa' )
+		$t->resolve( service => '/request/authorization' )
 	);
 
 isa_ok( $res, 'Business::CyberSource::Response' );
@@ -22,9 +18,13 @@ isa_ok( $res, 'Business::CyberSource::Response' );
 my $capture
 	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
 		reference_code => $res->reference_code,
-		request_id     => $res->request_id,
-		total          => $res->amount,
-		currency       => $res->currency,
+		service => {
+			auth_request_id => $res->request_id,
+		},
+		purchase_totals => {
+			total    => $res->amount,
+			currency => $res->currency,
+		},
 	}])
 	;
 
@@ -37,7 +37,7 @@ isa_ok( $cres, 'Business::CyberSource::Response' )
 is( $cres->decision, 'ACCEPT', 'check decision' );
 is( $cres->reason_code, 100, 'check reason_code' );
 is( $cres->currency, 'USD', 'check currency' );
-is( $cres->amount, '5.00', 'check amount' );
+is( $cres->amount, '3000.00', 'check amount' );
 is( $cres->request_specific_reason_code , 100, 'check capture_reason_code' );
 
 ok( $cres->reconciliation_id, 'reconciliation_id exists' );
