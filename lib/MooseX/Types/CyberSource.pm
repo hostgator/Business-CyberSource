@@ -12,9 +12,16 @@ use MooseX::Types -declare => [ qw(
 	CvIndicator
 	CvResults
 	DCCIndicator
+
 	Decision
+
 	Item
 	CreditCard
+	PurchaseTotals
+	Service
+
+	AuthRequestID
+
 	_VarcharOne
 	_VarcharSeven
 	_VarcharTen
@@ -60,7 +67,13 @@ enum CardTypeCode, [ qw(
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
-class_type Item, { class => 'Business::CyberSource::Helper::Item' };
+enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
+
+enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+
+class_type Item,           { class => 'Business::CyberSource::Helper::Item'           };
+class_type PurchaseTotals, { class => 'Business::CyberSource::Helper::PurchaseTotals' };
+class_type Service,        { class => 'Business::CyberSource::Helper::Service'        };
 
 coerce Item,
 	from HashRef,
@@ -68,9 +81,17 @@ coerce Item,
 		use_module('Business::CyberSource::Helper::Item')->new( $_ );
 	};
 
-enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
+coerce PurchaseTotals,
+	from HashRef,
+	via {
+		use_module('Business::CyberSource::Helper::PurchaseTotals')->new( $_ );
+	};
 
-enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+coerce Service,
+	from HashRef,
+	via {
+		use_module('Business::CyberSource::Helper::Service')->new( $_ );
+	};
 
 subtype CountryCode,
 	as Alpha2Country
@@ -99,6 +120,11 @@ coerce CreditCard,
 	via {
 		return use_module('Business::CyberSource::CreditCard')->new( $_ );
 	};
+
+subtype AuthRequestID,
+	as NonEmptySimpleStr,
+	where { length $_ <= 29 }
+	;
 
 subtype _VarcharOne,
 	as NonEmptySimpleStr,

@@ -14,10 +14,12 @@ with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 );
 
-use Module::Runtime qw( use_module );
-
+use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
 
+use MooseX::Types::CyberSource qw( Service );
+
+use Module::Runtime qw( use_module );
 use Carp qw( cluck );
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
 
@@ -58,6 +60,13 @@ sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 
 # the default is false, override in subclass
 sub _build_skipable { return 0 }
+
+has service => (
+	isa      => Service,
+	is       => 'ro',
+	required => 1,
+	coerce   => 1,
+);
 
 has is_skipable => (
 	isa     => 'Bool',

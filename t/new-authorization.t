@@ -64,6 +64,7 @@ foreach ( @test_pairs ) {
 			currency         => 'USD',
 			grandTotalAmount => 3000.00,
 		},
+		merchantReferenceCode => $code,
 	);
 
 	is_deeply $dto->serialize, \%expected, 'serialize';

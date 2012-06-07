@@ -16,15 +16,18 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
-around serialize => sub {
-	my $orig = shift;
-	my $self = shift;
+use MooseX::RemoteHelper;
 
-	my $serialized = $self->$orig( @_ );
-	$serialized->{ccAuthService}{run} = 'true';
+use Class::Load qw( load_class );
 
-	return $serialized;
-};
+has '+service' => (
+	remote_name => 'ccAuthService',
+	lazy        => 1,
+	default     => sub {
+		load_class('Business::CyberSource::Helper::Service');
+		return Business::CyberSource::Helper::Service->new;
+	},
+);
 
 __PACKAGE__->meta->make_immutable;
 1;

@@ -7,12 +7,14 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Types::CyberSource qw( PurchaseTotals );
 
 has purchase_totals => (
-	isa         => 'Business::CyberSource::Helper::PurchaseTotals',
+	isa         => PurchaseTotals,
 	remote_name => 'purchaseTotals',
 	is          => 'ro',
 	required    => 1,
+	coerce      => 1,
 	handles     => {
 		has_total => 'has_total',
 	},

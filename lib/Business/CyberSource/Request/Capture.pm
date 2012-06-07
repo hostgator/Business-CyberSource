@@ -9,18 +9,12 @@ use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::Common
-	Business::CyberSource::Request::Role::FollowUp
 	Business::CyberSource::Request::Role::DCC
 );
 
-before serialize => sub {
-	my $self = shift;
+use MooseX::RemoteHelper;
 
-	$self->_request_data->{ccCaptureService}{run} = 'true';
-	$self->_request_data->{ccCaptureService}{authRequestID}
-		= $self->request_id
-		;
-};
+has '+service' => ( remote_name => 'ccCaptureService' );
 
 __PACKAGE__->meta->make_immutable;
 1;
