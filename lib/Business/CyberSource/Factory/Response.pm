@@ -237,6 +237,15 @@ version 0.005004
 Pass the C<answer> from L<XML::Compile::SOAP> and the original Request Data
 Transfer Object.
 
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/xenoterracide/Business-CyberSource/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
 =head1 AUTHOR
 
 Caleb Cushing <xenoterracide@gmail.com>
