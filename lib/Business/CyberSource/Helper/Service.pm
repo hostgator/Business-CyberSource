@@ -9,6 +9,7 @@ use Moose;
 with 'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::RemoteHelper;
+use MooseX::Aliases;
 use MooseX::SetOnce;
 use MooseX::Types::CyberSource qw( AuthRequestID );
 use MooseX::StrictConstructor;
@@ -31,6 +32,7 @@ has run => (
 has auth_request_id => (
 	isa         => AuthRequestID,
 	remote_name => 'authRequestID',
+	alias       => 'request_id',
 	is          => 'rw',
 	traits      => ['SetOnce'],
 );
