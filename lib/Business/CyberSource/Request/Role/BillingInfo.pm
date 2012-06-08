@@ -23,3 +23,9 @@ has bill_to => (
 1;
 
 # ABSTRACT: Role for requests that require "bill to" information
+
+=attr bill_to
+
+L<Business::Cybersource::RequestPart::BillTo>
+
+=cut
