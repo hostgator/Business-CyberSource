@@ -75,7 +75,6 @@ A test credit card number provided by your your credit card processor
 	use Try::Tiny;
 
 	use Business::CyberSource::Client;
-	use Business::CyberSource::CreditCard;
 	use Business::CyberSource::Request::Authorization;
 	use Business::CyberSource::Request::Capture;
 
@@ -85,29 +84,30 @@ A test credit card number provided by your your credit card processor
 		production => 1,
 	});
 
-	my $credit_card
-		= Business::CyberSource::CreditCard->new({
-			account_number => '4111111111111111',
-			expiration => {
-				month => 9,
-				year  => 2025,
-			},
-		);
-
 	my $auth_request = try {
 			Business::CyberSource::Request::Authorization->new({
-				card           => $credit_card,
 				reference_code => '42',
-				first_name     => 'Caleb',
-				last_name      => 'Cushing',
-				street         => '100 somewhere st',
-				city           => 'Houston',
-				state          => 'TX',
-				zip            => '77064',
-				country        => 'US',
-				email          => 'xenoterracide@gmail.com',
-				currency       => 'USD',
-				total          => 5.00,
+				bill_to => {
+					first_name  => 'Caleb',
+					last_name   => 'Cushing',
+					street      => '100 somewhere st',
+					city        => 'Houston',
+					state       => 'TX',
+					postal_code => '77064',
+					country     => 'US',
+					email       => 'xenoterracide@gmail.com',
+				},
+				purchase_totals => {
+					currency => 'USD',
+					total    => 5.00,
+				},
+				card => {
+					account_number => '4111111111111111',
+					expiration => {
+						month => 9,
+						year  => 2025,
+					},
+				},
 			});
 		}
 		catch {
