@@ -9,16 +9,8 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client = $t->resolve( service => '/client/object'      );
 
-my $creditc = use_module('Business::CyberSource::Request::Credit');
-
-my $anonc
-	= $creditc->with_traits(qw{
-		BillingInfo
-		CreditCardInfo
-	});
-
 my $dto
-	= new_ok( $anonc => [{
+	= new_ok( use_module('Business::CyberSource::Request::Credit') => [{
 		reference_code => 'notarealcode',
 		bill_to =>
 			$t->resolve( service => '/helper/bill_to' ),
