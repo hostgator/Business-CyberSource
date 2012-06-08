@@ -4,6 +4,8 @@ use Test::More;
 
 use Module::Runtime qw( use_module );
 
+my $itemc = use_module('Business::CyberSource::RequestPart::Item');
+
 {
 	package Test;
 		use Moose;
@@ -15,12 +17,12 @@ use Module::Runtime qw( use_module );
 }
 
 my $item0
-	= new_ok( use_module('Business::CyberSource::Helper::Item') => [{
+	= new_ok( $itemc => [{
 		unit_price => 2.12,
 	}]);
 
 my $item1
-	= new_ok( use_module('Business::CyberSource::Helper::Item') => [{
+	= new_ok( $itemc => [{
 		unit_price => 1.00,
 		quantity   => 2,
 	}]);
