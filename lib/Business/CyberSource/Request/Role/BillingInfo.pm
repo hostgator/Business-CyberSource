@@ -9,12 +9,15 @@ use Moose::Role;
 use MooseX::RemoteHelper;
 use MooseX::Aliases;
 
+use MooseX::Types::CyberSource qw( BillTo );
+
 has bill_to => (
-	isa         => 'Business::CyberSource::RequestPart::BillTo',
+	isa         => BillTo,
 	remote_name => 'billTo',
 	alias       => 'billing_info',
 	is          => 'ro',
 	required    => 1,
+	coerce      => 1,
 );
 	
 1;

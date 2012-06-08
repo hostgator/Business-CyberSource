@@ -19,6 +19,7 @@ use MooseX::Types -declare => [ qw(
 	Card
 	PurchaseTotals
 	Service
+	BillTo
 
 	RequestID
 
@@ -79,11 +80,13 @@ my $itc = $prefix . 'Item';
 my $ptc = $prefix . 'PurchaseTotals';
 my $svc = $prefix . 'Service';
 my $cdc = $prefix . 'Card';
+my $btc = $prefix . 'BillTo';
 
 class_type Item,           { class => $itc };
 class_type PurchaseTotals, { class => $ptc };
 class_type Service,        { class => $svc };
 class_type Card,           { class => $cdc };
+class_type BillTo,         { class => $btc };
 
 coerce Item,
 	from HashRef,
@@ -111,6 +114,13 @@ coerce Card,
 	via {
 		load_class( $cdc );
 		$cdc->new( $_ );
+	};
+
+coerce BillTo,
+	from HashRef,
+	via {
+		load_class( $btc );
+		$btc->new( $_ );
 	};
 
 subtype CountryCode,

@@ -13,7 +13,28 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
+use MooseX::Aliases;
+use MooseX::Types::CyberSource qw( BillTo Card );
+
 has '+service' => ( remote_name => 'ccCreditService' );
+
+has bill_to => (
+	isa         => BillTo,
+	remote_name => 'billTo',
+	alias       => 'billing_info',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+);
+
+has card => (
+	isa         => Card,
+	remote_name => 'card',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 

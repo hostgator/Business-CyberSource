@@ -11,14 +11,8 @@ my $client      = $t->resolve( service => '/client/object'      );
 
 my $creditc = use_module('Business::CyberSource::Request::Credit');
 
-my $anonc
-	= $creditc->with_traits(qw{
-		BillingInfo
-		CreditCardInfo
-	});
-
 my $req
-	= new_ok( $anonc => [{
+	= new_ok( $creditc => [{
 		reference_code => 'test-credit-' . time,
 		bill_to =>
 			$t->resolve( service => '/helper/bill_to' ),
