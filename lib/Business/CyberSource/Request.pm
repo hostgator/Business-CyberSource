@@ -105,144 +105,35 @@ I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
 it requires traits to be applied depending on the type of request you need,
 and thus does not currently work with the factory.
 
-=method new
+=head1 EXTENDS
+
+L<Business::CyberSource::Message>
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Request::Role::PurchaseInfo>
+
+=item L<Business::CyberSource::Request::Role::Items>
+
+=item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=back
 
 =method serialize
 
 returns a hashref suitable for passing to L<XML::Compile::SOAP>
 
-=method create
+=attr reference_code
 
-B<DEPRECATED> consider using L<Business::CyberSource::RequestFactory> instead
-
-( $implementation, { hashref for new } )
-
-Create a new request object. C<create> takes a request implementation and a hashref to pass to the
-implementation's C<new> method. The implementation string accepts any
-implementation whose package name is prefixed by
-C<Business::CyberSource::Request::>.
-
-	my $req = $factory->create(
-			'Capture',
-			{
-				first_name => 'John',
-				last_name  => 'Smith',
-				...
-			}
-		);
-
-Please see the following C<Business::CyberSource::Request::> packages for
-implementation and required attributes:
-
-=attr foreign_amount
-
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
+Merchant-generated order reference or tracking number.  CyberSource recommends
+that you send a unique value for each transaction so that you can perform
+meaningful searches for the transaction.
 
 =attr comments
 
-Reader: comments
-
-Type: Str
-
-=attr cvn
-
-Reader: cvn
-
-Type: MooseX::Types::CreditCard::CardSecurityCode
-
-Additional documentation: Card Verification Numbers
-
-=attr total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
-=attr cc_exp_month
-
-Reader: cc_exp_month
-
-This attribute is required.
-
-Additional documentation: Two-digit month that the credit card expires in. Format: MM.
-
-=attr card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
-=attr credit_card
-
-Reader: credit_card
-
-Type: MooseX::Types::CreditCard::CreditCard
-
-Customer's credit card number
-
-=attr reference_code
-
-Reader: reference_code
-
-Type: MooseX::Types::CyberSource::_VarcharFifty
-
-=attr cv_indicator
-
-Reader: cv_indicator
-
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Flag that indicates whether a CVN code was sent
-
-=attr currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-=attr exchange_rate
-
-Reader: exchange_rate
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=attr exchange_rate_timestamp
-
-Reader: exchange_rate_timestamp
-
-Type: Str
-
-=attr full_name
-
-Reader: full_name
-
-Type: MooseX::Types::CyberSource::_VarcharSixty
-
-=attr cc_exp_year
-
-Reader: cc_exp_year
-
-Four-digit year that the credit card expires in. Format: YYYY.
-
-=attr foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
-
-=attr items
-
-Reader: items
-
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
+Comment Field
 
 =attr is_skipable
 
