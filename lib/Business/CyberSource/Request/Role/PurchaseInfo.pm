@@ -26,6 +26,6 @@ has purchase_totals => (
 
 =attr purchase_totals
 
-L<Business::CyberSource::Helper::PurchaseTotals>
+L<Business::CyberSource::RequestPart::PurchaseTotals>
 
 =cut
