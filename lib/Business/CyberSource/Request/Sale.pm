@@ -8,10 +8,17 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request::Authorization';
 
-before serialize => sub {
-	my $self = shift;
-	$self->_request_data->{ccCaptureService}{run} = 'true';
-};
+use MooseX::Types::CyberSource qw( Service );
+
+has capture_service => (
+	isa      => Service,
+	remote_name => 'ccCaptureService',
+	is          => 'ro',
+	required    => 1,
+	lazy        => 1,
+	coerce      => 1,
+	builder     => '_build_service',
+);
 
 __PACKAGE__->meta->make_immutable;
 1;
