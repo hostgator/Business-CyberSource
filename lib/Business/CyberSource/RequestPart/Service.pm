@@ -44,4 +44,47 @@ has capture_request_id => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: service class
+# ABSTRACT: Service Request Part
+
+=head1 DESCRIPTION
+
+Service provides support for the portion of requests that are named as
+C<cc*Service> this tells cybersource which type of request to make. All of the
+L<Business::CyberSource::Request> based classes will add this correctly.
+Depending on the request type you may have to set either
+L<capture_request_id|/"capture_request_id"> or
+L<auth_request_id|/"auth_request_id">
+
+=attr run
+
+run will be set correctly by default on ever request
+
+=attr auth_request_id
+
+=over
+
+=item L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+
+The L<request_id|Business::CyberSource::Response/"request_id"> for the authorization that you want to reverse.
+
+=item L<Capture|Business::CyberSource::Request::Capture>
+
+Value of L<request_id|Business::CyberSource::Response/"request_id"> returned from
+a previous L<Auth Reply|Business::CyberSource::Request::Authorization>.
+
+=back
+
+=attr capture_request_id
+
+=over
+
+=item L<AuthReversal|Business::CyberSource::Request::AuthReversal>
+
+The L<request_id|Business::CyberSource::Response/"request_id"> returned from a
+previous request for capture. Creates a follow-on credit by linking the credit
+to the previous capture. If you send this field, you do not need to send
+several other credit request fields.
+
+=back
+
+=cut
