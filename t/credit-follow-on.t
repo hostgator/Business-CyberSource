@@ -34,21 +34,16 @@ my $capture_res = $client->run_transaction( $capture_req );
 isa_ok( $capture_res, 'Business::CyberSource::Response' );
 
 my $credit_req
-	= Business::CyberSource::Request::Credit
-	->with_traits(qw{
-		FollowUp
-	})
-	->new({
+	= new_ok( $creditc => [{
 		reference_code => $auth_res->reference_code,
 		purchase_totals => {
-			total    => 5.00,
+			total    => 3000.00,
 			currency => 'USD',
 		},
 		service => {
-			auth_request_id => $capture_res->request_id,
+			capture_request_id => $capture_res->request_id,
 		},
-	})
-	;
+	}]);
 
 my $credit_res = $client->run_transaction( $credit_req  );
 
