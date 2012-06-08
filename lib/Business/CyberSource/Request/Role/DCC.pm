@@ -1,5 +1,4 @@
 package Business::CyberSource::Request::Role::DCC;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -9,11 +8,8 @@ use namespace::autoclean;
 use Moose::Role;
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
-use MooseX::Aliases;
 
-with qw(
-	Business::CyberSource::Role::ForeignCurrency
-);
+with 'Business::CyberSource::Role::ForeignCurrency';
 
 use MooseX::Types::CyberSource qw( DCCIndicator );
 
@@ -35,7 +31,7 @@ has dcc_indicator => (
 
 =head1 DESCRIPTION
 
-=head2 composes
+=head1 WITH
 
 =over
 
@@ -44,5 +40,27 @@ has dcc_indicator => (
 =back
 
 =attr dcc_indicator
+
+Flag that indicates whether DCC is being used for the transaction.
+
+This field is required if you called the DCC service for the purchase.
+
+Possible values:
+
+=over
+
+=item 1: Converted
+
+DCC is being used.
+
+=item 2: Nonconvertible
+
+DCC cannot be used.
+
+=item 3: Declined
+
+DCC could be used, but the customer declined it.
+
+=back
 
 =cut

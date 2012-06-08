@@ -17,3 +17,10 @@ has business_rules => (
 
 1;
 
+# ABSTRACT: Business Rules
+
+=attr business_rules
+
+L<Business::CyberSource::RequestPart::BusinessRules>
+
+=cut
