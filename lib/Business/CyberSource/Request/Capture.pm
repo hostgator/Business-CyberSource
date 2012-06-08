@@ -11,6 +11,18 @@ with 'Business::CyberSource::Request::Role::DCC';
 
 has '+service' => ( remote_name => 'ccCaptureService' );
 
+sub BUILD {
+	my $self = shift;
+
+	confess 'Capture must have an auth_request_id'
+		unless $self->service->has_auth_request_id
+		;
+
+	confess 'Capture Must not have a capture_request_id'
+		if $self->service->has_capture_request_id
+		;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 

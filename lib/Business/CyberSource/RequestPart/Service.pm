@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
-use MooseX::Aliases;
 use MooseX::Types::CyberSource qw( RequestID );
 
 has run => (
@@ -29,7 +28,7 @@ has run => (
 has auth_request_id => (
 	isa         => RequestID,
 	remote_name => 'authRequestID',
-	alias       => 'request_id',
+	predicate   => 'has_auth_request_id',
 	is          => 'rw',
 	traits      => ['SetOnce'],
 );
@@ -37,7 +36,7 @@ has auth_request_id => (
 has capture_request_id => (
 	isa         => RequestID,
 	remote_name => 'captureRequestID',
-	alias       => 'request_id',
+	predicate   => 'has_capture_request_id',
 	is          => 'rw',
 	traits      => ['SetOnce'],
 );

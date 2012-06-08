@@ -48,12 +48,12 @@ has comments => (
 );
 
 has service => (
-	isa      => Service,
-	is       => 'ro',
-	required => 1,
-	lazy     => 1,
-	coerce   => 1,
-	builder  => '_build_service',
+	isa        => Service,
+	is         => 'ro',
+	lazy_build => 1,
+	required   => 1,
+	coerce     => 1,
+	reader     => undef,
 );
 
 has is_skipable => (
@@ -130,6 +130,10 @@ returns a hashref suitable for passing to L<XML::Compile::SOAP>
 Merchant-generated order reference or tracking number.  CyberSource recommends
 that you send a unique value for each transaction so that you can perform
 meaningful searches for the transaction.
+
+=attr service
+
+L<Business::CyberSource::RequestPart::Service>
 
 =attr comments
 
