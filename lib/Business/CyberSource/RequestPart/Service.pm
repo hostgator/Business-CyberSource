@@ -55,6 +55,10 @@ Depending on the request type you may have to set either
 L<capture_request_id|/"capture_request_id"> or
 L<auth_request_id|/"auth_request_id">
 
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
 =attr run
 
 run will be set correctly by default on ever request
