@@ -5,7 +5,7 @@ use Test::Moose;
 use Module::Runtime qw( use_module );
 
 my $billto
-	= new_ok( use_module('Business::CyberSource::Helper::BillingInfo') => [{
+	= new_ok( use_module('Business::CyberSource::RequestPart::BillTo') => [{
 		first_name  => 'Caleb',
 		last_name   => 'Cushing',
 		street1     => '8100 Cameron Road',

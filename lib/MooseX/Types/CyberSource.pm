@@ -16,11 +16,14 @@ use MooseX::Types -declare => [ qw(
 	Decision
 
 	Item
-	CreditCard
+	Card
 	PurchaseTotals
 	Service
 
 	AuthRequestID
+
+	ExpirationDate
+	CreditCard
 
 	_VarcharOne
 	_VarcharSeven
@@ -30,14 +33,14 @@ use MooseX::Types -declare => [ qw(
 	_VarcharSixty
 ) ];
 
-use Module::Runtime qw( use_module );
-
-use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
-use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
-use MooseX::Types::Moose qw( Int Num Str HashRef );
-use MooseX::Types::Structured qw( Dict Optional );
-use Locale::Country;
+use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
+use MooseX::Types::Moose           qw( Int Num Str HashRef                     );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
+use MooseX::Types::DateTime;
+
+use Locale::Country;
+use Class::Load qw( load_class );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -71,26 +74,43 @@ enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
 
-class_type Item,           { class => 'Business::CyberSource::Helper::Item'           };
-class_type PurchaseTotals, { class => 'Business::CyberSource::Helper::PurchaseTotals' };
-class_type Service,        { class => 'Business::CyberSource::Helper::Service'        };
+my $prefix = 'Business::CyberSource::RequestPart::';
+my $itc = $prefix . 'Item';
+my $ptc = $prefix . 'PurchaseTotals';
+my $svc = $prefix . 'Service';
+my $cdc = $prefix . 'Card';
+
+class_type Item,           { class => $itc };
+class_type PurchaseTotals, { class => $ptc };
+class_type Service,        { class => $svc };
+class_type Card,           { class => $cdc };
 
 coerce Item,
 	from HashRef,
 	via {
-		use_module('Business::CyberSource::Helper::Item')->new( $_ );
+		load_class( $itc );
+		$itc->new( $_ );
 	};
 
 coerce PurchaseTotals,
 	from HashRef,
 	via {
-		use_module('Business::CyberSource::Helper::PurchaseTotals')->new( $_ );
+		load_class( $ptc );
+		$ptc->new( $_ );
 	};
 
 coerce Service,
 	from HashRef,
 	via {
-		use_module('Business::CyberSource::Helper::Service')->new( $_ );
+		load_class( $svc );
+		$svc->new( $_ );
+	};
+
+coerce Card,
+	from HashRef,
+	via {
+		load_class( $cdc );
+		$cdc->new( $_ );
 	};
 
 subtype CountryCode,
@@ -119,6 +139,14 @@ coerce CreditCard,
 	from HashRef,
 	via {
 		return use_module('Business::CyberSource::CreditCard')->new( $_ );
+	};
+
+subtype ExpirationDate, as MooseX::Types::DateTime::DateTime;
+
+coerce ExpirationDate,
+	from HashRef,
+	via {
+		return DateTime->last_day_of_month( %{ $_ } );
 	};
 
 subtype AuthRequestID,
@@ -290,24 +318,6 @@ Non-convertible - DCC cannot be used.
 =item * C<3>
 
 Declined - DCC could be used, but the customer declined it.
-
-=back
-
-=item * C<Item>
-
-Base Type: C<Dict>
-
-Here's the current list of valid keys and their types for the Dictionary
-
-	unit_price   => PositiveOrZeroNum,
-	quantity     => Int,
-	product_code => Optional[Str],
-	product_name => Optional[Str],
-	product_sku  => Optional[Str],
-	product_risk => Optional[Str],
-	tax_amount   => Optional[PositiveOrZeroNum],
-	tax_rate     => Optional[PositiveOrZeroNum],
-	national_tax => Optional[PositiveOrZeroNum],
 
 =back
 

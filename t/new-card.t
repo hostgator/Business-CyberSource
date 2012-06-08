@@ -7,7 +7,7 @@ use Test::Fatal;
 use Module::Runtime qw( use_module );
 use DateTime;
 
-my $card_c = use_module('Business::CyberSource::Helper::Card');
+my $card_c = use_module('Business::CyberSource::RequestPart::Card');
 
 my @test_pairs = (
 	[ qw( 4111111111111111 001 VISA       ) ],

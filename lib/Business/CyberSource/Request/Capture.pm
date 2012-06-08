@@ -12,8 +12,6 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
-use MooseX::RemoteHelper;
-
 has '+service' => ( remote_name => 'ccCaptureService' );
 
 __PACKAGE__->meta->make_immutable;

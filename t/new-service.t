@@ -4,7 +4,7 @@ use Test::More;
 
 use Module::Runtime qw( use_module );
 
-my $s0 = new_ok( use_module('Business::CyberSource::Helper::Service'));
+my $s0 = new_ok( use_module('Business::CyberSource::RequestPart::Service'));
 
 can_ok( $s0, 'serialize' );
 

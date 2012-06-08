@@ -9,7 +9,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client = $t->resolve( service => '/client/object'    );
 
-my $brc = use_module('Business::CyberSource::Helper::BusinessRules');
+my $brc = use_module('Business::CyberSource::RequestPart::BusinessRules');
 
 my $req0
 	= $t->resolve(

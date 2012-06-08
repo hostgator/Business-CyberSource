@@ -5,7 +5,7 @@ use Test::Moose;
 use Module::Runtime qw( use_module );
 
 my $ptotal
-	= new_ok( use_module('Business::CyberSource::Helper::PurchaseTotals') => [{
+	= new_ok( use_module('Business::CyberSource::RequestPart::PurchaseTotals') => [{
 		total    => 5.00,
 		currency => 'USD',
 	}]);

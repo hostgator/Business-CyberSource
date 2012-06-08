@@ -6,10 +6,9 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'MooseX::Traits';
+extends 'Business::CyberSource::MessagePart';
 
 use MooseX::SetOnce 0.200001;
-use MooseX::StrictConstructor;
 use MooseX::ABC 0.06;
 
 has trace => (

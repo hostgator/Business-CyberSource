@@ -6,7 +6,7 @@ use Test::Moose;
 use Module::Runtime qw( use_module );
 
 my $br
-	= new_ok( use_module('Business::CyberSource::Helper::BusinessRules') => [{
+	= new_ok( use_module('Business::CyberSource::RequestPart::BusinessRules') => [{
 		ignore_avs_result => 1,
 		ignore_cv_result  => 1,
 		score_threshold   => 8,

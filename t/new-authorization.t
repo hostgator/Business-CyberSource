@@ -32,9 +32,9 @@ foreach ( @test_pairs ) {
 	can_ok( $dto, 'submit' );
 	can_ok( $dto, 'serialize' );
 
-	isa_ok $dto->billing_info,    'Business::CyberSource::Helper::BillingInfo';
-	isa_ok $dto->purchase_totals, 'Business::CyberSource::Helper::PurchaseTotals';
-	isa_ok $dto->card,            'Business::CyberSource::Helper::Card';
+	isa_ok $dto->billing_info,    'Business::CyberSource::RequestPart::BillTo';
+	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
+	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
 
 	my %expected = (
 		billTo => {

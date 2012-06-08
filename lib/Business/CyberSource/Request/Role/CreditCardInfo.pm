@@ -11,7 +11,7 @@ use MooseX::SetOnce 0.200001;
 use MooseX::RemoteHelper;
 
 use MooseX::Types::Moose      qw( Int HashRef );
-use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode CreditCard);
+use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode Card);
 
 use Moose::Util::TypeConstraints;
 
@@ -28,11 +28,11 @@ around BUILDARGS => sub {
 
 	unless ( defined $args->{card}
 			&& blessed $args->{card}
-			&& $args->{card}->isa('Business::CyberSource::CreditCard')
+			&& $args->{card}->isa('Business::CyberSource::RequestPart::Card')
 		) {
 
 		my $deprecation_notice = 'please pass a '
-			. 'Business::CyberSource::CreditCard to card '
+			. 'Business::CyberSource::RequestPart::Card to card '
 			. 'in the constructor'
 			;
 
@@ -69,7 +69,7 @@ around BUILDARGS => sub {
 			;
 
 		$args->{card}
-			= use_module('Business::CyberSource::CreditCard')
+			= use_module('Business::CyberSource::RequestPart::Card')
 			->new( \%cc_args )
 			;
 	}
@@ -78,7 +78,7 @@ around BUILDARGS => sub {
 };
 
 has card => (
-	isa         => CreditCard,
+	isa         => Card,
 	remote_name => 'card',
 	required    => 1,
 	is          => 'ro',
@@ -89,8 +89,8 @@ has card => (
 		full_name     => 'holder',
 		has_cvn       => 'has_cvn',
 		has_full_name => 'has_full_name',
-		cc_exp_month  => sub { shift->card->expiration->month },
-		cc_exp_year   => sub { shift->card->expiration->year  },
+		cc_exp_month  => sub { $_[0]->card->expiration->month },
+		cc_exp_year   => sub { $_[0]->card->expiration->year  },
 	},
 );
 

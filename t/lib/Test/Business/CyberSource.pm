@@ -36,7 +36,7 @@ sub BUILD {
 			service holder     => 'Caleb Cushing';
 			service security_code => '1111';
 			service object => (
-				class        => 'Business::CyberSource::Helper::Card',
+				class        => 'Business::CyberSource::RequestPart::Card',
 				dependencies => {
 					security_code  => depends_on('../helper/security_code'),
 					holder         => depends_on('../helper/holder'),
@@ -74,7 +74,7 @@ sub BUILD {
 			};
 
 			service card => (
-				class        => 'Business::CyberSource::Helper::Card',
+				class        => 'Business::CyberSource::RequestPart::Card',
 				dependencies => {
 					security_code  => depends_on('services/security_code'),
 					holder         => depends_on('services/holder'),
@@ -95,7 +95,7 @@ sub BUILD {
 			);
 
 			service bill_to => (
-				class        => 'Business::CyberSource::Helper::BillingInfo',
+				class        => 'Business::CyberSource::RequestPart::BillTo',
 				dependencies => {
 					first_name     => depends_on('services/first_name' ),
 					last_name      => depends_on('services/last_name'  ),
@@ -110,7 +110,7 @@ sub BUILD {
 			);
 
 			service purchase_totals => (
-				class => 'Business::CyberSource::Helper::PurchaseTotals',
+				class => 'Business::CyberSource::RequestPart::PurchaseTotals',
 					dependencies => {
 						currency => depends_on('services/currency'),
 					},
@@ -137,15 +137,15 @@ sub BUILD {
 				},
 				parameters => {
 					card  => {
-						isa      => 'Business::CyberSource::Helper::Card',
+						isa      => 'Business::CyberSource::RequestPart::Card',
 						optional => 1,
 					},
 					purchase_totals => {
-						isa => 'Business::CyberSource::Helper::PurchaseTotals',
+						isa => 'Business::CyberSource::RequestPart::PurchaseTotals',
 						optional => 1,
 					},
 					business_rules => {
-						isa => 'Business::CyberSource::Helper::BusinessRules',
+						isa => 'Business::CyberSource::RequestPart::BusinessRules',
 						optional => 1,
 					},
 				},

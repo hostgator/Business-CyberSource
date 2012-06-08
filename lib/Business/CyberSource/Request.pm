@@ -11,7 +11,6 @@ extends 'Business::CyberSource::Message';
 
 with qw(
 	Business::CyberSource::Request::Role::Credentials
-	MooseX::RemoteHelper::CompositeSerialization
 );
 
 use MooseX::RemoteHelper;
@@ -19,8 +18,8 @@ use MooseX::SetOnce 0.200001;
 
 use MooseX::Types::CyberSource qw( Service );
 
-use Module::Runtime qw( use_module );
-use Carp qw( cluck );
+use Class::Load qw( load_class );
+use Carp        qw( cluck );
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
 
 before create => sub {
@@ -53,7 +52,8 @@ sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 		$args->{production} //= $self->production if $self->has_production;
 	}
 
-	my $factory = use_module('Business::CyberSource::RequestFactory')->new;
+	load_class('Business::CyberSource::RequestFactory');
+	my $factory = Business::CyberSource::RequestFactory->new;
 
 	return $factory->create( $impl, @_ );
 }
@@ -61,11 +61,18 @@ sub create { ## no critic ( Subroutines::RequireArgUnpacking )
 # the default is false, override in subclass
 sub _build_skipable { return 0 }
 
+sub _build_service {
+	load_class('Business::CyberSource::RequestPart::Service');
+	return Business::CyberSource::RequestPart::Service->new;
+}
+
 has service => (
 	isa      => Service,
 	is       => 'ro',
 	required => 1,
+	lazy     => 1,
 	coerce   => 1,
+	builder  => '_build_service',
 );
 
 has is_skipable => (

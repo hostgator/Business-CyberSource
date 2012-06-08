@@ -16,18 +16,7 @@ with qw(
 	Business::CyberSource::Request::Role::DCC
 );
 
-use MooseX::RemoteHelper;
-
-use Class::Load qw( load_class );
-
-has '+service' => (
-	remote_name => 'ccAuthService',
-	lazy        => 1,
-	default     => sub {
-		load_class('Business::CyberSource::Helper::Service');
-		return Business::CyberSource::Helper::Service->new;
-	},
-);
+has '+service' => ( remote_name => 'ccAuthService' );
 
 __PACKAGE__->meta->make_immutable;
 1;

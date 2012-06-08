@@ -10,7 +10,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $authc = use_module('Business::CyberSource::Request::Authorization');
 
-my $ptc = use_module('Business::CyberSource::Helper::PurchaseTotals');
+my $ptc = use_module('Business::CyberSource::RequestPart::PurchaseTotals');
 
 my $ptotals = new_ok( $ptc => [{ currency => 'USD' }]);
 

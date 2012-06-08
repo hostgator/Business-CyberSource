@@ -5,7 +5,7 @@ use Test::Moose;
 use Module::Runtime qw( use_module );
 
 my $item
-	= new_ok( use_module('Business::CyberSource::Helper::Item') => [{
+	= new_ok( use_module('Business::CyberSource::RequestPart::Item') => [{
 		unit_price => 3.25,
 	}]);
 

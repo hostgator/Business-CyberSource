@@ -1,4 +1,4 @@
-package Business::CyberSource::Helper::BusinessRules;
+package Business::CyberSource::RequestPart::BusinessRules;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -6,8 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-
-with 'MooseX::RemoteHelper::CompositeSerialization';
+extends 'Business::CyberSource::MessagePart';
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;

@@ -18,10 +18,10 @@ sub add_item {
 
 	my $item;
 	unless ( blessed $args
-			&& $args->isa( 'Business::CyberSource::Helper::Item' )
+			&& $args->isa( 'Business::CyberSource::RequestPart::Item' )
 		) {
-		load_class 'Business::CyberSource::Helper::Item';
-		$item = Business::CyberSource::Helper::Item->new( $args )
+		load_class 'Business::CyberSource::RequestPart::Item';
+		$item = Business::CyberSource::RequestPart::Item->new( $args )
 	}
 	else {
 		$item = $args;
@@ -67,7 +67,7 @@ has items => (
 
 =method add_item
 
-Add an L<Item|Business::CyberSource::Helper::Item> to L<items|/"items">.
+Add an L<Item|Business::CyberSource::RequestPart::Item> to L<items|/"items">.
 Accepts an item object or a hashref to construct an item object.
 
 =attr items

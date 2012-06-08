@@ -9,7 +9,7 @@ use Moose::Role;
 use MooseX::RemoteHelper;
 
 has billing_info => (
-	isa         => 'Business::CyberSource::Helper::BillingInfo',
+	isa         => 'Business::CyberSource::RequestPart::BillTo',
 	remote_name => 'billTo',
 	is          => 'ro',
 	required    => 1,

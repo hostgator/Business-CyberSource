@@ -1,4 +1,4 @@
-package Business::CyberSource::Helper::Item;
+package Business::CyberSource::RequestPart::Item;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -6,10 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'MooseX::RemoteHelper::CompositeSerialization';
-
-use MooseX::RemoteHelper;
-use MooseX::SetOnce;
+extends 'Business::CyberSource::MessagePart';
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum PositiveOrZeroInt );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );

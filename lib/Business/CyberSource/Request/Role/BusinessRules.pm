@@ -7,10 +7,9 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
-use MooseX::SetOnce 0.200001;
 
 has business_rules => (
-	isa         => 'Business::CyberSource::Helper::BusinessRules',
+	isa         => 'Business::CyberSource::RequestPart::BusinessRules',
 	remote_name => 'businessRules',
 	traits      => ['SetOnce'],
 	is          => 'rw',

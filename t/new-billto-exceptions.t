@@ -5,7 +5,7 @@ use Test::Fatal;
 
 use Module::Runtime qw( use_module );
 
-my $billto_c = use_module('Business::CyberSource::Helper::BillingInfo');
+my $billto_c = use_module('Business::CyberSource::RequestPart::BillTo');
 
 my $exception0
 	= exception { $billto_c->new({

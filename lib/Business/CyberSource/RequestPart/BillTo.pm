@@ -1,4 +1,4 @@
-package Business::CyberSource::Helper::BillingInfo;
+package Business::CyberSource::RequestPart::BillTo;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -6,7 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'MooseX::RemoteHelper::CompositeSerialization';
+extends 'Business::CyberSource::MessagePart';
 
 use MooseX::Aliases;
 use MooseX::SetOnce 0.200001;
@@ -146,7 +146,7 @@ has ip_address => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: Role for requests that require "bill to" information
+# ABSTRACT: BillTo information
 
 =attr ip_address
 
