@@ -7,120 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-
-use MooseX::Aliases;
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types -declare => [qw( ExpirationDate )];
-use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode );
-use MooseX::Types::Moose    qw( HashRef  );
-use MooseX::Types::DateTime;
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-
-use Business::CreditCard qw( cardtype );
-use Module::Runtime qw( use_module );
-use DateTime 0.74;
-
-use Exception::Base (
-	verbosity => 4,
-	ignore_package => [ __PACKAGE__ ],
-);
-
-sub _build_type {
-	my $self = shift;
-
-	my $ct = cardtype( $self->account_number );
-
-	Exception::Base->throw( message => $ct )
-		if $ct =~ /not a credit card/ixms
-		;
-
-	$ct =~ s/[\s]card//xms;
-
-	return uc $ct;
-}
-
-sub _build_expired {
-	my $self = shift;
-
-	return $self->_compare_date_against_expiration( DateTime->now );
-}
-
-sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalReturn)
-	my ( $self, $date ) = @_;
-
-	my $exp = $self->expiration->clone;
-	# add 2 days so that we allow for a 24 hour period where
-	# the card could be expired at UTC but not the issuer
-	$exp->add( days => 1 );
-
-	my $cmp = DateTime->compare( $date, $exp );
-
-	given ( $cmp ) {
-		when ( -1 ) { # current date is before than the expiration date
-			return 0;
-		}
-		when ( 0 ) { # expiration equal to current date
-			return 0;
-		}
-		when ( 1 ) { # current date is past the expiration date
-			return 1;
-		}
-	}
-}
-
-subtype ExpirationDate, as MooseX::Types::DateTime::DateTime;
-coerce ExpirationDate,
-	from HashRef,
-	via {
-		return DateTime->last_day_of_month( %{ $_ } );
-	};
-
-has account_number => (
-	isa      => CreditCard,
-	alias    => [ qw( credit_card_number card_number ) ],
-	required => 1,
-	is       => 'ro',
-	coerce   => 1,
-	trigger  => sub { shift->type },
-);
-
-has type => (
-	isa       => 'Str',
-	lazy      => 1,
-	is        => 'ro',
-	builder   => '_build_type',
-);
-
-has expiration => (
-	isa      => ExpirationDate,
-	required => 1,
-	is       => 'ro',
-	coerce   => 1,
-);
-
-has is_expired => (
-	isa      => 'Bool',
-	builder  => '_build_expired',
-	lazy     => 1,
-	is       => 'ro',
-);
-
-has security_code => (
-	isa       => CardSecurityCode,
-	alias     => [ qw( cvn cvv cvv2 cvc2 cid ) ],
-	predicate => 'has_security_code',
-	traits    => [ 'SetOnce' ],
-	is        => 'rw',
-);
-
-has holder => (
-	isa       => NonEmptySimpleStr,
-	alias     => [ qw( name full_name card_holder ) ],
-	predicate => 'has_holder',
-	traits    => [ 'SetOnce' ],
-	is        => 'rw',
-);
+extends 'Business::CyberSource::RequestPart::Card';
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -129,9 +16,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This is a generic Credit Card object, it can be use outside of
-L<Business::CyberSource> and will probably someday be split out of this
-distribution and have a new namespace.
+Just a L<Business::CyberSource::RequestPart::Card>, use that instead.
 
 =attr account_number
 
