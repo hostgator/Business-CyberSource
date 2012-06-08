@@ -13,9 +13,6 @@ with qw(
 	Business::CyberSource::Request::Role::Credentials
 );
 
-use MooseX::RemoteHelper;
-use MooseX::SetOnce 0.200001;
-
 use MooseX::Types::CyberSource qw( Service );
 
 use Class::Load qw( load_class );

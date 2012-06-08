@@ -8,9 +8,6 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
-use MooseX::RemoteHelper;
-use MooseX::SetOnce 0.200001;
-
 use MooseX::Types::Moose                   qw( ArrayRef    );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode );
 use MooseX::Types::CyberSource             qw( AVSResult   );

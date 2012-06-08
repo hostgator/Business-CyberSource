@@ -9,8 +9,6 @@ use Moose;
 extends 'Business::CyberSource::MessagePart';
 
 use MooseX::Aliases;
-use MooseX::SetOnce 0.200001;
-use MooseX::RemoteHelper;
 
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::Email          qw( EmailAddress      );

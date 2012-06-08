@@ -8,11 +8,8 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
-use MooseX::RemoteHelper;
 use MooseX::Aliases;
-use MooseX::SetOnce;
 use MooseX::Types::CyberSource qw( AuthRequestID );
-use MooseX::StrictConstructor;
 
 has run => (
 	isa         => 'Bool',

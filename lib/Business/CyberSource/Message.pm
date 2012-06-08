@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
-use MooseX::SetOnce 0.200001;
 use MooseX::ABC 0.06;
 
 has trace => (

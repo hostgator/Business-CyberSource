@@ -13,9 +13,6 @@ with qw(
 	Business::CyberSource::Role::ForeignCurrency
 );
 
-use MooseX::SetOnce 0.200001;
-use MooseX::RemoteHelper;
-
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 
 
