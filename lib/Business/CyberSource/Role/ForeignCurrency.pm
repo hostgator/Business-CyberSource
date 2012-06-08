@@ -16,7 +16,7 @@ use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 
 has foreign_currency => (
 	isa         => CurrencyCode,
-	remote_name => 'foriegnCurrency',
+	remote_name => 'foreignCurrency',
 	predicate   => 'has_foreign_currency',
 	traits      => ['SetOnce'],
 	is          => 'rw',

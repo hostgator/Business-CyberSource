@@ -14,10 +14,7 @@ with qw(
 	Business::CyberSource::Role::ForeignCurrency
 );
 
-before serialize => sub {
-	my $self = shift;
-	$self->_request_data->{ccDCCService}{run} = 'true';
-};
+has '+service' => ( remote_name => 'ccDCCService' );
 
 __PACKAGE__->meta->make_immutable;
 1;

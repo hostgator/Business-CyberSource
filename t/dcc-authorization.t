@@ -2,8 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_MASTERCARD
@@ -13,8 +11,10 @@ use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $card = $t->resolve(
-		service => '/credit_card/object',
+my $billto = $t->resolve( service => '/helper/bill_to');
+my $card
+	= $t->resolve(
+		service => '/helper/card',
 		parameters => {
 			account_number => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_MASTERCARD},
 			expiration     => {
@@ -26,11 +26,13 @@ my $card = $t->resolve(
 
 my $dcc_req
 	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
-		reference_code   => 'test-dcc-authorization-' . time,
-		currency         => 'USD',
-		card             => $card,
-		total            => '1.00',
-		foreign_currency => 'EUR',
+		reference_code  => 'test-dcc-authorization-' . time,
+		card            => $card,
+		purchase_totals => {
+			currency         => 'USD',
+			total            => '1.00',
+			foreign_currency => 'EUR',
+		},
 	}]);
 
 
@@ -48,23 +50,18 @@ my $authc = use_module('Business::CyberSource::Request::Authorization');
 my $auth_req
 	= new_ok( $authc => [{
 		reference_code   => $dcc->reference_code,
-		first_name       => 'Caleb',
-		last_name        => 'Cushing',
-		street           => 'somewhere',
-		city             => 'Houston',
-		state            => 'TX',
-		zip              => '77064',
-		country          => 'US',
-		email            => 'xenoterracide@gmail.com',
-		total            => $dcc_req->total,
-		currency         => $dcc->currency,
-		foreign_currency => $dcc->foreign_currency,
-		foreign_amount   => $dcc->foreign_amount,
-		exchange_rate    => $dcc->exchange_rate,
-		dcc_indicator    => 1,
+		bill_to          => $billto,
 		card             => $card,
-		exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
-		}]);
+		dcc_indicator    => 1,
+		purchase_totals  => {
+			total            => $dcc_req->purchase_totals->total,
+			currency         => $dcc->currency,
+			foreign_currency => $dcc->foreign_currency,
+			foreign_amount   => $dcc->foreign_amount,
+			exchange_rate    => $dcc->exchange_rate,
+			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+		},
+	}]);
 
 my $auth_res = $client->run_transaction( $auth_req );
 
@@ -75,29 +72,23 @@ ok $auth_res->is_accepted, 'card authorized'
 my $cap_req
 	= new_ok( use_module( 'Business::CyberSource::Request::Capture') => [{
 		reference_code   => $dcc->reference_code,
-		total            => $dcc_req->total,
-		currency         => $dcc->currency,
-		foreign_currency => $dcc->foreign_currency,
-		foreign_amount   => $dcc->foreign_amount,
-		exchange_rate    => $dcc->exchange_rate,
+		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
-		request_id       => $auth_res->request_id,
-		exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+		service          => {
+			auth_request_id => $auth_res->request_id,
+		},
 	}]);
 
 my $cap_res = $client->run_transaction( $cap_req );
 
 my $cred_req
 	= new_ok( use_module( 'Business::CyberSource::Request::FollowOnCredit') => [{
+		bill_to          => $billto,
+		card             => $card,
 		reference_code   => $dcc->reference_code,
-		total            => $dcc_req->total,
-		currency         => $dcc->currency,
-		foreign_currency => $dcc->foreign_currency,
-		foreign_amount   => $dcc->foreign_amount,
-		exchange_rate    => $dcc->exchange_rate,
+		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
 		request_id       => $cap_res->request_id,
-		exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
 	}]);
 
 my $cred_res = $client->run_transaction( $cred_req );

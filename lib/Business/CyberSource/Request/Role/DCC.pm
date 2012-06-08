@@ -7,7 +7,9 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
+use MooseX::Aliases;
 
 with qw(
 	Business::CyberSource::Role::ForeignCurrency
@@ -16,13 +18,14 @@ with qw(
 use MooseX::Types::CyberSource qw( DCCIndicator );
 
 has dcc_indicator => (
-	isa       => DCCIndicator,
-	traits    => [ 'SetOnce' ],
-	is        => 'rw',
-	predicate => 'has_dcc_indicator',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{dcc}{dccIndicator} = $self->dcc_indicator;
+	isa         => DCCIndicator,
+	remote_name => 'dcc',
+	predicate   => 'has_dcc_indicator',
+	traits      => [ 'SetOnce' ],
+	is          => 'rw',
+	serializer  => sub {
+		my ( $attr, $instance ) = @_;
+		return { dccIndicator => $attr->get_value( $instance ) };
 	},
 );
 

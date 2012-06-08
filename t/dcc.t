@@ -2,8 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
@@ -16,7 +14,7 @@ my $t = new_ok( use_module('Test::Business::CyberSource') );
 my $client = $t->resolve( service => '/client/object' );
 
 my $card = $t->resolve(
-		service => '/credit_card/object',
+		service => '/helper/card',
 		parameters => {
 			account_number => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
 			expiration     => {
@@ -29,10 +27,12 @@ my $card = $t->resolve(
 my $dcc_req
 	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
 		reference_code   => 't503',
-		currency         => 'USD',
 		card             => $card,
-		total            => '1.00',
-		foreign_currency => 'JPY',
+		purchase_totals => {
+			currency         => 'USD',
+			total            => '1.00',
+			foreign_currency => 'JPY',
+		},
 	}]);
 
 my $dcc = $client->run_transaction( $dcc_req );
