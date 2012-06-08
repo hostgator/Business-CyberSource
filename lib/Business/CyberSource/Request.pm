@@ -15,6 +15,12 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
+use MooseX::ABC;
+
+use MooseX::Types::CyberSource qw( Service );
+
+use Class::Load qw( load_class );
+
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
@@ -25,17 +31,6 @@ before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	}
 };
 
-has comments => (
-	remote_name => 'comments',
-	isa         => 'Str',
-	traits      => ['SetOnce'],
-	is          => 'rw',
-);
-use MooseX::ABC;
-
-use MooseX::Types::CyberSource qw( Service );
-
-use Class::Load qw( load_class );
 
 # the default is false, override in subclass
 sub _build_skipable { return 0 }
@@ -44,6 +39,13 @@ sub _build_service {
 	load_class('Business::CyberSource::RequestPart::Service');
 	return Business::CyberSource::RequestPart::Service->new;
 }
+
+has comments => (
+	remote_name => 'comments',
+	isa         => 'Str',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+);
 
 has service => (
 	isa      => Service,
