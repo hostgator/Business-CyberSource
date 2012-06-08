@@ -19,7 +19,7 @@ foreach ( @test_pairs ) {
 
 	my $dto = new_ok( $dtc => [{
 		reference_code  => my $code = $dtc . '->new',
-		billing_info    => $t->resolve( service  => '/helper/bill_to'),
+		bill_to         => $t->resolve( service  => '/helper/bill_to'),
 		purchase_totals => $t->resolve( service => '/helper/purchase_totals'),
 		card            => $t->resolve(
 			service    => '/helper/card',

@@ -15,7 +15,7 @@ my $ptc   = use_module('Business::CyberSource::RequestPart::PurchaseTotals');
 my $req
 	= new_ok( $authc => [{
 		reference_code  => $t->resolve( service => '/request/reference_code' ),
-		billing_info    => $t->resolve( service => '/helper/bill_to' ),
+		bill_to         => $t->resolve( service => '/helper/bill_to' ),
 		card            => $t->resolve( service => '/helper/card' ),
 		purchase_totals => new_ok( $ptc => [{ currency => 'USD' }]),
 	}]);

@@ -7,10 +7,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with qw(
-	Business::CyberSource::Request::Role::Common
-	Business::CyberSource::Request::Role::DCC
-);
+with 'Business::CyberSource::Request::Role::DCC';
 
 has '+service' => ( remote_name => 'ccCaptureService' );
 

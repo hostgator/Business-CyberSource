@@ -9,6 +9,28 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Message';
 
+with qw(
+	Business::CyberSource::Request::Role::PurchaseInfo
+	Business::CyberSource::Request::Role::Items
+	Business::CyberSource::Role::MerchantReferenceCode
+);
+
+before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
+	my $self = shift;
+
+	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
+		unless ( $self->has_items or $self->has_total ) {
+			confess 'you must define either items or total';
+		}
+	}
+};
+
+has comments => (
+	remote_name => 'comments',
+	isa         => 'Str',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+);
 use MooseX::ABC;
 
 use MooseX::Types::CyberSource qw( Service );

@@ -133,7 +133,7 @@ sub BUILD {
 					card            => depends_on('/helper/card'),
 					reference_code  => depends_on('reference_code'),
 					purchase_totals => depends_on('/helper/purchase_totals'),
-					billing_info    => depends_on('/helper/bill_to'),
+					bill_to         => depends_on('/helper/bill_to'),
 				},
 				parameters => {
 					card  => {
