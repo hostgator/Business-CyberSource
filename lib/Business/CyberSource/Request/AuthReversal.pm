@@ -10,17 +10,9 @@ extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::FollowUp
 );
 
-before serialize => sub {
-	my $self = shift;
-
-	$self->_request_data->{ccAuthReversalService}{run} = 'true';
-	$self->_request_data->{ccAuthReversalService}{authRequestID}
-		= $self->request_id
-		;
-};
+has '+service' => ( remote_name => 'ccAuthReversalService' );
 
 __PACKAGE__->meta->make_immutable;
 1;
