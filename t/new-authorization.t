@@ -29,7 +29,6 @@ foreach ( @test_pairs ) {
 		),
 	}]);
 
-	can_ok( $dto, 'submit' );
 	can_ok( $dto, 'serialize' );
 
 	isa_ok $dto->billing_info,    'Business::CyberSource::RequestPart::BillTo';

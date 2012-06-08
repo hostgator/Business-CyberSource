@@ -9,51 +9,11 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Message';
 
-with qw(
-	Business::CyberSource::Request::Role::Credentials
-);
+use MooseX::ABC;
 
 use MooseX::Types::CyberSource qw( Service );
 
 use Class::Load qw( load_class );
-use Carp        qw( cluck );
-our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
-
-before create => sub {
-	cluck 'DEPRECATED: calling create and using Request object as a factory '
-		. ' is deprecated. '
-		. 'This class will be converted to an Abstract in the future. '
-		. 'If you require a factory please use '
-		. 'Business::CyberSource::RequestFactory directly instead'
-		;
-};
-
-before [ qw( username password production ) ] => sub {
-	cluck 'DEPRECATED: please do not set username, password, or production '
-		. 'attributes on Request objects anymore, these instead should be set '
-		. 'on Business::CyberSource::Client'
-		;
-};
-
-sub create { ## no critic ( Subroutines::RequireArgUnpacking )
-	my $self = shift;
-	my $impl = shift;
-	my ( $args ) = @_;
-
-	confess 'Business::CyberSource::RequestFactory is now the factory'
-		unless __PACKAGE__ eq ref $self;
-
-	if ( ref($args) eq 'HASH' ) {
-		$args->{username}   //= $self->username   if $self->has_username;
-		$args->{password}   //= $self->password   if $self->has_password;
-		$args->{production} //= $self->production if $self->has_production;
-	}
-
-	load_class('Business::CyberSource::RequestFactory');
-	my $factory = Business::CyberSource::RequestFactory->new;
-
-	return $factory->create( $impl, @_ );
-}
 
 # the default is false, override in subclass
 sub _build_skipable { return 0 }

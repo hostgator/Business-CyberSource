@@ -9,10 +9,6 @@ use Moose::Role;
 use MooseX::SetOnce 0.200001;
 use MooseX::RemoteHelper;
 
-use MooseX::Types::Moose   qw( HashRef Str );
-use MooseX::Types::URI     qw( Uri     );
-use MooseX::Types::Path::Class qw( File Dir );
-
 with qw(
 	Business::CyberSource::Request::Role::Credentials
 	Business::CyberSource::Request::Role::PurchaseInfo
@@ -21,27 +17,6 @@ with qw(
 );
 
 use Module::Runtime qw( use_module );
-use Carp qw( cluck );
-
-before submit => sub {
-	our @CARP_NOT = ( __PACKAGE__, 'Class::MOP::Method::Wrapped' );
-	cluck 'DEPRECATED: using submit on a request object is deprecated. '
-		. 'Please pass the object to Business::CyberSource::Client directly '
-		. 'instead.'
-		;
-};
-
-sub submit {
-	my $self = shift;
-
-	my $client = use_module('Business::CyberSource::Client')->new({
-		username   => $self->username,
-		password   => $self->password,
-		production => $self->production,
-	});
-
-	return $client->run_transaction( $self );
-}
 
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
@@ -55,7 +30,7 @@ before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 
 has comments => (
 	remote_name => 'comments',
-	isa         => Str,
+	isa         => 'Str',
 	traits      => ['SetOnce'],
 	is          => 'rw',
 );
