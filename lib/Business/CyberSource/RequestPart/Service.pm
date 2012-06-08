@@ -9,7 +9,7 @@ use Moose;
 extends 'Business::CyberSource::MessagePart';
 
 use MooseX::Aliases;
-use MooseX::Types::CyberSource qw( AuthRequestID );
+use MooseX::Types::CyberSource qw( RequestID );
 
 has run => (
 	isa         => 'Bool',
@@ -27,13 +27,20 @@ has run => (
 );
 
 has auth_request_id => (
-	isa         => AuthRequestID,
+	isa         => RequestID,
 	remote_name => 'authRequestID',
 	alias       => 'request_id',
 	is          => 'rw',
 	traits      => ['SetOnce'],
 );
 	
+has capture_request_id => (
+	isa         => RequestID,
+	remote_name => 'captureRequestID',
+	alias       => 'request_id',
+	is          => 'rw',
+	traits      => ['SetOnce'],
+);
 
 __PACKAGE__->meta->make_immutable;
 1;

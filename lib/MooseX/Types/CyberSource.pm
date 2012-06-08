@@ -20,7 +20,7 @@ use MooseX::Types -declare => [ qw(
 	PurchaseTotals
 	Service
 
-	AuthRequestID
+	RequestID
 
 	ExpirationDate
 	CreditCard
@@ -149,7 +149,7 @@ coerce ExpirationDate,
 		return DateTime->last_day_of_month( %{ $_ } );
 	};
 
-subtype AuthRequestID,
+subtype RequestID,
 	as NonEmptySimpleStr,
 	where { length $_ <= 29 }
 	;

@@ -7,10 +7,12 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Aliases;
 
-has billing_info => (
+has bill_to => (
 	isa         => 'Business::CyberSource::RequestPart::BillTo',
 	remote_name => 'billTo',
+	alias       => 'billing_info',
 	is          => 'ro',
 	required    => 1,
 );
