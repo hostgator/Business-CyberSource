@@ -9,14 +9,12 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Message';
 
-with qw(
-	Business::CyberSource::Request::Role::Items
-	Business::CyberSource::Role::MerchantReferenceCode
-);
+with 'Business::CyberSource::Role::MerchantReferenceCode';
 
 use MooseX::ABC;
 
-use MooseX::Types::CyberSource qw( PurchaseTotals Service );
+use MooseX::Types::Moose       qw( ArrayRef );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service Item );
 
 use Class::Load qw( load_class );
 
@@ -28,6 +26,22 @@ before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	}
 };
 
+sub add_item {
+	my ( $self, $args ) = @_;
+
+	my $item;
+	unless ( blessed $args
+			&& $args->isa( 'Business::CyberSource::RequestPart::Item' )
+		) {
+		load_class 'Business::CyberSource::RequestPart::Item';
+		$item = Business::CyberSource::RequestPart::Item->new( $args )
+	}
+	else {
+		$item = $args;
+	}
+
+	return $self->_push_item( $item );
+}
 
 # the default is false, override in subclass
 sub _build_skipable { return 0 }
@@ -60,7 +74,6 @@ has is_skipable => (
 	lazy    => 1,
 );
 
-
 has purchase_totals => (
 	isa         => PurchaseTotals,
 	remote_name => 'purchaseTotals',
@@ -69,6 +82,36 @@ has purchase_totals => (
 	coerce      => 1,
 	handles     => {
 		has_total => 'has_total',
+	},
+);
+
+has items => (
+	isa         => ArrayRef[Item],
+	remote_name => 'item',
+	predicate   => 'has_items',
+	is          => 'rw',
+	traits      => ['Array'],
+	handles     => {
+		items_is_empty => 'is_empty',
+		next_item      => [ natatime => 1 ],
+		list_items     => 'elements',
+		_push_item       => 'push',
+	},
+	serializer => sub {
+		my ( $attr, $instance ) = @_;
+
+		my $items = $attr->get_value( $instance );
+
+		my $i = 0;
+		my @serialized
+			= map { ## no critic ( BuiltinFunctions::ProhibitComplexMappings )
+				my $item = $_->serialize;
+				$item->{id} = $i;
+				$i++;
+				$item
+			} @{ $items };
+
+		return \@serialized;
 	},
 );
 
@@ -122,8 +165,6 @@ L<Business::CyberSource::Message>
 
 =over
 
-=item L<Business::CyberSource::Request::Role::Items>
-
 =item L<Business::CyberSource::Role::MerchantReferenceCode>
 
 =back
@@ -131,6 +172,13 @@ L<Business::CyberSource::Message>
 =method serialize
 
 returns a hashref suitable for passing to L<XML::Compile::SOAP>
+
+=method add_item
+
+Add an L<Item|Business::CyberSource::RequestPart::Item> to L<items|/"items">.
+Accepts an item object or a hashref to construct an item object.
+
+an array of L<Items|MooseX::Types::CyberSource/"Items">
 
 =attr reference_code
 
@@ -145,6 +193,10 @@ L<Business::CyberSource::RequestPart::Service>
 =attr purchase_totals
 
 L<Business::CyberSource::RequestPart::PurchaseTotals>
+
+=attr items
+
+An array of L<Business::CyberSource::RequestPart::Item>
 
 =attr comments
 
