@@ -17,29 +17,25 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
+	use Business::CyberSource::Request::AuthReversal;
+
 	my $req = Business::CyberSource::Request::AuthReversal->new({
 		reference_code => 'orignal authorization merchant reference code',
-		request_id     => 'request id returned in original authorization response',
-		total          => 5.00, # same as original authorization amount
-		currency       => 'USD', # same as original currency
+		service        => {
+			auth_request_id => 'request id returned by authorization',
+		},
+		purchase_totals {
+			total          => 5.00, # same as original authorization amount
+			currency       => 'USD', # same as original currency
+		},
 	});
 
 =head1 DESCRIPTION
 
 This allows you to reverse an authorization request.
 
-=head2 inherits
+=head2 EXTENDS
 
 L<Business::CyberSource::Request>
-
-=head2 composes
-
-=over
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
-
-=item L<Business::CyberSource::Request::Role::FollowUp>
-
-=back
 
 =cut
