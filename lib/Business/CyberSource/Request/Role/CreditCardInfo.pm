@@ -10,7 +10,7 @@ use MooseX::RemoteHelper;
 
 use MooseX::Types::CyberSource qw( Card);
 
-sub _build_skipable { return $_[0]->card->is_expired }
+sub _build_skipable { return $_[0]->card->is_expired } ## no critic (Subroutines::RequireArgUnpacking)
 
 has card => (
 	isa         => Card,
