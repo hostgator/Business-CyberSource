@@ -198,4 +198,6 @@ digits.
 
 Required if C<country> is "US" or "CA".
 
+=for Pod::Coverage BUILD
+
 =cut

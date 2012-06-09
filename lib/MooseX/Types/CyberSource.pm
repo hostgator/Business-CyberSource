@@ -255,51 +255,6 @@ Base Type: C<enum>
 
 Numeric codes that specify Card types. Codes denoted with an asterisk* are
 automatically detected when using
-L<Business::CyberSource::Request::Role::CreditCardInfo>
-
-=over
-
-=item * 001: Visa*
-
-=item * 002: MasterCard, Eurocard*
-
-=item * 003: American Express*
-
-=item * 004: Discover*
-
-=item * 005: Diners Club
-
-=item * 006: Carte Blanche
-
-=item * 007: JCB*
-
-=item * 014: EnRoute*
-
-=item * 021: JAL
-
-=item * 024: Maestro (UK Domestic)
-
-=item * 031: Delta
-
-=item * 033: Visa Electron
-
-=item * 034: Dankort
-
-=item * 035: Laser*
-
-=item * 036: Carte Bleue
-
-=item * 037: Carta Si
-
-=item * 039: Encoded account number
-
-=item * 040: UATP
-
-=item * 042: Maestro (International)
-
-=item * 043: Santander card
-
-=back
 
 =item * C<CvResults>
 
@@ -338,6 +293,8 @@ Non-convertible - DCC cannot be used.
 =item * C<3>
 
 Declined - DCC could be used, but the customer declined it.
+
+=back
 
 =back
 

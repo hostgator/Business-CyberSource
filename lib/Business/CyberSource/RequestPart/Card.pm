@@ -294,4 +294,6 @@ use this value only for Global Collect. For other processors, use
 before setting up your system to work with Santander
 cards, contact the CyberSource UK Support Group.
 
+=back
+
 =cut
