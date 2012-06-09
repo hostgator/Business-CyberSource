@@ -67,4 +67,9 @@ electronic goods and for services that you can turn on immediately.
 
 L<Business::CyberSource::Request::Authorization>
 
+=attr capture_service
+
+Sale does both authorization and capture and so needs another service
+attribute. It is built for you and cannot be modified.
+
 =cut

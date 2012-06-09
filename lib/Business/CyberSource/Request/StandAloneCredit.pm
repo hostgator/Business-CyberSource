@@ -12,6 +12,17 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
+around BUILD => sub {
+	my $orig = shift;
+	my $self = shift;
+
+	confess 'a Stand Alone Credit should not set a capture_request_id'
+		unless $self->service->capture_request_id
+		;
+
+	return $self->$orig( @_ );
+};
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -23,19 +34,27 @@ __PACKAGE__->meta->make_immutable;
 
 	my $req = Business::CyberSource::Request::StandAloneCredit->new({
 		reference_code => 'merchant reference code',
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 5.00,
-		currency       => 'USD',
-		credit_card    => '4111-1111-1111-1111',
-		cc_exp_month   => '09',
-		cc_exp_year    => '2025',
+		bill_to => {
+			first_name  => 'Caleb',
+			last_name   => 'Cushing',
+			street      => 'somewhere',
+			city        => 'Houston',
+			state       => 'TX',
+			postal_code => '77064',
+			country     => 'US',
+			email       => 'xenoterracide@gmail.com',
+		},
+		purchase_totals => {
+			total    => 5.00,
+			currency => 'USD',
+		},
+		card => {
+			account_number => '4111-1111-1111-1111',
+			expiration => {
+				month => '09',
+				year  => '2025',
+			},
+		},
 	});
 
 =head1 DESCRIPTION
