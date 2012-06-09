@@ -15,6 +15,14 @@ with qw(
 use MooseX::Aliases;
 use MooseX::Types::CyberSource qw( BillTo Card );
 
+sub BUILD { ## no critic (Subroutines::RequireFinalReturn)
+	my $self = shift;
+
+	confess 'Authorization should not set a capture_request_id'
+		if $self->service->has_capture_request_id
+		;
+}
+
 has '+service' => ( remote_name => 'ccCreditService' );
 
 has bill_to => (
@@ -43,26 +51,29 @@ __PACKAGE__->meta->make_immutable;
 
 	use Business::CyberSource::Request::Credit;
 
-	my $req = Business::CyberSource::Request::Credit
-		->with_traits(qw{
-			BillingInfo
-			CreditCardInfo
-		})
-		->new({
+	my $req = Business::CyberSource::Request::Credit->new({
 			reference_code => 'merchant reference code',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
-			credit_card    => '4111-1111-1111-1111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2025',
+			bill_to => {
+				first_name  => 'Caleb',
+				last_name   => 'Cushing',
+				street      => 'somewhere',
+				city        => 'Houston',
+				state       => 'TX',
+				postal_code => '77064',
+				country     => 'US',
+				email       => 'xenoterracide@gmail.com',
+			},
+			purchase_totals => {
+				total    => 5.00,
+				currency => 'USD',
+			},
+			card => {
+				account_number => '4111-1111-1111-1111',
+				expiration => {
+					month => '09',
+					year => '2025',
+				},
+			},
 		});
 
 =head1 DESCRIPTION
@@ -72,11 +83,11 @@ apply traits (or are using the Request factory) then you can instantiate either 
 L<Business::CyberSource::Request::StandAloneCredit> or the
 L<Business::CyberSource::Request::FollowOnCredit>.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 composes
+=head1 WITH
 
 =over
 
@@ -85,11 +96,5 @@ L<Business::CyberSource::Request>
 =item L<Business::CyberSource::Request::Role::DCC>
 
 =back
-
-=method with_traits
-
-For standalone credit requests requests you need to apply C<BillingInfo> and
-C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
-on credits require that you specify a C<request_id> in order to work.
 
 =cut
