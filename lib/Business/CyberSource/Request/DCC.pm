@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Role::ForeignCurrency
 );
