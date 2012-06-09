@@ -23,6 +23,10 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: Abstract Message Class;
 
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
 =attr trace
 
 A L<XML::Compile::SOAP::Trace> object which is populated only after the object
