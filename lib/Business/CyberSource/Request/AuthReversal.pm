@@ -7,9 +7,6 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with qw(
-	Business::CyberSource::Request::Role::PurchaseInfo
-);
 
 has '+service' => ( remote_name => 'ccAuthReversalService' );
 
