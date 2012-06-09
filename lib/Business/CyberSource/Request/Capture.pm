@@ -47,11 +47,11 @@ __PACKAGE__->meta->make_immutable;
 
 This object allows you to create a request for a capture.
 
-=head2 EXTENDS
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 WITH
+=head1 WITH
 
 =over
 

@@ -34,7 +34,7 @@ __PACKAGE__->meta->make_immutable;
 
 This allows you to reverse an authorization request.
 
-=head2 EXTENDS
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
