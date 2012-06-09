@@ -9,10 +9,11 @@ my $itemc = use_module('Business::CyberSource::RequestPart::Item');
 {
 	package Test;
 		use Moose;
-		with qw(
-			MooseX::RemoteHelper::CompositeSerialization
-			Business::CyberSource::Request::Role::Items
-		);
+		extends 'Business::CyberSource::Request';
+
+		has '+purchase_totals' => ( required => 0 );
+		has '+reference_code'  => ( required => 0 );
+
 		__PACKAGE__->meta->make_immutable;
 }
 
