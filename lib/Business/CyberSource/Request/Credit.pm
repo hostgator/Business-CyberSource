@@ -7,10 +7,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with qw(
-	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::DCC
-);
+with 'Business::CyberSource::Request::Role::DCC';
 
 use MooseX::Aliases;
 use MooseX::Types::CyberSource qw( BillTo Card );
@@ -78,10 +75,10 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-This object allows you to create a request for a credit. If you do not want to
-apply traits (or are using the Request factory) then you can instantiate either the
+This object allows you to create a request for a credit. You can use
 L<Business::CyberSource::Request::StandAloneCredit> or the
-L<Business::CyberSource::Request::FollowOnCredit>.
+L<Business::CyberSource::Request::FollowOnCredit> if you want your objects to
+be checked for all required fields.
 
 =head1 EXTENDS
 
@@ -90,8 +87,6 @@ L<Business::CyberSource::Request>
 =head1 WITH
 
 =over
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
 
 =item L<Business::CyberSource::Request::Role::DCC>
 
