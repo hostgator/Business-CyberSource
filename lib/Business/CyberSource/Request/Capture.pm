@@ -11,7 +11,7 @@ with 'Business::CyberSource::Request::Role::DCC';
 
 has '+service' => ( remote_name => 'ccCaptureService' );
 
-sub BUILD {
+sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
 	confess 'Capture must have an auth_request_id'

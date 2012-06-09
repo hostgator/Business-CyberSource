@@ -17,7 +17,7 @@ with qw(
 
 has '+service' => ( remote_name => 'ccAuthService' );
 
-sub BUILD {
+sub BUILD { ## no critic (Subroutines::RequireFinalReturn)
 	my $self = shift;
 
 	confess 'Authorization should not set a *_request_id'

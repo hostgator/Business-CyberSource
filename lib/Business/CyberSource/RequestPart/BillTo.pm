@@ -24,7 +24,7 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
-sub BUILD {
+sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	my $self = shift;
 	if ( $self->country eq 'US' or $self->country eq 'CA' ) {
 		confess 'postal code is required for US or Canada'
