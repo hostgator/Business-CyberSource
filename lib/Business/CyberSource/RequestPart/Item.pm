@@ -79,3 +79,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Item Helper Class
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>

@@ -146,6 +146,10 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: BillTo information
 
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
 =attr ip_address
 
 Customer's IP address, meaning the IP that the request was made from.

@@ -88,6 +88,10 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: Business Rules
 
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
 =attr ignore_avs_result
 
 Boolean that indicates whether to allow C<ccCaptureService> to run even when the

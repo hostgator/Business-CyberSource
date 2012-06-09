@@ -28,3 +28,7 @@ has total => (
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Purchase Totals
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>

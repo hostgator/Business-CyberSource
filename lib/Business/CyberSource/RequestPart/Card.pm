@@ -189,3 +189,8 @@ has _expiration_year => (
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Credit Card Helper Class
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
