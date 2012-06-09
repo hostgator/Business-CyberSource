@@ -19,3 +19,11 @@ has reference_code => (
 1;
 
 # ABSTRACT: Generic implementation of MerchantReferenceCode
+
+=attr reference_code
+
+Merchant-generated order reference or tracking number. CyberSource recommends
+that you send a unique value for each transaction so that you can perform
+meaningful searches for the transaction.
+
+=cut
