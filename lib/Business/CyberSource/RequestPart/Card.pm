@@ -198,10 +198,6 @@ L<Business::CyberSource::MessagePart>
 
 This is the Credit Card Number
 
-=attr type
-
-The card issuer, e.g. VISA, MasterCard. it is generated from the card number.
-
 =attr expiration
 
 	my $card = Business::CyberSource::CreditCard->new({
@@ -215,6 +211,14 @@ The card issuer, e.g. VISA, MasterCard. it is generated from the card number.
 A DateTime object, you should construct it by passing a hashref with keys for
 month, and year, it will actually contain the last day of that month/year.
 
+=attr security_code
+
+The 3 digit security number on the back of the card.
+
+=attr holder
+
+The full name of the card holder as printed on the card.
+
 =attr is_expired
 
 Boolean, returns true if the card is older than
@@ -223,12 +227,71 @@ unknown issuer time zones as we can't be sure that all issuers shut cards of on
 the first of every month UTC. In fact I have been told that some issuers will
 allow renewed cards to be run with expired dates. Use this at your discretion.
 
-=attr security_code
+=attr cv_indicator
 
-The 3 digit security number on the back of the card.
+Boolean, true if the L<security code|/"security_code"> was passed.
 
-=attr holder
+=attr type
 
-The full name of the card holder as printed on the card.
+The card issuer, e.g. VISA, MasterCard. it is generated from the card number.
+
+=attr card_type_code
+
+Type of card to authorize. This should be auto detected, but if it's not you
+can specify the value manually.
+
+Possible values:
+
+=over
+
+=item 001: Visa
+
+=item 002: MasterCard, Eurocard*
+
+European regional brand of MasterCard
+
+=item 003: American Express
+
+=item 004: Discover
+
+=item 005: Diners Club
+
+see Discover Acquisitions and Alliances.
+
+=item 006: Carte Blanche*
+
+=item 007: JCB*
+
+=item 014: EnRoute*
+
+=item 021: JAL*
+
+=item 024: Maestro (UK Domestic)*
+
+=item 031: Delta*
+
+use this value only for Global Collect. For other processors, use
+001 for all Visa card types.
+
+=item 033: Visa Electron*
+
+=item 034: Dankort*
+
+=item 035: Laser*
+
+=item 036: Carte Bleue*
+
+=item 037: Carta Si*
+
+=item 039: Encoded account number*
+
+=item 040: UATP*
+
+=item 042: Maestro (International)*
+
+=item 043: Santander card*
+
+before setting up your system to work with Santander
+cards, contact the CyberSource UK Support Group.
 
 =cut
