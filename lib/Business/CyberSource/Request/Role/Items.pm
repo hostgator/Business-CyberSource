@@ -49,7 +49,7 @@ has items => (
 
 		my $i = 0;
 		my @serialized
-			= map {
+			= map { ## no critic ( BuiltinFunctions::ProhibitComplexMappings )
 				my $item = $_->serialize;
 				$item->{id} = $i;
 				$i++;
