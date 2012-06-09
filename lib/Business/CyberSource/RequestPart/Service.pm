@@ -49,7 +49,7 @@ __PACKAGE__->meta->make_immutable;
 =head1 DESCRIPTION
 
 Service provides support for the portion of requests that are named as
-C<cc*Service> this tells cybersource which type of request to make. All of the
+C<cc*Service> this tells CyberSource which type of request to make. All of the
 L<Business::CyberSource::Request> based classes will add this correctly.
 Depending on the request type you may have to set either
 L<capture_request_id|/"capture_request_id"> or
@@ -74,7 +74,7 @@ The L<request_id|Business::CyberSource::Response/"request_id"> for the authoriza
 =item L<Capture|Business::CyberSource::Request::Capture>
 
 Value of L<request_id|Business::CyberSource::Response/"request_id"> returned from
-a previous L<Auth Reply|Business::CyberSource::Request::Authorization>.
+a previous L<Authorization Reply|Business::CyberSource::Request::Authorization>.
 
 =back
 
