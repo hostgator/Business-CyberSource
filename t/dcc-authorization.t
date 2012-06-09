@@ -88,7 +88,7 @@ my $cred_req
 		reference_code   => $dcc->reference_code,
 		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
-		request_id       => $cap_res->request_id,
+		service  => { capture_request_id => $cap_res->request_id },
 	}]);
 
 my $cred_res = $client->run_transaction( $cred_req );
