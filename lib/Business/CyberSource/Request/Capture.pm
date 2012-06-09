@@ -30,26 +30,30 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
+	use Business::CyberSource::Request::Capture;
+
 	my $capture = Business::CyberSource::Request::Capture->new({
 		reference_code => 'merchant reference code',
-		request_id     => 'authorization response request_id',
-		total          => 5.01,  # same amount as in authorization
-		currency       => 'USD', # same currency as in authorization
+		service => {
+			auth_request_id => 'authorization response request_id',
+		},
+		purchase_totals => {
+			total    => 5.01,  # same amount as in authorization
+			currency => 'USD', # same currency as in authorization
+		},
 	});
 
 =head1 DESCRIPTION
 
 This object allows you to create a request for a capture.
 
-=head2 inherits
+=head2 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 composes
+=head2 WITH
 
 =over
-
-=item L<Business::CyberSource::Request::Role::FollowUp>
 
 =item L<Business::CyberSource::Request::Role::DCC>
 
