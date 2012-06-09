@@ -18,6 +18,102 @@ use MooseX::Types::CyberSource qw( PurchaseTotals Service Item );
 
 use Class::Load qw( load_class );
 
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
+
+	my $args = $self->$orig( @_ );
+
+	return $args
+		if defined $args->{purchase_totals}
+		&& defined $args->{bill_to}
+		&& defined $args->{card}
+		;
+
+	load_class 'Carp';
+	our @CARP_NOT = 'Class::MOP::Method::Wrapped';
+	Carp::cluck 'This API is deprecated please use the new API';
+
+	my %map = (
+		zip          => 'postal_code',
+		ip           => 'ip_address',
+		cc_exp_month => 'month',
+		cc_exp_year  => 'year',
+		street       => 'street1',
+		cvn          => 'security_code',
+		csc          => 'security_code',
+		cvv2         => 'security_code',
+		cvc2         => 'security_code',
+		cid          => 'security_code',
+		credit_card  => 'account_number',
+	);
+
+	my %newargs = map {( $map{$_} || $_ ), $args->{$_}} keys %$args;
+
+	my %pt_map = (
+		currency         => 1,
+		total            => 1,
+		foreign_currency => 1,
+		foreign_amount   => 1,
+		exchange_rate    => 1,
+		exchange_rate_timestamp => 1,
+	);
+
+	my %bt_map = (
+		first_name  => 1,
+		last_name   => 1,
+		city        => 1,
+		state       => 1,
+		postal_code => 1,
+		country     => 1,
+		email       => 1,
+		street1     => 1,
+		street2     => 1,
+		street3     => 1,
+		street4     => 1,
+	);
+
+	my %cc_map = (
+		account_number => 1,
+		security_code  => 1,
+	);
+
+	my %ccexp_map = (
+		month => 1,
+		year  => 1,
+	);
+
+	my %purchase_totals
+		= map {
+			defined $pt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	my %bill_to
+		= map {
+			defined $bt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	my %card
+		= map {
+			defined $cc_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	my %expiration
+		= map {
+			defined $ccexp_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	$newargs{purchase_totals}  = \%purchase_totals;
+	$newargs{bill_to        }  = \%bill_to;
+	$newargs{card           }  = \%card;
+	$newargs{card}{expiration} = \%expiration;
+
+	load_class 'Data::Dumper::Concise';
+	Carp::carp( Data::Dumper::Concise::Dumper( \%newargs ) );
+
+	return \%newargs;
+};
+
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
