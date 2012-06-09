@@ -32,3 +32,21 @@ __PACKAGE__->meta->make_immutable;
 =head1 EXTENDS
 
 L<Business::CyberSource::MessagePart>
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Role::Currency>
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
+
+=back
+
+=attr total
+
+Grand total for the order. You must include either this field or
+L<Item unit price|Business::CyberSource::RequestPart::Item/"unit_price"> in your
+request.
+
+=cut
