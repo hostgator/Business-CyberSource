@@ -15,8 +15,8 @@ use MooseX::Types::CyberSource qw( BillTo Card );
 sub BUILD { ## no critic (Subroutines::RequireFinalReturn)
 	my $self = shift;
 
-	confess 'Authorization should not set a capture_request_id'
-		if $self->service->has_capture_request_id
+	confess 'Authorization should not set a auth_request_id'
+		if $self->service->has_auth_request_id
 		;
 }
 
