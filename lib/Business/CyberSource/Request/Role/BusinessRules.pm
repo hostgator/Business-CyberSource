@@ -7,12 +7,14 @@ use namespace::autoclean;
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Types::CyberSource qw( BusinessRules );
 
 has business_rules => (
-	isa         => 'Business::CyberSource::RequestPart::BusinessRules',
+	isa         => BusinessRules,
 	remote_name => 'businessRules',
 	traits      => ['SetOnce'],
 	is          => 'rw',
+	coerce      => 1,
 );
 
 1;
