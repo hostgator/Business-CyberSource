@@ -103,10 +103,10 @@ around BUILDARGS => sub {
 			defined $ccexp_map{$_} ? ( $_, delete $newargs{$_} ) : ()
 		} keys %newargs;
 
-	$newargs{purchase_totals}  = \%purchase_totals;
-	$newargs{bill_to        }  = \%bill_to;
-	$newargs{card           }  = \%card unless $args->{card};
-	$newargs{card}{expiration} = \%expiration unless $args->{card};
+	$newargs{purchase_totals}  = \%purchase_totals if keys %purchase_totals;
+	$newargs{bill_to        }  = \%bill_to         if keys %bill_to;
+	$newargs{card           }  = \%card            if keys %card && ! $args->{card};
+	$newargs{card}{expiration} = \%expiration      if keys %expiration && ! $args->{card};
 
 
 	load_class 'Data::Dumper::Concise';
