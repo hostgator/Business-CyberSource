@@ -105,8 +105,9 @@ around BUILDARGS => sub {
 
 	$newargs{purchase_totals}  = \%purchase_totals;
 	$newargs{bill_to        }  = \%bill_to;
-	$newargs{card           }  = \%card;
-	$newargs{card}{expiration} = \%expiration;
+	$newargs{card           }  = \%card unless $args->{card};
+	$newargs{card}{expiration} = \%expiration unless $args->{card};
+
 
 	load_class 'Data::Dumper::Concise';
 	Carp::carp( Data::Dumper::Concise::Dumper( \%newargs ) );
