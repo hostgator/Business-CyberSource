@@ -26,27 +26,31 @@ __PACKAGE__->meta->make_immutable;
 	my $dcc
 		= Business::CyberSource::Request::DCC->new({
 			reference_code => '1984',
-			currency       => 'USD',
-			credit_card    => '5100870000000004',
-			cc_exp_month   => '04',
-			cc_exp_year    => '2012',
-			total          => '1.00',
-			foreign_currency => 'EUR',
+			purchase_totals => {
+				currency       => 'USD',
+				total          => '1.00',
+				foreign_currency => 'EUR',
+			},
+			card => {
+				credit_card    => '5100870000000004',
+				expiration => {
+					month => '04',
+					year  => '2012',
+				},
+			},
 		});
 
 =head1 DESCRIPTION
 
 This object allows you to create a request for Direct Currency Conversion.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 composes
+=head1 WITH
 
 =over
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
 
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
