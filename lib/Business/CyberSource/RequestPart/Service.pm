@@ -32,7 +32,7 @@ has auth_request_id => (
 	is          => 'rw',
 	traits      => ['SetOnce'],
 );
-	
+
 has capture_request_id => (
 	isa         => RequestID,
 	remote_name => 'captureRequestID',

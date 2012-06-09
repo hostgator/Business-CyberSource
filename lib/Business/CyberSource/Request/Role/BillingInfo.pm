@@ -19,7 +19,7 @@ has bill_to => (
 	required    => 1,
 	coerce      => 1,
 );
-	
+
 1;
 
 # ABSTRACT: Role for requests that require "bill to" information

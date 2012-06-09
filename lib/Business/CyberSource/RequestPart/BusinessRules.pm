@@ -24,7 +24,7 @@ has ignore_avs_result => (
 	predicate   => 'has_ignore_avs_result',
 	traits      => ['SetOnce'],
 	is          => 'rw',
-	serializer  => $true_false, 
+	serializer  => $true_false,
 );
 
 has ignore_cv_result => (
@@ -33,7 +33,7 @@ has ignore_cv_result => (
 	predicate   => 'has_ignore_cv_result',
 	traits      => ['SetOnce'],
 	is          => 'rw',
-	serializer  => $true_false, 
+	serializer  => $true_false,
 );
 
 has ignore_dav_result => (
@@ -42,7 +42,7 @@ has ignore_dav_result => (
 	predicate   => 'has_ignore_dav_result',
 	traits      => ['SetOnce'],
 	is          => 'rw',
-	serializer  => $true_false, 
+	serializer  => $true_false,
 );
 
 has ignore_export_result => (
@@ -51,7 +51,7 @@ has ignore_export_result => (
 	predicate   => 'has_ignore_export_result',
 	traits      => ['SetOnce'],
 	is          => 'rw',
-	serializer  => $true_false, 
+	serializer  => $true_false,
 );
 
 has ignore_validate_result => (
@@ -60,7 +60,7 @@ has ignore_validate_result => (
 	predicate   => 'has_ignore_validate_result',
 	traits      => ['SetOnce'],
 	is          => 'rw',
-	serializer  => $true_false, 
+	serializer  => $true_false,
 );
 
 has decline_avs_flags => (

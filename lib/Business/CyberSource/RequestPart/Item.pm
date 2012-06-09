@@ -67,7 +67,7 @@ has tax_rate => (
 	traits      => ['SetOnce'],
 	is          => 'rw',
 );
-	
+
 has national_tax => (
 	isa         => PositiveOrZeroNum,
 	remote_name => 'nationalTax',

@@ -71,7 +71,7 @@ sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalRe
 		}
 	}
 }
-	
+
 sub _build_card_type_code {
 	my $self = shift;
 
@@ -85,7 +85,7 @@ sub _build_card_type_code {
 		: $self->type =~ /american\ express/ixms ? '003'
 		:                                  undef
 		;
-	
+
 	Business::CyberSource::Card::Exception->throw(
 		message => 'card type code was unable to be detected please define it'
 			. ' manually'
