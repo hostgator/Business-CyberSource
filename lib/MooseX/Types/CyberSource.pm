@@ -122,8 +122,8 @@ coerce Card,
 coerce BillTo,
 	from HashRef,
 	via {
-		load_class( $brc );
-		$brc->new( $_ );
+		load_class( $btc );
+		$btc->new( $_ );
 	};
 
 coerce BusinessRules,
