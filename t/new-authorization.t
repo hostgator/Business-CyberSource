@@ -19,8 +19,8 @@ foreach ( @test_pairs ) {
 
 	my $dto = new_ok( $dtc => [{
 		reference_code  => my $code = $dtc . '->new',
-		bill_to         => $t->resolve( service  => '/helper/bill_to'),
 		purchase_totals => $t->resolve( service => '/helper/purchase_totals'),
+		bill_to         => $t->resolve( service  => '/helper/bill_to'),
 		card            => $t->resolve(
 			service    => '/helper/card',
 			parameters => {
@@ -31,7 +31,7 @@ foreach ( @test_pairs ) {
 
 	can_ok( $dto, 'serialize' );
 
-	isa_ok $dto->billing_info,    'Business::CyberSource::RequestPart::BillTo';
+	isa_ok $dto->bill_to,         'Business::CyberSource::RequestPart::BillTo';
 	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
 	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
 

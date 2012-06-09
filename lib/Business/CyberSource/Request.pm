@@ -10,24 +10,21 @@ use Moose;
 extends 'Business::CyberSource::Message';
 
 with qw(
-	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::Items
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use MooseX::ABC;
 
-use MooseX::Types::CyberSource qw( Service );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service );
 
 use Class::Load qw( load_class );
 
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
-	if ( $self->does('Business::CyberSource::Request::Role::PurchaseInfo' ) ) {
-		unless ( $self->has_items or $self->has_total ) {
-			confess 'you must define either items or total';
-		}
+	unless ( $self->has_items or $self->has_total ) {
+		confess 'you must define either items or total';
 	}
 };
 
@@ -61,6 +58,18 @@ has is_skipable => (
 	builder => '_build_skipable',
 	is      => 'ro',
 	lazy    => 1,
+);
+
+
+has purchase_totals => (
+	isa         => PurchaseTotals,
+	remote_name => 'purchaseTotals',
+	is          => 'ro',
+	required    => 1,
+	coerce      => 1,
+	handles     => {
+		has_total => 'has_total',
+	},
 );
 
 has '+_trait_namespace' => (
@@ -113,8 +122,6 @@ L<Business::CyberSource::Message>
 
 =over
 
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
-
 =item L<Business::CyberSource::Request::Role::Items>
 
 =item L<Business::CyberSource::Role::MerchantReferenceCode>
@@ -134,6 +141,10 @@ meaningful searches for the transaction.
 =attr service
 
 L<Business::CyberSource::RequestPart::Service>
+
+=attr purchase_totals
+
+L<Business::CyberSource::RequestPart::PurchaseTotals>
 
 =attr comments
 

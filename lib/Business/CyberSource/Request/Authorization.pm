@@ -9,7 +9,6 @@ use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::BillingInfo
-	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
 	Business::CyberSource::Request::Role::DCC
@@ -78,8 +77,6 @@ L<Business::CyberSource::Request>
 =over
 
 =item L<Business::CyberSource::Request::Role::BillingInfo>
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
 
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
