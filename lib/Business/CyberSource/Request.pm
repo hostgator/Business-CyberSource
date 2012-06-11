@@ -22,14 +22,8 @@ use Class::Load qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
-my %pt_map = (
-	currency         => 1,
-	total            => 1,
-	foreign_currency => 1,
-	foreign_amount   => 1,
-	exchange_rate    => 1,
-	exchange_rate_timestamp => 1,
-);
+my %pt_map;
+my %service_map;
 BEGIN {
 %pt_map = (
 	currency         => 1,
@@ -38,6 +32,9 @@ BEGIN {
 	foreign_amount   => 1,
 	exchange_rate    => 1,
 	exchange_rate_timestamp => 1,
+);
+%service_map = (
+	request_id => 1,
 );
 }
 
@@ -65,7 +62,22 @@ around BUILDARGS => sub {
 			defined $pt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
 		} keys %newargs;
 
+	my %service
+		= map {
+			defined $service_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
 	$newargs{purchase_totals} = \%purchase_totals if keys %purchase_totals;
+
+	if ( keys %service ) {
+		$newargs{service} = \%service;
+		Carp::carp 'DEPRECATED: '
+		. 'pass an appropriate Business::CyberSource::RequestPart::Service::* '
+		. 'to service '
+		. 'or pass a constructor hashref to service to as it is coerced from '
+		. 'hashref.'
+		;
+	}
 
 	return \%newargs;
 };
@@ -144,7 +156,8 @@ has purchase_totals => (
 	coerce      => 1,
 	handles     => {
 		has_total => 'has_total',
-		%{ { map {( $_ => $_ )} keys %pt_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
+		%{ { map {( $_ => $_ )} keys %pt_map } },      ## no critic ( BuiltinFunctions::ProhibitVoidMap )
+		%{ { map {( $_ => $_ )} keys %service_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
 	},
 );
 }
