@@ -16,7 +16,7 @@ with 'Business::CyberSource::Role::MerchantReferenceCode';
 use MooseX::ABC;
 
 use MooseX::Types::Moose       qw( ArrayRef );
-use MooseX::Types::CyberSource qw( PurchaseTotals Service Item );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
 
 use Class::Load qw( load_class );
 
@@ -81,7 +81,7 @@ before [ keys %pt_map ] => sub {
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
-	unless ( $self->has_items or $self->has_total ) {
+	unless ( $self->has_total || ( $self->has_items && ! $self->items_is_empty ) ) {
 		confess 'you must define either items or total';
 	}
 };
@@ -99,6 +99,7 @@ sub add_item {
 	else {
 		$item = $args;
 	}
+	$self->items( [ ] ) if ! $self->has_items;
 
 	return $self->_push_item( $item );
 }
@@ -149,16 +150,17 @@ has purchase_totals => (
 }
 
 has items => (
-	isa         => ArrayRef[Item],
+	isa         => Items,
 	remote_name => 'item',
 	predicate   => 'has_items',
 	is          => 'rw',
 	traits      => ['Array'],
+	coerce      => 1,
 	handles     => {
 		items_is_empty => 'is_empty',
 		next_item      => [ natatime => 1 ],
 		list_items     => 'elements',
-		_push_item       => 'push',
+		_push_item     => 'push',
 	},
 	serializer => sub {
 		my ( $attr, $instance ) = @_;

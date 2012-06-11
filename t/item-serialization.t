@@ -11,8 +11,13 @@ my $itemc = use_module('Business::CyberSource::RequestPart::Item');
 		use Moose;
 		extends 'Business::CyberSource::Request';
 
-		has '+purchase_totals' => ( required => 0 );
 		has '+reference_code'  => ( required => 0 );
+		has '+purchase_totals' => (
+			required => 0,
+			handles  => {},
+		);
+
+		sub has_total { 0 };
 
 		__PACKAGE__->meta->make_immutable;
 }

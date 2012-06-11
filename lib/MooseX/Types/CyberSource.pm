@@ -14,6 +14,7 @@ use MooseX::Types -declare => [ qw(
 	DCCIndicator
 
 	Decision
+	Items
 
 	Item
 	Card
@@ -37,7 +38,7 @@ use MooseX::Types -declare => [ qw(
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
-use MooseX::Types::Moose           qw( Int Num Str HashRef                     );
+use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime;
 
@@ -173,6 +174,19 @@ subtype RequestID,
 	as NonEmptySimpleStr,
 	where { length $_ <= 29 }
 	;
+
+subtype Items, as ArrayRef[Item];
+
+coerce Items,
+	from ArrayRef[HashRef],
+	via {
+		load_class( $itc );
+
+		my $items = $_;
+
+		my @items = map { $itc->new( $_ ) } @{ $items };
+		return \@items;
+	};
 
 subtype _VarcharOne,
 	as NonEmptySimpleStr,
