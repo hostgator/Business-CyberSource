@@ -81,7 +81,7 @@ before [ keys %pt_map ] => sub {
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
-	if ( ! $self->has_total || ( ! $self->has_items && $self->items_is_empty ) ) {
+	if ( ! $self->has_total && ( ! $self->has_items || $self->items_is_empty ) ) {
 		confess 'you must define either items or total';
 	}
 };
