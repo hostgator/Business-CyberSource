@@ -10,7 +10,7 @@ my $dto
 	= new_ok( $authrevc => [{
 		reference_code => 'notarealcode',
 		service => {
-			auth_request_id => 'notarealid',
+			request_id => 'notarealid',
 		},
 		purchase_totals => {
 			total    => '3000.00',

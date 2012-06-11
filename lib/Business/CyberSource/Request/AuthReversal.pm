@@ -8,7 +8,13 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request';
 
-has '+service' => ( remote_name => 'ccAuthReversalService' );
+use MooseX::Types::CyberSource qw( AuthReversalService );
+
+has '+service' => (
+	isa         => AuthReversalService,
+	remote_name => 'ccAuthReversalService',
+	lazy_build  => 0,
+);
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -22,7 +28,7 @@ __PACKAGE__->meta->make_immutable;
 	my $req = Business::CyberSource::Request::AuthReversal->new({
 		reference_code => 'orignal authorization merchant reference code',
 		service        => {
-			auth_request_id => 'request id returned by authorization',
+			request_id => 'request id returned by authorization',
 		},
 		purchase_totals {
 			total          => 5.00, # same as original authorization amount

@@ -20,6 +20,9 @@ use MooseX::Types -declare => [ qw(
 	Card
 	PurchaseTotals
 	Service
+	AuthReversalService
+	CaptureService
+	CreditService
 	BillTo
 	BusinessRules
 
@@ -84,13 +87,19 @@ my $svc = $prefix . 'Service';
 my $cdc = $prefix . 'Card';
 my $btc = $prefix . 'BillTo';
 my $brc = $prefix . 'BusinessRules';
+my $ars = $prefix . 'Service::AuthReversal';
+my $cps = $prefix . 'Service::Capture';
+my $cds = $prefix . 'Service::Credit';
 
-class_type Item,           { class => $itc };
-class_type PurchaseTotals, { class => $ptc };
-class_type Service,        { class => $svc };
-class_type Card,           { class => $cdc };
-class_type BillTo,         { class => $btc };
-class_type BusinessRules,  { class => $brc };
+class_type Item,                { class => $itc };
+class_type PurchaseTotals,      { class => $ptc };
+class_type Service,             { class => $svc };
+class_type Card,                { class => $cdc };
+class_type BillTo,              { class => $btc };
+class_type BusinessRules,       { class => $brc };
+class_type AuthReversalService, { class => $ars };
+class_type CaptureService,      { class => $cps };
+class_type CreditService,       { class => $cds };
 
 coerce Item,
 	from HashRef,
@@ -111,6 +120,27 @@ coerce Service,
 	via {
 		load_class( $svc );
 		$svc->new( $_ );
+	};
+
+coerce AuthReversalService,
+	from HashRef,
+	via {
+		load_class( $ars );
+		$ars->new( $_ );
+	};
+
+coerce CaptureService,
+	from HashRef,
+	via {
+		load_class( $cps );
+		$cps->new( $_ );
+	};
+
+coerce CreditService,
+	from HashRef,
+	via {
+		load_class( $cds );
+		$cds->new( $_ );
 	};
 
 coerce Card,

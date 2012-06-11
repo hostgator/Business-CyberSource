@@ -9,19 +9,13 @@ use Moose;
 extends 'Business::CyberSource::Request';
 with 'Business::CyberSource::Request::Role::DCC';
 
-has '+service' => ( remote_name => 'ccCaptureService' );
+use MooseX::Types::CyberSource qw( CaptureService );
 
-sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
-	my $self = shift;
-
-	confess 'Capture must have an auth_request_id'
-		unless $self->service->has_auth_request_id
-		;
-
-	confess 'Capture Must not have a capture_request_id'
-		if $self->service->has_capture_request_id
-		;
-}
+has '+service' => (
+	isa         => CaptureService,
+	remote_name => 'ccCaptureService',
+	lazy_build  => 0,
+);
 
 __PACKAGE__->meta->make_immutable;
 1;

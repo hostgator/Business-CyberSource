@@ -12,16 +12,12 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 );
 
-around BUILD => sub {
-	my $orig = shift;
+sub BUILD {
 	my $self = shift;
-
-	confess 'a Stand Alone Credit should not set a capture_request_id'
-		unless $self->service->capture_request_id
+	confess 'a Stand Alone Credit should not set a request_id'
+		if $self->service->has_request_id
 		;
-
-	return $self->$orig( @_ );
-};
+}
 
 __PACKAGE__->meta->make_immutable;
 1;

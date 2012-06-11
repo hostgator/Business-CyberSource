@@ -8,15 +8,11 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
 
-around BUILD => sub {
-	my $orig = shift;
+sub BUILD {
 	my $self = shift;
-
-	confess 'a Follow On Credit should set a capture_request_id'
-		unless $self->service->capture_request_id
+	confess 'a Follow On Credit should set a request_id'
+		unless $self->service->has_request_id
 		;
-
-	return $self->$orig( @_ );
 };
 
 __PACKAGE__->meta->make_immutable;
@@ -35,7 +31,7 @@ __PACKAGE__->meta->make_immutable;
 				currency       => 'USD',
 			},
 			service => {
-				capture_request_id     => 'capture request_id',
+				request_id     => 'capture request_id',
 			},
 		});
 

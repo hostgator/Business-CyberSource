@@ -17,7 +17,7 @@ my $res
 my $capture
 	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
 		reference_code => $res->reference_code,
-		service => { auth_request_id => $res->request_id },
+		service => { request_id => $res->request_id },
 		purchase_totals => {
 			total          => 4018.00,
 			currency       => $res->currency,

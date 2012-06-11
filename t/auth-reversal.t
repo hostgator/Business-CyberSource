@@ -20,7 +20,7 @@ my $rev_req
 	= new_ok( $authrevc => [{
 		reference_code => $res->reference_code,
 		service => {
-			auth_request_id => $res->request_id,
+			request_id => $res->request_id,
 		},
 		purchase_totals => {
 			total    => $res->amount,

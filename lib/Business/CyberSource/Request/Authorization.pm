@@ -16,15 +16,6 @@ with qw(
 
 has '+service' => ( remote_name => 'ccAuthService' );
 
-sub BUILD { ## no critic (Subroutines::RequireFinalReturn)
-	my $self = shift;
-
-	confess 'Authorization should not set a *_request_id'
-		if $self->service->has_auth_request_id
-		or $self->service->has_capture_request_id
-		;
-}
-
 __PACKAGE__->meta->make_immutable;
 1;
 

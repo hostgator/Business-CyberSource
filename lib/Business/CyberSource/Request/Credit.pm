@@ -10,17 +10,19 @@ extends 'Business::CyberSource::Request';
 with 'Business::CyberSource::Request::Role::DCC';
 
 use MooseX::Aliases;
-use MooseX::Types::CyberSource qw( BillTo Card );
+use MooseX::Types::CyberSource qw( BillTo Card CreditService);
 
-sub BUILD { ## no critic (Subroutines::RequireFinalReturn)
-	my $self = shift;
+use Class::Load qw( load_class );
 
-	confess 'Authorization should not set a auth_request_id'
-		if $self->service->has_auth_request_id
-		;
+sub _build_service {
+	load_class('Business::CyberSource::RequestPart::Service::Credit');
+	return Business::CyberSource::RequestPart::Service::Credit->new;
 }
 
-has '+service' => ( remote_name => 'ccCreditService' );
+has '+service' => (
+	isa         => CreditService,
+	remote_name => 'ccCreditService'
+);
 
 has bill_to => (
 	isa         => BillTo,

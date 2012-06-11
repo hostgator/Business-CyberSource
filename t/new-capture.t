@@ -8,7 +8,7 @@ my $capture =
 	new_ok( use_module('Business::CyberSource::Request::Capture') => [{
 		reference_code => 'not sending',
 		service => {
-			auth_request_id => 42,
+			request_id => 42,
 		},
 		purchase_totals => {
 			total    => 2018.00,

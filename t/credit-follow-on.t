@@ -20,7 +20,7 @@ my $capture_req
 	= new_ok( $capturec => [{
 		reference_code => $auth_res->reference_code,
 		service => {
-			auth_request_id => $auth_res->request_id,
+			request_id => $auth_res->request_id,
 		},
 		purchase_totals => {
 			total    => $auth_res->amount,
@@ -41,7 +41,7 @@ my $credit_req
 			currency => 'USD',
 		},
 		service => {
-			capture_request_id => $capture_res->request_id,
+			request_id => $capture_res->request_id,
 		},
 	}]);
 
