@@ -25,5 +25,6 @@ my $dto = new_ok( $dtc => [{
 }]);
 
 is $dto->first_name, 'Caleb', 'first_name';
+is $dto->street,     'somewhere', 'street';
 
 done_testing;

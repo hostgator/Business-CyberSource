@@ -27,6 +27,7 @@ my %bt_map = (
 	street2     => 1,
 	street3     => 1,
 	street4     => 1,
+	street      => 1,
 );
 
 around BUILDARGS => sub {
@@ -76,7 +77,10 @@ has bill_to => (
 	is          => 'ro',
 	required    => 1,
 	coerce      => 1,
-	handles     => [ keys %bt_map ],
+	handles     => {
+		street => 'street1',
+		%{ { map {( $_ => $_ )} keys %bt_map } },
+	}
 );
 
 1;
