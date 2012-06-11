@@ -127,11 +127,10 @@ has email => (
 	isa         => EmailAddress,
 );
 
-has ip_address => (
+has ip => (
 	remote_name => 'ipAddress',
 	traits    => ['SetOnce'],
 	is        => 'rw',
-	alias     => 'ip',
 	coerce    => 1,
 	isa       => NetAddrIPv4,
 	predicate => 'has_ip',
@@ -150,7 +149,7 @@ __PACKAGE__->meta->make_immutable;
 
 L<Business::CyberSource::MessagePart>
 
-=attr ip_address
+=attr ip
 
 Customer's IP address, meaning the IP that the request was made from.
 

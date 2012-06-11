@@ -28,6 +28,7 @@ my %bt_map = (
 	street3     => 1,
 	street4     => 1,
 	street      => 1,
+	ip          => 1,
 );
 
 around BUILDARGS => sub {
@@ -47,7 +48,6 @@ around BUILDARGS => sub {
 
 	my %map = (
 		zip          => 'postal_code',
-		ip           => 'ip_address',
 		street       => 'street1',
 	);
 

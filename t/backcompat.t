@@ -22,6 +22,7 @@ my $dto = new_ok( $dtc => [{
 	cc_exp_month   => '09',
 	cc_exp_year    => '2025',
 	ignore_avs_result => 1,
+	ip             => '192.168.1.1',
 }]);
 
 is $dto->first_name, 'Caleb', 'first_name';

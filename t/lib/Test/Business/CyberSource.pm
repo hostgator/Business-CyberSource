@@ -79,7 +79,7 @@ sub BUILD {
 				service country       => 'US';
 				service postal_code   => '77064';
 				service email         => 'xenoterracide@gmail.com';
-				service ip_address    => '192.168.100.2';
+				service ip            => '192.168.100.2';
 				service currency      => 'USD';
 				service holder        => 'Caleb Cushing';
 				service security_code => '1111';
@@ -116,7 +116,7 @@ sub BUILD {
 					state          => depends_on('services/state'      ),
 					postal_code    => depends_on('services/postal_code'),
 					email          => depends_on('services/email'      ),
-					ip_address     => depends_on('services/ip_address' ),
+					ip             => depends_on('services/ip'         ),
 					country        => depends_on('services/country'    ),
 				},
 			);

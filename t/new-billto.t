@@ -15,10 +15,10 @@ my $billto
 		postal_code => '78753',
 		country     => 'US',
 		email       => 'xenoterracide@gmail.com',
-		ip_address  => '192.168.100.2',
+		ip          => '192.168.100.2',
 	}]);
 
-isa_ok ( $billto->ip_address, 'NetAddr::IP'                                 );
+isa_ok ( $billto->ip,         'NetAddr::IP'                                 );
 does_ok( $billto,             'MooseX::RemoteHelper::CompositeSerialization');
 can_ok ( $billto,             'serialize'                                   );
 
@@ -31,7 +31,7 @@ is( $billto->state,           'TX',                      '->state'          );
 is( $billto->country,         'US',                      '->country'        );
 is( $billto->email,           'xenoterracide@gmail.com', '->email'          );
 is( $billto->postal_code,     '78753',                   '->postal_code'    );
-is( $billto->ip_address->addr,'192.168.100.2',           '->ip_address'     );
+is( $billto->ip->addr,        '192.168.100.2',           '->ip_address'     );
 
 is( ref $billto->serialize,   'HASH',                    'serialize type'   );
 
