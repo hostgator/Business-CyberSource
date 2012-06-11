@@ -29,7 +29,7 @@ __PACKAGE__->meta->make_immutable;
 	my $capture = Business::CyberSource::Request::Capture->new({
 		reference_code => 'merchant reference code',
 		service => {
-			auth_request_id => 'authorization response request_id',
+			request_id => 'authorization response request_id',
 		},
 		purchase_totals => {
 			total    => 5.01,  # same amount as in authorization
