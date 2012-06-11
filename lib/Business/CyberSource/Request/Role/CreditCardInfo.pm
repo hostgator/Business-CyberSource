@@ -25,6 +25,7 @@ my %map = (
 	cvc2         => 'security_code',
 	cid          => 'security_code',
 	credit_card  => 'account_number',
+	card_type    => 'card_type_code',
 );
 
 around BUILDARGS => sub {
