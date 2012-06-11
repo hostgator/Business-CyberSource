@@ -36,7 +36,7 @@ around BUILDARGS => sub {
 		street       => 'street1',
 	);
 
-	my %newargs = map {( $map{$_} || $_ ), $args->{$_}} keys %$args;
+	my %newargs = map {(( $map{$_} || $_ ), $args->{$_})} keys %$args;
 
 	my %bt_map = (
 		first_name  => 1,

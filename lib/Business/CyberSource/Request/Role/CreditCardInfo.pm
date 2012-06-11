@@ -43,7 +43,7 @@ around BUILDARGS => sub {
 		credit_card  => 'account_number',
 	);
 
-	my %newargs = map {( $map{$_} || $_ ), $args->{$_}} keys %$args;
+	my %newargs = map {(( $map{$_} || $_ ), $args->{$_})} keys %$args;
 
 	my %cc_map = (
 		account_number => 1,
