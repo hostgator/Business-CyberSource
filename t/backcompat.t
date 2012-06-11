@@ -6,7 +6,7 @@ use Module::Runtime qw( use_module );
 
 my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
-new_ok( $dtc => [{
+my $dto = new_ok( $dtc => [{
 	reference_code => 'test-authorization-accept-' . time,
 	first_name     => 'Caleb',
 	last_name      => 'Cushing',
@@ -24,5 +24,6 @@ new_ok( $dtc => [{
 	ignore_avs_result => 1,
 }]);
 
+is $dto->first_name, 'Caleb', 'first_name';
 
 done_testing;

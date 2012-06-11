@@ -6,8 +6,10 @@ use namespace::autoclean;
 
 # VERSION
 
+BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
+}
 
 with 'Business::CyberSource::Role::MerchantReferenceCode';
 
@@ -19,6 +21,25 @@ use MooseX::Types::CyberSource qw( PurchaseTotals Service Item );
 use Class::Load qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
+
+my %pt_map = (
+	currency         => 1,
+	total            => 1,
+	foreign_currency => 1,
+	foreign_amount   => 1,
+	exchange_rate    => 1,
+	exchange_rate_timestamp => 1,
+);
+BEGIN {
+%pt_map = (
+	currency         => 1,
+	total            => 1,
+	foreign_currency => 1,
+	foreign_amount   => 1,
+	exchange_rate    => 1,
+	exchange_rate_timestamp => 1,
+);
+}
 
 around BUILDARGS => sub {
 	my $orig = shift;
@@ -39,15 +60,6 @@ around BUILDARGS => sub {
 
 	my %newargs = %{ $args };
 
-	my %pt_map = (
-		currency         => 1,
-		total            => 1,
-		foreign_currency => 1,
-		foreign_amount   => 1,
-		exchange_rate    => 1,
-		exchange_rate_timestamp => 1,
-	);
-
 	my %purchase_totals
 		= map {
 			defined $pt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
@@ -56,6 +68,14 @@ around BUILDARGS => sub {
 	$newargs{purchase_totals} = \%purchase_totals if keys %purchase_totals;
 
 	return \%newargs;
+};
+
+before [ keys %pt_map ] => sub {
+	load_class('Carp');
+	Carp::carp 'DEPRECATED: '
+		. 'call attribute methods ( ' . join( ' ', keys %pt_map ) . ' ) on '
+		. 'Business::CyberSource::RequestPart::BillTo via bill_to directly'
+		;
 };
 
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
@@ -114,6 +134,7 @@ has is_skipable => (
 	lazy    => 1,
 );
 
+BEGIN {
 has purchase_totals => (
 	isa         => PurchaseTotals,
 	remote_name => 'purchaseTotals',
@@ -122,8 +143,10 @@ has purchase_totals => (
 	coerce      => 1,
 	handles     => {
 		has_total => 'has_total',
+		%{ { map {( $_ => $_ )} keys %pt_map } },
 	},
 );
+}
 
 has items => (
 	isa         => ArrayRef[Item],

@@ -14,6 +14,16 @@ use Class::Load qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
+my %br_map = (
+	ignore_avs_result      => 1,
+	ignore_cv_result       => 1,
+	ignore_dav_result      => 1,
+	ignore_export_result   => 1,
+	ignore_validate_result => 1,
+	decline_avs_flags      => 1,
+	score_threshold        => 1,
+);
+
 around BUILDARGS => sub {
 	my $orig = shift;
 	my $self = shift;
@@ -22,15 +32,6 @@ around BUILDARGS => sub {
 
 	my %newargs = %{ $args };
 
-	my %br_map = (
-		ignore_avs_result      => 1,
-		ignore_cv_result       => 1,
-		ignore_dav_result      => 1,
-		ignore_export_result   => 1,
-		ignore_validate_result => 1,
-		decline_avs_flags      => 1,
-		score_threshold        => 1,
-	);
 
 	return $args if defined $args->{business_rules}
 		#or any { defined $br_map{$_} } keys %br_map
@@ -55,12 +56,22 @@ around BUILDARGS => sub {
 	return \%newargs;
 };
 
+before [ keys %br_map ] => sub {
+	load_class('Carp');
+	Carp::carp 'DEPRECATED: '
+		. 'call attribute methods ( ' . join( ' ', keys %br_map ) . ' ) on '
+		. 'Business::CyberSource::RequestPart::BusinessRules via '
+		. 'business_rules directly'
+		;
+};
+
 has business_rules => (
 	isa         => BusinessRules,
 	remote_name => 'businessRules',
 	traits      => ['SetOnce'],
 	is          => 'rw',
 	coerce      => 1,
+	handles     => [ keys %br_map ],
 );
 
 1;
