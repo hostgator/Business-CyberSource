@@ -22,6 +22,8 @@ has request_id => (
 __PACKAGE__->meta->make_immutable;
 1;
 
+# ABSTRACT: AuthReversal Service
+
 =attr request_id
 
 The L<request_id|Business::CyberSource::Response/"request_id"> for the authorization that you want to reverse.

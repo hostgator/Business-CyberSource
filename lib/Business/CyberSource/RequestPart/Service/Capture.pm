@@ -21,6 +21,7 @@ has request_id => (
 
 __PACKAGE__->meta->make_immutable;
 1;
+# ABSTRACT: Capture Service
 
 =attr request_id
 
