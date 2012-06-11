@@ -19,6 +19,8 @@ sub _build_skipable { return $_[0]->card->is_expired } ## no critic (Subroutines
 my %map = (
 	cc_exp_month => 'month',
 	cc_exp_year  => 'year',
+	exp_month    => 'month',
+	exp_year     => 'year',
 	cvn          => 'security_code',
 	csc          => 'security_code',
 	cvv2         => 'security_code',
