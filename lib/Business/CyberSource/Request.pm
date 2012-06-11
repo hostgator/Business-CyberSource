@@ -81,7 +81,7 @@ before [ keys %pt_map ] => sub {
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
-	unless ( $self->has_total || ( $self->has_items && ! $self->items_is_empty ) ) {
+	if ( ! $self->has_total || ( ! $self->has_items && $self->items_is_empty ) ) {
 		confess 'you must define either items or total';
 	}
 };
@@ -144,7 +144,7 @@ has purchase_totals => (
 	coerce      => 1,
 	handles     => {
 		has_total => 'has_total',
-		%{ { map {( $_ => $_ )} keys %pt_map } },
+		%{ { map {( $_ => $_ )} keys %pt_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
 	},
 );
 }

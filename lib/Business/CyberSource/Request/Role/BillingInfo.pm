@@ -79,7 +79,7 @@ has bill_to => (
 	coerce      => 1,
 	handles     => {
 		street => 'street1',
-		%{ { map {( $_ => $_ )} keys %bt_map } },
+		%{ { map {( $_ => $_ )} keys %bt_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
 	}
 );
 

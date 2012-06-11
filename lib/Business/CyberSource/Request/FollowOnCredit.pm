@@ -8,7 +8,7 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
 
-sub BUILD {
+sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	my $self = shift;
 	confess 'a Follow On Credit should set a request_id'
 		unless $self->service->has_request_id
@@ -27,11 +27,11 @@ __PACKAGE__->meta->make_immutable;
 	my $credit = Business::CyberSource::Request::FollowOnCredit->new({
 			reference_code => 'merchant reference code',
 			purchase_totals => {
-				total          => 5.00,
-				currency       => 'USD',
+				total    => 5.00,
+				currency => 'USD',
 			},
 			service => {
-				request_id     => 'capture request_id',
+				request_id => 'capture request_id',
 			},
 		});
 
