@@ -119,6 +119,7 @@ has expiration => (
 	required => 1,
 	is       => 'ro',
 	coerce   => 1,
+	handles  => [ qw( month year ) ],
 );
 
 has is_expired => (

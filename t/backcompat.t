@@ -26,5 +26,6 @@ my $dto = new_ok( $dtc => [{
 
 is $dto->first_name, 'Caleb', 'first_name';
 is $dto->street,     'somewhere', 'street';
+is $dto->cc_exp_month, 9, 'cc_exp_month';
 
 done_testing;

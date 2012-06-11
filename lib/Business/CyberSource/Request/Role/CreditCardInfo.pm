@@ -16,6 +16,17 @@ our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
 sub _build_skipable { return $_[0]->card->is_expired } ## no critic (Subroutines::RequireArgUnpacking)
 
+my %map = (
+	cc_exp_month => 'month',
+	cc_exp_year  => 'year',
+	cvn          => 'security_code',
+	csc          => 'security_code',
+	cvv2         => 'security_code',
+	cvc2         => 'security_code',
+	cid          => 'security_code',
+	credit_card  => 'account_number',
+);
+
 around BUILDARGS => sub {
 	my $orig = shift;
 	my $self = shift;
@@ -31,17 +42,6 @@ around BUILDARGS => sub {
 		. 'or pass a constructor hashref to bill_to as it is coerced from '
 		. 'hashref.'
 		;
-
-	my %map = (
-		cc_exp_month => 'month',
-		cc_exp_year  => 'year',
-		cvn          => 'security_code',
-		csc          => 'security_code',
-		cvv2         => 'security_code',
-		cvc2         => 'security_code',
-		cid          => 'security_code',
-		credit_card  => 'account_number',
-	);
 
 	my %newargs = map {(( $map{$_} || $_ ), $args->{$_})} keys %$args;
 
@@ -71,12 +71,21 @@ around BUILDARGS => sub {
 	return \%newargs;
 };
 
+before [ keys %map ] => sub {
+	load_class('Carp');
+	Carp::carp 'DEPRECATED: '
+		. 'call attribute methods ( ' . join( ' ', keys %map ) . ' ) on '
+		. 'Business::CyberSource::RequestPart::BillTo via bill_to directly'
+		;
+};
+
 has card => (
 	isa         => Card,
 	remote_name => 'card',
 	required    => 1,
 	is          => 'ro',
 	coerce      => 1,
+	handles     => \%map,
 );
 
 1;
