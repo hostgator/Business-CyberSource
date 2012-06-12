@@ -28,20 +28,7 @@ __PACKAGE__->meta->make_immutable;
 	});
 
 	my $request_obj = $factory->create(
-		'Authorization',
-		{
-			reference_code => '42',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
-		}
+		'Authorization', { ... }
 	);
 
 =head1 DESCRIPTION
