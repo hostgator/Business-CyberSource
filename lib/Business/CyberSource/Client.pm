@@ -16,10 +16,10 @@ use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
-use Carp qw( carp );
 use File::ShareDir qw( dist_file );
 use Config;
 use Module::Runtime qw( use_module );
+use Module::Load    qw( load );
 
 use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
@@ -48,7 +48,7 @@ sub run_transaction {
 
 	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
 
-	my ( $answer, $trace ) = $call->(
+	my %request = (
 		wsse_Security         => $security,
 		merchantID            => $self->_username,
 		clientEnvironment     => $self->env,
@@ -59,8 +59,17 @@ sub run_transaction {
 	);
 
 	if ( $self->_debug ) {
-		carp "\n> " . $trace->request->as_string;
-		carp "\n< " . $trace->response->as_string;
+		load 'Carp';
+		load $self->_dumper_package, 'Dumper';
+
+		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
+	}
+
+	my ( $answer, $trace ) = $call->( %request );
+
+	if ( $self->_debug ) {
+		Carp::carp "\n> " . $trace->request->as_string;
+		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
 	$dto->_trace( $trace );
@@ -132,6 +141,14 @@ has debug => (
 	default => sub {
 		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
 	},
+);
+
+has dumper_package => (
+	isa     => NonEmptySimpleStr,
+	reader  => '_dumper_package',
+	is      => 'ro',
+	lazy    => 1,
+	default => sub { return 'Data::Dumper'; },
 );
 
 has production => (
@@ -264,6 +281,11 @@ false they will go to the testing server
 Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+
+=attr dumper_package
+
+Package name for dumping the request hash if doing a L<debug|/"debug">. Package
+must have a C<Dumper> function.
 
 =attr ignore_skipable
 
