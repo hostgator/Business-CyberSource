@@ -19,6 +19,7 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 use File::ShareDir qw( dist_file );
 use Config;
 use Module::Runtime qw( use_module );
+use Class::Load     qw( load_class );
 use Module::Load    qw( load );
 
 use XML::Compile::SOAP::WSS 0.12;
@@ -136,20 +137,24 @@ sub _build__rules {
 };
 
 has _response_factory => (
-	isa      => 'Business::CyberSource::Factory::Response',
+	isa      => 'Object',
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		return use_module('Business::CyberSource::Factory::Response')->new;
+		my $class = 'Business::CyberSource::Factory::Response';
+		load_class($class);
+		return $class->new;
 	},
 );
 
 has _rule_factory => (
-	isa      => 'Business::CyberSource::Factory::Rule',
+	isa      => 'Object',
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		return use_module('Business::CyberSource::Factory::Rule')->new;
+		my $class = 'Business::CyberSource::Factory::Rule';
+		load_class($class);
+		return $class->new;
 	},
 );
 
