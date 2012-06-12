@@ -29,8 +29,6 @@ my $req0
 		},
 	);
 
-ok( $req0->is_skipable, 'skipable' );
-
 my $ret0 = $client->run_transaction( $req0 );
 
 isa_ok( $ret0, 'Business::CyberSource::Response' );

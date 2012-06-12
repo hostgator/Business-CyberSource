@@ -116,9 +116,6 @@ sub add_item {
 	return $self->_push_item( $item );
 }
 
-# the default is false, override in subclass
-sub _build_skipable { return 0 }
-
 sub _build_service {
 	load_class('Business::CyberSource::RequestPart::Service');
 	return Business::CyberSource::RequestPart::Service->new;
@@ -138,13 +135,6 @@ has service => (
 	required   => 1,
 	coerce     => 1,
 	reader     => undef,
-);
-
-has is_skipable => (
-	isa     => 'Bool',
-	builder => '_build_skipable',
-	is      => 'ro',
-	lazy    => 1,
 );
 
 BEGIN {

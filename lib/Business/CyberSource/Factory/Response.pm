@@ -26,14 +26,12 @@ use Exception::Base (
 	ignore_package => [ __PACKAGE__, 'Business::CyberSource::Client' ],
 );
 
-
 sub create {
 	my ( $self, $dto, $answer ) = @_;
 
-	my $result = $self->_get_result( $dto, $answer );
+	my $result = $answer->{result};
 
 	my $decision = $self->_get_decision( $result );
-
 
 	# the reply is a subsection of result named after the specic request, e.g
 	# ccAuthReply
@@ -177,6 +175,7 @@ sub _get_reply {
 
 sub _get_decision {
 	my ( $self, $result ) = @_;
+
 	my $_;
 
 	my ( $decision )
@@ -191,27 +190,6 @@ sub _get_decision {
 		;
 
 	return $decision;
-}
-
-sub _get_result {
-	my ( $self, $dto, $answer ) = @_;
-
-	return $answer->{result} if $answer->{result};
-
-		Business::CyberSource::Exception->throw(
-				message => 'answer not defined and not skipable'
-			)
-			unless $dto->is_skipable
-			;
-
-		# right now the only reason to do this expired card
-		return {
-			merchantReferenceCode => $dto->reference_code,
-			decision              => 'REJECT',
-			reasonCode            => '202',
-			requestID             => 0,
-			requestToken          => 0,
-		};
 }
 
 1;

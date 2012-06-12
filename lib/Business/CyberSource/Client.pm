@@ -35,8 +35,15 @@ sub run_transaction {
 			&& $dto->isa('Business::CyberSource::Request')
 			;
 
-	if ( $dto->is_skipable && ! $self->ignore_skipable ) {
-		return $self->_response_factory->create( $dto );
+	if ( $self->has_rules && ! $self->rules_is_empty ) {
+		my $answer;
+		RULE: foreach my $rule ( @{ $self->_rules } ) {
+			$answer = $rule->run( $dto );
+			last RULE if defined $answer;
+		}
+		return $self->_response_factory->create( $dto, $answer )
+			if defined $answer
+			;
 	}
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
@@ -115,22 +122,55 @@ sub _build_cybs_xsd {
 		);
 }
 
+sub _build__rules {
+	my $self = shift;
+
+	return [] if ! $self->has_rules || $self->rules_is_empty;
+
+	my @rules
+		= map {
+			$self->_rule_factory->create( $_ ) if defined $_
+		} $self->list_rules;
+
+	return \@rules;
+};
+
 has _response_factory => (
 	isa      => 'Business::CyberSource::Factory::Response',
 	is       => 'ro',
 	lazy     => 1,
-	writer   => undef,
-	init_arg => undef,
 	default  => sub {
 		return use_module('Business::CyberSource::Factory::Response')->new;
 	},
 );
 
-has ignore_skipable => (
-	isa     => 'Bool',
-	is      => 'rw',
-	lazy    => 1,
-	default => sub { return 0 },
+has _rule_factory => (
+	isa      => 'Business::CyberSource::Factory::Rule',
+	is       => 'ro',
+	lazy     => 1,
+	default  => sub {
+		return use_module('Business::CyberSource::Factory::Rule')->new;
+	},
+);
+
+has rules => (
+	isa       => 'ArrayRef[Str]',
+	predicate => 'has_rules',
+	traits    => ['Array'],
+	is        => 'ro',
+	reader    => undef,
+	default   => sub { [qw( ExpiredCard )] },
+	handles   => {
+		list_rules     => 'elements',
+		rules_is_empty => 'is_empty',
+	},
+);
+
+has _rules => (
+	isa        => 'ArrayRef[Object]',
+	is         => 'ro',
+	lazy_build => 1,
+	traits     => ['Array'],
 );
 
 has debug => (

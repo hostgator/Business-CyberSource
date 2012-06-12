@@ -14,8 +14,6 @@ use Class::Load qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
-sub _build_skipable { return $_[0]->card->is_expired } ## no critic (Subroutines::RequireArgUnpacking)
-
 my %map = (
 	cc_exp_month => 'month',
 	cc_exp_year  => 'year',
