@@ -18,6 +18,8 @@ sub run {
 		&& $request->card->is_expired
 		;
 
+	$self->debug if $self->client->debug;
+
 	return { result => {
 		merchantReferenceCode => $request->reference_code,
 		decision              => 'REJECT',

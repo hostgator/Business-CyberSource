@@ -66,7 +66,7 @@ sub run_transaction {
 		%{ $dto->serialize },
 	);
 
-	if ( $self->_debug ) {
+	if ( $self->debug ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -75,7 +75,7 @@ sub run_transaction {
 
 	my ( $answer, $trace ) = $call->( %request );
 
-	if ( $self->_debug ) {
+	if ( $self->debug ) {
 		Carp::carp "\n> " . $trace->request->as_string;
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
@@ -130,7 +130,7 @@ sub _build__rules {
 
 	my @rules
 		= map {
-			$self->_rule_factory->create( $_ ) if defined $_
+			$self->_rule_factory->create( $_, { client => $self } ) if defined $_
 		} $self->list_rules;
 
 	return \@rules;
@@ -180,7 +180,6 @@ has _rules => (
 
 has debug => (
 	isa     => 'Bool',
-	reader  => '_debug',
 	is      => 'ro',
 	lazy    => 1,
 	default => sub {
