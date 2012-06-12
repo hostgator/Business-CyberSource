@@ -26,11 +26,11 @@ my %pt_map;
 my %service_map;
 BEGIN {
 %pt_map = (
-	currency         => 1,
-	total            => 1,
-	foreign_currency => 1,
-	foreign_amount   => 1,
-	exchange_rate    => 1,
+	currency                => 1,
+	total                   => 1,
+	foreign_currency        => 1,
+	foreign_amount          => 1,
+	exchange_rate           => 1,
 	exchange_rate_timestamp => 1,
 );
 %service_map = (
