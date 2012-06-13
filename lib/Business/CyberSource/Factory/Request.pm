@@ -28,7 +28,30 @@ __PACKAGE__->meta->make_immutable;
 	});
 
 	my $request_obj = $factory->create(
-		'Authorization', { ... }
+		'Authorization', {
+			reference_code => '42',
+			bill_to => {
+				first_name  => 'Caleb',
+				last_name   => 'Cushing',
+				street      => '100 somewhere st',
+				city        => 'Houston',
+				state       => 'TX',
+				postal_code => '77064',
+				country     => 'US',
+				email       => 'xenoterracide@gmail.com',
+			},
+			purchase_totals => {
+				currency => 'USD',
+				total    => 5.00,
+			},
+			card => {
+				account_number => '4111111111111111',
+				expiration => {
+					month => 9,
+					year  => 2025,
+				},
+			},
+		}
 	);
 
 =head1 DESCRIPTION
