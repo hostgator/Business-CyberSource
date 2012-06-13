@@ -30,8 +30,6 @@ no_index:
     - Business::CyberSource::Request::Role
     - Business::CyberSource::Response::Role
     - Business::CyberSource::Role
-recommends:
-  MooseX::AbstractFactory: 0.004
 requires:
   Carp: 0
   Class::Load: 0
@@ -48,6 +46,7 @@ requires:
   Moose::Role: 0
   Moose::Util::TypeConstraints: 0
   MooseX::ABC: 0.06
+  MooseX::AbstractFactory: 0
   MooseX::Aliases: 0
   MooseX::RemoteHelper: 0
   MooseX::RemoteHelper::CompositeSerialization: 0
@@ -78,4 +77,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.006000
+version: 0.006001

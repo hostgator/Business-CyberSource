@@ -49,6 +49,7 @@ my %WriteMakefileArgs = (
     "Moose::Role" => 0,
     "Moose::Util::TypeConstraints" => 0,
     "MooseX::ABC" => "0.06",
+    "MooseX::AbstractFactory" => 0,
     "MooseX::Aliases" => 0,
     "MooseX::RemoteHelper" => 0,
     "MooseX::RemoteHelper::CompositeSerialization" => 0,
@@ -75,7 +76,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.006000",
+  "VERSION" => "0.006001",
   "test" => {
     "TESTS" => "t/*.t"
   }

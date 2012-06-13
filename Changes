@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+0.006001  2012-06-13
+
 0.006000  2012-06-13
 	[NEWS]
 	- massive refactoring to use MooseX::RemoteHelper and nested object using
@@ -23,6 +25,7 @@ Revision history for Business-CyberSource
 	- skipable and ignore skipable, use rules instead
 	- numerous roles
 	- API's deprecated in 0.005000
+	- Dependance on MooseX::Structured and MooseX::Parameterized
 
 0.005004  2012-06-06
 	- Make optional dependencies recommended
