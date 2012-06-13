@@ -9,6 +9,7 @@ use Moose;
 extends 'Business::CyberSource::Request';
 with 'Business::CyberSource::Request::Role::DCC';
 
+use MooseX::Aliases;
 use MooseX::Types::CyberSource qw( BillTo Card CreditService);
 
 use Class::Load qw( load_class );
@@ -26,6 +27,7 @@ has '+service' => (
 has bill_to => (
 	isa         => BillTo,
 	remote_name => 'billTo',
+	alias       => 'billing_info',
 	traits      => ['SetOnce'],
 	is          => 'rw',
 	coerce      => 1,

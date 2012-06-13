@@ -7,6 +7,7 @@ our $VERSION = '0.005005'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
+use MooseX::Aliases;
 
 use MooseX::Types::CyberSource qw( BillTo );
 
@@ -48,7 +49,6 @@ around BUILDARGS => sub {
 	my %map = (
 		zip          => 'postal_code',
 		street       => 'street1',
-		billing_info => 'bill_to',
 	);
 
 	my %newargs = map {(( $map{$_} || $_ ), $args->{$_})} keys %$args;
@@ -73,6 +73,7 @@ before [ keys %bt_map ] => sub {
 has bill_to => (
 	isa         => BillTo,
 	remote_name => 'billTo',
+	alias       => ['billing_info'],
 	is          => 'ro',
 	required    => 1,
 	coerce      => 1,

@@ -9,6 +9,8 @@ our $VERSION = '0.005005'; # VERSION
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
+use MooseX::Aliases;
+
 use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode ExpirationDate );
 use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode     );
 use MooseX::Types::Common::String      qw( NonEmptySimpleStr               );
@@ -98,6 +100,7 @@ sub _build_card_type_code {
 has account_number => (
 	isa         => CreditCard,
 	remote_name => 'accountNumber',
+	alias       => [ qw( credit_card_number card_number ) ],
 	required    => 1,
 	is          => 'ro',
 	coerce      => 1,
@@ -129,6 +132,7 @@ has is_expired => (
 has security_code => (
 	isa         => CardSecurityCode,
 	remote_name => 'cvNumber',
+	alias       => [ qw( cvn cvv cvv2 cvc2 cid ) ],
 	predicate   => 'has_security_code',
 	traits      => [ 'SetOnce' ],
 	is          => 'rw',
@@ -137,6 +141,7 @@ has security_code => (
 has holder => (
 	isa         => NonEmptySimpleStr,
 	remote_name => 'fullName',
+	alias       => [ qw( name full_name card_holder ) ],
 	predicate   => 'has_holder',
 	traits      => [ 'SetOnce' ],
 	is          => 'rw',

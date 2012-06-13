@@ -8,6 +8,8 @@ our $VERSION = '0.005005'; # VERSION
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 
+use MooseX::Aliases;
+
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::Email          qw( EmailAddress      );
 use MooseX::Types::NetAddr::IP    qw( NetAddrIPv4       );
@@ -49,6 +51,7 @@ has street1 => (
 	required    => 1,
 	is          => 'ro',
 	isa         => _VarcharSixty,
+	alias       => 'street',
 );
 
 has street2 => (
@@ -86,6 +89,7 @@ has state => (
 	remote_name => 'state',
 	isa         => subtype( NonEmptySimpleStr, where { length $_ == 2 }),
 	traits      => ['SetOnce'],
+	alias       => 'province',
 	is          => 'ro',
 	predicate => 'has_state',
 );
@@ -102,6 +106,7 @@ has postal_code => (
 	remote_name => 'postalCode',
 	isa         => _VarcharTen,
 	traits      => ['SetOnce'],
+	alias       => 'zip',
 	is          => 'rw',
 	predicate   => 'has_postal_code',
 );
@@ -110,6 +115,7 @@ has phone_number => (
 	remote_name => 'phoneNumber',
 	isa       => _VarcharTwenty,
 	traits    => ['SetOnce'],
+	alias     => 'phone',
 	is        => 'rw',
 	predicate => 'has_phone_number',
 );

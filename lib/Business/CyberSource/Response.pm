@@ -8,6 +8,7 @@ our $VERSION = '0.005005'; # VERSION
 use Moose;
 extends 'Business::CyberSource::Message';
 
+use MooseX::Aliases;
 use MooseX::Types::Moose                   qw( Str Bool                      );
 use MooseX::Types::CyberSource             qw( Decision RequestID            );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
@@ -47,11 +48,12 @@ has request_token => (
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
 );
 
-has is_accepted => (
+has accepted => (
 	required => 0,
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Bool,
+	alias    => [ qw( is_success is_accepted ) ],
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
