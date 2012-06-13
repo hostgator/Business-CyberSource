@@ -20,7 +20,7 @@ Revision history for Business-CyberSource
 	- rules, see Business::CyberSource::Client rules attribute and
 	  Business::CyberSource::Rule
 	- TaxService Business::CyberSource::RequestPart::Service::Tax
-	  (unfinished)
+	  (unfinished and will undergo active development during 0.6.x release )
 
 	[REMOVAL]
 	- skipable and ignore skipable, use rules instead
