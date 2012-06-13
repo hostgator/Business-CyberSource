@@ -140,6 +140,7 @@ sub _build_reason_text {
 		250 => 'The request was received, but there was a timeout at the '
 			. 'payment processor'
 			,
+		600 => 'Address verification failed',
 	);
 
 	return $reason{$self->reason_code};
