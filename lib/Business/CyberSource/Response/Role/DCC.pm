@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005005'; # VERSION
+our $VERSION = '0.006000'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -43,7 +43,7 @@ Business::CyberSource::Response::Role::DCC - Role that provides attributes speci
 
 =head1 VERSION
 
-version 0.005005
+version 0.006000
 
 =head1 ATTRIBUTES
 

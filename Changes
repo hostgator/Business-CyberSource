@@ -1,6 +1,6 @@
 Revision history for Business-CyberSource
 
-0.005005  2012-06-13
+0.006000  2012-06-13
 	[NEWS]
 	- massive refactoring to use MooseX::RemoteHelper and nested object using
 	  the composite pattern. Due to this many things have been deprecated.
