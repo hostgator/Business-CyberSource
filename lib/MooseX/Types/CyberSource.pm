@@ -23,6 +23,7 @@ use MooseX::Types -declare => [ qw(
 	AuthReversalService
 	CaptureService
 	CreditService
+	TaxService
 	BillTo
 	BusinessRules
 
@@ -90,6 +91,7 @@ my $brc = $prefix . 'BusinessRules';
 my $ars = $prefix . 'Service::AuthReversal';
 my $cps = $prefix . 'Service::Capture';
 my $cds = $prefix . 'Service::Credit';
+my $txs = $prefix . 'Service::Tax';
 
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
@@ -100,6 +102,7 @@ class_type BusinessRules,       { class => $brc };
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
 class_type CreditService,       { class => $cds };
+class_type TaxService,          { class => $txs };
 
 coerce Item,
 	from HashRef,
@@ -141,6 +144,13 @@ coerce CreditService,
 	via {
 		load_class( $cds );
 		$cds->new( $_ );
+	};
+
+coerce TaxService,
+	from HashRef,
+	via {
+		load_class( $txs );
+		$txs->new( $_ );
 	};
 
 coerce Card,
