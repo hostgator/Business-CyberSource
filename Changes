@@ -10,6 +10,8 @@ Revision history for Business-CyberSource
 
 	[DEPRECATIONS]
 	- constructors and methods that are now subobjects
+	- Business::CyberSource::CreditCard use
+	  Business::CyberSource::RequestPart::Card
 
 	[FEATURE - EXPERIMENTAL]
 	- rules, see Business::CyberSource::Client rules attribute and

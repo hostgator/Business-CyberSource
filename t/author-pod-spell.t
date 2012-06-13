@@ -74,10 +74,12 @@ StandAloneCredit
 FollowOnCredit
 Client
 Credit
+TaxService
 Item
 MooseX
 Types
 ExpiredCard
+Tax
 BillingInfo
 Accept
 Card

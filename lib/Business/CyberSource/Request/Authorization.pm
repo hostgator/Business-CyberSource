@@ -12,6 +12,7 @@ with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
 	Business::CyberSource::Request::Role::DCC
+	Business::CyberSource::Request::Role::TaxService
 );
 
 has '+service' => ( remote_name => 'ccAuthService' );

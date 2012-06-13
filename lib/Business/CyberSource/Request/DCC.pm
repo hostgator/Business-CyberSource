@@ -10,6 +10,7 @@ extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Role::ForeignCurrency
+	Business::CyberSource::Request::Role::TaxService
 );
 
 has '+service' => ( remote_name => 'ccDCCService' );

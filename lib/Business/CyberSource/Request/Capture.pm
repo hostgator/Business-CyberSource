@@ -7,7 +7,10 @@ our $VERSION = '0.006000'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with 'Business::CyberSource::Request::Role::DCC';
+with qw(
+	Business::CyberSource::Request::Role::DCC
+	Business::CyberSource::Request::Role::TaxService
+);
 
 use MooseX::Types::CyberSource qw( CaptureService );
 
