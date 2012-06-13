@@ -25,6 +25,7 @@ Revision history for {{$dist->name}}
 	- skipable and ignore skipable, use rules instead
 	- numerous roles
 	- API's deprecated in 0.005000
+	- Dependance on MooseX::Structured and MooseX::Parameterized
 
 0.005004  2012-06-06
 	- Make optional dependencies recommended
