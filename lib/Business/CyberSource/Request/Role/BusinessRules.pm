@@ -1,115 +1,82 @@
 package Business::CyberSource::Request::Role::BusinessRules;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use Moose::Role;
-use MooseX::SetOnce 0.200001;
+use MooseX::RemoteHelper;
+use MooseX::Types::CyberSource qw( BusinessRules );
 
-use MooseX::Types::Moose qw( Bool ArrayRef );
-use MooseX::Types::Common::String 0.001005 qw( NumericCode );
-use MooseX::Types::CyberSource qw( AVSResult );
+#use List::MoreUtils qw( any );
+use Class::Load qw( load_class );
 
-has ignore_avs_result => (
-	isa       => Bool,
-	predicate => 'has_ignore_avs_result',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{ignoreAVSResult}
-			= $self->ignore_avs_result ? 'true' : 'false'
-			;
-	},
+our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
+
+my %br_map = (
+	ignore_avs_result      => 1,
+	ignore_cv_result       => 1,
+	ignore_dav_result      => 1,
+	ignore_export_result   => 1,
+	ignore_validate_result => 1,
+	decline_avs_flags      => 1,
+	score_threshold        => 1,
 );
 
-has ignore_cv_result => (
-	isa       => Bool,
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	predicate => 'has_ignore_cv_result',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{ignoreCVResult}
-			= $self->ignore_cv_result ? 'true' : 'false'
-			;
-	},
-);
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
 
-has ignore_dav_result => (
-	isa       => Bool,
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	predicate => 'has_ignore_dav_result',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{ignoreDAVResult}
-			= $self->ignore_dav_result ? 'true' : 'false'
-			;
-	},
-);
+	my $args = $self->$orig( @_ );
 
-has ignore_export_result => (
-	isa       => Bool,
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	predicate => 'has_ignore_export_result',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{ignoreExportResult}
-			= $self->ignore_export_result ? 'true' : 'false'
-			;
-	},
-);
+	my %newargs = %{ $args };
 
-has ignore_validate_result => (
-	isa       => Bool,
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	predicate => 'has_ignore_validate_result',
-	trigger   => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{ignoreValidateResult}
-			= $self->ignore_validate_result ? 'true' : 'false'
-			;
-	},
-);
 
-has decline_avs_flags => (
-	isa       => ArrayRef[AVSResult],
-	is        => 'rw',
-	predicate => 'has_decline_avs_flags',
-	traits    => ['Array'],
-	handles   => {
-		_stringify_decline_avs_flags => [ join => ' ' ],
-	},
-	trigger  => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{declineAVSFlags}
-			= $self->_stringify_decline_avs_flags
-			;
-	},
-);
+	return $args if defined $args->{business_rules}
+		#or any { defined $br_map{$_} } keys %br_map
+		;
 
-has score_threshold => (
-	isa       => NumericCode,
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	predicate => 'has_score_threshold',
-	trigger  => sub {
-		my $self = shift;
-		$self->_request_data->{businessRules}{scoreThreshold}
-			= $self->score_threshold
-			;
-	},
+	my %business_rules
+		= map {
+			defined $br_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	$newargs{business_rules} = \%business_rules if keys %business_rules;
+
+	load_class 'Carp';
+	Carp::carp 'DEPRECATED: '
+		. 'pass a Business::CyberSource::RequestPart::BusinessRules to '
+		. 'purchase_totals '
+		. 'or pass a constructor hashref to bill_to as it is coerced from '
+		. 'hashref.'
+		if keys %business_rules
+		;
+
+	return \%newargs;
+};
+
+before [ keys %br_map ] => sub {
+	load_class('Carp');
+	Carp::carp 'DEPRECATED: '
+		. 'call attribute methods ( ' . join( ' ', keys %br_map ) . ' ) on '
+		. 'Business::CyberSource::RequestPart::BusinessRules via '
+		. 'business_rules directly'
+		;
+};
+
+has business_rules => (
+	isa         => BusinessRules,
+	remote_name => 'businessRules',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+	handles     => [ keys %br_map ],
 );
 
 1;
 
-# ABSTRACT: Business Rules Role
+# ABSTRACT: Business Rules
 
 
 __END__
@@ -117,27 +84,17 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::BusinessRules - Business Rules Role
+Business::CyberSource::Request::Role::BusinessRules - Business Rules
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 ATTRIBUTES
 
-=head2 ignore_avs_result
+=head2 business_rules
 
-=head2 ignore_cv_result
-
-=head2 ignore_dav_result
-
-=head2 ignore_export_result
-
-=head2 ignore_validate_result
-
-=head2 decline_avs_flags
-
-=head2 score_threshold
+L<Business::CyberSource::RequestPart::BusinessRules>
 
 =head1 BUGS
 

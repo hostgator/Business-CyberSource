@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+0.005005  2012-06-13
+
 0.005004  2012-06-06
 	- Make optional dependencies recommended
 	- fix bug where score threshold in authorization business rules would

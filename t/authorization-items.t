@@ -1,53 +1,47 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/object' );
+my $client = $t->resolve( service => '/client/object'    );
 
 my $authc = use_module('Business::CyberSource::Request::Authorization');
+my $ptc   = use_module('Business::CyberSource::RequestPart::PurchaseTotals');
 
 my $req
 	= new_ok( $authc => [{
-		reference_code => 'test-auth-items-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		currency       => 'USD',
-		card           => $credit_card,
-		items          => [
-			{
-				unit_price => '0.01',
-				quantity   => 1,
-			},
-			{
-				unit_price => 1000.00,
-				quantity   => 2,
-				product_name => 'candybarz',
-				product_code => 't108-code',
-				product_sku  => '123456',
-				tax_amount   => '0.01',
-			},
-			{
-				unit_price => 1000.00,
-				quantity   => 1,
-			},
-		],
+		reference_code  => $t->resolve( service => '/request/reference_code' ),
+		bill_to         => $t->resolve( service => '/helper/bill_to' ),
+		card            => $t->resolve( service => '/helper/card' ),
+		purchase_totals => new_ok( $ptc => [{ currency => 'USD' }]),
 	}]);
+
+my @items = (
+	{
+		unit_price => '0.01',
+		quantity   => 1,
+	},
+	{
+		unit_price => 1000.00,
+		quantity   => 2,
+		product_name => 'candybarz',
+		product_code => 't108-code',
+		product_sku  => '123456',
+		tax_amount   => '0.01',
+	},
+	{
+		unit_price => 1000.00,
+		quantity   => 1,
+	}
+);
+
+foreach my $item ( @items ) {
+	$req->add_item( $item );
+}
 
 my $ret = $client->run_transaction( $req );
 

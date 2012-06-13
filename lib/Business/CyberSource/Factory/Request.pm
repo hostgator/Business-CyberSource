@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use MooseX::AbstractFactory;
 implementation_class_via sub { 'Business::CyberSource::Request::' . shift };
@@ -22,7 +22,7 @@ Business::CyberSource::Factory::Request - CyberSource Request Factory Module
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 SYNOPSIS
 
@@ -40,19 +40,29 @@ version 0.005004
 	});
 
 	my $request_obj = $factory->create(
-		'Authorization',
-		{
+		'Authorization', {
 			reference_code => '42',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
+			bill_to => {
+				first_name  => 'Caleb',
+				last_name   => 'Cushing',
+				street      => '100 somewhere st',
+				city        => 'Houston',
+				state       => 'TX',
+				postal_code => '77064',
+				country     => 'US',
+				email       => 'xenoterracide@gmail.com',
+			},
+			purchase_totals => {
+				currency => 'USD',
+				total    => 5.00,
+			},
+			card => {
+				account_number => '4111111111111111',
+				expiration => {
+					month => 9,
+					year  => 2025,
+				},
+			},
 		}
 	);
 

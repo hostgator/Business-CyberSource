@@ -4,65 +4,183 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
+BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
-
-with qw(
-	Business::CyberSource::Request::Role::Credentials
-);
-
-use Module::Runtime qw( use_module );
-
-use MooseX::SetOnce 0.200001;
-
-use Carp qw( cluck );
-our @CARP_NOT = ( 'Class::MOP::Method::Wrapped' );
-
-before create => sub {
-	cluck 'DEPRECATED: calling create and using Request object as a factory '
-		. ' is deprecated. '
-		. 'This class will be converted to an Abstract in the future. '
-		. 'If you require a factory please use '
-		. 'Business::CyberSource::RequestFactory directly instead'
-		;
-};
-
-before [ qw( username password production ) ] => sub {
-	cluck 'DEPRECATED: please do not set username, password, or production '
-		. 'attributes on Request objects anymore, these instead should be set '
-		. 'on Business::CyberSource::Client'
-		;
-};
-
-sub create { ## no critic ( Subroutines::RequireArgUnpacking )
-	my $self = shift;
-	my $impl = shift;
-	my ( $args ) = @_;
-
-	confess 'Business::CyberSource::RequestFactory is now the factory'
-		unless __PACKAGE__ eq ref $self;
-
-	if ( ref($args) eq 'HASH' ) {
-		$args->{username}   //= $self->username   if $self->has_username;
-		$args->{password}   //= $self->password   if $self->has_password;
-		$args->{production} //= $self->production if $self->has_production;
-	}
-
-	my $factory = use_module('Business::CyberSource::RequestFactory')->new;
-
-	return $factory->create( $impl, @_ );
 }
 
-# the default is false, override in subclass
-sub _build_skipable { return 0 }
+with 'Business::CyberSource::Role::MerchantReferenceCode';
 
-has is_skipable => (
-	isa     => 'Bool',
-	builder => '_build_skipable',
-	is      => 'ro',
-	lazy    => 1,
+use MooseX::ABC;
+
+use MooseX::Types::Moose       qw( ArrayRef );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
+
+use Class::Load qw( load_class );
+
+our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
+
+my %pt_map;
+my %service_map;
+BEGIN {
+%pt_map = (
+	currency                => 1,
+	total                   => 1,
+	foreign_currency        => 1,
+	foreign_amount          => 1,
+	exchange_rate           => 1,
+	exchange_rate_timestamp => 1,
+);
+%service_map = (
+	request_id => 1,
+);
+}
+
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
+
+	my $args = $self->$orig( @_ );
+
+	return $args if defined $args->{purchase_totals};
+
+	load_class 'Carp';
+	Carp::cluck 'DEPRECATED: using a deprecated API';
+	Carp::carp 'DEPRECATED: '
+		. 'pass a Business::CyberSource::RequestPart::PurchaseTotals to '
+		. 'purchase_totals '
+		. 'or pass a constructor hashref to bill_to as it is coerced from '
+		. 'hashref.'
+		;
+
+	my %newargs = %{ $args };
+
+	my %purchase_totals
+		= map {
+			defined $pt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	my %service
+		= map {
+			defined $service_map{$_} ? ( $_, delete $newargs{$_} ) : ()
+		} keys %newargs;
+
+	$newargs{purchase_totals} = \%purchase_totals if keys %purchase_totals;
+
+	if ( keys %service ) {
+		$newargs{service} = \%service;
+		Carp::carp 'DEPRECATED: '
+		. 'pass an appropriate Business::CyberSource::RequestPart::Service::* '
+		. 'to service '
+		. 'or pass a constructor hashref to service to as it is coerced from '
+		. 'hashref.'
+		;
+	}
+
+	return \%newargs;
+};
+
+before [ keys %pt_map ] => sub {
+	load_class('Carp');
+	Carp::carp 'DEPRECATED: '
+		. 'call attribute methods ( ' . join( ' ', keys %pt_map ) . ' ) on '
+		. 'Business::CyberSource::RequestPart::BillTo via bill_to directly'
+		;
+};
+
+before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
+	my $self = shift;
+
+	if ( ! $self->has_total && ( ! $self->has_items || $self->items_is_empty ) ) {
+		confess 'you must define either items or total';
+	}
+};
+
+sub add_item {
+	my ( $self, $args ) = @_;
+
+	my $item;
+	unless ( blessed $args
+			&& $args->isa( 'Business::CyberSource::RequestPart::Item' )
+		) {
+		load_class 'Business::CyberSource::RequestPart::Item';
+		$item = Business::CyberSource::RequestPart::Item->new( $args )
+	}
+	else {
+		$item = $args;
+	}
+	$self->items( [ ] ) if ! $self->has_items;
+
+	return $self->_push_item( $item );
+}
+
+sub _build_service {
+	load_class('Business::CyberSource::RequestPart::Service');
+	return Business::CyberSource::RequestPart::Service->new;
+}
+
+has comments => (
+	remote_name => 'comments',
+	isa         => 'Str',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+);
+
+has service => (
+	isa        => Service,
+	is         => 'ro',
+	lazy_build => 1,
+	required   => 1,
+	coerce     => 1,
+	reader     => undef,
+);
+
+BEGIN {
+has purchase_totals => (
+	isa         => PurchaseTotals,
+	remote_name => 'purchaseTotals',
+	is          => 'ro',
+	required    => 1,
+	coerce      => 1,
+	handles     => {
+		has_total => 'has_total',
+		%{ { map {( $_ => $_ )} keys %pt_map } },      ## no critic ( BuiltinFunctions::ProhibitVoidMap )
+		%{ { map {( $_ => $_ )} keys %service_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
+	},
+);
+}
+
+has items => (
+	isa         => Items,
+	remote_name => 'item',
+	predicate   => 'has_items',
+	is          => 'rw',
+	traits      => ['Array'],
+	coerce      => 1,
+	handles     => {
+		items_is_empty => 'is_empty',
+		next_item      => [ natatime => 1 ],
+		list_items     => 'elements',
+		_push_item     => 'push',
+	},
+	serializer => sub {
+		my ( $attr, $instance ) = @_;
+
+		my $items = $attr->get_value( $instance );
+
+		my $i = 0;
+		my @serialized
+			= map { ## no critic ( BuiltinFunctions::ProhibitComplexMappings )
+				my $item = $_->serialize;
+				$item->{id} = $i;
+				$i++;
+				$item
+			} @{ $items };
+
+		return \@serialized;
+	},
 );
 
 has '+_trait_namespace' => (
@@ -89,7 +207,7 @@ Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 DESCRIPTION
 
@@ -121,146 +239,40 @@ and thus does not currently work with the factory.
 
 =head1 METHODS
 
-=head2 new
-
 =head2 serialize
 
 returns a hashref suitable for passing to L<XML::Compile::SOAP>
 
-=head2 create
+=head2 add_item
 
-B<DEPRECATED> consider using L<Business::CyberSource::RequestFactory> instead
+Add an L<Item|Business::CyberSource::RequestPart::Item> to L<items|/"items">.
+Accepts an item object or a hashref to construct an item object.
 
-( $implementation, { hashref for new } )
-
-Create a new request object. C<create> takes a request implementation and a hashref to pass to the
-implementation's C<new> method. The implementation string accepts any
-implementation whose package name is prefixed by
-C<Business::CyberSource::Request::>.
-
-	my $req = $factory->create(
-			'Capture',
-			{
-				first_name => 'John',
-				last_name  => 'Smith',
-				...
-			}
-		);
-
-Please see the following C<Business::CyberSource::Request::> packages for
-implementation and required attributes:
+an array of L<Items|MooseX::Types::CyberSource/"Items">
 
 =head1 ATTRIBUTES
 
-=head2 foreign_amount
-
-Reader: foreign_amount
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 comments
-
-Reader: comments
-
-Type: Str
-
-=head2 cvn
-
-Reader: cvn
-
-Type: MooseX::Types::CreditCard::CardSecurityCode
-
-Additional documentation: Card Verification Numbers
-
-=head2 total
-
-Reader: total
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-Additional documentation: Grand total for the order. You must include either this field or item_#_unitPrice in your request
-
-=head2 cc_exp_month
-
-Reader: cc_exp_month
-
-This attribute is required.
-
-Additional documentation: Two-digit month that the credit card expires in. Format: MM.
-
-=head2 card_type
-
-Reader: card_type
-
-Type: MooseX::Types::CyberSource::CardTypeCode
-
-Additional documentation: Type of card to authorize
-
-=head2 credit_card
-
-Reader: credit_card
-
-Type: MooseX::Types::CreditCard::CreditCard
-
-Customer's credit card number
-
 =head2 reference_code
 
-Reader: reference_code
+Merchant-generated order reference or tracking number.  CyberSource recommends
+that you send a unique value for each transaction so that you can perform
+meaningful searches for the transaction.
 
-Type: MooseX::Types::CyberSource::_VarcharFifty
+=head2 service
 
-=head2 cv_indicator
+L<Business::CyberSource::RequestPart::Service>
 
-Reader: cv_indicator
+=head2 purchase_totals
 
-Type: MooseX::Types::CyberSource::CvIndicator
-
-Flag that indicates whether a CVN code was sent
-
-=head2 currency
-
-Reader: currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-=head2 exchange_rate
-
-Reader: exchange_rate
-
-Type: MooseX::Types::Common::Numeric::PositiveOrZeroNum
-
-=head2 exchange_rate_timestamp
-
-Reader: exchange_rate_timestamp
-
-Type: Str
-
-=head2 full_name
-
-Reader: full_name
-
-Type: MooseX::Types::CyberSource::_VarcharSixty
-
-=head2 cc_exp_year
-
-Reader: cc_exp_year
-
-Four-digit year that the credit card expires in. Format: YYYY.
-
-=head2 foreign_currency
-
-Reader: foreign_currency
-
-Type: MooseX::Types::Locale::Currency::CurrencyCode
-
-Billing currency returned by the DCC service. For the possible values, see the ISO currency codes
+L<Business::CyberSource::RequestPart::PurchaseTotals>
 
 =head2 items
 
-Reader: items
+An array of L<Business::CyberSource::RequestPart::Item>
 
-Type: ArrayRef[MooseX::Types::CyberSource::Item]
+=head2 comments
+
+Comment Field
 
 =head2 is_skipable
 
@@ -269,6 +281,18 @@ Type: Bool
 an optimization to see if we can skip sending the request and just construct a
 response. This attribute is for use by L<Business::CyberSource::Client> only
 and may change names later.
+
+=head1 EXTENDS
+
+L<Business::CyberSource::Message>
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=back
 
 =for Pod::Coverage BUILD
 

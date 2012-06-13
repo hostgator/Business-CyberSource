@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300017, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300018, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"
    ],
@@ -30,27 +30,34 @@
             "File::ShareDir::Install" : "0.03"
          }
       },
+      "develop" : {
+         "requires" : {
+            "MooseX::AbstractFactory" : "0.004",
+            "Test::File::ShareDir" : "0"
+         }
+      },
       "runtime" : {
          "recommends" : {
             "MooseX::AbstractFactory" : "0.004"
          },
          "requires" : {
-            "Business::CreditCard" : "0",
             "Carp" : "0",
+            "Class::Load" : "0",
             "Config" : "0",
-            "DateTime" : "0.74",
             "DateTime::Format::W3CDTF" : "0.06",
             "Exception::Base" : "0",
             "File::ShareDir" : "0",
             "Hash::Merge" : "0",
             "LWP::Protocol::https" : "0",
             "Locale::Country" : "0",
+            "Module::Load" : "0",
             "Module::Runtime" : "0",
             "Moose" : "0",
             "Moose::Role" : "0",
             "Moose::Util::TypeConstraints" : "0",
             "MooseX::ABC" : "0.06",
-            "MooseX::Aliases" : "0",
+            "MooseX::RemoteHelper" : "0",
+            "MooseX::RemoteHelper::CompositeSerialization" : "0",
             "MooseX::SetOnce" : "0.200001",
             "MooseX::StrictConstructor" : "0",
             "MooseX::Traits" : "0",
@@ -66,8 +73,6 @@
             "MooseX::Types::Moose" : "0",
             "MooseX::Types::NetAddr::IP" : "0",
             "MooseX::Types::Path::Class" : "0",
-            "MooseX::Types::Structured" : "0",
-            "MooseX::Types::URI" : "0",
             "XML::Compile::SOAP11" : "0",
             "XML::Compile::SOAP::WSS" : "0.12",
             "XML::Compile::Transport::SOAPHTTP" : "0",
@@ -83,9 +88,11 @@
             "Bread::Board" : "0.25"
          },
          "requires" : {
+            "DateTime" : "0",
             "File::Find" : "0",
             "File::Temp" : "0",
             "FindBin" : "0",
+            "Module::Load::Conditional" : "0",
             "Test::Fatal" : "0",
             "Test::Moose" : "0",
             "Test::More" : "0.88",
@@ -106,6 +113,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "0.005004"
+   "version" : "0.005005"
 }
 

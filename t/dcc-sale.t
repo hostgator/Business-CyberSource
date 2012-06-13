@@ -2,8 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_MM
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
@@ -14,7 +12,7 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $card = $t->resolve(
-		service => '/credit_card/object',
+		service => '/helper/card',
 		parameters => {
 			account_number => $ENV{PERL_BUSINESS_CYBERSOURCE_DCC_VISA},
 			expiration     => {
@@ -27,10 +25,12 @@ my $card = $t->resolve(
 my $dcc_req
 	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
 		reference_code   => 'test-dcc-authorization-' . time,
-		currency         => 'USD',
 		card             => $card,
-		total            => '1.00',
-		foreign_currency => 'JPY',
+		purchase_totals => {
+			currency         => 'USD',
+			total            => '1.00',
+			foreign_currency => 'JPY',
+		},
 	}]);
 
 my $client = $t->resolve( service => '/client/object' );
@@ -46,23 +46,18 @@ is( $dcc->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' 
 
 my $sale_req
 	= new_ok( use_module( 'Business::CyberSource::Request::Sale') => [{
-			reference_code   => $dcc->reference_code,
-			first_name       => 'Caleb',
-			last_name        => 'Cushing',
-			street           => 'somewhere',
-			city             => 'Houston',
-			state            => 'TX',
-			zip              => '77064',
-			country          => 'US',
-			email            => 'xenoterracide@gmail.com',
-			total            => $dcc_req->total,
+		reference_code   => $dcc->reference_code,
+		bill_to          => $t->resolve( service => '/helper/bill_to' ),
+		card             => $card,
+		purchase_totals => {
+			total            => $dcc_req->purchase_totals->total,
 			currency         => $dcc->currency,
 			foreign_currency => $dcc->foreign_currency,
 			foreign_amount   => $dcc->foreign_amount,
 			exchange_rate    => $dcc->exchange_rate,
-			dcc_indicator    => 1,
-			card             => $card,
 			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+		},
+		dcc_indicator    => 1,
 		}]);
 
 my $sale_res = $client->run_transaction( $sale_req );

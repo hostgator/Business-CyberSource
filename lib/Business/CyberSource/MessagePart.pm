@@ -1,18 +1,25 @@
-package Business::CyberSource::Request::Role::FollowUp;
+package Business::CyberSource::MessagePart;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
-use Moose::Role;
+use Moose;
 with qw(
-	Business::CyberSource::Role::RequestID
+	MooseX::Traits
+	MooseX::RemoteHelper::CompositeSerialization
 );
 
+use MooseX::RemoteHelper;
+use MooseX::SetOnce 0.200001;
+use MooseX::StrictConstructor;
+use MooseX::ABC 0.06;
+
+__PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: Role to apply to requests that are follow ups to a previous request
+# ABSTRACT: Things that all portions of a message have in common
 
 
 __END__
@@ -20,19 +27,19 @@ __END__
 
 =head1 NAME
 
-Business::CyberSource::Request::Role::FollowUp - Role to apply to requests that are follow ups to a previous request
+Business::CyberSource::MessagePart - Things that all portions of a message have in common
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
-=head1 DESCRIPTION
-
-=head2 composes
+=head1 WITH
 
 =over
 
-=item L<Business::CyberSource::Role::RequestID>
+=item L<MooseX::Traits>
+
+=item L<MooseX::RemoteHelper::CompositeSerialization>
 
 =back
 

@@ -1,36 +1,39 @@
-package Business::CyberSource::Role::RequestID;
+package Business::CyberSource::Factory::Rule;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
-use Moose::Role;
+use MooseX::AbstractFactory;
 
-use MooseX::Types::Common::String qw( NonEmptySimpleStr );
-use Moose::Util::TypeConstraints;
+implementation_class_via sub { 'Business::CyberSource::Rule::' . shift};
 
-has request_id => (
-	required  => 1,
-	predicate => 'has_request_id',
-	is        => 'ro',
-	isa       => subtype( NonEmptySimpleStr, where { length $_ <= 29 }),
-);
-
+__PACKAGE__->meta->make_immutable;
 1;
+# ABSTRACT: CyberSource Rule Factory Module
 
-# ABSTRACT: Role to apply to requests and responses that require request id's
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::Role::RequestID - Role to apply to requests and responses that require request id's
+Business::CyberSource::Factory::Rule - CyberSource Rule Factory Module
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
+
+=head1 METHODS
+
+=head2 create
+
+takes the name of an object in C<Business::CyberSource::Rule::> namespace as
+the first parameter, then the client object, passed as a hashref to the rule
+constructor.
+
+	$factory->create( 'ExpiredCard', { client => $self } ),
 
 =head1 BUGS
 

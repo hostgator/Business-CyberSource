@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
@@ -12,9 +12,25 @@ use MooseX::Types -declare => [ qw(
 	CvIndicator
 	CvResults
 	DCCIndicator
+
 	Decision
+	Items
+
 	Item
+	Card
+	PurchaseTotals
+	Service
+	AuthReversalService
+	CaptureService
+	CreditService
+	BillTo
+	BusinessRules
+
+	RequestID
+
+	ExpirationDate
 	CreditCard
+
 	_VarcharOne
 	_VarcharSeven
 	_VarcharTen
@@ -23,12 +39,14 @@ use MooseX::Types -declare => [ qw(
 	_VarcharSixty
 ) ];
 
-use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
-use MooseX::Types::Common::String  qw( NonEmptySimpleStr );
-use MooseX::Types::Moose qw( Int Num Str HashRef );
-use MooseX::Types::Structured qw( Dict Optional );
-use Locale::Country;
+use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
+use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
+use MooseX::Types::DateTime;
+
+use Locale::Country;
+use Class::Load qw( load_class );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -58,23 +76,93 @@ enum CardTypeCode, [ qw(
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
-
-subtype Item,
-	as Dict[
-		unit_price   => PositiveOrZeroNum,
-		quantity     => Int,
-		product_code => Optional[Str],
-		product_name => Optional[Str],
-		product_sku  => Optional[Str],
-		product_risk => Optional[Str],
-		tax_amount   => Optional[PositiveOrZeroNum],
-		tax_rate     => Optional[PositiveOrZeroNum],
-		national_tax => Optional[PositiveOrZeroNum],
-	];
-
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+
+my $prefix = 'Business::CyberSource::RequestPart::';
+my $itc = $prefix . 'Item';
+my $ptc = $prefix . 'PurchaseTotals';
+my $svc = $prefix . 'Service';
+my $cdc = $prefix . 'Card';
+my $btc = $prefix . 'BillTo';
+my $brc = $prefix . 'BusinessRules';
+my $ars = $prefix . 'Service::AuthReversal';
+my $cps = $prefix . 'Service::Capture';
+my $cds = $prefix . 'Service::Credit';
+
+class_type Item,                { class => $itc };
+class_type PurchaseTotals,      { class => $ptc };
+class_type Service,             { class => $svc };
+class_type Card,                { class => $cdc };
+class_type BillTo,              { class => $btc };
+class_type BusinessRules,       { class => $brc };
+class_type AuthReversalService, { class => $ars };
+class_type CaptureService,      { class => $cps };
+class_type CreditService,       { class => $cds };
+
+coerce Item,
+	from HashRef,
+	via {
+		load_class( $itc );
+		$itc->new( $_ );
+	};
+
+coerce PurchaseTotals,
+	from HashRef,
+	via {
+		load_class( $ptc );
+		$ptc->new( $_ );
+	};
+
+coerce Service,
+	from HashRef,
+	via {
+		load_class( $svc );
+		$svc->new( $_ );
+	};
+
+coerce AuthReversalService,
+	from HashRef,
+	via {
+		load_class( $ars );
+		$ars->new( $_ );
+	};
+
+coerce CaptureService,
+	from HashRef,
+	via {
+		load_class( $cps );
+		$cps->new( $_ );
+	};
+
+coerce CreditService,
+	from HashRef,
+	via {
+		load_class( $cds );
+		$cds->new( $_ );
+	};
+
+coerce Card,
+	from HashRef,
+	via {
+		load_class( $cdc );
+		$cdc->new( $_ );
+	};
+
+coerce BillTo,
+	from HashRef,
+	via {
+		load_class( $btc );
+		$btc->new( $_ );
+	};
+
+coerce BusinessRules,
+	from HashRef,
+	via {
+		load_class( $brc );
+		$brc->new( $_ );
+	};
 
 subtype CountryCode,
 	as Alpha2Country
@@ -102,6 +190,32 @@ coerce CreditCard,
 	from HashRef,
 	via {
 		return use_module('Business::CyberSource::CreditCard')->new( $_ );
+	};
+
+subtype ExpirationDate, as MooseX::Types::DateTime::DateTime;
+
+coerce ExpirationDate,
+	from HashRef,
+	via {
+		return DateTime->last_day_of_month( %{ $_ } );
+	};
+
+subtype RequestID,
+	as NonEmptySimpleStr,
+	where { length $_ <= 29 }
+	;
+
+subtype Items, as ArrayRef[Item];
+
+coerce Items,
+	from ArrayRef[HashRef],
+	via {
+		load_class( $itc );
+
+		my $items = $_;
+
+		my @items = map { $itc->new( $_ ) } @{ $items };
+		return \@items;
 	};
 
 subtype _VarcharOne,
@@ -148,7 +262,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 SYNOPSIS
 
@@ -196,51 +310,6 @@ Base Type: C<enum>
 
 Numeric codes that specify Card types. Codes denoted with an asterisk* are
 automatically detected when using
-L<Business::CyberSource::Request::Role::CreditCardInfo>
-
-=over
-
-=item * 001: Visa*
-
-=item * 002: MasterCard, Eurocard*
-
-=item * 003: American Express*
-
-=item * 004: Discover*
-
-=item * 005: Diners Club
-
-=item * 006: Carte Blanche
-
-=item * 007: JCB*
-
-=item * 014: EnRoute*
-
-=item * 021: JAL
-
-=item * 024: Maestro (UK Domestic)
-
-=item * 031: Delta
-
-=item * 033: Visa Electron
-
-=item * 034: Dankort
-
-=item * 035: Laser*
-
-=item * 036: Carte Bleue
-
-=item * 037: Carta Si
-
-=item * 039: Encoded account number
-
-=item * 040: UATP
-
-=item * 042: Maestro (International)
-
-=item * 043: Santander card
-
-=back
 
 =item * C<CvResults>
 
@@ -281,22 +350,6 @@ Non-convertible - DCC cannot be used.
 Declined - DCC could be used, but the customer declined it.
 
 =back
-
-=item * C<Item>
-
-Base Type: C<Dict>
-
-Here's the current list of valid keys and their types for the Dictionary
-
-	unit_price   => PositiveOrZeroNum,
-	quantity     => Int,
-	product_code => Optional[Str],
-	product_name => Optional[Str],
-	product_sku  => Optional[Str],
-	product_risk => Optional[Str],
-	tax_amount   => Optional[PositiveOrZeroNum],
-	tax_rate     => Optional[PositiveOrZeroNum],
-	national_tax => Optional[PositiveOrZeroNum],
 
 =back
 

@@ -1,23 +1,26 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $client      = $t->resolve( service => '/client/object'    );
+my $client = $t->resolve( service => '/client/object' );
 
 my $ret0
 	= $client->run_transaction(
 		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 3000.37 }, # magic make me expired
+			service    => '/request/authorization',
+			parameters => {
+				purchase_totals => $t->resolve(
+					service    => '/helper/purchase_totals',
+					parameters => {
+						total => 3000.37, # magic make me expired
+					},
+				),
+			},
 		)
 	);
 
@@ -42,8 +45,15 @@ is(
 my $ret1
 	= $client->run_transaction(
 		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 3000.04 },
+			service    => '/request/authorization',
+			parameters => {
+				purchase_totals => $t->resolve(
+					service    => '/helper/purchase_totals',
+					parameters => {
+						total => 3000.04, # magic 201
+					},
+				),
+			},
 		)
 	);
 

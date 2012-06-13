@@ -3,13 +3,11 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use Moose;
-with 'MooseX::Traits';
+extends 'Business::CyberSource::MessagePart';
 
-use MooseX::SetOnce 0.200001;
-use MooseX::StrictConstructor;
 use MooseX::ABC 0.06;
 
 has trace => (
@@ -35,7 +33,7 @@ Business::CyberSource::Message - Abstract Message Class;
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 ATTRIBUTES
 
@@ -43,6 +41,10 @@ version 0.005004
 
 A L<XML::Compile::SOAP::Trace> object which is populated only after the object
 has been submitted to CyberSource by a L<Business::CyberSource::Client>.
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
 
 =head1 BUGS
 

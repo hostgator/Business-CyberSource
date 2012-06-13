@@ -1,36 +1,27 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 
 use Module::Runtime qw( use_module );
-
 use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client      = $t->resolve( service => '/client/object'      );
-my $credit_card = $t->resolve( service => '/credit_card/object' );
+my $credit_card = $t->resolve( service => '/helper/card'      );
+my $billto      = $t->resolve( service => '/helper/bill_to'   );
 
 my $salec = use_module('Business::CyberSource::Request::Sale');
 
 my $req
 	= new_ok( $salec => [{
-		reference_code => 'test-sale-reject-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => 'somewhere',
-		city           => 'Houston',
-		state          => 'TX',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'xenoterracide@gmail.com',
-		total          => 3000.01,
-		currency       => 'USD',
-		card           => $credit_card,
+		reference_code  => 'test-sale-reject-' . time,
+		card            => $credit_card,
+		bill_to         => $billto,
+		purchase_totals => {
+			total    => 3000.01,
+			currency => 'USD',
+		},
 	}]);
 
 my $ret = $client->run_transaction( $req );

@@ -3,21 +3,17 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
 
 has currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => CurrencyCode,
-	trigger => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{currency} = $self->currency;
-		}
-	},
+	isa         => CurrencyCode,
+	remote_name => 'currency',
+	is          => 'ro',
+	required    => 1,
 );
 
 1;
@@ -33,7 +29,7 @@ Business::CyberSource::Role::Currency - Role to apply to requests and responses 
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 BUGS
 

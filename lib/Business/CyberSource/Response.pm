@@ -3,22 +3,23 @@ use strict;
 use warnings;
 use namespace::autoclean -also => [ qw( create ) ];
 
-our $VERSION = '0.005004'; # VERSION
+our $VERSION = '0.005005'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
 
-with qw(
-	Business::CyberSource::Role::RequestID
-);
-
-use MooseX::Aliases;
-use MooseX::StrictConstructor;
-use MooseX::Types::Moose qw( Str Bool );
-use MooseX::Types::CyberSource qw( Decision );
+use MooseX::Types::Moose                   qw( Str Bool                      );
+use MooseX::Types::CyberSource             qw( Decision RequestID            );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
+
+has request_id => (
+	isa         => RequestID,
+	predicate   => 'has_request_id',
+	required    => 1,
+	is          => 'ro',
+);
 
 has decision => (
 	required => 1,
@@ -46,12 +47,11 @@ has request_token => (
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
 );
 
-has accepted => (
+has is_accepted => (
 	required => 0,
 	lazy     => 1,
 	is       => 'ro',
 	isa      => Bool,
-	alias    => [ qw( is_success is_accepted ) ],
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
@@ -138,6 +138,7 @@ sub _build_reason_text {
 		250 => 'The request was received, but there was a timeout at the '
 			. 'payment processor'
 			,
+		600 => 'Address verification failed',
 	);
 
 	return $reason{$self->reason_code};
@@ -158,7 +159,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version 0.005004
+version 0.005005
 
 =head1 DESCRIPTION
 
