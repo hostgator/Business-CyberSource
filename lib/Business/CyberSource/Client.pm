@@ -326,17 +326,19 @@ Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
+=attr rules
+
+ArrayRef of L<Rule Names|Business::CyberSource::Rule>. Rules names are modules
+prefixed by L<Business::CyberSource::Rule>. By default both
+L<Business::CyberSource::Rule::ExpiredCard> and
+L<Business::CyberSource::Rule::RequestIDisZero> are included. If you decide to
+add more rules remember to add C<qw( ExpiredCard RequestIDisZero )> to the
+new ArrayRef ( if you want them ).
+
 =attr dumper_package
 
 Package name for dumping the request hash if doing a L<debug|/"debug">. Package
 must have a C<Dumper> function.
-
-=attr ignore_skipable
-
-requests with expired credit cards are currently "skip-able" and will not be
-sent by default, instead you will get a response object that has filled out the
-most important parts of a REJECT response and mocked other required fields. If
-you want to send these requests always set this in the client.
 
 =attr name
 

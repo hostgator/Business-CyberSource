@@ -38,3 +38,26 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Abstract Rule Base
+
+=method run
+
+required by subclasses but not provided. Is executed to check your rule and
+returns a suitable mock answer. C<request_id> should be set to 0 in the answer.
+
+	return { result => {
+		merchantReferenceCode => $request->reference_code,
+		decision              => 'REJECT',
+		reasonCode            => '202',
+		requestID             => 0,
+		requestToken          => 0,
+	}
+
+=method debug
+
+carps out the rule that matched if client has debug set.
+
+=attr client
+
+a weakened reference to the client, to check the clients debug state.
+
+=cut
