@@ -8,6 +8,19 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::RequestPart::Card';
 
+use Carp qw( cluck );
+
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
+
+	cluck 'DEPRECATED: just a thin wrapper around '
+		. 'Business::CyberSource::RequestPart::Card use that instead'
+		;
+
+	return $self->$orig( @_ );
+};
+
 __PACKAGE__->meta->make_immutable;
 1;
 
