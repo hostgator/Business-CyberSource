@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.006001  2012-06-13
+	- MooseX::AbstractFactory should be required again for Rules
+
 0.006000  2012-06-13
 	[NEWS]
 	- massive refactoring to use MooseX::RemoteHelper and nested object using
@@ -19,7 +22,7 @@ Revision history for {{$dist->name}}
 	- rules, see Business::CyberSource::Client rules attribute and
 	  Business::CyberSource::Rule
 	- TaxService Business::CyberSource::RequestPart::Service::Tax
-	  (unfinished)
+	  (unfinished and will undergo active development during 0.6.x release )
 
 	[REMOVAL]
 	- skipable and ignore skipable, use rules instead
