@@ -1,10 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -12,23 +8,20 @@ use FindBin; use lib "$FindBin::Bin/lib";
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $client      = $t->resolve( service => '/client/object'    );
-my $credit_card = $t->resolve( service => '/credit_card/object' );
+my $credit_card = $t->resolve( service => '/helper/card'      );
+my $billto      = $t->resolve( service => '/helper/bill_to'   );
 
 my $salec = use_module('Business::CyberSource::Request::Sale');
+
 my $req0
 	= new_ok( $salec => [{
-		reference_code => 'test-sale-reject-0-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 3000.37,
-		currency       => 'USD',
-		card           => $credit_card,
+		reference_code  => 'test-sale-reject-0-' . time,
+		bill_to         => $billto,
+		card            => $credit_card,
+		purchase_totals => {
+			currency => 'USD',
+			total    => 3000.37, # magic make me expired
+		},
 	}]);
 
 my $ret0 = $client->run_transaction( $req0 );
@@ -53,17 +46,12 @@ ok( $ret0->request_token, 'check request_token exists' );
 my $req1
 	= new_ok( $salec => [{
 		reference_code => 'test-sale-reject-1-' . time,
-		first_name     => 'Caleb',
-		last_name      => 'Cushing',
-		street         => '432 nowhere ave.',
-		city           => 'Detroit',
-		state          => 'MI',
-		zip            => '77064',
-		country        => 'US',
-		email          => 'foobar@example.com',
-		total          => 3000.04,
-		currency       => 'USD',
-		card           => $credit_card,
+		bill_to         => $billto,
+		card            => $credit_card,
+		purchase_totals => {
+			currency => 'USD',
+			total    => 3000.04,
+		},
 	}]);
 
 my $ret1 = $client->run_transaction( $req1 );

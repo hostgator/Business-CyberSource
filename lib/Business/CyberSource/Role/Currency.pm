@@ -6,18 +6,14 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
 
 has currency => (
-	required => 1,
-	is       => 'ro',
-	isa      => CurrencyCode,
-	trigger => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{currency} = $self->currency;
-		}
-	},
+	isa         => CurrencyCode,
+	remote_name => 'currency',
+	is          => 'ro',
+	required    => 1,
 );
 
 1;

@@ -7,19 +7,39 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with qw(
-	Business::CyberSource::Request::Role::Common
-	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::DCC
+with 'Business::CyberSource::Request::Role::DCC';
+
+use MooseX::Aliases;
+use MooseX::Types::CyberSource qw( BillTo Card CreditService);
+
+use Class::Load qw( load_class );
+
+sub _build_service {
+	load_class('Business::CyberSource::RequestPart::Service::Credit');
+	return Business::CyberSource::RequestPart::Service::Credit->new;
+}
+
+has '+service' => (
+	isa         => CreditService,
+	remote_name => 'ccCreditService'
 );
 
-before serialize => sub {
-	my $self = shift;
+has bill_to => (
+	isa         => BillTo,
+	remote_name => 'billTo',
+	alias       => 'billing_info',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+);
 
-	$self->_request_data->{ccCreditService}{run} = 'true';
-	$self->_request_data->{ccCreditService}{captureRequestID}
-		= $self->request_id if $self->meta->has_attribute( 'request_id' );
-};
+has card => (
+	isa         => Card,
+	remote_name => 'card',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+);
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -30,53 +50,48 @@ __PACKAGE__->meta->make_immutable;
 
 	use Business::CyberSource::Request::Credit;
 
-	my $req = Business::CyberSource::Request::Credit
-		->with_traits(qw{
-			BillingInfo
-			CreditCardInfo
-		})
-		->new({
+	my $req = Business::CyberSource::Request::Credit->new({
 			reference_code => 'merchant reference code',
-			first_name     => 'Caleb',
-			last_name      => 'Cushing',
-			street         => 'somewhere',
-			city           => 'Houston',
-			state          => 'TX',
-			zip            => '77064',
-			country        => 'US',
-			email          => 'xenoterracide@gmail.com',
-			total          => 5.00,
-			currency       => 'USD',
-			credit_card    => '4111-1111-1111-1111',
-			cc_exp_month   => '09',
-			cc_exp_year    => '2025',
+			bill_to => {
+				first_name  => 'Caleb',
+				last_name   => 'Cushing',
+				street      => 'somewhere',
+				city        => 'Houston',
+				state       => 'TX',
+				postal_code => '77064',
+				country     => 'US',
+				email       => 'xenoterracide@gmail.com',
+			},
+			purchase_totals => {
+				total    => 5.00,
+				currency => 'USD',
+			},
+			card => {
+				account_number => '4111-1111-1111-1111',
+				expiration => {
+					month => '09',
+					year => '2025',
+				},
+			},
 		});
 
 =head1 DESCRIPTION
 
-This object allows you to create a request for a credit. If you do not want to
-apply traits (or are using the Request factory) then you can instantiate either the
+This object allows you to create a request for a credit. You can use
 L<Business::CyberSource::Request::StandAloneCredit> or the
-L<Business::CyberSource::Request::FollowOnCredit>.
+L<Business::CyberSource::Request::FollowOnCredit> if you want your objects to
+be checked for all required fields.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 composes
+=head1 WITH
 
 =over
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
 
 =item L<Business::CyberSource::Request::Role::DCC>
 
 =back
-
-=method with_traits
-
-For standalone credit requests requests you need to apply C<BillingInfo> and
-C<CreditCardInfo> roles. This is not necessary for follow on credits. Follow
-on credits require that you specify a C<request_id> in order to work.
 
 =cut

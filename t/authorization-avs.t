@@ -1,10 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
 use Test::Moose;
 
 use Module::Runtime qw( use_module );
@@ -17,8 +13,15 @@ my $client      = $t->resolve( service => '/client/object'    );
 my $ret0
 	= $client->run_transaction(
 		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 5000.00 },
+			service    => '/request/authorization',
+			parameters => {
+				purchase_totals => $t->resolve(
+					service    => '/helper/purchase_totals',
+					parameters => {
+						total => 5000.00,
+					},
+				),
+			},
 		)
 	);
 
@@ -32,8 +35,15 @@ is( $ret0->avs_code_raw,   'X',      'check avs_code_raw'   );
 my $ret1
 	= $client->run_transaction(
 		$t->resolve(
-			service => '/request/authorization/visa',
-			parameters => { total => 5005.00 },
+			service    => '/request/authorization',
+			parameters => {
+				purchase_totals => $t->resolve(
+					service    => '/helper/purchase_totals',
+					parameters => {
+						total => 5005.00,
+					},
+				),
+			},
 		)
 	);
 isa_ok( $ret1, 'Business::CyberSource::Response' );

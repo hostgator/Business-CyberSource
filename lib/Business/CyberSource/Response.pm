@@ -8,17 +8,19 @@ use namespace::autoclean -also => [ qw( create ) ];
 use Moose;
 extends 'Business::CyberSource::Message';
 
-with qw(
-	Business::CyberSource::Role::RequestID
-);
-
 use MooseX::Aliases;
-use MooseX::StrictConstructor;
-use MooseX::Types::Moose qw( Str Bool );
-use MooseX::Types::CyberSource qw( Decision );
+use MooseX::Types::Moose                   qw( Str Bool                      );
+use MooseX::Types::CyberSource             qw( Decision RequestID            );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
+
+has request_id => (
+	isa         => RequestID,
+	predicate   => 'has_request_id',
+	required    => 1,
+	is          => 'ro',
+);
 
 has decision => (
 	required => 1,
@@ -138,6 +140,7 @@ sub _build_reason_text {
 		250 => 'The request was received, but there was a timeout at the '
 			. 'payment processor'
 			,
+		600 => 'Address verification failed',
 	);
 
 	return $reason{$self->reason_code};

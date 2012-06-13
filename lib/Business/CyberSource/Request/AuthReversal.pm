@@ -7,20 +7,14 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request';
-with qw(
-	Business::CyberSource::Request::Role::Common
-	Business::CyberSource::Request::Role::PurchaseInfo
-	Business::CyberSource::Request::Role::FollowUp
+
+use MooseX::Types::CyberSource qw( AuthReversalService );
+
+has '+service' => (
+	isa         => AuthReversalService,
+	remote_name => 'ccAuthReversalService',
+	lazy_build  => 0,
 );
-
-before serialize => sub {
-	my $self = shift;
-
-	$self->_request_data->{ccAuthReversalService}{run} = 'true';
-	$self->_request_data->{ccAuthReversalService}{authRequestID}
-		= $self->request_id
-		;
-};
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -29,29 +23,25 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 SYNOPSIS
 
+	use Business::CyberSource::Request::AuthReversal;
+
 	my $req = Business::CyberSource::Request::AuthReversal->new({
 		reference_code => 'orignal authorization merchant reference code',
-		request_id     => 'request id returned in original authorization response',
-		total          => 5.00, # same as original authorization amount
-		currency       => 'USD', # same as original currency
+		service        => {
+			request_id => 'request id returned by authorization',
+		},
+		purchase_totals {
+			total          => 5.00, # same as original authorization amount
+			currency       => 'USD', # same as original currency
+		},
 	});
 
 =head1 DESCRIPTION
 
 This allows you to reverse an authorization request.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
-
-=head2 composes
-
-=over
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
-
-=item L<Business::CyberSource::Request::Role::FollowUp>
-
-=back
 
 =cut

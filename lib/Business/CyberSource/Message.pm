@@ -6,10 +6,8 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'MooseX::Traits';
+extends 'Business::CyberSource::MessagePart';
 
-use MooseX::SetOnce 0.200001;
-use MooseX::StrictConstructor;
 use MooseX::ABC 0.06;
 
 has trace => (
@@ -24,6 +22,10 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Abstract Message Class;
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
 
 =attr trace
 

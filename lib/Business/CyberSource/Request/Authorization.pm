@@ -8,23 +8,47 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::Common
 	Business::CyberSource::Request::Role::BillingInfo
-	Business::CyberSource::Request::Role::PurchaseInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
 	Business::CyberSource::Request::Role::BusinessRules
 	Business::CyberSource::Request::Role::DCC
 );
 
-before serialize => sub {
-	my $self = shift;
-	$self->_request_data->{ccAuthService}{run} = 'true';
-};
+has '+service' => ( remote_name => 'ccAuthService' );
 
 __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: CyberSource Authorization Request object
+
+=head1 SYNOPSIS
+
+	use Business::CyberSource::Request::Authorization;
+
+	Business::CyberSource::Request::Authorization->new({
+		reference_code => '42',
+		bill_to => {
+			first_name  => 'Caleb',
+			last_name   => 'Cushing',
+			street      => '100 somewhere st',
+			city        => 'Houston',
+			state       => 'TX',
+			postal_code => '77064',
+			country     => 'US',
+			email       => 'xenoterracide@gmail.com',
+		},
+		purchase_totals => {
+			currency => 'USD',
+			total    => 5.00,
+		},
+		card => {
+			account_number => '4111111111111111',
+			expiration => {
+				month => 9,
+				year  => 2025,
+			},
+		},
+	});
 
 =head1 DESCRIPTION
 
@@ -35,17 +59,15 @@ you receive this payment confirmation. For offline credit cards, it will take
 typically five days longer to receive payment confirmation than for online
 cards.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request>
 
-=head2 composes
+=head1 WITH
 
 =over
 
 =item L<Business::CyberSource::Request::Role::BillingInfo>
-
-=item L<Business::CyberSource::Request::Role::PurchaseInfo>
 
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
@@ -54,5 +76,7 @@ L<Business::CyberSource::Request>
 =item L<Business::CyberSource::Request::Role::DCC>
 
 =back
+
+=for Pod::Coverage BUILD
 
 =cut

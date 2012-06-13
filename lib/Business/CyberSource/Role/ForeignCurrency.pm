@@ -6,6 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 
 use MooseX::SetOnce 0.200001;
 
@@ -14,63 +15,35 @@ use MooseX::Types::Locale::Currency qw( CurrencyCode );
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 
 has foreign_currency => (
-	isa       => CurrencyCode,
-	predicate => 'has_foreign_currency',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	trigger   => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{foreignCurrency}
-				= $self->foreign_currency
-				;
-		}
-	},
+	isa         => CurrencyCode,
+	remote_name => 'foreignCurrency',
+	predicate   => 'has_foreign_currency',
+	traits      => ['SetOnce'],
+	is          => 'rw',
 );
 
 has foreign_amount => (
-	isa       => PositiveOrZeroNum,
-	predicate => 'has_foreign_amount',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	trigger   => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{foreignAmount}
-				= $self->foreign_amount
-				;
-		}
-	},
+	isa         => PositiveOrZeroNum,
+	remote_name => 'foreignAmount',
+	predicate   => 'has_foreign_amount',
+	traits      => ['SetOnce'],
+	is          => 'rw',
 );
 
 has exchange_rate => (
-	isa       => PositiveOrZeroNum,
-	predicate => 'has_exchange_rate',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-	trigger   => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{exchangeRate}
-				= $self->exchange_rate
-				;
-		}
-	},
+	isa         => PositiveOrZeroNum,
+	remote_name => 'exchangeRate',
+	predicate   => 'has_exchange_rate',
+	traits      => ['SetOnce'],
+	is          => 'rw',
 );
 
 has exchange_rate_timestamp => (
 	isa       => Str,
+	remote_name => 'exchangeRateTimeStamp',
 	predicate => 'has_exchange_rate_timestamp',
 	traits    => ['SetOnce'],
 	is        => 'rw',
-	trigger   => sub {
-		my $self = shift;
-		if ( $self->meta->find_attribute_by_name( '_request_data' ) ) {
-			$self->_request_data->{purchaseTotals}{exchangeRateTimeStamp}
-				= $self->exchange_rate_timestamp
-				;
-		}
-	},
 );
 
 1;

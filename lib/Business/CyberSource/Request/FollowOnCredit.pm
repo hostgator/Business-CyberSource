@@ -7,9 +7,13 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::Request::Credit';
-with qw(
-	Business::CyberSource::Request::Role::FollowUp
-);
+
+sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
+	my $self = shift;
+	confess 'a Follow On Credit should set a request_id'
+		unless $self->service->has_request_id
+		;
+};
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -22,25 +26,21 @@ __PACKAGE__->meta->make_immutable;
 
 	my $credit = Business::CyberSource::Request::FollowOnCredit->new({
 			reference_code => 'merchant reference code',
-			total          => 5.00,
-			currency       => 'USD',
-			request_id     => 'capture request_id',
+			purchase_totals => {
+				total    => 5.00,
+				currency => 'USD',
+			},
+			service => {
+				request_id => 'capture request_id',
+			},
 		});
 
 =head1 DESCRIPTION
 
 Follow-On credit Data Transfer Object.
 
-=head2 inherits
+=head2 EXTENDS
 
 L<Business::CyberSource::Request::Credit>
-
-=head2 composes
-
-=over
-
-=item L<Business::CyberSource::Request::Role::FollowUp>
-
-=back
 
 =cut

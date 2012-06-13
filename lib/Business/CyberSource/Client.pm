@@ -16,10 +16,11 @@ use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
-use Carp qw( carp );
 use File::ShareDir qw( dist_file );
 use Config;
 use Module::Runtime qw( use_module );
+use Class::Load     qw( load_class );
+use Module::Load    qw( load );
 
 use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
@@ -35,8 +36,15 @@ sub run_transaction {
 			&& $dto->isa('Business::CyberSource::Request')
 			;
 
-	if ( $dto->is_skipable && ! $self->ignore_skipable ) {
-		return $self->_response_factory->create( $dto );
+	if ( $self->has_rules && ! $self->rules_is_empty ) {
+		my $answer;
+		RULE: foreach my $rule ( @{ $self->_rules } ) {
+			$answer = $rule->run( $dto );
+			last RULE if defined $answer;
+		}
+		return $self->_response_factory->create( $dto, $answer )
+			if defined $answer
+			;
 	}
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
@@ -48,7 +56,7 @@ sub run_transaction {
 
 	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
 
-	my ( $answer, $trace ) = $call->(
+	my %request = (
 		wsse_Security         => $security,
 		merchantID            => $self->_username,
 		clientEnvironment     => $self->env,
@@ -58,9 +66,18 @@ sub run_transaction {
 		%{ $dto->serialize },
 	);
 
-	if ( $self->_debug ) {
-		carp "\n> " . $trace->request->as_string;
-		carp "\n< " . $trace->response->as_string;
+	if ( $self->debug ) {
+		load 'Carp';
+		load $self->_dumper_package, 'Dumper';
+
+		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
+	}
+
+	my ( $answer, $trace ) = $call->( %request );
+
+	if ( $self->debug ) {
+		Carp::carp "\n> " . $trace->request->as_string;
+		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
 	$dto->_trace( $trace );
@@ -106,32 +123,76 @@ sub _build_cybs_xsd {
 		);
 }
 
+sub _build__rules {
+	my $self = shift;
+
+	return [] if ! $self->has_rules || $self->rules_is_empty;
+
+	my @rules
+		= map {
+			$self->_rule_factory->create( $_, { client => $self } ) if defined $_
+		} $self->list_rules;
+
+	return \@rules;
+};
+
 has _response_factory => (
-	isa      => 'Business::CyberSource::Factory::Response',
+	isa      => 'Object',
 	is       => 'ro',
 	lazy     => 1,
-	writer   => undef,
-	init_arg => undef,
 	default  => sub {
-		return use_module('Business::CyberSource::Factory::Response')->new;
+		my $class = 'Business::CyberSource::Factory::Response';
+		load_class($class);
+		return $class->new;
 	},
 );
 
-has ignore_skipable => (
-	isa     => 'Bool',
-	is      => 'rw',
-	lazy    => 1,
-	default => sub { return 0 },
+has _rule_factory => (
+	isa      => 'Object',
+	is       => 'ro',
+	lazy     => 1,
+	default  => sub {
+		my $class = 'Business::CyberSource::Factory::Rule';
+		load_class($class);
+		return $class->new;
+	},
+);
+
+has rules => (
+	isa       => 'ArrayRef[Str]',
+	predicate => 'has_rules',
+	traits    => ['Array'],
+	is        => 'ro',
+	reader    => undef,
+	default   => sub { [qw( ExpiredCard RequestIDisZero )] },
+	handles   => {
+		list_rules     => 'elements',
+		rules_is_empty => 'is_empty',
+	},
+);
+
+has _rules => (
+	isa        => 'ArrayRef[Object]',
+	is         => 'ro',
+	lazy_build => 1,
+	traits     => ['Array'],
 );
 
 has debug => (
 	isa     => 'Bool',
-	reader  => '_debug',
 	is      => 'ro',
 	lazy    => 1,
 	default => sub {
 		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
 	},
+);
+
+has dumper_package => (
+	isa     => NonEmptySimpleStr,
+	reader  => '_dumper_package',
+	is      => 'ro',
+	lazy    => 1,
+	default => sub { return 'Data::Dumper'; },
 );
 
 has production => (
@@ -265,12 +326,19 @@ Boolean value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
 C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
 
-=attr ignore_skipable
+=attr rules
 
-requests with expired credit cards are currently "skip-able" and will not be
-sent by default, instead you will get a response object that has filled out the
-most important parts of a REJECT response and mocked other required fields. If
-you want to send these requests always set this in the client.
+ArrayRef of L<Rule Names|Business::CyberSource::Rule>. Rules names are modules
+prefixed by L<Business::CyberSource::Rule>. By default both
+L<Business::CyberSource::Rule::ExpiredCard> and
+L<Business::CyberSource::Rule::RequestIDisZero> are included. If you decide to
+add more rules remember to add C<qw( ExpiredCard RequestIDisZero )> to the
+new ArrayRef ( if you want them ).
+
+=attr dumper_package
+
+Package name for dumping the request hash if doing a L<debug|/"debug">. Package
+must have a C<Dumper> function.
 
 =attr name
 
