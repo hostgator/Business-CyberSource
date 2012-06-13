@@ -2,6 +2,30 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.006000  2012-06-13
+	[NEWS]
+	- massive refactoring to use MooseX::RemoteHelper and nested object using
+	  the composite pattern. Due to this many things have been deprecated.
+	  It is possible that some things were accidentally removed, or no
+	  compatability layer was added. If you find something outright missing
+	  please report a bug
+
+	[DEPRECATIONS]
+	- constructors and methods that are now subobjects
+	- Business::CyberSource::CreditCard use
+	  Business::CyberSource::RequestPart::Card
+
+	[FEATURE - EXPERIMENTAL]
+	- rules, see Business::CyberSource::Client rules attribute and
+	  Business::CyberSource::Rule
+	- TaxService Business::CyberSource::RequestPart::Service::Tax
+	  (unfinished)
+
+	[REMOVAL]
+	- skipable and ignore skipable, use rules instead
+	- numerous roles
+	- API's deprecated in 0.005000
+
 0.005004  2012-06-06
 	- Make optional dependencies recommended
 	- fix bug where score threshold in authorization business rules would
