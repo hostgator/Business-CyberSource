@@ -18,7 +18,7 @@ use MooseX::ABC;
 use MooseX::Types::Moose       qw( ArrayRef );
 use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
 
-use Class::Load qw( load_class );
+use Class::Load 0.20 qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
@@ -105,8 +105,10 @@ sub add_item {
 	unless ( blessed $args
 			&& $args->isa( 'Business::CyberSource::RequestPart::Item' )
 		) {
-		load_class 'Business::CyberSource::RequestPart::Item';
-		$item = Business::CyberSource::RequestPart::Item->new( $args )
+		$item
+			= load_class('Business::CyberSource::RequestPart::Item')
+			->new( $args )
+			;
 	}
 	else {
 		$item = $args;
@@ -117,8 +119,7 @@ sub add_item {
 }
 
 sub _build_service {
-	load_class('Business::CyberSource::RequestPart::Service');
-	return Business::CyberSource::RequestPart::Service->new;
+	return load_class('Business::CyberSource::RequestPart::Service')->new;
 }
 
 has comments => (
