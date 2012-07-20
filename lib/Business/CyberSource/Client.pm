@@ -18,9 +18,8 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use File::ShareDir qw( dist_file );
 use Config;
-use Module::Runtime qw( use_module );
-use Class::Load     qw( load_class );
-use Module::Load    qw( load );
+use Class::Load 0.20 qw( load_class );
+use Module::Load     qw( load );
 
 use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
@@ -94,7 +93,7 @@ sub _build_cybs_wsdl {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	return use_module('Path::Class::File')->new(
+	return load_class('Path::Class::File')->new(
 			dist_file(
 				'Business-CyberSource',
 				$dir
@@ -111,7 +110,7 @@ sub _build_cybs_xsd {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	return use_module('Path::Class::File')->new(
+	return load_class('Path::Class::File')->new(
 			dist_file(
 				'Business-CyberSource',
 				$dir
@@ -141,9 +140,7 @@ has _response_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		my $class = 'Business::CyberSource::Factory::Response';
-		load_class($class);
-		return $class->new;
+		return load_class('Business::CyberSource::Factory::Response')->new;
 	},
 );
 
@@ -152,9 +149,7 @@ has _rule_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		my $class = 'Business::CyberSource::Factory::Rule';
-		load_class($class);
-		return $class->new;
+		return load_class('Business::CyberSource::Factory::Rule')->new;
 	},
 );
 
