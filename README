@@ -3,7 +3,7 @@ NAME
     SOAP API
 
 VERSION
-    version 0.006001
+    version 0.006002
 
 DESCRIPTION
     This library is a Perl interface to the CyberSource Simple Order SOAP
@@ -116,10 +116,14 @@ EXAMPLE
             else {
                     my $capture_request
                             = Business::CyberSource::Request::Capture->new({
-                                    reference_code => $auth_request->reference_code,
-                                    request_id     => $auth_response->request_id,
-                                    total          => $auth_response->amount,
-                                    currency       => $auth_response->currency,
+                                    reference_code => $auth_response->reference_code,
+                                    service => {
+                                            request_id => $auth_response->request_id,
+                                    },
+                                    purchase_totals => {
+                                            total    => $auth_response->amount,
+                                            currency => $auth_response->currency,
+                                    },
                             });
 
                     my $capture_response = try {
@@ -139,7 +143,7 @@ EXAMPLE
 
                     if ( $capture_response->is_accepted ) {
                             # you probably want to record this
-                            say $capture_response->reconcilliation_id;
+                            say $capture_response->reconciliation_id;
                     }
             }
 
@@ -172,7 +176,7 @@ AUTHOR
     Caleb Cushing <xenoterracide@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is Copyright (c) 2011 by Caleb Cushing.
+    This software is Copyright (c) 2012 by Caleb Cushing.
 
     This is free software, licensed under:
 

@@ -35,7 +35,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Business::CyberSource",
   "PREREQ_PM" => {
     "Carp" => 0,
-    "Class::Load" => 0,
+    "Class::Load" => "0.20",
     "Config" => 0,
     "DateTime::Format::W3CDTF" => "0.06",
     "Exception::Base" => 0,
@@ -76,7 +76,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.006001",
+  "VERSION" => "0.006002",
   "test" => {
     "TESTS" => "t/*.t"
   }

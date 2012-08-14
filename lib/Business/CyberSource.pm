@@ -3,7 +3,7 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.006001'; # VERSION
+our $VERSION = '0.006002'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.006001
+version 0.006002
 
 =head1 DESCRIPTION
 
@@ -147,10 +147,14 @@ A test credit card number provided by your your credit card processor
 	else {
 		my $capture_request
 			= Business::CyberSource::Request::Capture->new({
-				reference_code => $auth_request->reference_code,
-				request_id     => $auth_response->request_id,
-				total          => $auth_response->amount,
-				currency       => $auth_response->currency,
+				reference_code => $auth_response->reference_code,
+				service => {
+					request_id => $auth_response->request_id,
+				},
+				purchase_totals => {
+					total    => $auth_response->amount,
+					currency => $auth_response->currency,
+				},
 			});
 
 		my $capture_response = try {
@@ -170,7 +174,7 @@ A test credit card number provided by your your credit card processor
 
 		if ( $capture_response->is_accepted ) {
 			# you probably want to record this
-			say $capture_response->reconcilliation_id;
+			say $capture_response->reconciliation_id;
 		}
 	}
 
@@ -217,7 +221,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2011 by Caleb Cushing.
+This software is Copyright (c) 2012 by Caleb Cushing.
 
 This is free software, licensed under:
 

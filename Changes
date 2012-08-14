@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+0.006002  2012-08-14
+
 0.006001  2012-06-13
 	- MooseX::AbstractFactory should be required again for Rules
 

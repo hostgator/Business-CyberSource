@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006001'; # VERSION
+our $VERSION = '0.006002'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::RequestPart::Service';
@@ -34,7 +34,7 @@ Business::CyberSource::RequestPart::Service::AuthReversal - AuthReversal Service
 
 =head1 VERSION
 
-version 0.006001
+version 0.006002
 
 =head1 ATTRIBUTES
 
@@ -57,7 +57,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2011 by Caleb Cushing.
+This software is Copyright (c) 2012 by Caleb Cushing.
 
 This is free software, licensed under:
 
