@@ -58,6 +58,7 @@ eval { $v .= pmver('DateTime::Format::W3CDTF','0.06') };
 eval { $v .= pmver('Exception::Base','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Find','any version') };
+eval { $v .= pmver('File::ShareDir','any version') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
 eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('FindBin','any version') };

@@ -16,6 +16,7 @@ use MooseX::Types::Moose   qw( HashRef Str );
 use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
+use File::ShareDir qw( dist_file );
 use Config;
 use Class::Load 0.20 qw( load_class );
 use Module::Load     qw( load );
@@ -92,9 +93,8 @@ sub _build_cybs_wsdl {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	require 'File::ShareDir::ProjectDistDir';
 	return load_class('Path::Class::File')->new(
-			File::ShareDir::ProjectDistDir::dist_file(
+			dist_file(
 				'Business-CyberSource',
 				$dir
 				. '/'
@@ -110,9 +110,8 @@ sub _build_cybs_xsd {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	require 'File::ShareDir::ProjectDistDir';
 	return load_class('Path::Class::File')->new(
-			File::ShareDir::ProjectDistDir::dist_file(
+			dist_file(
 				'Business-CyberSource',
 				$dir
 				. '/'
