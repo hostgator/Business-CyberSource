@@ -92,7 +92,7 @@ sub _build_cybs_wsdl {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	load 'File::ShareDir::ProjectDistDir';
+	require 'File::ShareDir::ProjectDistDir';
 	return load_class('Path::Class::File')->new(
 			File::ShareDir::ProjectDistDir::dist_file(
 				'Business-CyberSource',
@@ -110,7 +110,7 @@ sub _build_cybs_xsd {
 
 	my $dir = $self->_production ? 'production' : 'test';
 
-	load 'File::ShareDir::ProjectDistDir';
+	require 'File::ShareDir::ProjectDistDir';
 	return load_class('Path::Class::File')->new(
 			File::ShareDir::ProjectDistDir::dist_file(
 				'Business-CyberSource',
