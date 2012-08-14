@@ -9,7 +9,7 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Factory';
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
 use Exception::Base (
 	'Business::CyberSource::Exception' => {
@@ -110,7 +110,7 @@ sub create {
 		}
 	}
 
-	my $response = use_module('Business::CyberSource::Response')
+	my $response = load_class('Business::CyberSource::Response')
 		->with_traits( @traits )
 		->new({
 			request_id     => $result->{requestID},

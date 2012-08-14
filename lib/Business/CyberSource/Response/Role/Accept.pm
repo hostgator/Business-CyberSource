@@ -17,14 +17,14 @@ use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
 use MooseX::Types::DateTime      qw( DateTime );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
 
-use Module::Runtime qw( use_module );
+use Class::Load 0.20 qw( load_class );
 
 subtype DateTimeFromW3C, as DateTime;
 
 coerce DateTimeFromW3C,
 	from DateTimeW3C,
 	via {
-		return use_module('DateTime::Format::W3CDTF')
+		return load_class('DateTime::Format::W3CDTF')
 			->new
 			->parse_datetime( $_ )
 			;
