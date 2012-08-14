@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006002'; # VERSION
+our $VERSION = '0.006003'; # VERSION
 
 use Moose;
 with qw(
@@ -31,7 +31,7 @@ Business::CyberSource::MessagePart - Things that all portions of a message have 
 
 =head1 VERSION
 
-version 0.006002
+version 0.006003
 
 =head1 WITH
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006002'; # VERSION
+our $VERSION = '0.006003'; # VERSION
 
 use MooseX::AbstractFactory;
 
@@ -23,7 +23,7 @@ Business::CyberSource::Factory::Rule - CyberSource Rule Factory Module
 
 =head1 VERSION
 
-version 0.006002
+version 0.006003
 
 =head1 METHODS
 
