@@ -9,13 +9,6 @@ use FindBin;
 use Module::Load              qw( load     );
 use Module::Load::Conditional qw( can_load );
 
-load( 'Test::File::ShareDir',
-	-root  => "$FindBin::Bin/../",
-		-share => {
-		-dist => { 'Business-CyberSource' => 'share/' },
-	},
-) if can_load('Test::File::ShareDir');
-
 use Moose;
 
 extends 'Bread::Board::Container';
