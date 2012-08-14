@@ -104,7 +104,6 @@ t/new-service.t
 t/release-cpan-changes.t
 t/release-dist-manifest.t
 t/release-distmeta.t
-t/release-kwalitee.t
 t/release-meta-json.t
 t/release-minimum-version.t
 t/release-mojibake.t
@@ -112,7 +111,6 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-synopsis.t
 t/release-test-version.t
-t/release-unused-vars.t
 t/rule-expired-card.t
 t/rule-request-id-is-zero.t
 t/sale-reject.t
