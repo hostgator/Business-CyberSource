@@ -28,7 +28,6 @@ lib/Business/CyberSource/Request/Role/DCC.pm
 lib/Business/CyberSource/Request/Role/TaxService.pm
 lib/Business/CyberSource/Request/Sale.pm
 lib/Business/CyberSource/Request/StandAloneCredit.pm
-lib/Business/CyberSource/RequestPart.pm
 lib/Business/CyberSource/RequestPart/BillTo.pm
 lib/Business/CyberSource/RequestPart/BusinessRules.pm
 lib/Business/CyberSource/RequestPart/Card.pm

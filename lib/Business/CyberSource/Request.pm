@@ -295,6 +295,8 @@ L<Business::CyberSource::Message>
 
 =item L<Business::CyberSource::Role::MerchantReferenceCode>
 
+=item L<MooseX::RemoteHelper::CompositeSerialization>
+
 =back
 
 =for Pod::Coverage BUILD

@@ -36,8 +36,6 @@ version 0.006004
 
 =item L<MooseX::Traits>
 
-=item L<MooseX::RemoteHelper::CompositeSerialization>
-
 =back
 
 =head1 BUGS
