@@ -1,21 +1,16 @@
 use strict;
 use warnings;
 use Test::More;
+use Class::Load qw( load_class );
 
-use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/lib";
+my $res
+	= new_ok( load_class('Business::CyberSource::Response') => [{
+		request_id    => '42',
+		decision      => 'ACCEPT',
+		reason_code   => 100,
+		request_token => 'gobbledygook',
+	}]);
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
-
-my $client = $t->resolve( service => '/client/object'    );
-
-my $ret
-	= $client->run_transaction(
-		$t->resolve( service => '/request/authorization' )
-	);
-
-isa_ok $ret, 'Business::CyberSource::Response';
-
-ok ! $ret->can('serialize'), 'can not serialize';
+ok ! $res->can('serialize'), 'can not serialize';
 
 done_testing;
