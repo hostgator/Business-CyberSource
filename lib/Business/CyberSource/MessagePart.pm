@@ -6,10 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with qw(
-	MooseX::Traits
-	MooseX::RemoteHelper::CompositeSerialization
-);
+with 'MooseX::Traits';
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
@@ -26,8 +23,6 @@ __PACKAGE__->meta->make_immutable;
 =over
 
 =item L<MooseX::Traits>
-
-=item L<MooseX::RemoteHelper::CompositeSerialization>
 
 =back
 

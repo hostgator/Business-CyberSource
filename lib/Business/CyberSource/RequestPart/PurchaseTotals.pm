@@ -7,6 +7,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 with qw(
 	Business::CyberSource::Role::Currency

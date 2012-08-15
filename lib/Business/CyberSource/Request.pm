@@ -10,8 +10,10 @@ BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
 }
-
-with 'Business::CyberSource::Role::MerchantReferenceCode';
+with qw(
+	MooseX::RemoteHelper::CompositeSerialization
+	Business::CyberSource::Role::MerchantReferenceCode
+);
 
 use MooseX::ABC;
 
@@ -235,6 +237,8 @@ L<Business::CyberSource::Message>
 =over
 
 =item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=item L<MooseX::RemoteHelper::CompositeSerialization>
 
 =back
 

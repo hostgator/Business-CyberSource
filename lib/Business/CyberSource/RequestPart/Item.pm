@@ -7,6 +7,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum PositiveOrZeroInt );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr );

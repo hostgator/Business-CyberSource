@@ -7,6 +7,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Types::Moose                   qw( ArrayRef    );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode );

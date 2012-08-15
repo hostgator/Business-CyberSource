@@ -8,6 +8,7 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Aliases;
 
