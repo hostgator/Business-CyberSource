@@ -3,13 +3,10 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006003'; # VERSION
+our $VERSION = '0.006004'; # VERSION
 
 use Moose;
-with qw(
-	MooseX::Traits
-	MooseX::RemoteHelper::CompositeSerialization
-);
+with 'MooseX::Traits';
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
@@ -31,7 +28,7 @@ Business::CyberSource::MessagePart - Things that all portions of a message have 
 
 =head1 VERSION
 
-version 0.006003
+version 0.006004
 
 =head1 WITH
 

@@ -4,14 +4,16 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006003'; # VERSION
+our $VERSION = '0.006004'; # VERSION
 
 BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
 }
-
-with 'Business::CyberSource::Role::MerchantReferenceCode';
+with qw(
+	MooseX::RemoteHelper::CompositeSerialization
+	Business::CyberSource::Role::MerchantReferenceCode
+);
 
 use MooseX::ABC;
 
@@ -208,7 +210,7 @@ Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
-version 0.006003
+version 0.006004
 
 =head1 DESCRIPTION
 

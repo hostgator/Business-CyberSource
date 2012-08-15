@@ -1,4 +1,4 @@
-package Business::CyberSource::RequestPart::Service::AuthReversal;
+package Business::CyberSource::RequestPart;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -6,41 +6,26 @@ use namespace::autoclean;
 our $VERSION = '0.006004'; # VERSION
 
 use Moose;
-extends 'Business::CyberSource::RequestPart::Service';
+extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
-use MooseX::Types::CyberSource qw( RequestID );
-
-has request_id => (
-	isa         => RequestID,
-	remote_name => 'authRequestID',
-	predicate   => 'has_request_id',
-	is          => 'rw',
-	required    => 1,
-	traits      => ['SetOnce'],
-);
+use MooseX::ABC 0.06;
 
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: AuthReversal Service
-
+# ABSTRACT: Abstract parts common to all pieces of a request
 
 __END__
 =pod
 
 =head1 NAME
 
-Business::CyberSource::RequestPart::Service::AuthReversal - AuthReversal Service
+Business::CyberSource::RequestPart - Abstract parts common to all pieces of a request
 
 =head1 VERSION
 
 version 0.006004
-
-=head1 ATTRIBUTES
-
-=head2 request_id
-
-The L<request_id|Business::CyberSource::Response/"request_id"> for the authorization that you want to reverse.
 
 =head1 BUGS
 

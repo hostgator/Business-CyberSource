@@ -3,10 +3,11 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006003'; # VERSION
+our $VERSION = '0.006004'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with    'MooseX::RemoteHelper::CompositeSerialization';
 
 with qw(
 	Business::CyberSource::Role::Currency
@@ -39,7 +40,7 @@ Business::CyberSource::RequestPart::PurchaseTotals - Purchase Totals
 
 =head1 VERSION
 
-version 0.006003
+version 0.006004
 
 =head1 ATTRIBUTES
 
