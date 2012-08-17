@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006004'; # VERSION
+our $VERSION = '0.006005'; # VERSION
 
 use Moose;
 
@@ -24,6 +24,7 @@ use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
+
 
 sub run_transaction {
 	my ( $self, $dto ) = @_;
@@ -45,14 +46,19 @@ sub run_transaction {
 			;
 	}
 
-	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
+	my $xml_compile = sub {
 
-	my $call = $wsdl->compileClient('runTransaction');
+		state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+		$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+		return $wsdl->compileClient('runTransaction');
+	}
+
+	state $call = $xml_compile->();
+
+	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
 
 	my %request = (
 		wsse_Security         => $security,
@@ -287,7 +293,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006004
+version 0.006005
 
 =head1 SYNOPSIS
 
