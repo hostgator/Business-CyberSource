@@ -54,7 +54,7 @@ sub run_transaction {
 		$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
 		return $wsdl->compileClient('runTransaction');
-	}
+	};
 
 	state $call = $xml_compile->();
 
