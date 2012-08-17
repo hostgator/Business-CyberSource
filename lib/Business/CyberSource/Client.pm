@@ -45,14 +45,14 @@ sub run_transaction {
 			;
 	}
 
-	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	my $call = $wsdl->compileClient('runTransaction');
+	state $call = $wsdl->compileClient('runTransaction');
 
-	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
 
 	my %request = (
 		wsse_Security         => $security,
