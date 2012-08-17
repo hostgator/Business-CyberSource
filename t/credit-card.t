@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Fatal;
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use DateTime;
 
-my $card_c = use_module('Business::CyberSource::CreditCard');
+my $card_c = load_class('Business::CyberSource::CreditCard');
 
 my $card0
 	= new_ok( $card_c => [{

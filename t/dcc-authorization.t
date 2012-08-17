@@ -6,10 +6,10 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_MASTERCARD
 );
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = new_ok( load_class('Test::Business::CyberSource') );
 
 my $billto = $t->resolve( service => '/helper/bill_to');
 my $card
@@ -25,7 +25,7 @@ my $card
 );
 
 my $dcc_req
-	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
+	= new_ok( load_class( 'Business::CyberSource::Request::DCC') => [{
 		reference_code  => 'test-dcc-authorization-' . time,
 		card            => $card,
 		purchase_totals => {
@@ -45,7 +45,7 @@ is( $dcc->foreign_amount,  '0.88', 'dcc response foreign_amount'   );
 is( $dcc->exchange_rate, '0.8810', 'dcc response exchange_rate'    );
 is( $dcc->dcc_supported,        1, 'dcc response dcc_supported'    );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
+my $authc = load_class('Business::CyberSource::Request::Authorization');
 
 my $auth_req
 	= new_ok( $authc => [{
@@ -70,7 +70,7 @@ ok $auth_res->is_accepted, 'card authorized'
 
 
 my $cap_req
-	= new_ok( use_module( 'Business::CyberSource::Request::Capture') => [{
+	= new_ok( load_class( 'Business::CyberSource::Request::Capture') => [{
 		reference_code   => $dcc->reference_code,
 		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
@@ -82,7 +82,7 @@ my $cap_req
 my $cap_res = $client->run_transaction( $cap_req );
 
 my $cred_req
-	= new_ok( use_module( 'Business::CyberSource::Request::FollowOnCredit') => [{
+	= new_ok( load_class( 'Business::CyberSource::Request::FollowOnCredit') => [{
 		bill_to          => $billto,
 		card             => $card,
 		reference_code   => $dcc->reference_code,
