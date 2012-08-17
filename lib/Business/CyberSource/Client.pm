@@ -45,8 +45,12 @@ sub run_transaction {
 			;
 	}
 
+	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+
+	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+
 	my %request = (
-		wsse_Security         => $self->_security,
+		wsse_Security         => $security,
 		merchantID            => $self->_username,
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
@@ -135,14 +139,6 @@ sub _build_client {
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
 	return $wsdl->compileClient('runTransaction');
-}
-
-sub _build_security {
-	my $self = shift;
-
-	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
-
-	return $wss->wsseBasicAuth( $self->_username, $self->_password );
 }
 
 has _security => (
