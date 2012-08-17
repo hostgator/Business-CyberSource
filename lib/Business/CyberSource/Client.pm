@@ -25,6 +25,21 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
+sub _client {
+	my $self = shift;
+
+	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+
+	state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
+
+	state $call = $wsdl->compileClient('runTransaction');
+
+	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+
+	return [ $call, $security ];
+}
+
 sub run_transaction {
 	my ( $self, $dto ) = @_;
 
@@ -45,14 +60,9 @@ sub run_transaction {
 			;
 	}
 
-	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+	state $call_security = $self->_client;
 
-	state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
-
-	state $call = $wsdl->compileClient('runTransaction');
-
-	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+	my ( $call, $security ) = @{ $call_security };
 
 	my %request = (
 		wsse_Security         => $security,
