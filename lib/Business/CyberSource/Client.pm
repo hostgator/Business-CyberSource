@@ -25,7 +25,6 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
-
 sub run_transaction {
 	my ( $self, $dto ) = @_;
 
@@ -46,22 +45,8 @@ sub run_transaction {
 			;
 	}
 
-	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
-
-	my $xml_compile = sub {
-
-		state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-		$wsdl->importDefinitions( $self->cybs_xsd->stringify );
-
-		return $wsdl->compileClient('runTransaction');
-	};
-
-	state $call = $xml_compile->();
-
-	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
-
 	my %request = (
-		wsse_Security         => $security,
+		wsse_Security         => $self->_security,
 		merchantID            => $self->_username,
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
@@ -76,6 +61,8 @@ sub run_transaction {
 
 		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
 	}
+
+	state $call = $self->_client;
 
 	my ( $answer, $trace ) = $call->( %request );
 
@@ -140,7 +127,37 @@ sub _build__rules {
 		} $self->list_rules;
 
 	return \@rules;
-};
+}
+
+sub _build_client {
+	my $self = shift;
+	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
+
+	return $wsdl->compileClient('runTransaction');
+}
+
+sub _build_security {
+	my $self = shift;
+
+	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+
+	return $wss->wsseBasicAuth( $self->_username, $self->_password );
+}
+
+has _security => (
+	isa     => 'Object',
+	is      => 'ro',
+	lazy    => 1,
+	builder => '_build_security',
+);
+
+has _client => (
+	isa     => 'Object',
+	is      => 'ro',
+	lazy    => 1,
+	builder => '_build_client',
+);
 
 has _response_factory => (
 	isa      => 'Object',
