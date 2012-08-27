@@ -59,6 +59,7 @@ eval { $v .= pmver('Exception::Base','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Find','any version') };
 eval { $v .= pmver('File::ShareDir::Install','0.03') };
+eval { $v .= pmver('File::ShareDir::ProjectDistDir','any version') };
 eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('FindBin','any version') };
 eval { $v .= pmver('Hash::Merge','any version') };

@@ -1,8 +1,6 @@
 Revision history for Business-CyberSource
 
-0.006005  2012-08-16
-	- Slightly improve runtime performance by removing the need to recompile
-	  the wsdl on every call
+0.006005  2012-08-27
 
 0.006004  2012-08-14
 	- MooseX::RemoteHelper::CompositeSerialization was accidentally applied to

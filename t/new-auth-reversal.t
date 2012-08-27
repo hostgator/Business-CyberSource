@@ -2,9 +2,9 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
-my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
+my $authrevc = load_class('Business::CyberSource::Request::AuthReversal');
 
 my $dto
 	= new_ok( $authrevc => [{

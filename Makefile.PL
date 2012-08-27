@@ -40,6 +40,7 @@ my %WriteMakefileArgs = (
     "Config" => 0,
     "DateTime::Format::W3CDTF" => "0.06",
     "Exception::Base" => 0,
+    "File::ShareDir::ProjectDistDir" => 0,
     "Hash::Merge" => 0,
     "LWP::Protocol::https" => 0,
     "Locale::Country" => 0,
