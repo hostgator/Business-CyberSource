@@ -1,6 +1,9 @@
 Revision history for Business-CyberSource
 
 0.006005  2012-08-29
+	- Add missing Dependency File::ShareDir::ProjectDistDir\
+	- refactor run_transaction to use state in ways that in theory should
+	  improve performance by not rebuilding the SOAP client every time
 
 0.006004  2012-08-14
 	- MooseX::RemoteHelper::CompositeSerialization was accidentally applied to
