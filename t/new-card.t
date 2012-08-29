@@ -52,7 +52,7 @@ foreach ( @test_pairs ) {
 	is $card->_compare_date_against_expiration( $dt2 ), 1, 'may 2 expired';
 	is $card->_compare_date_against_expiration( $dt3 ), 1, 'june expired';
 
-	is ref $card->serialize, 'HASH', 'serialize returns hashref';
+	is ref $card->serialize('cybersource'), 'HASH', 'serialize returns hashref';
 
 	my $expected_card = {
 		accountNumber   => $acct_num,

@@ -100,7 +100,9 @@ sub _build_card_type_code {
 
 has account_number => (
 	isa         => CreditCard,
-	remote_name => 'accountNumber',
+	remote_name => {
+		cybersource => 'accountNumber',
+	},
 	alias       => [ qw( credit_card_number card_number ) ],
 	required    => 1,
 	is          => 'ro',
@@ -132,7 +134,9 @@ has is_expired => (
 
 has security_code => (
 	isa         => CardSecurityCode,
-	remote_name => 'cvNumber',
+	remote_name => {
+		cybersource => 'cvNumber',
+	},
 	alias       => [ qw( cvn cvv cvv2 cvc2 cid ) ],
 	predicate   => 'has_security_code',
 	traits      => [ 'SetOnce' ],
@@ -141,7 +145,9 @@ has security_code => (
 
 has holder => (
 	isa         => NonEmptySimpleStr,
-	remote_name => 'fullName',
+	remote_name => {
+		cybersource => 'fullName',
+	},
 	alias       => [ qw( name full_name card_holder ) ],
 	predicate   => 'has_holder',
 	traits      => [ 'SetOnce' ],
@@ -150,7 +156,9 @@ has holder => (
 
 has card_type_code => (
 	isa         => CardTypeCode,
-	remote_name => 'cardType',
+	remote_name => {
+		cybersource => 'cardType',
+	},
 	lazy        => 1,
 	is          => 'ro',
 	builder     => '_build_card_type_code',
@@ -158,7 +166,9 @@ has card_type_code => (
 
 has cv_indicator => (
 	isa         => CvIndicator,
-	remote_name => 'cvIndicator',
+	remote_name => {
+		cybersource => 'cvIndicator',
+	},
 	lazy        => 1,
 	predicate   => 'has_cv_indicator',
 	traits      => [ 'SetOnce' ],
@@ -167,7 +177,9 @@ has cv_indicator => (
 );
 
 has _expiration_month => (
-	remote_name => 'expirationMonth',
+	remote_name => {
+		cybersource => 'expirationMonth',
+	},
 	isa         => 'Int',
 	is          => 'ro',
 	lazy        => 1,
@@ -178,7 +190,9 @@ has _expiration_month => (
 );
 
 has _expiration_year => (
-	remote_name => 'expirationYear',
+	remote_name => {
+		cybersource => 'expirationYear',
+	},
 	isa         => 'Int',
 	is          => 'ro',
 	lazy        => 1,
