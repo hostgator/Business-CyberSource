@@ -3,14 +3,14 @@ use 5.008;
 use strict;
 use warnings;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 1;
 
 # ABSTRACT: Perl interface to the CyberSource Simple Order SOAP API
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 DESCRIPTION
 
@@ -228,4 +228,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

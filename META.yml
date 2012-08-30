@@ -36,7 +36,6 @@ requires:
   File::ShareDir::ProjectDistDir: 0
   Hash::Merge: 0
   LWP::Protocol::https: 0
-  Locale::Country: 0
   Module::Load: 0
   Moose: 0
   Moose::Role: 0
@@ -73,4 +72,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.006005
+version: 0.006006

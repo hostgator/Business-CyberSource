@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
@@ -50,8 +50,8 @@ has exchange_rate_timestamp => (
 
 # ABSTRACT: Role to apply to requests and responses that require currency
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -60,7 +60,7 @@ Business::CyberSource::Role::ForeignCurrency - Role to apply to requests and res
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 ATTRIBUTES
 
@@ -90,4 +90,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

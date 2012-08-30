@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean -also => [ qw( create ) ];
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
@@ -151,8 +151,8 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: Response Object
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -161,7 +161,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 DESCRIPTION
 
@@ -334,4 +334,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

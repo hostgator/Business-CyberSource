@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::RequestPart::Service';
@@ -24,8 +24,8 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: AuthReversal Service
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -34,7 +34,7 @@ Business::CyberSource::RequestPart::Service::AuthReversal - AuthReversal Service
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 ATTRIBUTES
 
@@ -64,4 +64,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

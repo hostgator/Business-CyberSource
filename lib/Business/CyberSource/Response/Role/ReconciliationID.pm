@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose::Role;
 
@@ -17,8 +17,8 @@ has reconciliation_id => (
 
 # ABSTRACT: Reconciliation Identifier
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -27,7 +27,7 @@ Business::CyberSource::Response::Role::ReconciliationID - Reconciliation Identif
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 ATTRIBUTES
 
@@ -55,4 +55,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

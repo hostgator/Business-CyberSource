@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -53,8 +53,8 @@ has request_specific_reason_code => (
 
 # ABSTRACT: role for handling accepted transactions
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -63,7 +63,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 DESCRIPTION
 
@@ -111,4 +111,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

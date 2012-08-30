@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
@@ -46,8 +46,7 @@ use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            )
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime;
 
-use Locale::Country;
-use Class::Load qw( load_class );
+use Class::Load  qw( load_class );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -181,16 +180,23 @@ subtype CountryCode,
 coerce CountryCode,
 	from Alpha3Country,
 	via {
-		return uc country_code2code( $_ , LOCALE_CODE_ALPHA_3, LOCALE_CODE_ALPHA_2 );
+		load_class('Locale::Code');
+
+		return uc Locale::Code::country_code2code( $_ ,
+			Locale::Code::LOCALE_CODE_ALPHA_3(),
+			Locale::Code::LOCALE_CODE_ALPHA_2(),
+		);
 	}
 	;
 
 coerce CountryCode,
 	from CountryName,
 	via {
-		return uc country2code( $_, LOCALE_CODE_ALPHA_2 );
-	}
-	;
+		load_class('Locale::Code');
+		return uc Locale::Code::country_code2code( $_ ,
+			Locale::Code::LOCALE_CODE_ALPHA_2(),
+		);
+	};
 
 enum DCCIndicator, [ qw( 1 2 3 ) ];
 
@@ -261,9 +267,8 @@ subtype _VarcharSixty,
 
 # ABSTRACT: Moose Types specific to CyberSource
 
-
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -272,7 +277,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 SYNOPSIS
 
@@ -385,4 +390,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

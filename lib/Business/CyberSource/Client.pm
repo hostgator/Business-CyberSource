@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose;
 
@@ -28,14 +28,14 @@ use XML::Compile::Transport::SOAPHTTP;
 sub _client {
 	my $self = shift;
 
-	state $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	state $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
-	state $call = $wsdl->compileClient('runTransaction');
+	my $call = $wsdl->compileClient('runTransaction');
 
-	state $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
 
 	return [ $call, $security ];
 }
@@ -60,7 +60,8 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security = $self->_client;
+	state $call_security;
+	$call_security //= $self->_client;
 
 	my ( $call, $security ) = @{ $call_security };
 
@@ -287,8 +288,8 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: User Agent Responsible for transmitting the Response
 
-
 __END__
+
 =pod
 
 =head1 NAME
@@ -297,7 +298,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 SYNOPSIS
 
@@ -408,4 +409,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-

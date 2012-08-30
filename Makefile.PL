@@ -43,7 +43,6 @@ my %WriteMakefileArgs = (
     "File::ShareDir::ProjectDistDir" => 0,
     "Hash::Merge" => 0,
     "LWP::Protocol::https" => 0,
-    "Locale::Country" => 0,
     "Module::Load" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,
@@ -76,7 +75,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.006005",
+  "VERSION" => "0.006006",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -1,7 +1,10 @@
 Revision history for Business-CyberSource
 
+0.006006  2012-08-30
+	- smarten my performance optimizations
+
 0.006005  2012-08-29
-	- Add missing Dependency File::ShareDir::ProjectDistDir\
+	- Add missing Dependency File::ShareDir::ProjectDistDir
 	- refactor run_transaction to use state in ways that in theory should
 	  improve performance by not rebuilding the SOAP client every time
 

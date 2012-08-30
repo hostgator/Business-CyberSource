@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006005'; # VERSION
+our $VERSION = '0.006006'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::RequestPart::Service';
@@ -23,6 +23,7 @@ __PACKAGE__->meta->make_immutable;
 # ABSTRACT: Tax Service
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -31,7 +32,7 @@ Business::CyberSource::RequestPart::Service::Tax - Tax Service
 
 =head1 VERSION
 
-version 0.006005
+version 0.006006
 
 =head1 BUGS
 
@@ -55,4 +56,3 @@ This is free software, licensed under:
   The Artistic License 2.0 (GPL Compatible)
 
 =cut
-
