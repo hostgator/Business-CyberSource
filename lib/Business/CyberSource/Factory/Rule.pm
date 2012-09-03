@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006006'; # VERSION
+our $VERSION = '0.006007'; # VERSION
 
 use MooseX::AbstractFactory;
 
@@ -23,7 +23,7 @@ Business::CyberSource::Factory::Rule - CyberSource Rule Factory Module
 
 =head1 VERSION
 
-version 0.006006
+version 0.006007
 
 =head1 METHODS
 
@@ -50,7 +50,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by Caleb Cushing.
+This software is Copyright (c) 2012 by HostGator.com.
 
 This is free software, licensed under:
 

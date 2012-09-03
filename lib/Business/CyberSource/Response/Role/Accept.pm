@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006006'; # VERSION
+our $VERSION = '0.006007'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -63,7 +63,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version 0.006006
+version 0.006007
 
 =head1 DESCRIPTION
 
@@ -104,7 +104,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by Caleb Cushing.
+This software is Copyright (c) 2012 by HostGator.com.
 
 This is free software, licensed under:
 

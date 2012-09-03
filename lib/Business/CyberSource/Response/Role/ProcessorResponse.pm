@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006006'; # VERSION
+our $VERSION = '0.006007'; # VERSION
 
 use Moose::Role;
 
@@ -33,7 +33,7 @@ Business::CyberSource::Response::Role::ProcessorResponse - Processor Response at
 
 =head1 VERSION
 
-version 0.006006
+version 0.006007
 
 =head1 ATTRIBUTES
 
@@ -54,7 +54,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by Caleb Cushing.
+This software is Copyright (c) 2012 by HostGator.com.
 
 This is free software, licensed under:
 
