@@ -21,9 +21,9 @@ can_ok $client, '_client';
 
 my $client_security = $client->_client;
 
-my ( $client, $security ) = @$client_security;
+my ( $soap_client, $security ) = @$client_security;
 
-is ref $client,   'CODE', 'XML client is a code ref';
+is ref $soap_client,   'CODE', 'XML client is a code ref';
 is ref $security, 'HASH', 'XML security is a code ref';
 
 done_testing;
