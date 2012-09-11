@@ -60,8 +60,7 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security;
-	$call_security //= $self->_client;
+	state $call_security = $self->_client;
 
 	my ( $call, $security ) = @{ $call_security };
 
