@@ -202,7 +202,7 @@ This is the Credit Card Number
 
 =attr expiration
 
-	my $card = Business::CyberSource::CreditCard->new({
+	my $card = Business::CyberSource::RequestPart::Card->new({
 			account_number => '4111111111111111',
 			expiration     => {
 				year  => '2025',
@@ -211,7 +211,9 @@ This is the Credit Card Number
 		});
 
 A DateTime object, you should construct it by passing a hashref with keys for
-month, and year, it will actually contain the last day of that month/year.
+month, and year, it will actually contain the last day of that month/year. You
+can pass a L<DateTime> object, as long as it was built using the
+L<last_day_of_month|DateTime/"DateTime-last_day_of_month-...-"> factory method.
 
 =attr security_code
 
