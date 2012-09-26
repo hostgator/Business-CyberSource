@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006007'; # VERSION
+our $VERSION = '0.006008'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -202,7 +202,7 @@ Business::CyberSource::RequestPart::Card - Credit Card Helper Class
 
 =head1 VERSION
 
-version 0.006007
+version 0.006008
 
 =head1 ATTRIBUTES
 
@@ -212,7 +212,7 @@ This is the Credit Card Number
 
 =head2 expiration
 
-	my $card = Business::CyberSource::CreditCard->new({
+	my $card = Business::CyberSource::RequestPart::Card->new({
 			account_number => '4111111111111111',
 			expiration     => {
 				year  => '2025',
@@ -221,7 +221,9 @@ This is the Credit Card Number
 		});
 
 A DateTime object, you should construct it by passing a hashref with keys for
-month, and year, it will actually contain the last day of that month/year.
+month, and year, it will actually contain the last day of that month/year. You
+can pass a L<DateTime> object, as long as it was built using the
+L<last_day_of_month|DateTime/"DateTime-last_day_of_month-...-"> factory method.
 
 =head2 security_code
 

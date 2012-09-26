@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006007'; # VERSION
+our $VERSION = '0.006008'; # VERSION
 
 BEGIN {
 use Moose;
@@ -210,7 +210,7 @@ Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
-version 0.006007
+version 0.006008
 
 =head1 DESCRIPTION
 

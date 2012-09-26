@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006007'; # VERSION
+our $VERSION = '0.006008'; # VERSION
 
 use Moose;
 
@@ -60,8 +60,7 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security;
-	$call_security //= $self->_client;
+	state $call_security = $self->_client;
 
 	my ( $call, $security ) = @{ $call_security };
 
@@ -298,7 +297,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006007
+version 0.006008
 
 =head1 SYNOPSIS
 
