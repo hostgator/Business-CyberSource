@@ -45,7 +45,7 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security = $self->_client;
+	state $call_security = $self->_soap_client;
 
 	my ( $call, $security ) = @{ $call_security };
 
@@ -82,7 +82,7 @@ sub run_transaction {
 	return $self->_response_factory->create( $dto, $answer );
 }
 
-sub _client {
+sub _soap_client {
 	my $self = shift;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
