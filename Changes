@@ -3,6 +3,8 @@ Revision history for Business-CyberSource
 0.006008  2012-09-26
 	- Fix and improve ::RequestPart::Card documentation
 	- improve use of state for optimization
+	[DEPRECATIONS]
+	- MooseX::Traits will be removed as a dependency
 
 0.006007  2012-09-03
 	- update copyright holder
