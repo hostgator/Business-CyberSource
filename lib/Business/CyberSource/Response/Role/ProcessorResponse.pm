@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006008'; # VERSION
+our $VERSION = '0.006009'; # VERSION
 
 use Moose::Role;
 
@@ -33,7 +33,7 @@ Business::CyberSource::Response::Role::ProcessorResponse - Processor Response at
 
 =head1 VERSION
 
-version 0.006008
+version 0.006009
 
 =head1 ATTRIBUTES
 

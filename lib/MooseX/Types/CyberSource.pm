@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006008'; # VERSION
+our $VERSION = '0.006009'; # VERSION
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
@@ -277,7 +277,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version 0.006008
+version 0.006009
 
 =head1 SYNOPSIS
 

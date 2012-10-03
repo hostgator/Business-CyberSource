@@ -1,9 +1,9 @@
 package Business::CyberSource;
-use 5.008;
+use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.006008'; # VERSION
+our $VERSION = '0.006009'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.006008
+version 0.006009
 
 =head1 DESCRIPTION
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006008'; # VERSION
+our $VERSION = '0.006009'; # VERSION
 
 use Moose;
 
@@ -24,21 +24,6 @@ use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
-
-sub _client {
-	my $self = shift;
-
-	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
-
-	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
-
-	my $call = $wsdl->compileClient('runTransaction');
-
-	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
-
-	return [ $call, $security ];
-}
 
 sub run_transaction {
 	my ( $self, $dto ) = @_;
@@ -60,7 +45,7 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security = $self->_client;
+	state $call_security = $self->_soap_client;
 
 	my ( $call, $security ) = @{ $call_security };
 
@@ -95,6 +80,21 @@ sub run_transaction {
 	}
 
 	return $self->_response_factory->create( $dto, $answer );
+}
+
+sub _soap_client {
+	my $self = shift;
+
+	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
+
+	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
+	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
+
+	my $call = $wsdl->compileClient('runTransaction');
+
+	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
+
+	return [ $call, $security ];
 }
 
 sub _build_cybs_wsdl {
@@ -297,7 +297,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006008
+version 0.006009
 
 =head1 SYNOPSIS
 
