@@ -19,7 +19,7 @@ is $client->name, 'Business::CyberSource', "$class->name";
 
 can_ok $client, '_soap_client';
 
-my $client_security = $client->_client;
+my $client_security = $client->_soap_client;
 
 my ( $soap_client, $security ) = @$client_security;
 
