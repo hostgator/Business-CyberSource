@@ -17,7 +17,7 @@ can_ok  $client, qw( name version env );
 
 is $client->name, 'Business::CyberSource', "$class->name";
 
-can_ok $client, '_client';
+can_ok $client, '_soap_client';
 
 my $client_security = $client->_client;
 
