@@ -129,7 +129,7 @@ A test credit card number provided by your your credit card processor
 			}
 		};
 
-	unless( $auth_response->is_accepted ) {
+	unless( $auth_response->is_accept ) {
 		carp $auth_response->reason_text;
 	}
 	else {
@@ -160,7 +160,7 @@ A test credit card number provided by your your credit card processor
 			}
 		};
 
-		if ( $capture_response->is_accepted ) {
+		if ( $capture_response->is_accept ) {
 			# you probably want to record this
 			say $capture_response->reconciliation_id;
 		}
