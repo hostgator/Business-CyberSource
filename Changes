@@ -1,6 +1,10 @@
 Revision history for Business-CyberSource
 
-0.006009  2012-10-02
+0.006009  2012-10-04
+	[FEATURE]
+	- added is_accept and is_reject to response
+	[DEPRECATIONS]
+	- is_success in the future will mean a non error state (accept or reject)
 
 0.006008  2012-09-26
 	- Fix and improve ::RequestPart::Card documentation

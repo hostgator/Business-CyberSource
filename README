@@ -110,7 +110,7 @@ EXAMPLE
                             }
                     };
 
-            unless( $auth_response->is_accepted ) {
+            unless( $auth_response->is_accept ) {
                     carp $auth_response->reason_text;
             }
             else {
@@ -141,7 +141,7 @@ EXAMPLE
                             }
                     };
 
-                    if ( $capture_response->is_accepted ) {
+                    if ( $capture_response->is_accept ) {
                             # you probably want to record this
                             say $capture_response->reconciliation_id;
                     }

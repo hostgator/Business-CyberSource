@@ -48,15 +48,37 @@ has request_token => (
 	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
 );
 
-has accepted => (
-	required => 0,
-	lazy     => 1,
+has is_success => (
+	isa      => 'Bool',
 	is       => 'ro',
-	isa      => Bool,
-	alias    => [ qw( is_success is_accepted ) ],
+	lazy     => 1,
+	init_arg => undef,
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
+	},
+);
+
+has is_accept => (
+	isa      => 'Bool',
+	is       => 'ro',
+	lazy     => 1,
+	init_arg => undef,
+	alias    => [ qw( accepted is_accepted ) ],
+	default  => sub {
+		my $self = shift;
+		return $self->decision eq 'ACCEPT' ? 1 : 0;
+	},
+);
+
+has is_reject => (
+	isa      => 'Bool',
+	is       => 'ro',
+	lazy     => 1,
+	init_arg => undef,
+	default  => sub {
+		my $self = shift;
+		return $self->decision eq 'REJECT' ? 1 : 0;
 	},
 );
 
@@ -215,9 +237,19 @@ Request token data created by CyberSource for each reply. The field is an
 encoded string that contains no confidential information, such as an account
 or card verification number. The string can contain up to 256 characters.
 
-=head2 accepted
+=head2 is_accept
 
 boolean way of determining whether the transaction was accepted
+
+=head2 is_reject
+
+boolean way of determining whether the transaction was rejected
+
+=head2 is_success
+
+boolean way of determining whether the transaction was successful.
+Currently an alias for L<is_accept|/"is_accept"> but will later mean a non
+error status.
 
 =head2 amount
 
