@@ -1,6 +1,7 @@
 package MooseX::Types::CyberSource;
 use strict;
 use warnings;
+use Class::Load 0.20 qw( load_class );
 use namespace::autoclean;
 
 # VERSION
@@ -46,7 +47,6 @@ use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            )
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime;
 
-use Class::Load  qw( load_class );
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -103,75 +103,16 @@ class_type CaptureService,      { class => $cps };
 class_type CreditService,       { class => $cds };
 class_type TaxService,          { class => $txs };
 
-coerce Item,
-	from HashRef,
-	via {
-		load_class( $itc );
-		$itc->new( $_ );
-	};
-
-coerce PurchaseTotals,
-	from HashRef,
-	via {
-		load_class( $ptc );
-		$ptc->new( $_ );
-	};
-
-coerce Service,
-	from HashRef,
-	via {
-		load_class( $svc );
-		$svc->new( $_ );
-	};
-
-coerce AuthReversalService,
-	from HashRef,
-	via {
-		load_class( $ars );
-		$ars->new( $_ );
-	};
-
-coerce CaptureService,
-	from HashRef,
-	via {
-		load_class( $cps );
-		$cps->new( $_ );
-	};
-
-coerce CreditService,
-	from HashRef,
-	via {
-		load_class( $cds );
-		$cds->new( $_ );
-	};
-
-coerce TaxService,
-	from HashRef,
-	via {
-		load_class( $txs );
-		$txs->new( $_ );
-	};
-
-coerce Card,
-	from HashRef,
-	via {
-		load_class( $cdc );
-		$cdc->new( $_ );
-	};
-
-coerce BillTo,
-	from HashRef,
-	via {
-		load_class( $btc );
-		$btc->new( $_ );
-	};
-
-coerce BusinessRules,
-	from HashRef,
-	via {
-		load_class( $brc );
-		$brc->new( $_ );
-	};
+coerce Item,                from HashRef, via { load_class( $itc )->new( $_ ) };
+coerce PurchaseTotals,      from HashRef, via { load_class( $ptc )->new( $_ ) };
+coerce Service,             from HashRef, via { load_class( $svc )->new( $_ ) };
+coerce AuthReversalService, from HashRef, via { load_class( $ars )->new( $_ ) };
+coerce CaptureService,      from HashRef, via { load_class( $cps )->new( $_ ) };
+coerce CreditService,       from HashRef, via { load_class( $cds )->new( $_ ) };
+coerce TaxService,          from HashRef, via { load_class( $txs )->new( $_ ) };
+coerce Card,                from HashRef, via { load_class( $cdc )->new( $_ ) };
+coerce BillTo,              from HashRef, via { load_class( $btc )->new( $_ ) };
+coerce BusinessRules,       from HashRef, via { load_class( $brc )->new( $_ ) };
 
 subtype CountryCode,
 	as Alpha2Country
