@@ -3,13 +3,12 @@ use strict;
 use warnings;
 use namespace::autoclean -also => [ qw( create ) ];
 
-our $VERSION = '0.006009'; # VERSION
+our $VERSION = '0.006010'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
 
 use MooseX::Aliases;
-use MooseX::Types::Moose                   qw( Str Bool                      );
 use MooseX::Types::CyberSource             qw( Decision RequestID            );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
@@ -35,10 +34,10 @@ has reason_code => (
 );
 
 has reason_text => (
+	isa      => 'Str',
 	required => 1,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => Str,
 	builder  => '_build_reason_text',
 );
 
@@ -183,7 +182,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version 0.006009
+version 0.006010
 
 =head1 DESCRIPTION
 

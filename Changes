@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+0.006010  2012-10-05
+
 0.006009  2012-10-04
 	[FEATURE]
 	- added is_accept and is_reject to response
