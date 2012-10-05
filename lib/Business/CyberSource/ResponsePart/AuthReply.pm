@@ -11,26 +11,17 @@ extends 'Business::CyberSource::MessagePart';
 with qw(
 	Business::CyberSource::Response::Role::ReconciliationID
 	Business::CyberSource::Response::Role::ReasonCode
+	Business::CyberSource::Response::Role::Amount
 );
 
-use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
-use MooseX::Types::DateTime      qw( DateTime          );
-use MooseX::Types::DateTime::W3C qw( DateTimeW3C       );
 use MooseX::Types::CyberSource   qw(
 	_VarcharSeven
 	_VarcharTen
 	AVSResult
 	CvResults
+	DateTimeFromW3C
 );
 
-subtype DateTimeFromW3C, as DateTime;
-
-coerce DateTimeFromW3C,
-	from DateTimeW3C,
-	via {
-		return load_class('DateTime::Format::W3CDTF')
-			->new->parse_datetime( $_ );
-	};
 
 has auth_code => (
 	isa         => _VarcharSeven,
@@ -43,12 +34,6 @@ has auth_record => (
 	isa         => 'Str',
 	remote_name => 'authRecord',
 	predicate   => 'has_auth_record',
-	is          => 'rw',
-);
-
-has amount => (
-	isa         => 'Num',
-	remote_name => 'amount',
 	is          => 'rw',
 );
 

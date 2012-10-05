@@ -1,7 +1,8 @@
 package Business::CyberSource::Response;
 use strict;
 use warnings;
-use namespace::autoclean -also => [ qw( create ) ];
+use namespace::autoclean;
+use Module::Load qw( load );
 
 # VERSION
 
@@ -15,16 +16,43 @@ with qw(
 );
 
 use MooseX::Aliases;
+use MooseX::Types::Common::String 0.001005 qw( NonEmptySimpleStr );
 use MooseX::Types::CyberSource qw(
 	Decision
 	RequestID
 	ResPurchaseTotals
 	AuthReply
+	CaptureReply
 	TaxReply
 );
-use MooseX::Types::Common::String 0.001005 qw( NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
+
+# DRAGONS!
+our $AUTOLOAD;
+
+sub AUTOLOAD {
+	my $self = shift;
+
+	my $called = $AUTOLOAD =~ s/.*:://r;
+
+	load 'Carp';
+	Carp::carp 'DEPRECATED: please call '
+		. $called
+		. ' on the nested object you desire'
+		;
+
+	my @nested = ( qw( auth_reply capture_reply ) );
+
+	my $val;
+	foreach my $attr ( @nested ) {
+		my $predicate   = 'has_' . $attr;
+		my $called_pred = 'has_' . $called;
+		$val = $self->$attr->$called
+			if $self->$predicate && $self->$attr->$called_pred;
+	};
+	return $val;
+}
 
 ## common
 has request_id => (
@@ -68,7 +96,6 @@ has auth_reply => (
 	coerce      => 1,
 	handles     => {
 		datetime           => 'datetime',
-		amount             => 'amount',
 		avs_code           => 'avs_code',
 		avs_code_raw       => 'avs_code_raw',
 		auth_code          => 'auth_code',
@@ -76,7 +103,15 @@ has auth_reply => (
 		cv_code            => 'cv_code',
 		cv_code_raw        => 'cv_code_raw',
 		processor_response => 'processor_response',
-	}
+	},
+);
+
+has capture_reply => (
+	isa         => CaptureReply,
+	remote_name => 'ccCaptureReply',
+	is          => 'ro',
+	predicate   => 'has_capture_reply',
+	coerce      => 1,
 );
 
 has tax_reply => (

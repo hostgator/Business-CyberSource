@@ -30,6 +30,7 @@ use MooseX::Types -declare => [ qw(
 
 	ResPurchaseTotals
 	AuthReply
+	CaptureReply
 	TaxReply
 
 	TaxReplyItems
@@ -39,6 +40,8 @@ use MooseX::Types -declare => [ qw(
 
 	ExpirationDate
 	CreditCard
+
+	DateTimeFromW3C
 
 	_VarcharOne
 	_VarcharSeven
@@ -52,7 +55,8 @@ use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       )
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
 use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
-use MooseX::Types::DateTime;
+use MooseX::Types::DateTime        qw(                                         );
+use MooseX::Types::DateTime::W3C   qw( DateTimeW3C                             );
 
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
@@ -104,6 +108,7 @@ my $txs = $req . 'Service::Tax';
 
 my $res_pt_c = $res . 'PurchaseTotals';
 my $res_ar_c = $res . 'AuthReply';
+my $res_ca_c = $res . 'CaptureReply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
@@ -121,6 +126,7 @@ class_type TaxService,          { class => $txs };
 
 class_type ResPurchaseTotals,   { class => $res_pt_c };
 class_type AuthReply,           { class => $res_ar_c };
+class_type CaptureReply,        { class => $res_ca_c };
 class_type TaxReply,            { class => $res_tr_c };
 class_type TaxReplyItem,        { class => $res_ti_c };
 
@@ -138,6 +144,7 @@ coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_
 coerce AuthReply,           from HashRef, via { load_class( $res_ar_c )->new( $_ ) };
 coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_ ) };
 coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
+coerce CaptureReply,        from HashRef, via { load_class( $res_ca_c )->new( $_ ) };
 
 subtype CountryCode,
 	as Alpha2Country
@@ -206,6 +213,15 @@ coerce Items,
 
 		my @items = map { load_class($itc)->new( $_ ) } @{ $items };
 		return \@items;
+	};
+
+subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
+
+coerce DateTimeFromW3C,
+	from DateTimeW3C,
+	via {
+		return load_class('DateTime::Format::W3CDTF')
+			->new->parse_datetime( $_ );
 	};
 
 subtype _VarcharOne,
