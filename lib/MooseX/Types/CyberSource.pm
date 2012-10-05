@@ -28,6 +28,8 @@ use MooseX::Types -declare => [ qw(
 	BillTo
 	BusinessRules
 
+	ResPurchaseTotals
+
 	RequestID
 
 	ExpirationDate
@@ -80,17 +82,22 @@ enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
 
-my $prefix = 'Business::CyberSource::RequestPart::';
-my $itc = $prefix . 'Item';
-my $ptc = $prefix . 'PurchaseTotals';
-my $svc = $prefix . 'Service';
-my $cdc = $prefix . 'Card';
-my $btc = $prefix . 'BillTo';
-my $brc = $prefix . 'BusinessRules';
-my $ars = $prefix . 'Service::AuthReversal';
-my $cps = $prefix . 'Service::Capture';
-my $cds = $prefix . 'Service::Credit';
-my $txs = $prefix . 'Service::Tax';
+my $prefix = 'Business::CyberSource::';
+my $req    =  $prefix . 'RequestPart::';
+my $res    =  $prefix . 'ResponsePart::';
+
+my $itc = $req . 'Item';
+my $ptc = $req . 'PurchaseTotals';
+my $svc = $req . 'Service';
+my $cdc = $req . 'Card';
+my $btc = $req . 'BillTo';
+my $brc = $req . 'BusinessRules';
+my $ars = $req . 'Service::AuthReversal';
+my $cps = $req . 'Service::Capture';
+my $cds = $req . 'Service::Credit';
+my $txs = $req . 'Service::Tax';
+
+my $res_pt_c = $res . 'PurchaseTotals';
 
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
@@ -98,21 +105,25 @@ class_type Service,             { class => $svc };
 class_type Card,                { class => $cdc };
 class_type BillTo,              { class => $btc };
 class_type BusinessRules,       { class => $brc };
+
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
 class_type CreditService,       { class => $cds };
 class_type TaxService,          { class => $txs };
 
-coerce Item,                from HashRef, via { load_class( $itc )->new( $_ ) };
-coerce PurchaseTotals,      from HashRef, via { load_class( $ptc )->new( $_ ) };
-coerce Service,             from HashRef, via { load_class( $svc )->new( $_ ) };
-coerce AuthReversalService, from HashRef, via { load_class( $ars )->new( $_ ) };
-coerce CaptureService,      from HashRef, via { load_class( $cps )->new( $_ ) };
-coerce CreditService,       from HashRef, via { load_class( $cds )->new( $_ ) };
-coerce TaxService,          from HashRef, via { load_class( $txs )->new( $_ ) };
-coerce Card,                from HashRef, via { load_class( $cdc )->new( $_ ) };
-coerce BillTo,              from HashRef, via { load_class( $btc )->new( $_ ) };
-coerce BusinessRules,       from HashRef, via { load_class( $brc )->new( $_ ) };
+class_type ResPurchaseTotals,   { class => $res_pt_c };
+
+coerce Item,                from HashRef, via { load_class( $itc      )->new( $_ ) };
+coerce PurchaseTotals,      from HashRef, via { load_class( $ptc      )->new( $_ ) };
+coerce Service,             from HashRef, via { load_class( $svc      )->new( $_ ) };
+coerce AuthReversalService, from HashRef, via { load_class( $ars      )->new( $_ ) };
+coerce CaptureService,      from HashRef, via { load_class( $cps      )->new( $_ ) };
+coerce CreditService,       from HashRef, via { load_class( $cds      )->new( $_ ) };
+coerce TaxService,          from HashRef, via { load_class( $txs      )->new( $_ ) };
+coerce Card,                from HashRef, via { load_class( $cdc      )->new( $_ ) };
+coerce BillTo,              from HashRef, via { load_class( $btc      )->new( $_ ) };
+coerce BusinessRules,       from HashRef, via { load_class( $brc      )->new( $_ ) };
+coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_ ) };
 
 subtype CountryCode,
 	as Alpha2Country

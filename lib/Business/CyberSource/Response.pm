@@ -6,15 +6,20 @@ use namespace::autoclean -also => [ qw( create ) ];
 # VERSION
 
 use Moose;
-use MooseX::RemoteHelper;
 extends 'Business::CyberSource::Message';
 
 use MooseX::Aliases;
-use MooseX::Types::CyberSource             qw( Decision RequestID            );
+use MooseX::Types::CyberSource qw(
+	Decision
+	RequestID
+	ResPurchaseTotals
+);
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
 
+
+## common
 has request_id => (
 	isa         => RequestID,
 	remote_name => 'requestID',
@@ -37,19 +42,30 @@ has reason_code => (
 	is          => 'ro',
 );
 
+has request_token => (
+	isa         => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
+	remote_name => 'requestToken',
+	required    => 1,
+	is          => 'ro',
+);
+
+# accepted
+
+has purchase_totals => (
+	isa         => ResPurchaseTotals,
+	remote_name => 'purchaseTotals',
+	is          => 'ro',
+	predicate   => 'has_purchase_totals',
+	coerce      => 1,
+);
+
+## built
 has reason_text => (
 	isa      => 'Str',
 	required => 1,
 	lazy     => 1,
 	is       => 'ro',
 	builder  => '_build_reason_text',
-);
-
-has request_token => (
-	isa         => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
-	remote_name => 'requestToken',
-	required    => 1,
-	is          => 'ro',
 );
 
 has is_success => (
