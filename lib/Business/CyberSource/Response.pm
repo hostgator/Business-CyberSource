@@ -6,6 +6,7 @@ use namespace::autoclean -also => [ qw( create ) ];
 # VERSION
 
 use Moose;
+use MooseX::RemoteHelper;
 extends 'Business::CyberSource::Message';
 
 use MooseX::Aliases;
@@ -16,21 +17,24 @@ use Moose::Util::TypeConstraints;
 
 has request_id => (
 	isa         => RequestID,
+	remote_name => 'requestID',
+	is          => 'ro',
 	predicate   => 'has_request_id',
 	required    => 1,
-	is          => 'ro',
 );
 
 has decision => (
-	required => 1,
-	is       => 'ro',
-	isa      => Decision,
+	isa         => Decision,
+	remote_name => 'decision',
+	is          => 'ro',
+	required    => 1,
 );
 
 has reason_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => NumericCode,
+	isa         => NumericCode,
+	remote_name => 'reasonCode',
+	required    => 1,
+	is          => 'ro',
 );
 
 has reason_text => (
@@ -42,9 +46,10 @@ has reason_text => (
 );
 
 has request_token => (
-	required => 1,
-	is       => 'ro',
-	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
+	isa         => subtype( NonEmptySimpleStr, where { length $_ <= 256 }),
+	remote_name => 'requestToken',
+	required    => 1,
+	is          => 'ro',
 );
 
 has is_success => (
