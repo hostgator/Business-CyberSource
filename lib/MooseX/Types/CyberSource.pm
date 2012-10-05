@@ -30,9 +30,8 @@ use MooseX::Types -declare => [ qw(
 
 	ResPurchaseTotals
 	AuthReply
-	CaptureReply
-	CreditReply
 	TaxReply
+	Reply
 
 	TaxReplyItems
 	TaxReplyItem
@@ -109,8 +108,7 @@ my $txs = $req . 'Service::Tax';
 
 my $res_pt_c = $res . 'PurchaseTotals';
 my $res_ar_c = $res . 'AuthReply';
-my $res_ca_c = $res . 'CaptureReply';
-my $res_cr_c = $res . 'CreditReply';
+my $res_re_c = $res . 'Reply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
@@ -128,8 +126,7 @@ class_type TaxService,          { class => $txs };
 
 class_type ResPurchaseTotals,   { class => $res_pt_c };
 class_type AuthReply,           { class => $res_ar_c };
-class_type CaptureReply,        { class => $res_ca_c };
-class_type CreditReply,         { class => $res_cr_c };
+class_type Reply,               { class => $res_re_c };
 class_type TaxReply,            { class => $res_tr_c };
 class_type TaxReplyItem,        { class => $res_ti_c };
 
@@ -147,8 +144,7 @@ coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_
 coerce AuthReply,           from HashRef, via { load_class( $res_ar_c )->new( $_ ) };
 coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_ ) };
 coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
-coerce CaptureReply,        from HashRef, via { load_class( $res_ca_c )->new( $_ ) };
-coerce CreditReply,         from HashRef, via { load_class( $res_cr_c )->new( $_ ) };
+coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_ ) };
 
 subtype CountryCode,
 	as Alpha2Country

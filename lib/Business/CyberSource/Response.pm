@@ -22,8 +22,7 @@ use MooseX::Types::CyberSource qw(
 	RequestID
 	ResPurchaseTotals
 	AuthReply
-	CaptureReply
-	CreditReply
+	Reply
 	TaxReply
 );
 
@@ -107,7 +106,7 @@ has auth_reply => (
 );
 
 has capture_reply => (
-	isa         => CaptureReply,
+	isa         => Reply,
 	remote_name => 'ccCaptureReply',
 	is          => 'ro',
 	predicate   => 'has_capture_reply',
@@ -115,10 +114,18 @@ has capture_reply => (
 );
 
 has credit_reply => (
-	isa         => CreditReply,
+	isa         => Reply,
 	remote_name => 'ccCreditReply',
 	is          => 'ro',
 	predicate   => 'has_credit_reply',
+	coerce      => 1,
+);
+
+has auth_reversal_reply => (
+	isa         => Reply,
+	remote_name => 'ccAuthReversalReply',
+	is          => 'ro',
+	predicate   => 'has_auth_reversal_reply',
 	coerce      => 1,
 );
 

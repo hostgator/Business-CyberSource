@@ -1,4 +1,4 @@
-package Business::CyberSource::ResponsePart::CreditReply;
+package Business::CyberSource::ResponsePart::Reply;
 use strict;
 use warnings;
 use namespace::autoclean;
@@ -16,4 +16,4 @@ with qw(
 
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: ccCreditReply part of response
+# ABSTRACT: Generic Reply part of response

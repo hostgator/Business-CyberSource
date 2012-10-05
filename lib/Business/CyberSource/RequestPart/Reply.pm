@@ -16,4 +16,4 @@ with qw(
 
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: ccCaptureReply part of response
+# ABSTRACT: Reply part of response
