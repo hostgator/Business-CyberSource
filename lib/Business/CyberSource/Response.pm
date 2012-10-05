@@ -24,6 +24,7 @@ use MooseX::Types::CyberSource qw(
 	AuthReply
 	Reply
 	TaxReply
+	DCCReply
 );
 
 use Moose::Util::TypeConstraints;
@@ -42,15 +43,22 @@ sub AUTOLOAD {
 		. ' on the nested object you desire'
 		;
 
-	my @nested = ( qw( auth_reply capture_reply credit_reply ) );
+	my @nested = (
+		qw( auth_reply capture_reply credit_reply dcc_reply purchase_totals )
+	);
 
 	my $val;
 	foreach my $attr ( @nested ) {
 		my $predicate   = 'has_' . $attr;
 		my $called_pred = 'has_' . $called;
-		$val = $self->$attr->$called
-			if $self->$predicate && $self->$attr->$called_pred;
-	};
+		if ( $self->$predicate
+				&& $self->$attr->meta->find_method_by_name( $called_pred )
+				&& $self->$attr->$called_pred
+			) {
+			$val = $self->$attr->$called;
+			last if $val;
+		}
+	}
 	return $val;
 }
 
@@ -126,6 +134,14 @@ has auth_reversal_reply => (
 	remote_name => 'ccAuthReversalReply',
 	is          => 'ro',
 	predicate   => 'has_auth_reversal_reply',
+	coerce      => 1,
+);
+
+has dcc_reply => (
+	isa         => DCCReply,
+	remote_name => 'ccDCCReply',
+	is          => 'ro',
+	predicate   => 'has_dcc_reply',
 	coerce      => 1,
 );
 

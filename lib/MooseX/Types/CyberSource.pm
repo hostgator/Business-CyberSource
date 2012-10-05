@@ -13,6 +13,7 @@ use MooseX::Types -declare => [ qw(
 	CvIndicator
 	CvResults
 	DCCIndicator
+	DCCSupported
 
 	Decision
 	Items
@@ -31,6 +32,7 @@ use MooseX::Types -declare => [ qw(
 	ResPurchaseTotals
 	AuthReply
 	TaxReply
+	DCCReply
 	Reply
 
 	TaxReplyItems
@@ -53,7 +55,7 @@ use MooseX::Types -declare => [ qw(
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
-use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
+use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef Bool       );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime        qw(                                         );
 use MooseX::Types::DateTime::W3C   qw( DateTimeW3C                             );
@@ -109,16 +111,17 @@ my $txs = $req . 'Service::Tax';
 my $res_pt_c = $res . 'PurchaseTotals';
 my $res_ar_c = $res . 'AuthReply';
 my $res_re_c = $res . 'Reply';
+my $res_dc_c = $res . 'DCCReply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
+class_type CreditCard, { class => 'Business::CyberSource::CreditCard' };
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
 class_type Service,             { class => $svc };
 class_type Card,                { class => $cdc };
 class_type BillTo,              { class => $btc };
 class_type BusinessRules,       { class => $brc };
-
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
 class_type CreditService,       { class => $cds };
@@ -127,6 +130,7 @@ class_type TaxService,          { class => $txs };
 class_type ResPurchaseTotals,   { class => $res_pt_c };
 class_type AuthReply,           { class => $res_ar_c };
 class_type Reply,               { class => $res_re_c };
+class_type DCCReply,            { class => $res_dc_c };
 class_type TaxReply,            { class => $res_tr_c };
 class_type TaxReplyItem,        { class => $res_ti_c };
 
@@ -143,12 +147,18 @@ coerce BusinessRules,       from HashRef, via { load_class( $brc      )->new( $_
 coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_ ) };
 coerce AuthReply,           from HashRef, via { load_class( $res_ar_c )->new( $_ ) };
 coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_ ) };
+coerce DCCReply,            from HashRef, via { load_class( $res_dc_c )->new( $_ ) };
 coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
 coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_ ) };
 
-subtype CountryCode,
-	as Alpha2Country
-	;
+subtype CountryCode,     as Alpha2Country;
+subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
+subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
+subtype DCCSupported,    as Bool;
+subtype TaxReplyItems,   as ArrayRef[TaxReplyItem];
+subtype Items,           as ArrayRef[Item];
+
+coerce DCCSupported, from Str, via  { return $_ eq 'TRUE' ? 1 : 0 };
 
 coerce CountryCode,
 	from Alpha3Country,
@@ -173,15 +183,12 @@ coerce CountryCode,
 
 enum DCCIndicator, [ qw( 1 2 3 ) ];
 
-class_type CreditCard, { class => 'Business::CyberSource::CreditCard' };
 
 coerce CreditCard,
 	from HashRef,
 	via {
 		return use_module('Business::CyberSource::CreditCard')->new( $_ );
 	};
-
-subtype ExpirationDate, as MooseX::Types::DateTime::DateTime;
 
 coerce ExpirationDate,
 	from HashRef,
@@ -194,8 +201,6 @@ subtype RequestID,
 	where { length $_ <= 29 }
 	;
 
-subtype TaxReplyItems, as ArrayRef[TaxReplyItem];
-subtype Items,         as ArrayRef[Item];
 
 coerce TaxReplyItems,
 	from ArrayRef[HashRef],
@@ -215,7 +220,6 @@ coerce Items,
 		return \@items;
 	};
 
-subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
 
 coerce DateTimeFromW3C,
 	from DateTimeW3C,
