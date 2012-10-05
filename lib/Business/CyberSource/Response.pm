@@ -43,9 +43,14 @@ sub AUTOLOAD {
 		. ' on the nested object you desire'
 		;
 
-	my @nested = (
-		qw( auth_reply capture_reply credit_reply dcc_reply purchase_totals )
-	);
+	my @nested = ( qw(
+		auth_reply
+		capture_reply
+		credit_reply
+		auth_reversal_reply
+		dcc_reply
+		purchase_totals
+	) );
 
 	my $val;
 	foreach my $attr ( @nested ) {
