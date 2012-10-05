@@ -10,7 +10,6 @@ use MooseX::RemoteHelper;
 
 use MooseX::SetOnce 0.200001;
 
-use MooseX::Types::Moose            qw( Str );
 use MooseX::Types::Locale::Currency qw( CurrencyCode );
 use MooseX::Types::Common::Numeric  qw( PositiveOrZeroNum );
 
@@ -39,11 +38,11 @@ has exchange_rate => (
 );
 
 has exchange_rate_timestamp => (
-	isa       => Str,
+	isa         => 'Str',
 	remote_name => 'exchangeRateTimeStamp',
-	predicate => 'has_exchange_rate_timestamp',
-	traits    => ['SetOnce'],
-	is        => 'rw',
+	predicate   => 'has_exchange_rate_timestamp',
+	traits      => ['SetOnce'],
+	is          => 'rw',
 );
 
 1;
