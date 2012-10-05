@@ -27,49 +27,50 @@ has auth_code => (
 	isa         => _VarcharSeven,
 	remote_name => 'authorizationCode',
 	predicate   => 'has_auth_code',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has auth_record => (
 	isa         => 'Str',
 	remote_name => 'authRecord',
 	predicate   => 'has_auth_record',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has datetime => (
 	isa         => DateTimeFromW3C,
 	remote_name => 'authorizedDateTime',
-	is          => 'rw',
+	is          => 'ro',
 	coerce      => 1,
+	predicate   => 'has_datetime',
 );
 
 has cv_code => (
 	isa         => CvResults,
 	remote_name => 'cvCode',
 	predicate   => 'has_cv_code',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has cv_code_raw => (
 	isa         => _VarcharTen,
 	remote_name => 'cvCodeRaw',
 	predicate   => 'has_cv_code_raw',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has avs_code => (
 	isa         => AVSResult,
 	remote_name => 'avsCode',
 	predicate   => 'has_avs_code',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has avs_code_raw => (
 	isa         => _VarcharTen,
 	remote_name => 'avsCodeRaw',
 	predicate   => 'has_avs_code_raw',
-	is          => 'rw',
+	is          => 'ro',
 );
 
 has processor_response => (

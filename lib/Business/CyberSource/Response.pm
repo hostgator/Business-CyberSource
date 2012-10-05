@@ -23,6 +23,7 @@ use MooseX::Types::CyberSource qw(
 	ResPurchaseTotals
 	AuthReply
 	CaptureReply
+	CreditReply
 	TaxReply
 );
 
@@ -42,7 +43,7 @@ sub AUTOLOAD {
 		. ' on the nested object you desire'
 		;
 
-	my @nested = ( qw( auth_reply capture_reply ) );
+	my @nested = ( qw( auth_reply capture_reply credit_reply ) );
 
 	my $val;
 	foreach my $attr ( @nested ) {
@@ -95,7 +96,6 @@ has auth_reply => (
 	predicate   => 'has_auth_reply',
 	coerce      => 1,
 	handles     => {
-		datetime           => 'datetime',
 		avs_code           => 'avs_code',
 		avs_code_raw       => 'avs_code_raw',
 		auth_code          => 'auth_code',
@@ -111,6 +111,14 @@ has capture_reply => (
 	remote_name => 'ccCaptureReply',
 	is          => 'ro',
 	predicate   => 'has_capture_reply',
+	coerce      => 1,
+);
+
+has credit_reply => (
+	isa         => CreditReply,
+	remote_name => 'ccCreditReply',
+	is          => 'ro',
+	predicate   => 'has_credit_reply',
 	coerce      => 1,
 );
 
