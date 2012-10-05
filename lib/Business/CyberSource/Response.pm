@@ -7,7 +7,11 @@ use namespace::autoclean -also => [ qw( create ) ];
 
 use Moose;
 extends 'Business::CyberSource::Message';
-with 'Business::CyberSource::Role::MerchantReferenceCode';
+with qw(
+	Business::CyberSource::Role::MerchantReferenceCode
+
+	Business::CyberSource::Response::Role::Authorization
+);
 
 use MooseX::Aliases;
 use MooseX::Types::CyberSource qw(

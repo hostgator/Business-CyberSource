@@ -12,24 +12,6 @@ with qw(
 	Business::CyberSource::Response::Role::CVN
 );
 
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types::CyberSource qw( _VarcharSeven );
-
-has auth_code => (
-	isa       => _VarcharSeven,
-	predicate => 'has_auth_code',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-);
-
-has auth_record => (
-	isa       => 'Str',
-	predicate => 'has_auth_record',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-);
-
 1;
 
 # ABSTRACT: CyberSource Authorization Response only attributes
