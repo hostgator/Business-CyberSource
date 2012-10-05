@@ -11,6 +11,7 @@ with qw(
 	Business::CyberSource::Response::Role::ReasonCode
 	Business::CyberSource::Response::Role::ReconciliationID
 	Business::CyberSource::Response::Role::Amount
+	Business::CyberSource::Response::Role::ProcessorResponse
 	Business::CyberSource::Response::Role::RequestDateTime
 );
 

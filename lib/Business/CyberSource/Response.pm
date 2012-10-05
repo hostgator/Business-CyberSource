@@ -102,15 +102,14 @@ has auth_reply => (
 	is          => 'ro',
 	predicate   => 'has_auth_reply',
 	coerce      => 1,
-	handles     => {
-		avs_code           => 'avs_code',
-		avs_code_raw       => 'avs_code_raw',
-		auth_code          => 'auth_code',
-		auth_record        => 'auth_record',
-		cv_code            => 'cv_code',
-		cv_code_raw        => 'cv_code_raw',
-		processor_response => 'processor_response',
-	},
+	handles     => [qw(
+		avs_code
+		avs_code_raw
+		auth_code
+		auth_record
+		cv_code
+		cv_code_raw
+	)],
 );
 
 has capture_reply => (

@@ -12,6 +12,7 @@ with qw(
 	Business::CyberSource::Response::Role::ReconciliationID
 	Business::CyberSource::Response::Role::ReasonCode
 	Business::CyberSource::Response::Role::Amount
+	Business::CyberSource::Response::Role::ProcessorResponse
 );
 
 use MooseX::Types::CyberSource   qw(
@@ -21,7 +22,6 @@ use MooseX::Types::CyberSource   qw(
 	CvResults
 	DateTimeFromW3C
 );
-
 
 has auth_code => (
 	isa         => _VarcharSeven,
@@ -71,13 +71,6 @@ has avs_code_raw => (
 	remote_name => 'avsCodeRaw',
 	predicate   => 'has_avs_code_raw',
 	is          => 'ro',
-);
-
-has processor_response => (
-	isa         => _VarcharTen,
-	remote_name => 'processorResponse',
-	predicate   => 'has_processor_response',
-	is          => 'rw',
 );
 
 __PACKAGE__->meta->make_immutable;
