@@ -78,6 +78,8 @@ has auth_reply => (
 		avs_code_raw       => 'avs_code_raw',
 		auth_code          => 'auth_code',
 		auth_record        => 'auth_record',
+		cv_code            => 'cv_code',
+		cv_code_raw        => 'cv_code_raw',
 		processor_response => 'processor_response',
 	}
 );
