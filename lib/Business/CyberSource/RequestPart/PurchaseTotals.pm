@@ -16,7 +16,6 @@ with qw(
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
 
-
 has total => (
 	isa         => PositiveOrZeroNum,
 	remote_name => 'grandTotalAmount',
