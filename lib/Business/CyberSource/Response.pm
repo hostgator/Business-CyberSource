@@ -20,6 +20,7 @@ use MooseX::Types::CyberSource qw(
 	RequestID
 	ResPurchaseTotals
 	AuthReply
+	TaxReply
 );
 use MooseX::Types::Common::String 0.001005 qw( NonEmptySimpleStr );
 
@@ -56,7 +57,7 @@ has purchase_totals => (
 	is          => 'ro',
 	predicate   => 'has_purchase_totals',
 	coerce      => 1,
-	handles     => [qw( currency ) ],
+	handles     => [ qw( currency ) ],
 );
 
 has auth_reply => (
@@ -76,6 +77,14 @@ has auth_reply => (
 		cv_code_raw        => 'cv_code_raw',
 		processor_response => 'processor_response',
 	}
+);
+
+has tax_reply => (
+	isa         => TaxReply,
+	remote_name => 'taxReply',
+	is          => 'ro',
+	predicate   => 'has_tax_reply',
+	coerce      => 1,
 );
 
 ## built
