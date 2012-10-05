@@ -7,6 +7,7 @@ use namespace::autoclean -also => [ qw( create ) ];
 
 use Moose;
 extends 'Business::CyberSource::Message';
+with 'Business::CyberSource::Role::MerchantReferenceCode';
 
 use MooseX::Aliases;
 use MooseX::Types::CyberSource qw(
@@ -18,7 +19,6 @@ use MooseX::Types::CyberSource qw(
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
-
 
 ## common
 has request_id => (
@@ -58,6 +58,7 @@ has purchase_totals => (
 	is          => 'ro',
 	predicate   => 'has_purchase_totals',
 	coerce      => 1,
+	handles     => [qw( currency ) ],
 );
 
 has auth_reply => (
@@ -66,6 +67,15 @@ has auth_reply => (
 	is          => 'ro',
 	predicate   => 'has_auth_reply',
 	coerce      => 1,
+	handles     => {
+		datetime           => 'datetime',
+		amount             => 'amount',
+		avs_code           => 'avs_code',
+		avs_code_raw       => 'avs_code_raw',
+		auth_code          => 'auth_code',
+		auth_record        => 'auth_record',
+		processor_response => 'processor_response',
+	}
 );
 
 ## built

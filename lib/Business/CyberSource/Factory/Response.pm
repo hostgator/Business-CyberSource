@@ -27,6 +27,28 @@ use Exception::Base (
 );
 
 sub create {
+	my ( $self, $request, $answer ) = @_;
+
+	my $result = $answer->{result};
+
+	use Carp;
+	use Data::Dumper::Concise;
+	carp Dumper $result;
+
+	my $decision = $self->_get_decision( $result );
+
+	# the reply is a subsection of result named after the specic request, e.g
+	# ccAuthReply
+
+	my $response
+		= load_class('Business::CyberSource::Response')
+		->new( $answer->{result} )
+		;
+
+	return $response;
+}
+
+sub old_create {
 	my ( $self, $dto, $answer ) = @_;
 
 	my $result = $answer->{result};

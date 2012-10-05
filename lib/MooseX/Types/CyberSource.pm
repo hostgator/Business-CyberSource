@@ -114,7 +114,7 @@ class_type CreditService,       { class => $cds };
 class_type TaxService,          { class => $txs };
 
 class_type ResPurchaseTotals,   { class => $res_pt_c };
-class_type AuthReply,           { class => $res_pt_c };
+class_type AuthReply,           { class => $res_ar_c };
 
 coerce Item,                from HashRef, via { load_class( $itc      )->new( $_ ) };
 coerce PurchaseTotals,      from HashRef, via { load_class( $ptc      )->new( $_ ) };
