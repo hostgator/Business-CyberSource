@@ -6,11 +6,13 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
+use MooseX::RemoteHelper;
 
 has reconciliation_id => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Str',
+	isa         => 'Str',
+	remote_name => 'reconciliationID',
+	is          => 'ro',
+	predicate   => 'has_reconciliation_id',
 );
 
 1;

@@ -13,6 +13,7 @@ use MooseX::Types::CyberSource qw(
 	Decision
 	RequestID
 	ResPurchaseTotals
+	AuthReply
 );
 use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
 
@@ -56,6 +57,14 @@ has purchase_totals => (
 	remote_name => 'purchaseTotals',
 	is          => 'ro',
 	predicate   => 'has_purchase_totals',
+	coerce      => 1,
+);
+
+has auth_reply => (
+	isa         => AuthReply,
+	remote_name => 'ccAuthReply',
+	is          => 'ro',
+	predicate   => 'has_auth_reply',
 	coerce      => 1,
 );
 
