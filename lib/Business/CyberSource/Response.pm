@@ -200,6 +200,17 @@ has is_reject => (
 	},
 );
 
+has is_error => (
+	isa      => 'Bool',
+	is       => 'ro',
+	lazy     => 1,
+	init_arg => undef,
+	default  => sub {
+		my $self = shift;
+		return $self->decision eq 'ERROR' ? 1 : 0;
+	}
+);
+
 sub _build_reason_text {
 	my $self = shift;
 
