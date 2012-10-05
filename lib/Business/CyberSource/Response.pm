@@ -9,6 +9,7 @@ use Moose;
 extends 'Business::CyberSource::Message';
 with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
+	Business::CyberSource::Response::Role::ReasonCode
 
 	Business::CyberSource::Response::Role::Authorization
 );
@@ -20,7 +21,7 @@ use MooseX::Types::CyberSource qw(
 	ResPurchaseTotals
 	AuthReply
 );
-use MooseX::Types::Common::String 0.001005 qw( NumericCode NonEmptySimpleStr );
+use MooseX::Types::Common::String 0.001005 qw( NonEmptySimpleStr );
 
 use Moose::Util::TypeConstraints;
 
@@ -38,13 +39,6 @@ has decision => (
 	remote_name => 'decision',
 	is          => 'ro',
 	required    => 1,
-);
-
-has reason_code => (
-	isa         => NumericCode,
-	remote_name => 'reasonCode',
-	required    => 1,
-	is          => 'ro',
 );
 
 has request_token => (

@@ -8,7 +8,10 @@ use Class::Load 0.20 qw( load_class );
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
-with 'Business::CyberSource::Response::Role::ReconciliationID';
+with qw(
+	Business::CyberSource::Response::Role::ReconciliationID
+	Business::CyberSource::Response::Role::ReasonCode
+);
 
 use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
 use MooseX::Types::DateTime      qw( DateTime          );
@@ -91,13 +94,6 @@ has processor_response => (
 	is          => 'rw',
 );
 
-has reason_code => (
-	isa         => 'Int',
-	remote_name => 'reasonCode',
-	required    => 1,
-	is          => 'ro',
-);
-
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: PurchaseTotals part of response
+# ABSTRACT: ccAuthReply part of response
