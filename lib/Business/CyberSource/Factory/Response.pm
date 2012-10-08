@@ -32,7 +32,7 @@ sub create {
 
 	my $result = $answer->{result};
 
-	if ( $self->debug ) {
+	if ( $self->_has_client && $self->debug ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -67,11 +67,11 @@ sub _get_decision {
 }
 
 has _client => (
-	isa      => 'Business::CyberSource::Client',
-	is       => 'bare',
-	required => 1,
-	weak_ref => 1,
-	handles  => [qw( debug _dumper_package )],
+	isa       => 'Business::CyberSource::Client',
+	is        => 'bare',
+	weak_ref  => 1,
+	handles   => [qw( debug _dumper_package )],
+	predicate => '_has_client',
 );
 
 1;
