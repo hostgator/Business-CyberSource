@@ -60,6 +60,7 @@ use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName )
 use MooseX::Types::DateTime        qw(                                         );
 use MooseX::Types::DateTime::W3C   qw( DateTimeW3C                             );
 
+my $varchar_message = 'string is empty or longer than ';
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
@@ -198,7 +199,8 @@ coerce ExpirationDate,
 
 subtype RequestID,
 	as NonEmptySimpleStr,
-	where { length $_ <= 29 }
+	where { length $_ <= 29 },
+	message { $varchar_message . '29' }
 	;
 
 
@@ -230,32 +232,38 @@ coerce DateTimeFromW3C,
 
 subtype _VarcharOne,
 	as NonEmptySimpleStr,
-	where { length $_ <= 1 }
+	where { length $_ <= 1 },
+	message { $varchar_message . '1' }
 	;
 
 subtype _VarcharSeven,
 	as NonEmptySimpleStr,
-	where { length $_ <= 7 }
+	where { length $_ <= 7 },
+	message { $varchar_message . '7' }
 	;
 
 subtype _VarcharTen,
 	as NonEmptySimpleStr,
-	where { length $_ <= 10 }
+	where { length $_ <= 10 },
+	message { $varchar_message . '10' }
 	;
 
 subtype _VarcharTwenty,
 	as NonEmptySimpleStr,
-	where { length $_ <= 20 }
+	where { length $_ <= 20 },
+	message { $varchar_message . '20' }
 	;
 
 subtype _VarcharFifty,
 	as NonEmptySimpleStr,
-	where { length $_ <= 50 }
+	where { length $_ <= 50 },
+	message { $varchar_message . '50' }
 	;
 
 subtype _VarcharSixty,
 	as NonEmptySimpleStr,
-	where { length $_ <= 60 }
+	where { length $_ <= 60 },
+	message { $varchar_message . '60' }
 	;
 1;
 
