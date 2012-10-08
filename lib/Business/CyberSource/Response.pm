@@ -384,7 +384,6 @@ Condition: ACCEPT
 
 Currency code which was used to make the request
 
-
 =attr reference_code
 
 Type: Varying character 50
@@ -392,15 +391,6 @@ Type: Varying character 50
 Condition: ACCEPT
 
 The merchant reference code originally sent
-
-=attr request_specific_reason_code
-
-Type: Int
-
-Condition: ACCEPT
-
-Every successful request also has a reason code specific to its request type,
-e.g. for capture this is the ccCaptureReply_reasonCode.
 
 =attr processor_response
 
