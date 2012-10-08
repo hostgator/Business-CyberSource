@@ -86,25 +86,6 @@ sub create {
 	return $response;
 }
 
-sub _get_decision {
-	my ( $self, $result ) = @_;
-
-	my $_;
-
-	my ( $decision )
-		= grep {
-			$_ eq $result->{decision}
-		}
-		qw( ERROR ACCEPT REJECT )
-		or Business::CyberSource::Exception->throw(
-			message  => 'decision not defined or not handled',
-			answer   => $result,
-		)
-		;
-
-	return $decision;
-}
-
 has _client => (
 	isa       => 'Business::CyberSource::Client',
 	is        => 'bare',
