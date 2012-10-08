@@ -28,20 +28,18 @@ use XML::Compile::Transport::SOAPHTTP;
 sub run_transaction {
 	my ( $self, $request ) = @_;
 
-	confess 'Not a Business::CyberSource::Request'
-		unless defined $request
-			&& blessed $request
-			&& $request->isa('Business::CyberSource::Request')
-			;
+	confess 'request undefined'         unless defined $request;
+	confess 'request not an object'     unless blessed $request;
+	confess 'request can not serialize' unless $request->can('serialize');
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
-		my $answer;
+		my $result;
 		RULE: foreach my $rule ( @{ $self->_rules } ) {
-			$answer = $rule->run( $request );
-			last RULE if defined $answer;
+			$result = $rule->run( $request );
+			last RULE if defined $result;
 		}
-		return $self->_response_factory->create( $request, $answer )
-			if defined $answer
+		return $self->_response_factory->create( $result, $request )
+			if defined $result
 			;
 	}
 
@@ -71,13 +69,13 @@ sub run_transaction {
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
-	$request->_trace( $trace );
+	$request->_trace( $trace ) if $request->can('_trace');
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $request, $answer );
+	return $self->_response_factory->create( $answer->{result}, $request );
 }
 
 sub _build_soap_client {

@@ -19,13 +19,13 @@ sub run {
 
 	$self->debug if $self->client->debug;
 
-	return { result => {
+	return {
 		merchantReferenceCode => $request->reference_code,
 		decision              => 'REJECT',
 		reasonCode            => '241',
 		requestID             => 0,
 		requestToken          => 0,
-	}};
+	};
 }
 
 __PACKAGE__->meta->make_immutable;

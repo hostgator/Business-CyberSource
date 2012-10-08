@@ -29,9 +29,7 @@ use Exception::Base (
 );
 
 sub create {
-	my ( $self, $request, $answer ) = @_;
-
-	my $result = $answer->{result};
+	my ( $self, $result , $request ) = @_;
 
 	if ( $self->_has_client && $self->debug ) {
 		load 'Carp';
@@ -57,6 +55,14 @@ sub create {
 			$exception{reason_text}
 				= load_class('Business::CyberSource::Response')
 				->_build_reason_text( $result->{reasonCode} )
+				;
+
+			$exception{trace} = $request->trace
+				if defined $request
+				&& blessed $request
+				&& $request->can('has_trace')
+				&& $request->can('trace')
+				&& $request->has_trace
 				;
 
 			Business::CyberSource::Response::Exception->throw( %exception );
