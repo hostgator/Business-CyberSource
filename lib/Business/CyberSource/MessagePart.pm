@@ -16,13 +16,3 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Things that all portions of a message have in common
-
-=head1 WITH
-
-=over
-
-=item L<MooseX::Traits>
-
-=back
-
-=cut
