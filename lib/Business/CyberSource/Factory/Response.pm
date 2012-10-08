@@ -100,7 +100,9 @@ has _client => (
 
 =method create
 
-Pass the C<answer> from L<XML::Compile::SOAP> and the original Request Data
-Transfer Object.
+	my $response = $factory->create( $answer->{result}, $request );
+
+Pass the C<answer->{result}> from L<XML::Compile::SOAP> and the original Request Data
+Transfer Object. Passing a L<Business::CyberSource::Request> is now optional.
 
 =cut
