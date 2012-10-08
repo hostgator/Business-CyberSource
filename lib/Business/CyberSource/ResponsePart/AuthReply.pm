@@ -76,3 +76,51 @@ has avs_code_raw => (
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Reply section for Authorizations
+
+=attr datetime
+
+	$response->auth->datetime if $response->auth->has_datetime;
+
+B<Type:> L<DateTime>
+
+Time of authorization.
+
+=attr avs_code
+
+	$response->auth->avs_code if $response->auth->has_avs_code;
+
+B<Type:> Varying character 1
+
+=attr avs_code_raw
+
+	$response->auth->avs_code_raw if $response->auth->has_avs_code_raw;
+
+B<Type:> Varying character 10
+
+=attr auth_record
+
+	$response->auth->auth_record if $response->auth->has_auth_record;
+
+B<Type:> String
+
+=attr auth_code
+
+	$response->auth->auth_code if $response->auth->has_auth_code;
+
+B<Type:> Varying character 7
+
+Authorization code. Returned only if a value is returned by the processor.
+
+=attr cv_code
+
+	$response->auth->cv_code if $response->auth->has_cv_code;
+
+B<Type:> Single Char
+
+=attr cv_code_raw
+
+	$response->auth->cv_code_raw if $response->auth->has_cv_code_raw;
+
+B<Type:> Varying character 10
+
+=cut

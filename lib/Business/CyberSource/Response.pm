@@ -384,13 +384,6 @@ Condition: ACCEPT
 
 Currency code which was used to make the request
 
-=attr datetime
-
-Type: MooseX::Types::DateTime::W3C::DateTimeW3C
-
-Condition: ACCEPT
-
-Request timestamp (will probably become a DateTime object at some point)
 
 =attr reference_code
 
@@ -420,45 +413,5 @@ Condition: ACCEPT and be either an Authorization or Authorization Reversal
 Type: Int
 
 Condition: ACCEPT and be either a Credit or Capture
-
-=attr avs_code
-
-Type: Varying character 1
-
-Condition: ACCEPT and Authorization
-
-=attr avs_code_raw
-
-Type: Varying character 10
-
-Condition: ACCEPT and Authorization
-
-=attr auth_record
-
-Type: Str
-
-Condition: ACCEPT and Authorization
-
-=attr auth_code
-
-Type: Varying character 7
-
-Condition: ACCEPT and Authorization
-
-=attr cv_code
-
-Type: Single Char
-
-Condition: ACCEPT, Authorization, and cv_code actually returned
-
-you can use predicate has_cv_code to check if attribute is defined
-
-=attr cv_code_raw
-
-Type: Varying character 10
-
-Condition: ACCEPT, Authorization, and cv_code_raw actually returned
-
-you can use predicate has_cv_code to check if attribute is defined
 
 =cut
