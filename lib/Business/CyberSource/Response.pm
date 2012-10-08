@@ -319,11 +319,11 @@ All of the responses contain the attributes here, however if the response is
 C<ACCEPT> you will want to read the documentation for the L<Accept
 Role|Business::CyberSource::Response::Role::Accept>
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Message>;
 
-=head2 composes
+=head1 WITH
 
 =over
 
