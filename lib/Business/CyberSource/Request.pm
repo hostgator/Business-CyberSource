@@ -157,8 +157,6 @@ L<Business::CyberSource::Message>
 
 =over
 
-=item L<Business::CyberSource::Role::MerchantReferenceCode>
-
 =item L<MooseX::RemoteHelper::CompositeSerialization>
 
 =back
@@ -195,14 +193,6 @@ An array of L<Business::CyberSource::RequestPart::Item>
 =attr comments
 
 Comment Field
-
-=attr is_skipable
-
-Type: Bool
-
-an optimization to see if we can skip sending the request and just construct a
-response. This attribute is for use by L<Business::CyberSource::Client> only
-and may change names later.
 
 =for Pod::Coverage BUILD
 
