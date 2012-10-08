@@ -37,7 +37,7 @@ has valid_hours => (
 	required    => 1,
 	predicate   => 'has_valid_hours',
 );
-	
+
 __PACKAGE__->meta->make_immutable;
 1;
 
