@@ -43,7 +43,6 @@ my %WriteMakefileArgs = (
     "File::ShareDir::ProjectDistDir" => 0,
     "Hash::Merge" => 0,
     "LWP::Protocol::https" => 0,
-    "MessagePart" => 0,
     "Module::Load" => 0,
     "Moose" => 0,
     "Moose::Role" => 0,

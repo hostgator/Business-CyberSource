@@ -46,7 +46,6 @@ lib/Business/CyberSource/Response/Role/CVN.pm
 lib/Business/CyberSource/Response/Role/DCC.pm
 lib/Business/CyberSource/Response/Role/ProcessorResponse.pm
 lib/Business/CyberSource/Response/Role/ReconciliationID.pm
-lib/Business/CyberSource/ResponsePart/PurchaseTotals.pm
 lib/Business/CyberSource/Role/Currency.pm
 lib/Business/CyberSource/Role/ForeignCurrency.pm
 lib/Business/CyberSource/Role/MerchantReferenceCode.pm

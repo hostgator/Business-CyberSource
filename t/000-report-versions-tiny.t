@@ -63,7 +63,6 @@ eval { $v .= pmver('File::Temp','any version') };
 eval { $v .= pmver('FindBin','any version') };
 eval { $v .= pmver('Hash::Merge','any version') };
 eval { $v .= pmver('LWP::Protocol::https','any version') };
-eval { $v .= pmver('MessagePart','any version') };
 eval { $v .= pmver('Module::Load','any version') };
 eval { $v .= pmver('Module::Load::Conditional','any version') };
 eval { $v .= pmver('Module::Runtime','any version') };

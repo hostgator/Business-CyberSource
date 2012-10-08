@@ -26,21 +26,21 @@ use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
 sub run_transaction {
-	my ( $self, $dto ) = @_;
+	my ( $self, $request ) = @_;
 
 	confess 'Not a Business::CyberSource::Request'
-		unless defined $dto
-			&& blessed $dto
-			&& $dto->isa('Business::CyberSource::Request')
+		unless defined $request
+			&& blessed $request
+			&& $request->isa('Business::CyberSource::Request')
 			;
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
 		my $answer;
 		RULE: foreach my $rule ( @{ $self->_rules } ) {
-			$answer = $rule->run( $dto );
+			$answer = $rule->run( $request );
 			last RULE if defined $answer;
 		}
-		return $self->_response_factory->create( $dto, $answer )
+		return $self->_response_factory->create( $request, $answer )
 			if defined $answer
 			;
 	}
@@ -55,8 +55,8 @@ sub run_transaction {
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
 		clientLibraryVersion  => $self->version,
-		merchantReferenceCode => $dto->reference_code,
-		%{ $dto->serialize },
+		merchantReferenceCode => $request->reference_code,
+		%{ $request->serialize },
 	);
 
 	if ( $self->debug ) {
@@ -73,13 +73,13 @@ sub run_transaction {
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
-	$dto->_trace( $trace );
+	$request->_trace( $trace );
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $dto, $answer );
+	return $self->_response_factory->create( $request, $answer );
 }
 
 sub _soap_client {

@@ -77,8 +77,6 @@ Client
 Credit
 TaxService
 Item
-ResponsePart
-PurchaseTotals
 MooseX
 Types
 ExpiredCard
@@ -87,6 +85,7 @@ BillingInfo
 Accept
 Card
 CreditCardInfo
+PurchaseTotals
 ForeignCurrency
 Sale
 MessagePart
