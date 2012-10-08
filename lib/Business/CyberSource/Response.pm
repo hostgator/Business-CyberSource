@@ -43,11 +43,11 @@ sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 		;
 
 	my @nested = ( qw(
-		auth_reply
-		capture_reply
-		credit_reply
-		auth_reversal_reply
-		dcc_reply
+		auth
+		capture
+		credit
+		auth_reversal
+		dcc
 		purchase_totals
 	) );
 
@@ -102,11 +102,11 @@ has purchase_totals => (
 	handles     => [ qw( currency ) ],
 );
 
-has auth_reply => (
+has auth => (
 	isa         => AuthReply,
 	remote_name => 'ccAuthReply',
 	is          => 'ro',
-	predicate   => 'has_auth_reply',
+	predicate   => 'has_auth',
 	coerce      => 1,
 	handles     => [qw(
 		avs_code
@@ -118,43 +118,43 @@ has auth_reply => (
 	)],
 );
 
-has capture_reply => (
+has capture => (
 	isa         => Reply,
 	remote_name => 'ccCaptureReply',
 	is          => 'ro',
-	predicate   => 'has_capture_reply',
+	predicate   => 'has_capture',
 	coerce      => 1,
 );
 
-has credit_reply => (
+has credit => (
 	isa         => Reply,
 	remote_name => 'ccCreditReply',
 	is          => 'ro',
-	predicate   => 'has_credit_reply',
+	predicate   => 'has_credit',
 	coerce      => 1,
 );
 
-has auth_reversal_reply => (
+has auth_reversal=> (
 	isa         => Reply,
 	remote_name => 'ccAuthReversalReply',
 	is          => 'ro',
-	predicate   => 'has_auth_reversal_reply',
+	predicate   => 'has_auth_reversal',
 	coerce      => 1,
 );
 
-has dcc_reply => (
+has dcc => (
 	isa         => DCCReply,
 	remote_name => 'ccDCCReply',
 	is          => 'ro',
-	predicate   => 'has_dcc_reply',
+	predicate   => 'has_dcc',
 	coerce      => 1,
 );
 
-has tax_reply => (
+has tax => (
 	isa         => TaxReply,
 	remote_name => 'taxReply',
 	is          => 'ro',
-	predicate   => 'has_tax_reply',
+	predicate   => 'has_tax',
 	coerce      => 1,
 );
 
