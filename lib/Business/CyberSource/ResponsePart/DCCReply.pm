@@ -41,4 +41,4 @@ has valid_hours => (
 __PACKAGE__->meta->make_immutable;
 1;
 
-# ABSTRACT: ccDCCReply request part
+# ABSTRACT: Reply section for DCC

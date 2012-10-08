@@ -76,4 +76,4 @@ has total_tax_amount=> (
 
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: taxReply part of response
+# ABSTRACT: Reply section for Tax Service

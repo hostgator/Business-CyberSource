@@ -75,4 +75,4 @@ has avs_code_raw => (
 
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: ccAuthReply part of response
+# ABSTRACT: Reply section for Authorizations
