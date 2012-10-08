@@ -15,7 +15,6 @@ __PACKAGE__->meta->make_immutable;
 =head1 SYNOPSIS
 
 	use Business::CyberSource::Factory::Request;
-	use Business::CyberSource::CreditCard;
 
 	my $factory = Business::CyberSource::Factory::Request->new;
 
