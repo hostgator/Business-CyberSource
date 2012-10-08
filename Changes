@@ -2,6 +2,14 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007000  2012-10-08
+	[NEWS]
+	- massive refactoring of Response objects to use MooseX::RemoteHelper
+	  improvments
+	[DEPRECATIONS]
+	- response object is now composed of sub objects
+	- response factory api changed
+
 0.006010  2012-10-08
 	- state keyword for soap_client would multiple clients with different
 	  usernames/passwords impossible. Use Moose lazy attribute instead.
