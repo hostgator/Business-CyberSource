@@ -38,3 +38,5 @@ sub request_specific_reason_code {
 
 1;
 # ABSTRACT: Role for ReasonCode
+
+=for Pod::Coverage request_specific_reason_code has_request_specific_reason_code
