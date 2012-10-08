@@ -11,6 +11,7 @@ extends 'Business::CyberSource::Factory';
 
 use Class::Load  qw( load_class );
 use Module::Load qw( load       );
+use Try::Tiny;
 
 use Exception::Base (
 	'Business::CyberSource::Exception' => {
@@ -40,9 +41,28 @@ sub create {
 	}
 
 	my $response
-		= load_class('Business::CyberSource::Response')
-		->new( $answer->{result} )
-		;
+		= try {
+			load_class('Business::CyberSource::Response')
+			->new( $answer->{result} )
+			;
+		}
+		catch {
+		};
+
+	if ( blessed $response && $response->is_error ) {
+		my %exception = (
+			message       => 'message from CyberSource\'s API',
+			reason_text   => $response->reason_text,
+			reason_code   => $response->reason_code,
+			value         => $response->reason_code,
+			decision      => $response->decision,
+			request_id    => $response->request_id,
+			request_token => $response->request_token,
+		);
+		$exception{trace} = $response->trace if $response->has_trace;
+
+		Business::CyberSource::Response::Exception->throw( %exception );
+	}
 
 	return $response;
 }

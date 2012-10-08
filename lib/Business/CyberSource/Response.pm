@@ -9,7 +9,6 @@ use Module::Load qw( load );
 use Moose;
 extends 'Business::CyberSource::Message';
 with qw(
-	Business::CyberSource::Role::MerchantReferenceCode
 	Business::CyberSource::Response::Role::ReasonCode
 
 	Business::CyberSource::Response::Role::Authorization
@@ -66,6 +65,8 @@ sub AUTOLOAD {
 	}
 	return $val;
 }
+
+has '+reference_code' => ( required => 0 );
 
 ## common
 has request_id => (

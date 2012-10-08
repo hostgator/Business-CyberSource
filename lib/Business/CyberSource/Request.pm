@@ -12,7 +12,6 @@ extends 'Business::CyberSource::Message';
 }
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization
-	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use MooseX::ABC;

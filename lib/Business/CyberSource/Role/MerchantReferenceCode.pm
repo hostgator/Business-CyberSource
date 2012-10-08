@@ -14,6 +14,7 @@ has reference_code => (
 	remote_name => 'merchantReferenceCode',
 	required    => 1,
 	is          => 'ro',
+	predicate   => 'has_reference_code',
 );
 
 1;

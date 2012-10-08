@@ -7,6 +7,9 @@ use namespace::autoclean;
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with qw(
+	Business::CyberSource::Role::MerchantReferenceCode
+);
 
 use MooseX::ABC 0.06;
 
