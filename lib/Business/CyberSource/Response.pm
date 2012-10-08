@@ -361,9 +361,50 @@ or card verification number. The string can contain up to 256 characters.
 
 =attr reference_code
 
-Type: Varying character 50
+B<Type:> Varying character 50
 
 The merchant reference code originally sent
 
+=attr auth
+
+	$response->auth if $response->has_auth;
+
+B<Type:> L<Business::CyberSource::ResponsePart::AuthReply>
+
+=attr purchase_totals
+
+	$response->purchase_totals if $response->has_purchase_totals;
+
+B<Type:> L<Business::CyberSource::ResponsePart::PurchaseTotals>
+
+=attr capture
+
+	$response->capture if $response->has_capture;
+
+B<Type:> L<Business::CyberSource::ResponsePart::Reply>
+
+=attr credit
+
+	$response->credit if $response->has_credit;
+
+B<Type:> L<Business::CyberSource::ResponsePart::Reply>
+
+=attr auth_reversal
+
+	$response->auth_reversal if $response->has_auth_reversal;
+
+B<Type:> L<Business::CyberSource::ResponsePart::Reply>
+
+=attr dcc
+
+	$response->dcc if $response->has_dcc;
+
+B<Type:> L<Business::CyberSource::ResponsePart::DCCReply>
+
+=attr tax
+
+	$response->tax if $response->has_tax;
+
+B<Type:> L<Business::CyberSource::ResponsePart::TaxReply>
 
 =cut
