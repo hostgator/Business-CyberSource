@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.006010  2012-10-08
+	- state keyword for soap_client would multiple clients with different
+	  usernames/passwords impossible. Use Moose lazy attribute instead.
+
 0.006009  2012-10-04
 	[FEATURE]
 	- added is_accept and is_reject to response

@@ -26,28 +26,26 @@ use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
 sub run_transaction {
-	my ( $self, $dto ) = @_;
+	my ( $self, $request ) = @_;
 
 	confess 'Not a Business::CyberSource::Request'
-		unless defined $dto
-			&& blessed $dto
-			&& $dto->isa('Business::CyberSource::Request')
+		unless defined $request
+			&& blessed $request
+			&& $request->isa('Business::CyberSource::Request')
 			;
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
 		my $answer;
 		RULE: foreach my $rule ( @{ $self->_rules } ) {
-			$answer = $rule->run( $dto );
+			$answer = $rule->run( $request );
 			last RULE if defined $answer;
 		}
-		return $self->_response_factory->create( $dto, $answer )
+		return $self->_response_factory->create( $request, $answer )
 			if defined $answer
 			;
 	}
 
-	state $call_security = $self->_soap_client;
-
-	my ( $call, $security ) = @{ $call_security };
+	my ( $call, $security ) = @{ $self->_soap_client };
 
 	my %request = (
 		wsse_Security         => $security,
@@ -55,8 +53,8 @@ sub run_transaction {
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
 		clientLibraryVersion  => $self->version,
-		merchantReferenceCode => $dto->reference_code,
-		%{ $dto->serialize },
+		merchantReferenceCode => $request->reference_code,
+		%{ $request->serialize },
 	);
 
 	if ( $self->debug ) {
@@ -73,16 +71,16 @@ sub run_transaction {
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
-	$dto->_trace( $trace );
+	$request->_trace( $trace );
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $dto, $answer );
+	return $self->_response_factory->create( $request, $answer );
 }
 
-sub _soap_client {
+sub _build_soap_client {
 	my $self = shift;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
@@ -144,7 +142,14 @@ sub _build__rules {
 		} $self->list_rules;
 
 	return \@rules;
-};
+}
+
+has _soap_client => (
+	isa      => 'ArrayRef',
+	is       => 'ro',
+	lazy     => 1,
+	builder  => '_build_soap_client',
+);
 
 has _response_factory => (
 	isa      => 'Object',
