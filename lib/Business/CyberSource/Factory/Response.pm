@@ -9,7 +9,8 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Factory';
 
-use Class::Load qw( load_class );
+use Class::Load  qw( load_class );
+use Module::Load qw( load       );
 
 use Exception::Base (
 	'Business::CyberSource::Exception' => {
@@ -31,14 +32,12 @@ sub create {
 
 	my $result = $answer->{result};
 
-	use Carp;
-	use Data::Dumper::Concise;
-	carp Dumper $result;
+	if ( $self->debug ) {
+		load 'Carp';
+		load $self->_dumper_package, 'Dumper';
 
-	my $decision = $self->_get_decision( $result );
-
-	# the reply is a subsection of result named after the specic request, e.g
-	# ccAuthReply
+		Carp::carp( 'RESPONSE HASH: ' . Dumper( $result ) );
+	}
 
 	my $response
 		= load_class('Business::CyberSource::Response')
@@ -66,6 +65,14 @@ sub _get_decision {
 
 	return $decision;
 }
+
+has _client => (
+	isa      => 'Business::CyberSource::Client',
+	is       => 'bare',
+	required => 1,
+	weak_ref => 1,
+	handles  => [qw( debug _dumper_package )],
+);
 
 1;
 

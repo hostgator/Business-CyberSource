@@ -18,7 +18,7 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
 use Class::Load 0.20 qw( load_class );
-use Module::Load     qw( load );
+use Module::Load     qw( load       );
 
 use XML::Compile::SOAP::WSS 0.12;
 use XML::Compile::WSDL11;
@@ -151,7 +151,10 @@ has _response_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		return load_class('Business::CyberSource::Factory::Response')->new;
+		my $self = shift;
+		return load_class('Business::CyberSource::Factory::Response')
+			->new({ _client => $self })
+			;
 	},
 );
 
@@ -193,12 +196,12 @@ has debug => (
 	},
 );
 
-has dumper_package => (
-	isa     => NonEmptySimpleStr,
-	reader  => '_dumper_package',
-	is      => 'ro',
-	lazy    => 1,
-	default => sub { return 'Data::Dumper'; },
+has _dumper_package => (
+	isa      => NonEmptySimpleStr,
+	is       => 'ro',
+	lazy     => 1,
+	init_arg => 'dumper_package',
+	default  => sub { return 'Data::Dumper'; },
 );
 
 has production => (
