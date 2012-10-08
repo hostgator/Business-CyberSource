@@ -28,13 +28,13 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
-# DRAGONS!
+# DRAGONS! yes evil, but necesary for backwards compat
 our $AUTOLOAD;
 
-sub AUTOLOAD {
+sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 	my $self = shift;
 
-	my $called = $AUTOLOAD =~ s/.*:://r;
+	my $called = $AUTOLOAD =~ s/.*:://r; ## no critic ( RegularExpressions::RequireExtendedFormatting )
 
 	load 'Carp';
 	Carp::carp 'DEPRECATED: please call '
