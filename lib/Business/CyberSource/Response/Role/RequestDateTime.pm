@@ -20,4 +20,11 @@ has datetime => (
 
 1;
 
-# ABSTRACT: Role to provide requestDateTime attribute
+# ABSTRACT: Role to provide datetime attribute
+
+=head1 DESCRIPTION
+
+Several responses include a datetime that has a key name of C<requestDateTime>
+this role is provided for those response sections.
+
+=cut
