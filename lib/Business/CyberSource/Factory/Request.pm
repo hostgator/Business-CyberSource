@@ -19,14 +19,6 @@ __PACKAGE__->meta->make_immutable;
 
 	my $factory = Business::CyberSource::Factory::Request->new;
 
-	my $credit_card = Business::CyberSource::CreditCard->new({
-		account_number => '411111111111111',
-		expiration     => {
-			month => '05',
-			year  => '2012'
-		}
-	});
-
 	my $request_obj = $factory->create(
 		'Authorization', {
 			reference_code => '42',
