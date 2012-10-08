@@ -123,4 +123,18 @@ B<Type:> Single Char
 
 B<Type:> Varying character 10
 
+=attr processor_response
+
+	$response->auth->processor_response
+		if $response->auth->has_processor_response;
+
+Type: Varying character 10
+
+=attr reconciliation_id
+
+	$response->auth->reconciliation_id
+		if $response->auth->has_reconciliation_id
+
+Type: Int
+
 =cut

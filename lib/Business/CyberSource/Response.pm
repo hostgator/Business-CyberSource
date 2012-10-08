@@ -306,18 +306,9 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 DESCRIPTION
 
-Every time you call C<submit> on a request object it returns a response
-object. This response can be used to determine the success of a transaction,
+This response can be used to determine the success of a transaction,
 as well as receive a follow up C<request_id> in case you need to do further
-actions with this. A response will always have C<decision>, C<reason_code>,
-C<reason_text>, C<request_token>, and C<request_id> attributes. You should always use either
-introspection or check the C<decision> to determine which attributes will be
-defined, as what is returned by CyberSource varies depending on what the
-C<decision> is and what was sent in the request itself.
-
-All of the responses contain the attributes here, however if the response is
-C<ACCEPT> you will want to read the documentation for the L<Accept
-Role|Business::CyberSource::Response::Role::Accept>
+actions with this.
 
 =head1 EXTENDS
 
@@ -331,14 +322,28 @@ L<Business::CyberSource::Message>;
 
 =back
 
+=attr is_accept
+
+boolean way of determining whether the transaction was accepted
+
+=attr is_reject
+
+boolean way of determining whether the transaction was rejected
+
+=attr is_error
+
+boolean way of determining whether the transaction was error. Note this is used
+internally as a response that is an error will throw an exception.
+
 =attr decision
 
-Summarizes the result of the overall request
+Summarizes the result of the overall request. This is the text, you can check
+L<is_accept|/"is_accept">, L<is_reject|/"is_reject"> for a more boolean way.
 
 =attr reason_code
 
 Numeric value corresponding to the result of the credit card authorization
-request
+request.
 
 =attr reason_text
 
@@ -354,54 +359,11 @@ Request token data created by CyberSource for each reply. The field is an
 encoded string that contains no confidential information, such as an account
 or card verification number. The string can contain up to 256 characters.
 
-=attr is_accept
-
-boolean way of determining whether the transaction was accepted
-
-=attr is_reject
-
-boolean way of determining whether the transaction was rejected
-
-=attr is_success
-
-boolean way of determining whether the transaction was successful.
-Currently an alias for L<is_accept|/"is_accept"> but will later mean a non
-error status.
-
-=attr amount
-
-Type: Num
-
-Condition: ACCEPT
-
-Amount that was approved.
-
-=attr currency
-
-Type: MooseX::Types::Locale::Currency
-
-Condition: ACCEPT
-
-Currency code which was used to make the request
-
 =attr reference_code
 
 Type: Varying character 50
 
-Condition: ACCEPT
-
 The merchant reference code originally sent
 
-=attr processor_response
-
-Type: Varying character 10
-
-Condition: ACCEPT and be either an Authorization or Authorization Reversal
-
-=attr reconciliation_id
-
-Type: Int
-
-Condition: ACCEPT and be either a Credit or Capture
 
 =cut
