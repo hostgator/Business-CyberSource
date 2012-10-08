@@ -42,11 +42,24 @@ sub create {
 
 	my $response
 		= try {
-			load_class('Business::CyberSource::Response')
-			->new( $answer->{result} )
-			;
+			load_class('Business::CyberSource::Response')->new( $result );
 		}
 		catch {
+			my %exception = (
+				message       => 'CyberSource SOAP Response',
+				reason_code   => $result->{reasonCode},
+				value         => $result->{reasonCode},
+				decision      => $result->{decision},
+				request_id    => $result->{requestID},
+				request_token => $result->{requestToken},
+			);
+
+			$exception{reason_text}
+				= load_class('Business::CyberSource::Response')
+				->_build_reason_text( $result->{reasonCode} )
+				;
+
+			Business::CyberSource::Response::Exception->throw( %exception );
 		};
 
 	if ( blessed $response && $response->is_error ) {

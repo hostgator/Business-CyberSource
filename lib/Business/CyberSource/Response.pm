@@ -213,7 +213,8 @@ has is_error => (
 );
 
 sub _build_reason_text {
-	my $self = shift;
+	my ( $self, $reason_code ) = @_;
+	$reason_code //= $self->reason_code;
 
 	my %reason = (
 		100 => 'Successful transaction',
@@ -295,7 +296,7 @@ sub _build_reason_text {
 		600 => 'Address verification failed',
 	);
 
-	return $reason{$self->reason_code};
+	return $reason{$reason_code};
 }
 
 __PACKAGE__->meta->make_immutable;
