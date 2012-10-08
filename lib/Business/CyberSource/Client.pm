@@ -45,9 +45,7 @@ sub run_transaction {
 			;
 	}
 
-	state $call_security = $self->_soap_client;
-
-	my ( $call, $security ) = @{ $call_security };
+	my ( $call, $security ) = @{ $self->_soap_client };
 
 	my %request = (
 		wsse_Security         => $security,
@@ -82,7 +80,7 @@ sub run_transaction {
 	return $self->_response_factory->create( $request, $answer );
 }
 
-sub _soap_client {
+sub _build_soap_client {
 	my $self = shift;
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
@@ -144,7 +142,14 @@ sub _build__rules {
 		} $self->list_rules;
 
 	return \@rules;
-};
+}
+
+has _soap_client => (
+	isa      => 'ArrayRef',
+	is       => 'ro',
+	lazy     => 1,
+	builder  => '_build_soap_client',
+);
 
 has _response_factory => (
 	isa      => 'Object',
