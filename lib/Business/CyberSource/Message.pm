@@ -30,6 +30,14 @@ __PACKAGE__->meta->make_immutable;
 
 L<Business::CyberSource::MessagePart>
 
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=back
+
 =attr trace
 
 A L<XML::Compile::SOAP::Trace> object which is populated only after the object
