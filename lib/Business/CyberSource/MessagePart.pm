@@ -6,7 +6,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-with 'MooseX::Traits';
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;

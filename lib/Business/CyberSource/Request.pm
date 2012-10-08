@@ -185,10 +185,6 @@ has items => (
 	},
 );
 
-has '+_trait_namespace' => (
-	default => 'Business::CyberSource::Request::Role',
-);
-
 has '+trace' => (
 	is        => 'rw',
 	init_arg  => undef
