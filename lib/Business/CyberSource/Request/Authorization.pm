@@ -6,7 +6,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::Aliases;
 extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::BillingInfo
@@ -15,18 +14,9 @@ with qw(
 	Business::CyberSource::Request::Role::TaxService
 );
 
-use MooseX::Types::CyberSource qw( BillTo BusinessRules );
+use MooseX::Types::CyberSource qw( BusinessRules );
 
 has '+service' => ( remote_name => 'ccAuthService' );
-
-has bill_to => (
-	isa         => BillTo,
-	remote_name => 'billTo',
-	alias       => ['billing_info'],
-	is          => 'ro',
-	required    => 1,
-	coerce      => 1,
-);
 
 has business_rules => (
 	isa         => BusinessRules,
@@ -87,9 +77,13 @@ L<Business::CyberSource::Request>
 
 =over
 
+=item L<Business::CyberSource::Request::Role::BillingInfo>
+
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
 =item L<Business::CyberSource::Request::Role::DCC>
+
+=item L<Business::CyberSource::Request::Role::TaxService>
 
 =back
 
