@@ -140,8 +140,8 @@ A test credit card number provided by your your credit card processor
 					request_id => $auth_response->request_id,
 				},
 				purchase_totals => {
-					total    => $auth_response->amount,
-					currency => $auth_response->currency,
+					total    => $auth_response->auth->amount,
+					currency => $auth_response->purchase_totals->currency,
 				},
 			});
 
@@ -162,7 +162,7 @@ A test credit card number provided by your your credit card processor
 
 		if ( $capture_response->is_accept ) {
 			# you probably want to record this
-			say $capture_response->reconciliation_id;
+			say $capture_response->capture->reconciliation_id;
 		}
 	}
 
