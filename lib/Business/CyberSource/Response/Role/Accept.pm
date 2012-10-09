@@ -6,10 +6,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose::Role;
-with qw(
-	Business::CyberSource::Role::Currency
-	Business::CyberSource::Role::MerchantReferenceCode
-);
 
 1;
 
