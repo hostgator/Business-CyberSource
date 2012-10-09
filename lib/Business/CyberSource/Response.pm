@@ -34,7 +34,8 @@ our $AUTOLOAD;
 sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 	my $self = shift;
 
-	my $called = $AUTOLOAD =~ s/.*:://r; ## no critic ( RegularExpressions::RequireExtendedFormatting )
+	my $called = $AUTOLOAD;
+	$called =~ s/.*:://; ## no critic ( RegularExpressions::RequireExtendedFormatting )
 
 	load 'Carp';
 	Carp::carp 'DEPRECATED: please call '
