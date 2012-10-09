@@ -12,9 +12,13 @@ with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Aliases;
 
-use MooseX::Types::CyberSource qw( CvIndicator CardTypeCode ExpirationDate );
-use MooseX::Types::CreditCard 0.001001 qw( CreditCard CardSecurityCode     );
-use MooseX::Types::Common::String      qw( NonEmptySimpleStr               );
+use MooseX::Types::CyberSource      qw( CvIndicator CardTypeCode  );
+use MooseX::Types::Common::String   qw( NonEmptySimpleStr         );
+use MooseX::Types::CreditCard 0.002 qw(
+	CardNumber
+	CardSecurityCode
+	CardExpiration
+);
 
 use Exception::Base (
 	'Business::CyberSource::Card::Exception' => {
@@ -99,7 +103,7 @@ sub _build_card_type_code {
 }
 
 has account_number => (
-	isa         => CreditCard,
+	isa         => CardNumber,
 	remote_name => 'accountNumber',
 	alias       => [ qw( credit_card_number card_number ) ],
 	required    => 1,
@@ -116,7 +120,7 @@ has type => (
 );
 
 has expiration => (
-	isa      => ExpirationDate,
+	isa      => CardExpiration,
 	required => 1,
 	is       => 'ro',
 	coerce   => 1,
