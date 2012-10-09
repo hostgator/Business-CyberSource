@@ -28,6 +28,7 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
+
 # DRAGONS! yes evil, but necesary for backwards compat
 our $AUTOLOAD;
 
@@ -40,7 +41,7 @@ sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 	load 'Carp';
 	Carp::carp 'DEPRECATED: please call '
 		. $called
-		. ' on the nested object you desire'
+		. ' on the appropriate nested object'
 		;
 
 	my @nested = ( qw(
@@ -103,6 +104,7 @@ has purchase_totals => (
 	coerce      => 1,
 	handles     => [ qw( currency ) ],
 );
+
 
 has auth => (
 	isa         => AuthReply,
@@ -300,6 +302,25 @@ sub _build_reason_text {
 
 	return $reason{$reason_code};
 }
+
+around [qw(
+	avs_code
+	avs_code_raw
+	auth_code
+	auth_record
+	cv_code
+	cv_code_raw
+)] => sub {
+	my $orig = shift;
+	my $self = shift;
+	load 'Carp';
+	Carp::carp 'DEPRECATED: please call '
+		. $orig
+		. ' on the appropriate nested object'
+		;
+
+	return $self->$orig( @_ );
+};
 
 __PACKAGE__->meta->make_immutable;
 1;
