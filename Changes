@@ -2,6 +2,13 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007001  2012-10-09
+	- remove use of 5.14+ code
+	- update documentation
+	[DEPRECATIONS]
+	- do not check roles in CyberSource Response these are implementation
+	  details now
+
 0.007000  2012-10-08
 	[NEWS]
 	- massive refactoring of Response objects to use MooseX::RemoteHelper
