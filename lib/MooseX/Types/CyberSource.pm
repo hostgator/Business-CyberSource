@@ -41,7 +41,6 @@ use MooseX::Types -declare => [ qw(
 	RequestID
 
 	ExpirationDate
-	CreditCard
 
 	DateTimeFromW3C
 
@@ -116,7 +115,6 @@ my $res_dc_c = $res . 'DCCReply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
-class_type CreditCard, { class => 'Business::CyberSource::CreditCard' };
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
 class_type Service,             { class => $svc };
@@ -183,13 +181,6 @@ coerce CountryCode,
 	};
 
 enum DCCIndicator, [ qw( 1 2 3 ) ];
-
-
-coerce CreditCard,
-	from HashRef,
-	via {
-		return use_module('Business::CyberSource::CreditCard')->new( $_ );
-	};
 
 coerce ExpirationDate,
 	from HashRef,
