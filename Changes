@@ -11,6 +11,7 @@ Revision history for {{$dist->name}}
 
 0.007000  2012-10-08
 	[NEWS]
+	- Tax Service should now be fully supported
 	- massive refactoring of Response objects to use MooseX::RemoteHelper
 	  improvments
 	[DEPRECATIONS]
