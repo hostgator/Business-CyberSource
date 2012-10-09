@@ -17,6 +17,15 @@ with qw(
 
 has '+service' => ( remote_name => 'ccAuthService' );
 
+has bill_to => (
+	isa         => BillTo,
+	remote_name => 'billTo',
+	alias       => ['billing_info'],
+	is          => 'ro',
+	required    => 1,
+	coerce      => 1,
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -68,8 +77,6 @@ L<Business::CyberSource::Request>
 
 =over
 
-=item L<Business::CyberSource::Request::Role::BillingInfo>
-
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
 =item L<Business::CyberSource::Request::Role::BusinessRules>
@@ -79,5 +86,21 @@ L<Business::CyberSource::Request>
 =back
 
 =for Pod::Coverage BUILD
+
+=attr references_code
+
+Merchant Reference Code
+
+=attr bill_to
+
+L<Business::CyberSource::RequestPart::BillTo>
+
+=attr purchase_totals
+
+L<Business::CyberSource::RequestPart::PurchaseTotals>
+
+=attr card
+
+L<Business::CyberSource::RequestPart::Card>
 
 =cut
