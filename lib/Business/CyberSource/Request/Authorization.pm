@@ -15,6 +15,8 @@ with qw(
 	Business::CyberSource::Request::Role::TaxService
 );
 
+use MooseX::Types::CyberSource qw( BillTo BusinessRules );
+
 has '+service' => ( remote_name => 'ccAuthService' );
 
 has bill_to => (
@@ -23,6 +25,14 @@ has bill_to => (
 	alias       => ['billing_info'],
 	is          => 'ro',
 	required    => 1,
+	coerce      => 1,
+);
+
+has business_rules => (
+	isa         => BusinessRules,
+	remote_name => 'businessRules',
+	traits      => ['SetOnce'],
+	is          => 'rw',
 	coerce      => 1,
 );
 
@@ -79,8 +89,6 @@ L<Business::CyberSource::Request>
 
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
-=item L<Business::CyberSource::Request::Role::BusinessRules>
-
 =item L<Business::CyberSource::Request::Role::DCC>
 
 =back
@@ -102,5 +110,9 @@ L<Business::CyberSource::RequestPart::PurchaseTotals>
 =attr card
 
 L<Business::CyberSource::RequestPart::Card>
+
+=attr business_rules
+
+L<Business::CyberSource::RequestPart::BusinessRules>
 
 =cut
