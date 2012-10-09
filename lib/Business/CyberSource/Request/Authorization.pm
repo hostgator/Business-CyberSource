@@ -11,7 +11,6 @@ extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
-	Business::CyberSource::Request::Role::BusinessRules
 	Business::CyberSource::Request::Role::DCC
 	Business::CyberSource::Request::Role::TaxService
 );
