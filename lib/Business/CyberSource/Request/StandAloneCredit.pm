@@ -57,11 +57,11 @@ __PACKAGE__->meta->make_immutable;
 
 This object allows you to create a request for a standalone credit.
 
-=head2 inherits
+=head1 EXTENDS
 
 L<Business::CyberSource::Request::Credit>
 
-=head2 composes
+=head1 WITH
 
 =over
 
