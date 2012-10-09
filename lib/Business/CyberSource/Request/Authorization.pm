@@ -6,6 +6,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
+use MooseX::Aliases;
 extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::BillingInfo
