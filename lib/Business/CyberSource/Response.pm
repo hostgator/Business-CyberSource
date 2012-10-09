@@ -314,8 +314,7 @@ around [qw(
 	my $orig = shift;
 	my $self = shift;
 	load 'Carp';
-	Carp::carp 'DEPRECATED: please call '
-		. $orig
+	Carp::carp 'DEPRECATED: please call method'
 		. ' on the appropriate nested object'
 		;
 
