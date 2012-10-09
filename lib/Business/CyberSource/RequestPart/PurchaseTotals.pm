@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007002'; # VERSION
+our $VERSION = '0.006011'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -40,7 +40,7 @@ Business::CyberSource::RequestPart::PurchaseTotals - Purchase Totals
 
 =head1 VERSION
 
-version 0.007002
+version 0.006011
 
 =head1 ATTRIBUTES
 

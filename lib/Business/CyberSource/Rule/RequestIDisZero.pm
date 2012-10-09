@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007002'; # VERSION
+our $VERSION = '0.006011'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Rule';
@@ -42,7 +42,7 @@ Business::CyberSource::Rule::RequestIDisZero - Expired Card
 
 =head1 VERSION
 
-version 0.007002
+version 0.006011
 
 =head1 METHODS
 

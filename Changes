@@ -1,6 +1,7 @@
 Revision history for Business-CyberSource
 
-0.007002  2012-10-09
+0.006011  2012-10-09
+	- use MooseX::Types::CreditCard 0.002
 
 0.006010  2012-10-08
 	- state keyword for soap_client would multiple clients with different
