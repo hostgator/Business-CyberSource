@@ -11,68 +11,6 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
-use MooseX::Types::DateTime      qw( DateTime );
-use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
-
-use Class::Load 0.20 qw( load_class );
-
-subtype DateTimeFromW3C, as DateTime;
-
-coerce DateTimeFromW3C,
-	from DateTimeW3C,
-	via {
-		return load_class('DateTime::Format::W3CDTF')
-			->new
-			->parse_datetime( $_ )
-			;
-	};
-
-has amount => (
-	isa      => 'Num',
-	traits   => ['SetOnce'],
-	is       => 'rw',
-);
-
-has datetime => (
-	isa      => DateTimeFromW3C,
-	is       => 'rw',
-	traits   => ['SetOnce'],
-	coerce   => 1,
-);
-
-has request_specific_reason_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Int',
-);
-
 1;
 
 # ABSTRACT: role for handling accepted transactions
-
-=head1 DESCRIPTION
-
-If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
-
-=head2 composes
-
-=over
-
-=item L<Business::CyberSource::Role::Currency>
-
-=item L<Business::CyberSource::Role::MerchantReferenceCode>
-
-=back
-
-=attr amount
-
-=attr datetime
-
-Is a L<DateTime> object
-
-=attr request_specific_reason_code
-
-=cut
