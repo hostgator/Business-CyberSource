@@ -16,4 +16,4 @@ has amount => (
 );
 
 1;
-# ABSTRACT: Role for ReasonCode
+# ABSTRACT: Role for Amount
