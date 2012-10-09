@@ -18,6 +18,9 @@ Revision history for {{$dist->name}}
 	- response object is now composed of sub objects
 	- response factory api changed
 
+0.006011  2012-10-09
+	- use MooseX::Types::CreditCard 0.002
+
 0.006010  2012-10-08
 	- state keyword for soap_client would multiple clients with different
 	  usernames/passwords impossible. Use Moose lazy attribute instead.
