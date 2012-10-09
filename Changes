@@ -1,5 +1,7 @@
 Revision history for Business-CyberSource
 
+0.007002  2012-10-09
+
 0.006010  2012-10-08
 	- state keyword for soap_client would multiple clients with different
 	  usernames/passwords impossible. Use Moose lazy attribute instead.

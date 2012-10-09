@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006010'; # VERSION
+our $VERSION = '0.007002'; # VERSION
 
 use Moose::Role;
 with qw(
@@ -63,7 +63,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version 0.006010
+version 0.007002
 
 =head1 DESCRIPTION
 
