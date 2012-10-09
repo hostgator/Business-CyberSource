@@ -64,6 +64,7 @@ sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 			last if $val;
 		}
 	}
+	confess 'unable to delegate, was not a valid method' unless defined $val;
 	return $val;
 }
 
