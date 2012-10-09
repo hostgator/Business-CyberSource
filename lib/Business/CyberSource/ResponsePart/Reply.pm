@@ -18,3 +18,35 @@ with qw(
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Generic Reply part of response
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Response::Role::ReasonCode>
+
+=item L<Business::CyberSource::Response::Role::ReconciliationID>
+
+=item L<Business::CyberSource::Response::Role::Amount>
+
+=item L<Business::CyberSource::Response::Role::ProcessorResponse>
+
+=item L<Business::CyberSource::Response::Role::RequestDateTime>
+
+=back
+
+=attr amount
+
+=attr reason_code
+
+=attr reconciliation_id
+
+=attr processor_response
+
+=attr datetime
+
+=cut
