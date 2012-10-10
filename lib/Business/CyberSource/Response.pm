@@ -333,6 +333,46 @@ __PACKAGE__->meta->make_immutable;
 
 # ABSTRACT: Response Object
 
+=for test_synopsis
+my ( $request, $client );
+
+=head1 SYNOPSIS
+
+	use Try::Tiny;
+
+	my $response
+		= try {
+			$client->run_transaction( $request )
+		}
+		catch {
+			if ( blessed $_
+				&& $_->isa('Business::CyberSource::Response::Exception')
+			) {
+				if ( $_->is_error ) {
+					# probably a temporary error on cybersources problem retry
+				}
+			}
+			else {
+				# log it and investigate
+			}
+		};
+
+	if ( $response->is_accept ) {
+		if ( $response->has_auth ) {
+			# pass to next request or store
+			$response->request_id;
+			$response->reference_code;
+		}
+	}
+	elsif ( $response->is_reject ) {
+		# log it
+		$response->request_id;
+		$response->reason_text;
+	}
+	else {
+		# throw exception
+	}
+
 =head1 DESCRIPTION
 
 This response can be used to determine the success of a transaction,
