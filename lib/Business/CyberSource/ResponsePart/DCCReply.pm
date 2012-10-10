@@ -42,3 +42,29 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 # ABSTRACT: Reply section for DCC
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
+=head2 WITH
+
+=over
+
+=item L<Business::CyberSource::Response::Role::ReasonCode>
+
+=back
+
+=attr dcc_supported
+
+B<Type:> C<Bool>
+
+=attr margin_rate_percentage
+
+B<Type:> C<Num>
+
+=attr valid_hours
+
+B<Type:> C<Int>
+
+=cut
