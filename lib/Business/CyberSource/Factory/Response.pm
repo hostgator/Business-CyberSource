@@ -19,9 +19,17 @@ use Exception::Base (
 	},
 	'Business::CyberSource::Response::Exception' => {
 		isa => 'Business::CyberSource::Exception',
-		has => [
-			qw(decision reason_text reason_code request_id request_token trace)
-		],
+		has => [qw(
+			decision
+			reason_text
+			reason_code
+			request_id
+			request_token
+			trace
+			is_error
+			is_accept
+			is_reject
+		)],
 		string_attributes => [ qw( message decision reason_text ) ],
 	},
 	verbosity      => 4,
@@ -77,6 +85,9 @@ sub create {
 			decision      => $response->decision,
 			request_id    => $response->request_id,
 			request_token => $response->request_token,
+			is_error      => $response->is_error,
+			is_accept     => $response->is_accept,
+			is_reject     => $response->is_reject,
 		);
 		$exception{trace} = $response->trace if $response->has_trace;
 
