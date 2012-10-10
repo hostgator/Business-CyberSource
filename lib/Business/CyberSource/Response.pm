@@ -70,6 +70,12 @@ sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 	return $val;
 }
 
+before is_success => sub {
+	load 'Carp';
+	Carp::carp 'DEPRECATED: please use is_accept and is_reject instead';
+};
+
+
 has '+reference_code' => ( required => 0 );
 
 ## common
