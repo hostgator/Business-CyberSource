@@ -311,12 +311,18 @@ around [qw(
 	auth_record
 	cv_code
 	cv_code_raw
+	has_avs_code
+	has_avs_code_raw
+	has_auth_code_raw
+	has_auth_record_raw
+	has_cv_code
+	has_cv_code_raw
 )] => sub {
 	my $orig = shift;
 	my $self = shift;
 	load 'Carp';
 	Carp::carp 'DEPRECATED: please call method'
-		. ' on the appropriate nested object'
+		. ' on the ->auth object'
 		;
 
 	return $self->$orig( @_ );
