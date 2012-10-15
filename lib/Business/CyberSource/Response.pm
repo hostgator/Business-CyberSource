@@ -29,6 +29,7 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
+our @CARP_NOT = ( qw( Class::MOP::Method::Wrapped ) );
 # DRAGONS! yes evil, but necesary for backwards compat
 our $AUTOLOAD;
 
