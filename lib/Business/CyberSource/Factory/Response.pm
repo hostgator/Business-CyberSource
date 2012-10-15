@@ -52,7 +52,7 @@ sub create {
 		}
 		catch {
 			my %exception = (
-				message       => 'CyberSource SOAP Response',
+				message       => 'BUG! please report: ' . $_,
 				reason_code   => $result->{reasonCode},
 				value         => $result->{reasonCode},
 				decision      => $result->{decision},
