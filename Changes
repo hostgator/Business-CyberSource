@@ -1,6 +1,10 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.007002  2012-10-15
+	- documentation improvements
+	- more backwards compatability cleanup
 	[DEPRECATIONS]
 	- is_success entirely
 
