@@ -77,3 +77,23 @@ has total_tax_amount=> (
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Reply section for Tax Service
+
+=attr items
+
+=attr city
+
+=attr total
+
+=attr postal_code
+
+=attr state
+
+=attr total_city_tax_amount
+
+=attr total_county_tax_amount
+
+=attr total_district_tax_amount
+
+=attr total_state_tax_amount
+
+=attr total_tax_amount
