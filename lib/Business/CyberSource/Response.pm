@@ -29,7 +29,6 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
-
 # DRAGONS! yes evil, but necesary for backwards compat
 our $AUTOLOAD;
 
@@ -69,12 +68,6 @@ sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
 	confess 'unable to delegate, was not a valid method' unless defined $val;
 	return $val;
 }
-
-before is_success => sub {
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please use is_accept and is_reject instead';
-};
-
 
 has '+reference_code' => ( required => 0 );
 
@@ -326,6 +319,11 @@ around [qw(
 		;
 
 	return $self->$orig( @_ );
+};
+
+before is_success => sub {
+	load 'Carp';
+	Carp::carp 'DEPRECATED: please use is_accept and is_reject instead';
 };
 
 __PACKAGE__->meta->make_immutable;
