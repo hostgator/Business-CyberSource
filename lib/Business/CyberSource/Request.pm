@@ -6,10 +6,8 @@ use namespace::autoclean;
 
 # VERSION
 
-BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
-}
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 );
