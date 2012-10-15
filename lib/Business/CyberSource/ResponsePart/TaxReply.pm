@@ -44,31 +44,31 @@ has state => (
 	is          => 'ro',
 );
 
-has total_city_tax_amount  => (
+has total_city_tax_amount => (
 	isa         => 'Num',
 	remote_name => 'totalCityTaxAmount',
 	is          => 'ro',
 );
 
-has total_county_tax_amount=> (
+has total_county_tax_amount => (
 	isa         => 'Num',
 	remote_name => 'totalCountyTaxAmount',
 	is          => 'ro',
 );
 
-has total_district_tax_amount=> (
+has total_district_tax_amount => (
 	isa         => 'Num',
 	remote_name => 'totalDistrictTaxAmount',
 	is          => 'ro',
 );
 
-has total_state_tax_amount=> (
+has total_state_tax_amount => (
 	isa         => 'Num',
 	remote_name => 'totalStateTaxAmount',
 	is          => 'ro',
 );
 
-has total_tax_amount=> (
+has total_tax_amount => (
 	isa         => 'Num',
 	remote_name => 'totalTaxAmount',
 	is          => 'ro',
