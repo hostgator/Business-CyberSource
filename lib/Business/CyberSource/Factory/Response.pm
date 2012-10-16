@@ -46,6 +46,14 @@ sub create {
 		Carp::carp( 'RESPONSE HASH: ' . Dumper( $result ) );
 	}
 
+	$result->{trace} = $request->trace
+		if defined $request
+		&& blessed $request
+		&& $request->can('has_trace')
+		&& $request->can('trace')
+		&& $request->has_trace
+		;
+
 	my $response
 		= try {
 			load_class('Business::CyberSource::Response')->new( $result );
@@ -58,19 +66,12 @@ sub create {
 				decision      => $result->{decision},
 				request_id    => $result->{requestID},
 				request_token => $result->{requestToken},
+				trace         => $result->{trace},
 			);
 
 			$exception{reason_text}
 				= load_class('Business::CyberSource::Response')
 				->_build_reason_text( $result->{reasonCode} )
-				;
-
-			$exception{trace} = $request->trace
-				if defined $request
-				&& blessed $request
-				&& $request->can('has_trace')
-				&& $request->can('trace')
-				&& $request->has_trace
 				;
 
 			Business::CyberSource::Response::Exception->throw( %exception );
