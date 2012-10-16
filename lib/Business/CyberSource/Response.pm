@@ -324,14 +324,10 @@ before [qw(
 	has_cv_code
 	has_cv_code_raw
 )] => sub {
-	my $orig = shift;
-	my $self = shift;
 	load 'Carp';
 	Carp::carp 'DEPRECATED: please call method'
 		. ' on the ->auth object'
 		;
-
-	return $self->$orig( @_ );
 };
 
 before is_success => sub {
