@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007003  2012-10-15
+	- delegate more deprecated methods and improve notice
+
 0.007002  2012-10-15
 	- documentation improvements
 	- more backwards compatability cleanup
