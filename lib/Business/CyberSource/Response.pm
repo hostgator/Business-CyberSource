@@ -120,6 +120,12 @@ has auth => (
 		auth_record
 		cv_code
 		cv_code_raw
+		has_avs_code
+		has_avs_code_raw
+		has_auth_code_raw
+		has_auth_record_raw
+		has_cv_code
+		has_cv_code_raw
 	)],
 );
 
@@ -304,7 +310,7 @@ sub _build_reason_text {
 	return $reason{$reason_code};
 }
 
-around [qw(
+before [qw(
 	avs_code
 	avs_code_raw
 	auth_code
