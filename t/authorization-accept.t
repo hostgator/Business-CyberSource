@@ -32,6 +32,8 @@ ok( $ret->request_token,  'request_token exists' );
 ok( $ret->auth_record,    'auth_record exists'   );
 is( $ret->processor_response, '00','processor_response');
 
+ok ! ref $ret->request_id, 'request_id is not a reference';
+
 ok $ret->has_trace,  'response has trace';
 isa_ok $ret->trace,  'XML::Compile::SOAP::Trace';
 

@@ -33,6 +33,8 @@ my $capture_res = $client->run_transaction( $capture_req );
 
 isa_ok( $capture_res, 'Business::CyberSource::Response' );
 
+ok ! ref $capture_res->request_id, 'request_id not a reference';
+
 my $credit_req
 	= new_ok( $creditc => [{
 		reference_code => $auth_res->reference_code,
