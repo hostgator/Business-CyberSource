@@ -18,7 +18,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.30
   File::ShareDir::Install: 0.03
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300025, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 4.300027, CPAN::Meta::Converter version 2.120921'
 license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -61,7 +61,7 @@ requires:
   MooseX::Types::NetAddr::IP: 0
   MooseX::Types::Path::Class: 0
   XML::Compile::SOAP11: 0
-  XML::Compile::SOAP::WSS: 0.12
+  XML::Compile::SOAP::WSS: 1.00
   XML::Compile::Transport::SOAPHTTP: 0
   XML::Compile::WSDL11: 0
   namespace::autoclean: 0
@@ -72,4 +72,4 @@ resources:
   bugtracker: https://github.com/xenoterracide/Business-CyberSource/issues
   homepage: http://search.cpan.org/dist/Business-CyberSource/
   repository: git://github.com/xenoterracide/Business-CyberSource.git
-version: 0.006011
+version: 0.006012

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006011'; # VERSION
+our $VERSION = '0.006012'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request::Authorization';
@@ -36,7 +36,7 @@ Business::CyberSource::Request::Sale - Sale Request Object
 
 =head1 VERSION
 
-version 0.006011
+version 0.006012
 
 =head1 SYNOPSIS
 

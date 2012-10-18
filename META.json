@@ -4,7 +4,7 @@
       "Caleb Cushing <xenoterracide@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300025, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300027, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "artistic_2"
    ],
@@ -27,7 +27,11 @@
       },
       "develop" : {
          "requires" : {
+            "Pod::Coverage::TrustPod" : "0",
+            "Test::CPAN::Meta" : "0",
             "Test::File::ShareDir" : "0",
+            "Test::Pod" : "1.41",
+            "Test::Pod::Coverage" : "1.08",
             "version" : "0.9901"
          }
       },
@@ -66,7 +70,7 @@
             "MooseX::Types::NetAddr::IP" : "0",
             "MooseX::Types::Path::Class" : "0",
             "XML::Compile::SOAP11" : "0",
-            "XML::Compile::SOAP::WSS" : "0.12",
+            "XML::Compile::SOAP::WSS" : "1.00",
             "XML::Compile::Transport::SOAPHTTP" : "0",
             "XML::Compile::WSDL11" : "0",
             "namespace::autoclean" : "0",
@@ -106,6 +110,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "0.006011"
+   "version" : "0.006012"
 }
 

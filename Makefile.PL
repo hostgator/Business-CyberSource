@@ -68,14 +68,14 @@ my %WriteMakefileArgs = (
     "MooseX::Types::NetAddr::IP" => 0,
     "MooseX::Types::Path::Class" => 0,
     "XML::Compile::SOAP11" => 0,
-    "XML::Compile::SOAP::WSS" => "0.12",
+    "XML::Compile::SOAP::WSS" => "1.00",
     "XML::Compile::Transport::SOAPHTTP" => 0,
     "XML::Compile::WSDL11" => 0,
     "namespace::autoclean" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.006011",
+  "VERSION" => "0.006012",
   "test" => {
     "TESTS" => "t/*.t"
   }
