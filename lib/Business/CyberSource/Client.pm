@@ -20,7 +20,7 @@ use Config;
 use Class::Load 0.20 qw( load_class );
 use Module::Load     qw( load );
 
-use XML::Compile::SOAP::WSS 0.12;
+use XML::Compile::SOAP::WSS 1.00;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
@@ -45,15 +45,11 @@ sub run_transaction {
 			;
 	}
 
-	my ( $call, $security ) = @{ $self->_soap_client };
-
 	my %request = (
-		wsse_Security         => $security,
 		merchantID            => $self->_username,
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
 		clientLibraryVersion  => $self->version,
-		merchantReferenceCode => $request->reference_code,
 		%{ $request->serialize },
 	);
 
@@ -64,7 +60,7 @@ sub run_transaction {
 		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
 	}
 
-	my ( $answer, $trace ) = $call->( %request );
+	my ( $answer, $trace ) = $self->_soap_client->( %request );
 
 	if ( $self->debug ) {
 		Carp::carp "\n> " . $trace->request->as_string;
@@ -82,17 +78,21 @@ sub run_transaction {
 
 sub _build_soap_client {
 	my $self = shift;
+	# order in this subroutine matters changing it may break stuff
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
 	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
+	$wss->basicAuth(
+		username => $self->_username,
+		password => $self->_password,
+	);
+
 	my $call = $wsdl->compileClient('runTransaction');
 
-	my $security = $wss->wsseBasicAuth( $self->_username, $self->_password );
-
-	return [ $call, $security ];
+	return $call;
 }
 
 sub _build_cybs_wsdl {
@@ -145,9 +145,10 @@ sub _build__rules {
 }
 
 has _soap_client => (
-	isa      => 'ArrayRef',
+	isa      => 'CodeRef',
 	is       => 'ro',
 	lazy     => 1,
+	init_arg => undef,
 	builder  => '_build_soap_client',
 );
 
