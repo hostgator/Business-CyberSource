@@ -27,6 +27,10 @@ Revision history for {{$dist->name}}
 	- response object is now composed of sub objects
 	- response factory api changed
 
+0.006012  2012-10-17
+	- fix issues with XML::Compile::SOAP::WSS 1.00 ( Mark Overmeer )
+		- also improve code with new API
+
 0.006011  2012-10-09
 	- use MooseX::Types::CreditCard 0.002
 
