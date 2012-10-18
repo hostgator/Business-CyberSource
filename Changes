@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007004  2012-10-18
+	- port fixes from 0.006012
+	- insure response object has a trace object
+
 0.007003  2012-10-15
 	- delegate more deprecated methods and improve notice
 
