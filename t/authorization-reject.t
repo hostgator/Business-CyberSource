@@ -26,13 +26,13 @@ my $ret0
 
 isa_ok( $ret0, 'Business::CyberSource::Response' );
 
-is( $ret0->is_success,          0,       'success'            );
-is( $ret0->decision,           'REJECT', 'decision'           );
-is( $ret0->reason_code,         202,     'reason_code'        );
-is( $ret0->processor_response, '54',     'processor response' );
+is( $ret0->is_accept,                 0,       'success'            );
+is( $ret0->decision,                 'REJECT', 'decision'           );
+is( $ret0->reason_code,               202,     'reason_code'        );
+is( $ret0->auth->processor_response, '54',     'processor response' );
 
-ok( $ret0->request_id,         'request_id exists'            );
-ok( $ret0->request_token,      'request_token exists'         );
+ok( $ret0->request_id,               'request_id exists'            );
+ok( $ret0->request_token,            'request_token exists'         );
 
 is(
 	$ret0->reason_text,

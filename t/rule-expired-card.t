@@ -35,7 +35,7 @@ isa_ok( $ret0, 'Business::CyberSource::Response' );
 
 ok ! $ret0->has_trace, 'does not have trace';
 
-is( $ret0->is_success,          0,       'success'            );
+is( $ret0->is_accept,           0,       'success'            );
 is( $ret0->decision,           'REJECT', 'decision'           );
 is( $ret0->reason_code,         202,     'reason_code'        );
 
