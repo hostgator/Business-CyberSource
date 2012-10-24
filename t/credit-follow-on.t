@@ -23,7 +23,7 @@ my $capture_req
 			request_id => $auth_res->request_id,
 		},
 		purchase_totals => {
-			total    => $auth_res->amount,
+			total    => $auth_res->auth->amount,
 			currency => $auth_res->currency,
 		},
 	}])
@@ -51,12 +51,12 @@ my $credit_res = $client->run_transaction( $credit_req  );
 
 isa_ok( $credit_res, 'Business::CyberSource::Response'  );
 
-is( $credit_res->decision,     'ACCEPT',  'decision'    );
-is( $credit_res->reason_code,  100,      'reason_code'  );
-is( $credit_res->currency,     'USD',     'currency'    );
-is( $credit_res->amount,       '3000.00', 'amount'      );
+is( $credit_res->decision,             'ACCEPT',  'decision'    );
+is( $credit_res->reason_code,          100,      'reason_code'  );
+is( $credit_res->currency,             'USD',     'currency'    );
+is( $credit_res->credit->amount,       '3000.00', 'amount'      );
 
-ok( $credit_res->request_id,   'request_id exists'      );
-isa_ok( $credit_res->datetime, 'DateTime'               );
+ok( $credit_res->request_id,           'request_id exists'      );
+isa_ok( $credit_res->credit->datetime, 'DateTime'               );
 
 done_testing;

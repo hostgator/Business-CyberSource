@@ -24,7 +24,7 @@ my $rev_req
 			request_id => '834',
 		},
 		purchase_totals => {
-			total    => $auth_res->amount,
+			total    => $auth_res->auth->amount,
 			currency => $auth_res->currency,
 		},
 	}]);

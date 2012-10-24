@@ -25,11 +25,11 @@ my $ret0
 		)
 	);
 
-is( $ret0->decision,       'ACCEPT', 'check decision'       );
-is( $ret0->reason_code,     100,     'check reason_code'    );
-is( $ret0->auth_code,      '831000', 'check auth code'      );
-is( $ret0->avs_code,       'X',      'check avs_code'       );
-is( $ret0->avs_code_raw,   'X',      'check avs_code_raw'   );
+is( $ret0->decision,           'ACCEPT', 'check decision'       );
+is( $ret0->reason_code,         100,     'check reason_code'    );
+is( $ret0->auth->auth_code,    '831000', 'check auth code'      );
+is( $ret0->auth->avs_code,     'X',      'check avs_code'       );
+is( $ret0->auth->avs_code_raw, 'X',      'check avs_code_raw'   );
 
 
 my $ret1
@@ -52,10 +52,10 @@ does_ok( $ret1, 'Business::CyberSource::Response::Role::Authorization' );
 
 does_ok( $ret1, 'Business::CyberSource::Response::Role::AVS'           );
 
-is( $ret1->decision,       'REJECT', 'check decision'       );
-is( $ret1->reason_code,    '200',    'check reason_code'    );
-is( $ret1->avs_code,       'N',      'check avs_code'       );
-is( $ret1->avs_code_raw,   'N',      'check avs_code_raw'   );
-is( $ret1->processor_response, '00', 'check processor response' );
+is( $ret1->decision,             'REJECT', 'check decision'       );
+is( $ret1->reason_code,          '200',    'check reason_code'    );
+is( $ret1->auth->avs_code,       'N',      'check avs_code'       );
+is( $ret1->auth->avs_code_raw,   'N',      'check avs_code_raw'   );
+is( $ret1->auth->processor_response, '00', 'check processor response' );
 
 done_testing;
