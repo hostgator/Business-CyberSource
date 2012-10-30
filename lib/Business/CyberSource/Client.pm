@@ -71,6 +71,13 @@ sub run_transaction {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
+	if ( $self->debug ) {
+		load 'Carp';
+		load $self->_dumper_package, 'Dumper';
+
+		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer->{result} ) );
+	}
+
 	return $self->_response_factory->create( $answer->{result}, $request );
 }
 
@@ -155,10 +162,9 @@ has _response_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		my $self = shift;
-		return load_class('Business::CyberSource::Factory::Response')
-			->new({ _client => $self })
-			;
+		return
+			load_class('Business::CyberSource::Factory::Response')
+			->new;
 	},
 );
 

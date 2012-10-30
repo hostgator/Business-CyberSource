@@ -39,13 +39,6 @@ use Exception::Base (
 sub create {
 	my ( $self, $result , $request ) = @_;
 
-	if ( $self->_has_client && $self->debug ) {
-		load 'Carp';
-		load $self->_dumper_package, 'Dumper';
-
-		Carp::carp( 'RESPONSE HASH: ' . Dumper( $result ) );
-	}
-
 	$result->{trace} = $request->trace
 		if defined $request
 		&& blessed $request
@@ -97,14 +90,6 @@ sub create {
 
 	return $response;
 }
-
-has _client => (
-	isa       => 'Business::CyberSource::Client',
-	is        => 'bare',
-	weak_ref  => 1,
-	handles   => [qw( debug _dumper_package )],
-	predicate => '_has_client',
-);
 
 1;
 
