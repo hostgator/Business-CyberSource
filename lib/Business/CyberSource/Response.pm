@@ -2,6 +2,7 @@ package Business::CyberSource::Response;
 use strict;
 use warnings;
 use namespace::autoclean;
+use Module::Load 'load';
 
 # VERSION
 
