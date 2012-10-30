@@ -32,4 +32,6 @@ my $client1
 
 my $soap_client1 = $client1->_soap_client;
 
+is ref $soap_client1, 'CODE', 'XML client is a code ref';
+
 done_testing;

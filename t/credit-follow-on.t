@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = load_class('Test::Business::CyberSource')->new;
 
 my $client   = $t->resolve( service => '/client/object'    );
 my $auth_res
@@ -13,8 +13,8 @@ my $auth_res
 		$t->resolve( service => '/request/authorization' )
 	);
 
-my $capturec = use_module('Business::CyberSource::Request::Capture');
-my $creditc  = use_module('Business::CyberSource::Request::Credit');
+my $capturec = load_class('Business::CyberSource::Request::Capture');
+my $creditc  = load_class('Business::CyberSource::Request::Credit');
 
 my $capture_req
 	= new_ok( $capturec => [{

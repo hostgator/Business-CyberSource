@@ -2,15 +2,13 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
-
-my $client = $t->resolve( service => '/client/object'      );
+my $t = load_class('Test::Business::CyberSource')->new;
 
 my $dto
-	= new_ok( use_module('Business::CyberSource::Request::Credit') => [{
+	= new_ok( load_class('Business::CyberSource::Request::Credit') => [{
 		reference_code => 'notarealcode',
 		bill_to =>
 			$t->resolve( service => '/helper/bill_to' ),

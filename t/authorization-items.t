@@ -2,15 +2,15 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = load_class('Test::Business::CyberSource')->new;
 
 my $client = $t->resolve( service => '/client/object'    );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
-my $ptc   = use_module('Business::CyberSource::RequestPart::PurchaseTotals');
+my $authc = load_class('Business::CyberSource::Request::Authorization');
+my $ptc   = load_class('Business::CyberSource::RequestPart::PurchaseTotals');
 
 my $req
 	= new_ok( $authc => [{
