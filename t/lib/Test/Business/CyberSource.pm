@@ -1,13 +1,11 @@
 package Test::Business::CyberSource;
-use Test::Requires 'Bread::Board';
-use Test::Requires::Env qw(
-	PERL_BUSINESS_CYBERSOURCE_USERNAME
-	PERL_BUSINESS_CYBERSOURCE_PASSWORD
-);
+use strict;
+use warnings;
+use namespace::autoclean;
+use Class::Load qw( load_class );
 
-use FindBin;
-use Module::Load              qw( load     );
-use Module::Load::Conditional qw( can_load );
+use Test::Requires 'Bread::Board';
+use Test::More;
 
 use Moose;
 
@@ -29,6 +27,33 @@ sub BUILD {
 			service object     => (
 				class        => 'Business::CyberSource::Client',
 				lifecycle    => 'Singleton',
+				block        => sub {
+					my $svc = shift;
+
+					if ( $svc->param('username') eq 'test'
+						|| $svc->param('password') eq 'test'
+					) {
+						plan skip_all => 'Unable to send with fake '
+							. 'credentials. Set both '
+							. 'PERL_BUSINESS_CYBERSOURCE_USERNAME '
+							. 'and '
+							. 'PERL_BUSINESS_CYBERSOURCE_PASSWORD '
+							. 'in the environment';
+
+						return;
+					}
+
+					my $client
+						= load_class('Business::CyberSource::Client')
+						->new({
+							username   => $svc->param('username'),
+							password   => $svc->param('password'),
+							production => $svc->param('production'),
+						});
+
+
+					return $client;
+				},
 				dependencies => {
 					username   => depends_on('username'),
 					password   => depends_on('password'),

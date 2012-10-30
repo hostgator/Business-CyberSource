@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = load_class('Test::Business::CyberSource')->new;
 
 my $client      = $t->resolve( service => '/client/object'    );
 
