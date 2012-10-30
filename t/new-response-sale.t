@@ -91,4 +91,7 @@ is $capt->reconciliation_id,  '51142857', '->reconciliation_id';
 isa_ok $auth->datetime, 'DateTime';
 isa_ok $capt->datetime, 'DateTime';
 
+is $auth->datetime->year, '2012', 'auth year';
+is $capt->datetime->year, '2012', 'capt year';
+
 done_testing;
