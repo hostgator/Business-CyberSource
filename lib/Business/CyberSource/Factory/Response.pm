@@ -10,7 +10,6 @@ use Moose;
 extends 'Business::CyberSource::Factory';
 
 use Class::Load  qw( load_class );
-use Module::Load qw( load       );
 use Try::Tiny;
 
 use Exception::Base (
