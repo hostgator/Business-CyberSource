@@ -1,6 +1,8 @@
 Revision history for Business-CyberSource
 
-0.007005  2012-11-01
+0.006013  2012-11-01
+	- Require XML::Compile::WSS 1.04
+		- fixes issue with concurrent client objects
 
 0.006012  2012-10-17
 	- fix issues with XML::Compile::SOAP::WSS 1.00 ( Mark Overmeer )
