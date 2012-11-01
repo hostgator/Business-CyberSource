@@ -70,7 +70,7 @@
             "MooseX::Types::NetAddr::IP" : "0",
             "MooseX::Types::Path::Class" : "0",
             "XML::Compile::SOAP11" : "0",
-            "XML::Compile::SOAP::WSS" : "1.00",
+            "XML::Compile::SOAP::WSS" : "1.04",
             "XML::Compile::Transport::SOAPHTTP" : "0",
             "XML::Compile::WSDL11" : "0",
             "namespace::autoclean" : "0",
@@ -109,6 +109,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "0.006013"
+   "version" : "0.006014"
 }
 

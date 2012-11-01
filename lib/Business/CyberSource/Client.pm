@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006013'; # VERSION
+our $VERSION = '0.006014'; # VERSION
 
 use Moose;
 
@@ -20,7 +20,7 @@ use Config;
 use Class::Load 0.20 qw( load_class );
 use Module::Load     qw( load );
 
-use XML::Compile::SOAP::WSS 1.00;
+use XML::Compile::SOAP::WSS 1.04;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
@@ -303,7 +303,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006013
+version 0.006014
 
 =head1 SYNOPSIS
 
