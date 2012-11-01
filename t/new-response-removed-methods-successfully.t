@@ -12,5 +12,6 @@ my $res
 	}]);
 
 ok ! $res->can('serialize'), 'can not serialize';
+ok ! $res->can('create'),    'can not create';
 
 done_testing;

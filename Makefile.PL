@@ -18,7 +18,6 @@ my %WriteMakefileArgs = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "FindBin" => 0,
-    "Module::Load::Conditional" => 0,
     "Module::Runtime" => 0,
     "Test::Fatal" => 0,
     "Test::Moose" => 0,
@@ -75,7 +74,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.006012",
+  "VERSION" => "0.007005",
   "test" => {
     "TESTS" => "t/*.t"
   }

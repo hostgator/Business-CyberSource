@@ -23,4 +23,15 @@ my $soap_client = $client->_soap_client;
 
 is ref $soap_client, 'CODE', 'XML client is a code ref';
 
+my $client1
+	= new_ok( $class => [{
+		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME} || 'test',
+		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD} || 'test',
+		production => 0,
+	}]);
+
+my $soap_client1 = $client1->_soap_client;
+
+is ref $soap_client1, 'CODE', 'XML client is a code ref';
+
 done_testing;

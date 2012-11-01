@@ -100,8 +100,8 @@ t/new-dcc.t
 t/new-exceptions.t
 t/new-items.t
 t/new-purchase-totals.t
+t/new-response-removed-methods-successfully.t
 t/new-service.t
-t/no-serialize-on-response.t
 t/release-cpan-changes.t
 t/release-dist-manifest.t
 t/release-distmeta.t
