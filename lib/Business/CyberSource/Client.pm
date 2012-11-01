@@ -20,7 +20,7 @@ use Config;
 use Class::Load 0.20 qw( load_class );
 use Module::Load     qw( load       );
 
-use XML::Compile::SOAP::WSS 1.00;
+use XML::Compile::SOAP::WSS 1.04;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;

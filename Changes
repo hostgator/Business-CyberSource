@@ -31,6 +31,13 @@ Revision history for {{$dist->name}}
 	- response object is now composed of sub objects
 	- response factory api changed
 
+0.006014  2012-11-01
+	- actually forgot to merge the patch requiring XML::Compile::WSS 1.04
+
+0.006013  2012-11-01
+	- Require XML::Compile::WSS 1.04
+		- fixes issue with concurrent client objects
+
 0.006012  2012-10-17
 	- fix issues with XML::Compile::SOAP::WSS 1.00 ( Mark Overmeer )
 		- also improve code with new API
