@@ -51,7 +51,7 @@ sub run_transaction {
 		%{ $request->serialize },
 	);
 
-	if ( $self->debug ) {
+	if ( $self->debug == 1 ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -60,7 +60,7 @@ sub run_transaction {
 
 	my ( $answer, $trace ) = $self->_soap_client->( %request );
 
-	if ( $self->debug ) {
+	if ( $self->debug == 2 ) {
 		Carp::carp "\n> " . $trace->request->as_string;
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
@@ -71,7 +71,7 @@ sub run_transaction {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	if ( $self->debug ) {
+	if ( $self->debug == 1 ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -198,11 +198,11 @@ has _rules => (
 );
 
 has debug => (
-	isa     => 'Bool',
+	isa     => 'Int',
 	is      => 'ro',
 	lazy    => 1,
 	default => sub {
-		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
+		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} // 0;
 	},
 );
 
@@ -341,9 +341,25 @@ false they will go to the testing server
 
 =attr debug
 
-Boolean value that causes the HTTP request/response to be output to STDOUT
+Integer value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
-C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+C<PERL_BUSINESS_CYBERSOURCE_DEBUG>.
+
+=over
+
+=item 0
+
+no output (default)
+
+=item 1
+
+request/response hashref
+
+=item 2
+
+1 plus actual HTTP and XML
+
+=back
 
 =attr rules
 
