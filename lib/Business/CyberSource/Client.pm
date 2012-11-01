@@ -51,7 +51,7 @@ sub run_transaction {
 		%{ $request->serialize },
 	);
 
-	if ( $self->debug == 1 ) {
+	if ( $self->debug >= 1 ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -60,7 +60,7 @@ sub run_transaction {
 
 	my ( $answer, $trace ) = $self->_soap_client->( %request );
 
-	if ( $self->debug == 2 ) {
+	if ( $self->debug >= 2 ) {
 		Carp::carp "\n> " . $trace->request->as_string;
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
@@ -71,7 +71,7 @@ sub run_transaction {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	if ( $self->debug == 1 ) {
+	if ( $self->debug >= 1 ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
