@@ -4,7 +4,7 @@ use warnings;
 use Class::Load 0.20 qw( load_class );
 use namespace::autoclean;
 
-our $VERSION = '0.006013'; # VERSION
+our $VERSION = '0.007005'; # VERSION
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
@@ -218,7 +218,7 @@ MooseX::Types::CyberSource - Moose Types specific to CyberSource
 
 =head1 VERSION
 
-version 0.006013
+version 0.007005
 
 =head1 SYNOPSIS
 

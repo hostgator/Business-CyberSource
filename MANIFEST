@@ -112,6 +112,7 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-synopsis.t
 t/release-test-version.t
+t/release-unused-vars.t
 t/rule-expired-card.t
 t/rule-request-id-is-zero.t
 t/sale-reject.t

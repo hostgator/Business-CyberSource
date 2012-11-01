@@ -18,7 +18,7 @@ find(
     $found =~ s{^lib/}{};
     $found =~ s{[/\\]}{::}g;
     $found =~ s/\.pm$//;
-    return if $found =~ /^Business::CyberSource::Factory::Request$/;
+    # nothing to skip
     push @modules, $found;
   },
   'lib',
@@ -32,7 +32,7 @@ sub _find_scripts {
       sub {
         return unless -f;
         my $found = $File::Find::name;
-        return if $found =~ /^Business::CyberSource::Factory::Request$/;
+        # nothing to skip
         open my $FH, '<', $_ or do {
           note( "Unable to open $found in ( $! ), skipping" );
           return;
