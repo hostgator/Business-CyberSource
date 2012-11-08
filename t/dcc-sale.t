@@ -37,12 +37,12 @@ my $client = $t->resolve( service => '/client/object' );
 
 my $dcc = $client->run_transaction( $dcc_req );
 
-is( $dcc->foreign_currency, 'JPY', 'check foreign currency' );
-is( $dcc->foreign_amount, 116, 'check foreign amount' );
-is( $dcc->currency, 'USD', 'check currency' );
-is( $dcc->dcc_supported, 1, 'check dcc supported' );
-is( $dcc->exchange_rate, 116.4344, 'check exchange rate' );
-is( $dcc->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
+is( $dcc->purchase_totals->foreign_currency, 'JPY', 'check foreign currency' );
+is( $dcc->purchase_totals->foreign_amount, 116, 'check foreign amount' );
+is( $dcc->purchase_totals->currency, 'USD', 'check currency' );
+is( $dcc->dcc->dcc_supported, 1, 'check dcc supported' );
+is( $dcc->purchase_totals->exchange_rate, 116.4344, 'check exchange rate' );
+is( $dcc->purchase_totals->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
 
 my $sale_req
 	= new_ok( use_module( 'Business::CyberSource::Request::Sale') => [{
@@ -51,11 +51,11 @@ my $sale_req
 		card             => $card,
 		purchase_totals => {
 			total            => $dcc_req->purchase_totals->total,
-			currency         => $dcc->currency,
-			foreign_currency => $dcc->foreign_currency,
-			foreign_amount   => $dcc->foreign_amount,
-			exchange_rate    => $dcc->exchange_rate,
-			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+			currency         => $dcc->purchase_totals->currency,
+			foreign_currency => $dcc->purchase_totals->foreign_currency,
+			foreign_amount   => $dcc->purchase_totals->foreign_amount,
+			exchange_rate    => $dcc->purchase_totals->exchange_rate,
+			exchange_rate_timestamp => $dcc->purchase_totals->exchange_rate_timestamp,
 		},
 		dcc_indicator    => 1,
 		}]);
