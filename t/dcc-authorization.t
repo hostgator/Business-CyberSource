@@ -46,7 +46,7 @@ my $ptotals = $res->purchase_totals;
 is $ptotals->foreign_currency, 'EUR', 'dcc response foreign_currency';
 is $ptotals->foreign_amount,  '0.88', 'dcc response foreign_amount'  ;
 is $ptotals->exchange_rate, '0.8810', 'dcc response exchange_rate'   ;
-is $dcc->dcc_supported,        1, 'dcc response dcc_supported'   ;
+is $dcc->supported,                1, 'dcc response dcc_supported'   ;
 
 my $authc = load_class('Business::CyberSource::Request::Authorization');
 

@@ -40,7 +40,7 @@ my $dcc = $client->run_transaction( $dcc_req );
 is( $dcc->purchase_totals->foreign_currency, 'JPY', 'check foreign currency' );
 is( $dcc->purchase_totals->foreign_amount, 116, 'check foreign amount' );
 is( $dcc->purchase_totals->currency, 'USD', 'check currency' );
-is( $dcc->dcc->dcc_supported, 1, 'check dcc supported' );
+is( $dcc->dcc->supported, 1, 'check dcc supported' );
 is( $dcc->purchase_totals->exchange_rate, 116.4344, 'check exchange rate' );
 is( $dcc->purchase_totals->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
 
