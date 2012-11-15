@@ -4,12 +4,13 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Factory';
 
-use Class::Load qw( load_class );
+use Class::Load  qw( load_class );
+use Try::Tiny;
 
 use Exception::Base (
 	'Business::CyberSource::Exception' => {
@@ -17,9 +18,17 @@ use Exception::Base (
 	},
 	'Business::CyberSource::Response::Exception' => {
 		isa => 'Business::CyberSource::Exception',
-		has => [
-			qw(decision reason_text reason_code request_id request_token trace)
-		],
+		has => [qw(
+			decision
+			reason_text
+			reason_code
+			request_id
+			request_token
+			trace
+			is_error
+			is_accept
+			is_reject
+		)],
 		string_attributes => [ qw( message decision reason_text ) ],
 	},
 	verbosity      => 4,
@@ -27,111 +36,51 @@ use Exception::Base (
 );
 
 sub create {
-	my ( $self, $dto, $answer ) = @_;
+	my ( $self, $result , $request ) = @_;
 
-	my $result = $answer->{result};
+	$result->{trace} = $request->trace
+		if defined $request
+		&& blessed $request
+		&& $request->can('has_trace')
+		&& $request->can('trace')
+		&& $request->has_trace
+		;
 
-	my $decision = $self->_get_decision( $result );
-
-	# the reply is a subsection of result named after the specic request, e.g
-	# ccAuthReply
-	my $reply = $self->_get_reply( $result );
-
-	my @traits;
-	my $e = { }; # response constructor args
-	my $prefix      = 'Business::CyberSource::';
-	my $req_prefix  = $prefix . 'Request::';
-	my $res_prefix  = $prefix . 'Response::';
-	my $role_prefix = $res_prefix . 'Role::';
-
-	if ( $result->{decision} eq 'ACCEPT' ) {
-		push( @traits, $role_prefix .'Accept' );
-
-		my $ptotals = $result->{purchaseTotals};
-
-		$e->{currency}       = $ptotals->{currency};
-		$e->{reference_code} = $result->{merchantReferenceCode};
-		$e->{amount}         = $reply->{amount} if $reply->{amount};
-		$e->{request_specific_reason_code} = "$reply->{reasonCode}";
-
-		my $datetime   = $self->_get_datetime( $reply );
-		$e->{datetime} = $datetime if $datetime;
-
-		if( $reply->{reconciliationID} ) {
-			push( @traits, $role_prefix . 'ReconciliationID');
-			$e->{reconciliation_id} = $reply->{reconciliationID};
+	my $response
+		= try {
+			load_class('Business::CyberSource::Response')->new( $result );
 		}
+		catch {
+			my %exception = (
+				message       => 'BUG! please report: ' . $_,
+				reason_code   => $result->{reasonCode},
+				value         => $result->{reasonCode},
+				decision      => $result->{decision},
+				request_id    => $result->{requestID},
+				request_token => $result->{requestToken},
+				trace         => $result->{trace},
+			);
 
-		if ( $dto->isa( $req_prefix . 'DCC') ) {
-				push ( @traits, $role_prefix . 'DCC' );
-				$e->{exchange_rate   } = $ptotals->{exchangeRate};
-				$e->{foreign_currency} = $ptotals->{foreignCurrency};
-				$e->{foreign_amount  } = $ptotals->{foreignAmount};
-				$e->{valid_hours     } = $reply->{validHours};
-
-				$e->{dcc_supported}
-						=$reply->{dccSupported} eq 'TRUE' ? 1 : 0
-						;
-
-				$e->{exchange_rate_timestamp}
-						= $ptotals->{exchangeRateTimeStamp}
-						;
-
-				$e->{margin_rate_percentage} = $reply->{marginRatePercentage};
-		}
-	}
-
-	if ( defined $reply->{processorResponse} ) {
-		push ( @traits, $role_prefix . 'ProcessorResponse' );
-		$e->{processor_response} = $reply->{processorResponse};
-	}
-
-	if ( $dto->isa( $req_prefix . 'Authorization') ) {
-		if ( $result->{ccAuthReply} ) {
-			push( @traits, $role_prefix . 'Authorization' );
-
-			$e->{auth_code}
-				=  $reply->{authorizationCode}
-				if $reply->{authorizationCode}
+			$exception{reason_text}
+				= load_class('Business::CyberSource::Response')
+				->_build_reason_text( $result->{reasonCode} )
 				;
 
+			Business::CyberSource::Response::Exception->throw( %exception );
+		};
 
-			if ( $reply->{cvCode} && $reply->{cvCodeRaw}) {
-				$e->{cv_code}     = $reply->{cvCode};
-				$e->{cv_code_raw} = $reply->{cvCodeRaw};
-			}
-
-			if ( $reply->{avsCode} && $reply->{avsCodeRaw}) {
-				$e->{avs_code}     = $reply->{avsCode};
-				$e->{avs_code_raw} = $reply->{avsCodeRaw};
-			}
-
-			$e->{auth_record} = $reply->{authRecord} if $reply->{authRecord};
-		}
-	}
-
-	my $response = load_class('Business::CyberSource::Response')
-		->with_traits( @traits )
-		->new({
-			request_id     => $result->{requestID},
-			decision       => $decision,
-			# quote reason_code to stringify from BigInt
-			reason_code    => "$result->{reasonCode}",
-			request_token  => $result->{requestToken},
-			%{$e},
-		});
-
-	$response->_trace( $dto->trace ) if $dto->has_trace;
-
-	if ( $decision eq 'ERROR' ) {
+	if ( blessed $response && $response->is_error ) {
 		my %exception = (
 			message       => 'message from CyberSource\'s API',
-			decision      => $response->decision,
 			reason_text   => $response->reason_text,
 			reason_code   => $response->reason_code,
 			value         => $response->reason_code,
+			decision      => $response->decision,
 			request_id    => $response->request_id,
 			request_token => $response->request_token,
+			is_error      => $response->is_error,
+			is_accept     => $response->is_accept,
+			is_reject     => $response->is_reject,
 		);
 		$exception{trace} = $response->trace if $response->has_trace;
 
@@ -139,57 +88,6 @@ sub create {
 	}
 
 	return $response;
-}
-
-sub _get_datetime {
-	my ( $self, $reply ) = @_;
-
-	my $datetime
-		= $reply->{requestDateTime} ? $reply->{requestDateTime}
-		:                             $reply->{authorizedDateTime}
-		;
-
-	return $datetime;
-}
-
-sub _get_reply {
-	my ( $self, $result ) = @_;
-	my $_;
-
-	my $reply;
-	foreach ( sort keys %{ $result } ) {
-		if ( $_ =~ m/Reply/x ) {
-			unless ( defined $reply ) {
-				$reply = $result->{$_}
-			}
-			else {
-				# sale's have 2 Reply sections, this merges them
-				require  Hash::Merge;
-				$reply = Hash::Merge::merge( $result->{$_}, $reply );
-			}
-		}
-	}
-
-	return $reply;
-}
-
-sub _get_decision {
-	my ( $self, $result ) = @_;
-
-	my $_;
-
-	my ( $decision )
-		= grep {
-			$_ eq $result->{decision}
-		}
-		qw( ERROR ACCEPT REJECT )
-		or Business::CyberSource::Exception->throw(
-			message  => 'decision not defined or not handled',
-			answer   => $result,
-		)
-		;
-
-	return $decision;
 }
 
 1;
@@ -206,14 +104,16 @@ Business::CyberSource::Factory::Response - A Response Factory
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 METHODS
 
 =head2 create
 
-Pass the C<answer> from L<XML::Compile::SOAP> and the original Request Data
-Transfer Object.
+	my $response = $factory->create( $answer->{result}, $request );
+
+Pass the C<answer->{result}> from L<XML::Compile::SOAP> and the original Request Data
+Transfer Object. Passing a L<Business::CyberSource::Request> is now optional.
 
 =head1 BUGS
 

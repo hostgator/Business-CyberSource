@@ -3,10 +3,13 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
+with qw(
+	Business::CyberSource::Role::MerchantReferenceCode
+);
 
 use MooseX::ABC 0.06;
 
@@ -33,7 +36,19 @@ Business::CyberSource::Message - Abstract Message Class;
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Role::MerchantReferenceCode>
+
+=back
 
 =head1 ATTRIBUTES
 
@@ -41,10 +56,6 @@ version 0.006014
 
 A L<XML::Compile::SOAP::Trace> object which is populated only after the object
 has been submitted to CyberSource by a L<Business::CyberSource::Client>.
-
-=head1 EXTENDS
-
-L<Business::CyberSource::MessagePart>
 
 =head1 BUGS
 

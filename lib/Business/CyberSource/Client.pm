@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 
@@ -18,7 +18,7 @@ use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
 use Class::Load 0.20 qw( load_class );
-use Module::Load     qw( load );
+use Module::Load     qw( load       );
 
 use XML::Compile::SOAP::WSS 1.04;
 use XML::Compile::WSDL11;
@@ -28,20 +28,18 @@ use XML::Compile::Transport::SOAPHTTP;
 sub run_transaction {
 	my ( $self, $request ) = @_;
 
-	confess 'Not a Business::CyberSource::Request'
-		unless defined $request
-			&& blessed $request
-			&& $request->isa('Business::CyberSource::Request')
-			;
+	confess 'request undefined'         unless defined $request;
+	confess 'request not an object'     unless blessed $request;
+	confess 'request can not serialize' unless $request->can('serialize');
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
-		my $answer;
+		my $result;
 		RULE: foreach my $rule ( @{ $self->_rules } ) {
-			$answer = $rule->run( $request );
-			last RULE if defined $answer;
+			$result = $rule->run( $request );
+			last RULE if defined $result;
 		}
-		return $self->_response_factory->create( $request, $answer )
-			if defined $answer
+		return $self->_response_factory->create( $result, $request )
+			if defined $result
 			;
 	}
 
@@ -53,7 +51,7 @@ sub run_transaction {
 		%{ $request->serialize },
 	);
 
-	if ( $self->debug ) {
+	if ( $self->debug >= 1 ) {
 		load 'Carp';
 		load $self->_dumper_package, 'Dumper';
 
@@ -62,18 +60,25 @@ sub run_transaction {
 
 	my ( $answer, $trace ) = $self->_soap_client->( %request );
 
-	if ( $self->debug ) {
+	if ( $self->debug >= 2 ) {
 		Carp::carp "\n> " . $trace->request->as_string;
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
-	$request->_trace( $trace );
+	$request->_trace( $trace ) if $request->can('_trace');
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
 	}
 
-	return $self->_response_factory->create( $request, $answer );
+	if ( $self->debug >= 1 ) {
+		load 'Carp';
+		load $self->_dumper_package, 'Dumper';
+
+		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer->{result} ) );
+	}
+
+	return $self->_response_factory->create( $answer->{result}, $request );
 }
 
 sub _build_soap_client {
@@ -157,7 +162,9 @@ has _response_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		return load_class('Business::CyberSource::Factory::Response')->new;
+		return
+			load_class('Business::CyberSource::Factory::Response')
+			->new;
 	},
 );
 
@@ -191,20 +198,20 @@ has _rules => (
 );
 
 has debug => (
-	isa     => 'Bool',
+	isa     => 'Int',
 	is      => 'ro',
 	lazy    => 1,
 	default => sub {
-		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} ? 1 : 0;
+		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} // 0;
 	},
 );
 
-has dumper_package => (
-	isa     => NonEmptySimpleStr,
-	reader  => '_dumper_package',
-	is      => 'ro',
-	lazy    => 1,
-	default => sub { return 'Data::Dumper'; },
+has _dumper_package => (
+	isa      => NonEmptySimpleStr,
+	is       => 'ro',
+	lazy     => 1,
+	init_arg => 'dumper_package',
+	default  => sub { return 'Data::Dumper'; },
 );
 
 has production => (
@@ -303,7 +310,7 @@ Business::CyberSource::Client - User Agent Responsible for transmitting the Resp
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 SYNOPSIS
 
@@ -350,9 +357,25 @@ false they will go to the testing server
 
 =head2 debug
 
-Boolean value that causes the HTTP request/response to be output to STDOUT
+Integer value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
-C<PERL_BUSINESS_CYBERSOURCE_DEBUG>
+C<PERL_BUSINESS_CYBERSOURCE_DEBUG>.
+
+=over
+
+=item 0
+
+no output (default)
+
+=item 1
+
+request/response hashref
+
+=item 2
+
+1 plus actual HTTP and XML
+
+=back
 
 =head2 rules
 

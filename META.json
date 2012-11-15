@@ -37,13 +37,11 @@
       },
       "runtime" : {
          "requires" : {
-            "Carp" : "0",
             "Class::Load" : "0.20",
             "Config" : "0",
             "DateTime::Format::W3CDTF" : "0.06",
             "Exception::Base" : "0",
             "File::ShareDir::ProjectDistDir" : "0",
-            "Hash::Merge" : "0",
             "LWP::Protocol::https" : "0",
             "Module::Load" : "0",
             "Moose" : "0",
@@ -56,7 +54,6 @@
             "MooseX::RemoteHelper::CompositeSerialization" : "0",
             "MooseX::SetOnce" : "0.200001",
             "MooseX::StrictConstructor" : "0",
-            "MooseX::Traits" : "0",
             "MooseX::Types" : "0",
             "MooseX::Types::Common::Numeric" : "0.001003",
             "MooseX::Types::Common::String" : "0.001005",
@@ -69,6 +66,7 @@
             "MooseX::Types::Moose" : "0",
             "MooseX::Types::NetAddr::IP" : "0",
             "MooseX::Types::Path::Class" : "0",
+            "Try::Tiny" : "0",
             "XML::Compile::SOAP11" : "0",
             "XML::Compile::SOAP::WSS" : "1.04",
             "XML::Compile::Transport::SOAPHTTP" : "0",
@@ -109,6 +107,6 @@
          "web" : "https://github.com/xenoterracide/Business-CyberSource"
       }
    },
-   "version" : "0.006014"
+   "version" : "0.007007"
 }
 

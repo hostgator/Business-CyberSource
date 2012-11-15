@@ -3,7 +3,7 @@ use 5.010;
 use strict;
 use warnings;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 1;
 
@@ -19,7 +19,7 @@ Business::CyberSource - Perl interface to the CyberSource Simple Order SOAP API
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 DESCRIPTION
 
@@ -152,8 +152,8 @@ A test credit card number provided by your your credit card processor
 					request_id => $auth_response->request_id,
 				},
 				purchase_totals => {
-					total    => $auth_response->amount,
-					currency => $auth_response->currency,
+					total    => $auth_response->auth->amount,
+					currency => $auth_response->purchase_totals->currency,
 				},
 			});
 
@@ -174,7 +174,7 @@ A test credit card number provided by your your credit card processor
 
 		if ( $capture_response->is_accept ) {
 			# you probably want to record this
-			say $capture_response->reconciliation_id;
+			say $capture_response->capture->reconciliation_id;
 		}
 	}
 

@@ -3,27 +3,9 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose::Role;
-
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types::CyberSource qw( AVSResult _VarcharTen );
-
-has avs_code => (
-	isa       => AVSResult,
-	predicate => 'has_avs_code',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-);
-
-has avs_code_raw => (
-	isa       => _VarcharTen,
-	predicate => 'has_avs_code_raw',
-	traits    => ['SetOnce'],
-	is        => 'rw',
-);
 
 1;
 
@@ -39,7 +21,7 @@ Business::CyberSource::Response::Role::AVS - AVS Role
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 ATTRIBUTES
 

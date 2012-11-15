@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -99,7 +99,11 @@ Business::CyberSource::RequestPart::BusinessRules - Business Rules
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
 
 =head1 ATTRIBUTES
 
@@ -162,10 +166,6 @@ B<Important> Make sure that you include the value N in the list if you want to
 receive declines for the AVS code N.
 
 =head2 score_threshold
-
-=head1 EXTENDS
-
-L<Business::CyberSource::MessagePart>
 
 =head1 BUGS
 

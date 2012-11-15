@@ -3,10 +3,9 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
-with 'MooseX::Traits';
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
@@ -28,15 +27,7 @@ Business::CyberSource::MessagePart - Things that all portions of a message have 
 
 =head1 VERSION
 
-version 0.006014
-
-=head1 WITH
-
-=over
-
-=item L<MooseX::Traits>
-
-=back
+version 0.007007
 
 =head1 BUGS
 

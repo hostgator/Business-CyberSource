@@ -1,22 +1,19 @@
 package Business::CyberSource::Response::Role::ProcessorResponse;
-use 5.008;
 use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose::Role;
-
-use MooseX::SetOnce 0.200001;
-
+use MooseX::RemoteHelper;
 use MooseX::Types::CyberSource qw( _VarcharTen );
 
 has processor_response => (
-	isa       => _VarcharTen,
-	predicate => 'has_processor_response',
-	traits    => ['SetOnce'],
-	is        => 'rw',
+	isa         => _VarcharTen,
+	remote_name => 'processorResponse',
+	predicate   => 'has_processor_response',
+	is          => 'ro',
 );
 
 1;
@@ -33,7 +30,7 @@ Business::CyberSource::Response::Role::ProcessorResponse - Processor Response at
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 ATTRIBUTES
 

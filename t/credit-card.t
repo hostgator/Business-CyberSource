@@ -5,7 +5,7 @@ use Test::Fatal;
 use Class::Load qw( load_class );
 use DateTime;
 
-my $card_c = load_class('Business::CyberSource::CreditCard');
+my $card_c = load_class('Business::CyberSource::RequestPart::Card');
 
 my $card0
 	= new_ok( $card_c => [{

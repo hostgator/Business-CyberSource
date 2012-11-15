@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose::Role;
 use MooseX::RemoteHelper;
@@ -39,9 +39,17 @@ Business::CyberSource::Request::Role::DCC - Role for DCC follow up requests
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 DESCRIPTION
+
+=head1 WITH
+
+=over
+
+=item L<Business::CyberSource::Role::ForeignCurrency>
+
+=back
 
 =head1 ATTRIBUTES
 
@@ -66,14 +74,6 @@ DCC cannot be used.
 =item 3: Declined
 
 DCC could be used, but the customer declined it.
-
-=back
-
-=head1 WITH
-
-=over
-
-=item L<Business::CyberSource::Role::ForeignCurrency>
 
 =back
 

@@ -23,7 +23,7 @@ my $rev_req
 			request_id => $res->request_id,
 		},
 		purchase_totals => {
-			total    => $res->amount,
+			total    => $res->auth->amount,
 			currency => $res->currency,
 		},
 	}]);
@@ -37,9 +37,9 @@ ok( $rev, 'reversal response exists' );
 is( $rev->decision, 'ACCEPT', 'check decision' );
 is( $rev->reason_code, 100, 'check reason_code' );
 is( $rev->currency, 'USD', 'check currency' );
-is( $rev->amount, '3000.00', 'check amount' );
-is( $rev->request_specific_reason_code , 100, 'check capture_reason_code' );
+is( $rev->auth_reversal->amount, '3000.00', 'check amount' );
+is( $rev->auth_reversal->reason_code , 100, 'check capture_reason_code' );
 
-ok( $rev->datetime, 'datetime exists' );
+ok( $rev->auth_reversal->datetime, 'datetime exists' );
 
 done_testing;

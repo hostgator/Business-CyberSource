@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Fatal;
 
 use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -23,14 +24,14 @@ my $rev_req
 			request_id => '834',
 		},
 		purchase_totals => {
-			total    => $auth_res->amount,
+			total    => $auth_res->auth->amount,
 			currency => $auth_res->currency,
 		},
 	}]);
 
-my $rev_res = $client->run_transaction( $rev_req );
+my $rev_res = exception { $client->run_transaction( $rev_req ) };
 
-isa_ok $rev_res, 'Business::CyberSource::Response';
+isa_ok $rev_res, 'Business::CyberSource::Response::Exception';
 
 is( $rev_res->decision, 'REJECT', 'check decision' );
 is( $rev_res->reason_code, 102, 'check reason_code' );

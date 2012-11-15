@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Rule';
@@ -20,13 +20,13 @@ sub run {
 
 	$self->debug if $self->client->debug;
 
-	return { result => {
+	return {
 		merchantReferenceCode => $request->reference_code,
 		decision              => 'REJECT',
 		reasonCode            => '202',
 		requestID             => 0,
 		requestToken          => 0,
-	}};
+	};
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -43,7 +43,7 @@ Business::CyberSource::Rule::ExpiredCard - Expired Card
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 METHODS
 

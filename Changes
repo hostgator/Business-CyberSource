@@ -1,5 +1,58 @@
 Revision history for Business-CyberSource
 
+0.007007  2012-11-15
+
+0.007006  2012-11-15
+	[NEWS]
+	- Tax Service should now be fully supported
+	- massive refactoring of Response objects to use MooseX::RemoteHelper
+		- Response uses strict constructor
+		- please report any exceptions caused by strict constructor that do not
+		  have a status code of 102
+	- debug now takes an integer and will be more verbose
+		- debug 2 shows full SOAP + hashrefs
+		- debug 1 just shows the hashrefs
+		- debug 0 shows nothing
+
+	[DEPRECATIONS]
+	- change ->dcc->dcc_supported to ->dcc->supported
+
+0.007005  2012-11-01
+	- port fixes from 0.006014
+	- debug now takes an integer and will be more verbose
+		- debug 2 shows full SOAP + hashrefs
+		- debug 1 just shows the hashrefs
+		- debug 0 shows nothing
+
+0.007004  2012-10-18
+	- port fixes from 0.006012
+	- insure response object has a trace object
+
+0.007003  2012-10-15
+	- delegate more deprecated methods and improve notice
+
+0.007002  2012-10-15
+	- documentation improvements
+	- more backwards compatability cleanup
+	[DEPRECATIONS]
+	- is_success entirely
+
+0.007001  2012-10-09
+	- remove use of 5.14+ code
+	- update documentation
+	[DEPRECATIONS]
+	- do not check roles in CyberSource Response these are implementation
+	  details now
+
+0.007000  2012-10-08
+	[NEWS]
+	- Tax Service should now be fully supported
+	- massive refactoring of Response objects to use MooseX::RemoteHelper
+	  improvments
+	[DEPRECATIONS]
+	- response object is now composed of sub objects
+	- response factory api changed
+
 0.006014  2012-11-01
 	- actually forgot to merge the patch requiring XML::Compile::WSS 1.04
 
@@ -21,7 +74,6 @@ Revision history for Business-CyberSource
 0.006009  2012-10-04
 	[FEATURE]
 	- added is_accept and is_reject to response
-	[DEPRECATIONS]
 	- is_success in the future will mean a non error state (accept or reject)
 
 0.006008  2012-09-26

@@ -38,7 +38,7 @@ is(
 		,
 	'check reason_text',
 );
-is( $ret0->processor_response, '54', 'check processor response' );
+is( $ret0->auth->processor_response, '54', 'check processor response' );
 
 ok( $ret0->request_id,    'check request_id exists'    );
 ok( $ret0->request_token, 'check request_token exists' );

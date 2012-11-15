@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -91,7 +91,11 @@ Business::CyberSource::RequestPart::Item - Item Helper Class
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
+
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
 
 =head1 ATTRIBUTES
 
@@ -146,10 +150,6 @@ The total amount authorized will be 32.40, not 30.00 with 2.40 of tax included.
 =head2 tax_rate
 
 =head2 national_tax
-
-=head1 EXTENDS
-
-L<Business::CyberSource::MessagePart>
 
 =head1 BUGS
 

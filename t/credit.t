@@ -28,12 +28,13 @@ my $ret = $client->run_transaction( $req );
 
 isa_ok $ret, 'Business::CyberSource::Response';
 
-is( $ret->decision,       'ACCEPT', 'check decision'       );
-is( $ret->reason_code,     100,     'check reason_code'    );
-is( $ret->currency,       'USD',    'check currency'       );
-is( $ret->amount,         '3000.00', 'check amount'        );
+is( $ret->decision,               'ACCEPT', 'check decision'       );
+is( $ret->reason_code,             100,     'check reason_code'    );
+is( $ret->currency,               'USD',    'check currency'       );
+is( $ret->credit->amount,         '3000.00', 'check amount'        );
 
-ok( $ret->request_id,    'check request_id exists'    );
-ok( $ret->datetime,      'check datetime exists'      );
+ok( $ret->request_id,            'check request_id exists'    );
+ok( $ret->credit->datetime,      'check datetime exists'      );
+
 
 done_testing;

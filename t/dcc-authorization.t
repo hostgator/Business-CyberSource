@@ -38,28 +38,31 @@ my $dcc_req
 
 my $client = $t->resolve( service => '/client/object' );
 
-my $dcc = $client->run_transaction( $dcc_req );
+my $res = $client->run_transaction( $dcc_req );
 
-is( $dcc->foreign_currency, 'EUR', 'dcc response foreign_currency' );
-is( $dcc->foreign_amount,  '0.88', 'dcc response foreign_amount'   );
-is( $dcc->exchange_rate, '0.8810', 'dcc response exchange_rate'    );
-is( $dcc->dcc_supported,        1, 'dcc response dcc_supported'    );
+my $dcc = $res->dcc;
+my $ptotals = $res->purchase_totals;
+
+is $ptotals->foreign_currency, 'EUR', 'dcc response foreign_currency';
+is $ptotals->foreign_amount,  '0.88', 'dcc response foreign_amount'  ;
+is $ptotals->exchange_rate, '0.8810', 'dcc response exchange_rate'   ;
+is $dcc->supported,                1, 'dcc response dcc_supported'   ;
 
 my $authc = load_class('Business::CyberSource::Request::Authorization');
 
 my $auth_req
 	= new_ok( $authc => [{
-		reference_code   => $dcc->reference_code,
+		reference_code   => $res->reference_code,
 		bill_to          => $billto,
 		card             => $card,
 		dcc_indicator    => 1,
 		purchase_totals  => {
 			total            => $dcc_req->purchase_totals->total,
-			currency         => $dcc->currency,
-			foreign_currency => $dcc->foreign_currency,
-			foreign_amount   => $dcc->foreign_amount,
-			exchange_rate    => $dcc->exchange_rate,
-			exchange_rate_timestamp => $dcc->exchange_rate_timestamp,
+			currency         => $res->purchase_totals->currency,
+			foreign_currency => $res->purchase_totals->foreign_currency,
+			foreign_amount   => $res->purchase_totals->foreign_amount,
+			exchange_rate    => $res->purchase_totals->exchange_rate,
+			exchange_rate_timestamp => $res->purchase_totals->exchange_rate_timestamp,
 		},
 	}]);
 
@@ -71,7 +74,7 @@ ok $auth_res->is_accepted, 'card authorized'
 
 my $cap_req
 	= new_ok( load_class( 'Business::CyberSource::Request::Capture') => [{
-		reference_code   => $dcc->reference_code,
+		reference_code   => $auth_res->reference_code,
 		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
 		service          => {
@@ -85,7 +88,7 @@ my $cred_req
 	= new_ok( load_class( 'Business::CyberSource::Request::FollowOnCredit') => [{
 		bill_to          => $billto,
 		card             => $card,
-		reference_code   => $dcc->reference_code,
+		reference_code   => $cap_res->reference_code,
 		purchase_totals  => $auth_req->purchase_totals,
 		dcc_indicator    => 1,
 		service  => { request_id => $cap_res->request_id },
@@ -96,6 +99,6 @@ my $cred_res = $client->run_transaction( $cred_req );
 is( $cred_res->is_accepted, 1, 'check that credit decicion is ACCEPT')
 	or diag $cred_res->reason_text;
 
-is( $cred_res->amount, '1.00', 'check that credit amount is 1.00' );
+is( $cred_res->credit->amount, '1.00', 'check that credit amount is 1.00' );
 
 done_testing;

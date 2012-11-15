@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -15,7 +15,6 @@ with qw(
 );
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum );
-
 
 has total => (
 	isa         => PositiveOrZeroNum,
@@ -40,15 +39,7 @@ Business::CyberSource::RequestPart::PurchaseTotals - Purchase Totals
 
 =head1 VERSION
 
-version 0.006014
-
-=head1 ATTRIBUTES
-
-=head2 total
-
-Grand total for the order. You must include either this field or
-L<Item unit price|Business::CyberSource::RequestPart::Item/"unit_price"> in your
-request.
+version 0.007007
 
 =head1 EXTENDS
 
@@ -63,6 +54,14 @@ L<Business::CyberSource::MessagePart>
 =item L<Business::CyberSource::Role::ForeignCurrency>
 
 =back
+
+=head1 ATTRIBUTES
+
+=head2 total
+
+Grand total for the order. You must include either this field or
+L<Item unit price|Business::CyberSource::RequestPart::Item/"unit_price"> in your
+request.
 
 =head1 BUGS
 

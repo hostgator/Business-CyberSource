@@ -3,51 +3,9 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose::Role;
-with qw(
-	Business::CyberSource::Role::Currency
-	Business::CyberSource::Role::MerchantReferenceCode
-);
-
-use MooseX::SetOnce 0.200001;
-
-use MooseX::Types -declare => [  qw( DateTimeFromW3C ) ];
-use MooseX::Types::DateTime      qw( DateTime );
-use MooseX::Types::DateTime::W3C qw( DateTimeW3C );
-
-use Class::Load 0.20 qw( load_class );
-
-subtype DateTimeFromW3C, as DateTime;
-
-coerce DateTimeFromW3C,
-	from DateTimeW3C,
-	via {
-		return load_class('DateTime::Format::W3CDTF')
-			->new
-			->parse_datetime( $_ )
-			;
-	};
-
-has amount => (
-	isa      => 'Num',
-	traits   => ['SetOnce'],
-	is       => 'rw',
-);
-
-has datetime => (
-	isa      => DateTimeFromW3C,
-	is       => 'rw',
-	traits   => ['SetOnce'],
-	coerce   => 1,
-);
-
-has request_specific_reason_code => (
-	required => 1,
-	is       => 'ro',
-	isa      => 'Int',
-);
 
 1;
 
@@ -63,31 +21,7 @@ Business::CyberSource::Response::Role::Accept - role for handling accepted trans
 
 =head1 VERSION
 
-version 0.006014
-
-=head1 DESCRIPTION
-
-If the transaction has a C<decision> of C<ACCEPT> then this Role is applied.
-
-=head2 composes
-
-=over
-
-=item L<Business::CyberSource::Role::Currency>
-
-=item L<Business::CyberSource::Role::MerchantReferenceCode>
-
-=back
-
-=head1 ATTRIBUTES
-
-=head2 amount
-
-=head2 datetime
-
-Is a L<DateTime> object
-
-=head2 request_specific_reason_code
+version 0.007007
 
 =head1 BUGS
 

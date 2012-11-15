@@ -3,19 +3,28 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
 	Business::CyberSource::Request::Role::BillingInfo
 	Business::CyberSource::Request::Role::CreditCardInfo
-	Business::CyberSource::Request::Role::BusinessRules
 	Business::CyberSource::Request::Role::DCC
 	Business::CyberSource::Request::Role::TaxService
 );
 
+use MooseX::Types::CyberSource qw( BusinessRules );
+
 has '+service' => ( remote_name => 'ccAuthService' );
+
+has business_rules => (
+	isa         => BusinessRules,
+	remote_name => 'businessRules',
+	traits      => ['SetOnce'],
+	is          => 'rw',
+	coerce      => 1,
+);
 
 __PACKAGE__->meta->make_immutable;
 1;
@@ -32,7 +41,7 @@ Business::CyberSource::Request::Authorization - CyberSource Authorization Reques
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 SYNOPSIS
 
@@ -84,11 +93,33 @@ L<Business::CyberSource::Request>
 
 =item L<Business::CyberSource::Request::Role::CreditCardInfo>
 
-=item L<Business::CyberSource::Request::Role::BusinessRules>
-
 =item L<Business::CyberSource::Request::Role::DCC>
 
+=item L<Business::CyberSource::Request::Role::TaxService>
+
 =back
+
+=head1 ATTRIBUTES
+
+=head2 references_code
+
+Merchant Reference Code
+
+=head2 bill_to
+
+L<Business::CyberSource::RequestPart::BillTo>
+
+=head2 purchase_totals
+
+L<Business::CyberSource::RequestPart::PurchaseTotals>
+
+=head2 card
+
+L<Business::CyberSource::RequestPart::Card>
+
+=head2 business_rules
+
+L<Business::CyberSource::RequestPart::BusinessRules>
 
 =for Pod::Coverage BUILD
 

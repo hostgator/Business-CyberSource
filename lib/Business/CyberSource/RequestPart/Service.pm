@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -39,7 +39,7 @@ Business::CyberSource::RequestPart::Service - Service Request Part
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 DESCRIPTION
 
@@ -50,15 +50,15 @@ Depending on the request type you may have to set either
 L<capture_request_id|/"capture_request_id"> or
 L<auth_request_id|/"auth_request_id">
 
+=head1 EXTENDS
+
+L<Business::CyberSource::MessagePart>
+
 =head1 ATTRIBUTES
 
 =head2 run
 
 run will be set correctly by default on ever request
-
-=head1 EXTENDS
-
-L<Business::CyberSource::MessagePart>
 
 =head1 BUGS
 

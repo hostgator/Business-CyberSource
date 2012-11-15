@@ -4,15 +4,12 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
-BEGIN {
 use Moose;
 extends 'Business::CyberSource::Message';
-}
 with qw(
 	MooseX::RemoteHelper::CompositeSerialization
-	Business::CyberSource::Role::MerchantReferenceCode
 );
 
 use MooseX::ABC;
@@ -23,74 +20,6 @@ use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
 use Class::Load 0.20 qw( load_class );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
-
-my %pt_map;
-my %service_map;
-BEGIN {
-%pt_map = (
-	currency                => 1,
-	total                   => 1,
-	foreign_currency        => 1,
-	foreign_amount          => 1,
-	exchange_rate           => 1,
-	exchange_rate_timestamp => 1,
-);
-%service_map = (
-	request_id => 1,
-);
-}
-
-around BUILDARGS => sub {
-	my $orig = shift;
-	my $self = shift;
-
-	my $args = $self->$orig( @_ );
-
-	return $args if defined $args->{purchase_totals};
-
-	load_class 'Carp';
-	Carp::cluck 'DEPRECATED: using a deprecated API';
-	Carp::carp 'DEPRECATED: '
-		. 'pass a Business::CyberSource::RequestPart::PurchaseTotals to '
-		. 'purchase_totals '
-		. 'or pass a constructor hashref to bill_to as it is coerced from '
-		. 'hashref.'
-		;
-
-	my %newargs = %{ $args };
-
-	my %purchase_totals
-		= map {
-			defined $pt_map{$_} ? ( $_, delete $newargs{$_} ) : ()
-		} keys %newargs;
-
-	my %service
-		= map {
-			defined $service_map{$_} ? ( $_, delete $newargs{$_} ) : ()
-		} keys %newargs;
-
-	$newargs{purchase_totals} = \%purchase_totals if keys %purchase_totals;
-
-	if ( keys %service ) {
-		$newargs{service} = \%service;
-		Carp::carp 'DEPRECATED: '
-		. 'pass an appropriate Business::CyberSource::RequestPart::Service::* '
-		. 'to service '
-		. 'or pass a constructor hashref to service to as it is coerced from '
-		. 'hashref.'
-		;
-	}
-
-	return \%newargs;
-};
-
-before [ keys %pt_map ] => sub {
-	load_class('Carp');
-	Carp::carp 'DEPRECATED: '
-		. 'call attribute methods ( ' . join( ' ', keys %pt_map ) . ' ) on '
-		. 'Business::CyberSource::RequestPart::BillTo via bill_to directly'
-		;
-};
 
 before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
@@ -140,20 +69,14 @@ has service => (
 	reader     => undef,
 );
 
-BEGIN {
 has purchase_totals => (
 	isa         => PurchaseTotals,
 	remote_name => 'purchaseTotals',
 	is          => 'ro',
 	required    => 1,
 	coerce      => 1,
-	handles     => {
-		has_total => 'has_total',
-		%{ { map {( $_ => $_ )} keys %pt_map } },      ## no critic ( BuiltinFunctions::ProhibitVoidMap )
-		%{ { map {( $_ => $_ )} keys %service_map } }, ## no critic ( BuiltinFunctions::ProhibitVoidMap )
-	},
+	handles     => [qw( total has_total )],
 );
-}
 
 has items => (
 	isa         => Items,
@@ -186,10 +109,6 @@ has items => (
 	},
 );
 
-has '+_trait_namespace' => (
-	default => 'Business::CyberSource::Request::Role',
-);
-
 has '+trace' => (
 	is        => 'rw',
 	init_arg  => undef
@@ -210,7 +129,7 @@ Business::CyberSource::Request - Abstract Request Class
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 DESCRIPTION
 
@@ -239,6 +158,18 @@ Here are the provided Request subclasses.
 I<note:> You can use the L<Business:CyberSource::Request::Credit> class but,
 it requires traits to be applied depending on the type of request you need,
 and thus does not currently work with the factory.
+
+=head1 EXTENDS
+
+L<Business::CyberSource::Message>
+
+=head1 WITH
+
+=over
+
+=item L<MooseX::RemoteHelper::CompositeSerialization>
+
+=back
 
 =head1 METHODS
 
@@ -276,28 +207,6 @@ An array of L<Business::CyberSource::RequestPart::Item>
 =head2 comments
 
 Comment Field
-
-=head2 is_skipable
-
-Type: Bool
-
-an optimization to see if we can skip sending the request and just construct a
-response. This attribute is for use by L<Business::CyberSource::Client> only
-and may change names later.
-
-=head1 EXTENDS
-
-L<Business::CyberSource::Message>
-
-=head1 WITH
-
-=over
-
-=item L<Business::CyberSource::Role::MerchantReferenceCode>
-
-=item L<MooseX::RemoteHelper::CompositeSerialization>
-
-=back
 
 =for Pod::Coverage BUILD
 

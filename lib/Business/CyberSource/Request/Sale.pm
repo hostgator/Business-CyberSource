@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.006014'; # VERSION
+our $VERSION = '0.007007'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Request::Authorization';
@@ -36,7 +36,7 @@ Business::CyberSource::Request::Sale - Sale Request Object
 
 =head1 VERSION
 
-version 0.006014
+version 0.007007
 
 =head1 SYNOPSIS
 
@@ -75,16 +75,16 @@ separate authorization and capture if there is no delay between taking a
 customer's order and shipping the goods. A sale is typically used for
 electronic goods and for services that you can turn on immediately.
 
+=head1 EXTENDS
+
+L<Business::CyberSource::Request::Authorization>
+
 =head1 ATTRIBUTES
 
 =head2 capture_service
 
 Sale does both authorization and capture and so needs another service
 attribute. It is built for you and cannot be modified.
-
-=head1 EXTENDS
-
-L<Business::CyberSource::Request::Authorization>
 
 =head1 BUGS
 
