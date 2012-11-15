@@ -98,6 +98,7 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
+         "mailto" : "development@hostgator.com",
          "web" : "https://github.com/hostgator/business-cybersource/issues"
       },
       "homepage" : "https://metacpan.org/release/Business-CyberSource",

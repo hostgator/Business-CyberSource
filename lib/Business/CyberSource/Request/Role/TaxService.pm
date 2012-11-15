@@ -45,7 +45,8 @@ ref to the constructor, just to get the service to run.
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hostgator/business-cybersource/issues
+https://github.com/hostgator/business-cybersource/issues or by email to
+development@hostgator.com.
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
