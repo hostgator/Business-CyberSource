@@ -100,11 +100,11 @@
       "bugtracker" : {
          "web" : "https://github.com/xenoterracide/Business-CyberSource/issues"
       },
-      "homepage" : "http://search.cpan.org/dist/Business-CyberSource/",
+      "homepage" : "https://metacpan.org/release/Business-CyberSource",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/xenoterracide/Business-CyberSource.git",
-         "web" : "https://github.com/xenoterracide/Business-CyberSource"
+         "url" : "git://github.com/hostgator/business-cybersource.git",
+         "web" : "https://github.com/hostgator/business-cybersource"
       }
    },
    "version" : "0.007007"
