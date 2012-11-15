@@ -2,6 +2,21 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007006  2012-11-15
+	[NEWS]
+	- Tax Service should now be fully supported
+	- massive refactoring of Response objects to use MooseX::RemoteHelper
+		- Response uses strict constructor
+		- please report any exceptions caused by strict constructor that do not
+		  have a status code of 102
+	- debug now takes an integer and will be more verbose
+		- debug 2 shows full SOAP + hashrefs
+		- debug 1 just shows the hashrefs
+		- debug 0 shows nothing
+
+	[DEPRECATIONS]
+	- change ->dcc->dcc_supported to ->dcc->supported
+
 0.007005  2012-11-01
 	- port fixes from 0.006014
 	- debug now takes an integer and will be more verbose
