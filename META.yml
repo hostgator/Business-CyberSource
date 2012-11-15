@@ -69,4 +69,4 @@ resources:
   bugtracker: https://github.com/hostgator/business-cybersource/issues
   homepage: https://metacpan.org/release/Business-CyberSource
   repository: git://github.com/hostgator/business-cybersource.git
-version: 0.007007
+version: 0.007008

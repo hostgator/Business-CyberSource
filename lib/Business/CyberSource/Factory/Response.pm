@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007007'; # VERSION
+our $VERSION = '0.007008'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Factory';
@@ -104,7 +104,7 @@ Business::CyberSource::Factory::Response - A Response Factory
 
 =head1 VERSION
 
-version 0.007007
+version 0.007008
 
 =head1 METHODS
 
