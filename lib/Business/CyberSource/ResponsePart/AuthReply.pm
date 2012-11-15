@@ -166,7 +166,7 @@ Caleb Cushing <xenoterracide@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2012 by HostGator.com.
+This software is Copyright (c) 2012 by L<HostGator.com>.
 
 This is free software, licensed under:
 
