@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007007  2012-11-15
+	- metadata corrections
+
 0.007006  2012-11-15
 	[NEWS]
 	- Tax Service should now be fully supported
