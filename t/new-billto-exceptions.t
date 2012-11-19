@@ -3,9 +3,9 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Module::Runtime qw( use_module );
+use Class::Load 'load_class';
 
-my $billto_c = use_module('Business::CyberSource::RequestPart::BillTo');
+my $billto_c = load_class('Business::CyberSource::RequestPart::BillTo');
 
 my $exception0
 	= exception { $billto_c->new({
@@ -34,6 +34,22 @@ my $exception1
 	});
 };
 
-like $exception1, qr/postal code is required for US or Canada/, 'us/ca require a zip code';
+like $exception1, qr/postal code is required for US or Canada/,
+	'us/ca require a zip code';
+
+my $exception2
+	= exception { $billto_c->new({
+		first_name     => 'Caleb',
+		last_name      => 'Cushing',
+		street         => 'somewhere',
+		city           => 'Houston',
+		country        => 'US',
+		postal_code    => '77064',
+		email          => 'xenoterracide@gmail.com',
+	});
+};
+
+like $exception2, qr/state is required for US or Canada/,
+	'us/ca require a state';
 
 done_testing;

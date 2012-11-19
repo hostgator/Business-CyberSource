@@ -30,6 +30,9 @@ sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	if ( $self->country eq 'US' or $self->country eq 'CA' ) {
 		confess 'postal code is required for US or Canada'
 			unless $self->has_postal_code;
+
+		confess 'state is required for US or Canada'
+			unless $self->has_state;
 	}
 }
 
