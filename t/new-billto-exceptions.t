@@ -34,7 +34,7 @@ my $exception1
 	});
 };
 
-like $exception1, qr/postal code is required for US or Canada/,
+like $exception1, qr/postal_code is required for US or Canada/,
 	'us/ca require a zip code';
 
 my $exception2
