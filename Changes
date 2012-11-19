@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007008  2012-11-19
+	- BillTo state was not checked as required for US and CA
+
 0.007007  2012-11-15
 	- metadata corrections
 
