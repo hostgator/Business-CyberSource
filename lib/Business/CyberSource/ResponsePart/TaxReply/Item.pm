@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007008'; # VERSION
+our $VERSION = '0.007009'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::MessagePart';
@@ -59,7 +59,7 @@ Business::CyberSource::ResponsePart::TaxReply::Item - taxReply_item
 
 =head1 VERSION
 
-version 0.007008
+version 0.007009
 
 =head1 BUGS
 

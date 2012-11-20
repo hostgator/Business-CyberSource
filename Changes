@@ -1,5 +1,9 @@
 Revision history for Business-CyberSource
 
+0.007009  2012-11-19
+	- Re-up 0.007008 after fixing pause permissions
+	- add Package Metadata
+
 0.007008  2012-11-19
 	- BillTo state was not checked as required for US and CA
 

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007008'; # VERSION
+our $VERSION = '0.007009'; # VERSION
 
 use Moose;
 use MooseX::StrictConstructor;
@@ -26,7 +26,7 @@ Business::CyberSource::Factory - Factory Base Class
 
 =head1 VERSION
 
-version 0.007008
+version 0.007009
 
 =head1 BUGS
 
