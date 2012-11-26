@@ -51,4 +51,19 @@ my %expected_serialized
 
 is_deeply( $billto->serialize, \%expected_serialized, 'serialized'          );
 
+my $billto1 = new_ok( use_module('Business::CyberSource::RequestPart::BillTo') => [{
+	first_name  => 'Caleb',
+	last_name   => 'Cushing',
+	street1     => '8100 Cameron Road',
+	street2     => undef,
+	city        => 'Austin',
+	state       => 'TX',
+	postal_code => '78753',
+	country     => 'US',
+	email       => 'xenoterracide@gmail.com',
+	ip          => '192.168.100.2',
+}]);
+
+ok ! $billto1->has_street2, 'street2 unset';
+
 done_testing;
