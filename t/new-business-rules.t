@@ -3,10 +3,10 @@ use warnings;
 use Test::More;
 
 use Test::Moose;
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
 my $br
-	= new_ok( use_module('Business::CyberSource::RequestPart::BusinessRules') => [{
+	= new_ok( load_class('Business::CyberSource::RequestPart::BusinessRules') => [{
 		ignore_avs_result => 1,
 		ignore_cv_result  => 1,
 		score_threshold   => 8,

@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Moose;
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
 my $item
-	= new_ok( use_module('Business::CyberSource::RequestPart::Item') => [{
+	= new_ok( load_class('Business::CyberSource::RequestPart::Item') => [{
 		unit_price => 3.25,
 	}]);
 

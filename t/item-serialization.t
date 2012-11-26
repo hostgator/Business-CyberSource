@@ -2,9 +2,9 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
-my $itemc = use_module('Business::CyberSource::RequestPart::Item');
+my $itemc = load_class('Business::CyberSource::RequestPart::Item');
 
 {
 	package Test;

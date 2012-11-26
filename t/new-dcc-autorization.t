@@ -1,12 +1,12 @@
 use strict;
 use warnings;
 use Test::More;
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
-my $authc = use_module('Business::CyberSource::Request::Authorization');
+my $authc = load_class('Business::CyberSource::Request::Authorization');
 
 my $billto
-	= new_ok( use_module('Business::CyberSource::RequestPart::BillTo') => [{
+	= new_ok( load_class('Business::CyberSource::RequestPart::BillTo') => [{
 		first_name  => 'Caleb',
 		last_name   => 'Cushing',
 		street1     => '8100 Cameron Road',

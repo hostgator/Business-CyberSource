@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
 my $capture =
-	new_ok( use_module('Business::CyberSource::Request::Capture') => [{
+	new_ok( load_class('Business::CyberSource::Request::Capture') => [{
 		reference_code => 'not sending',
 		service => {
 			request_id => 42,
