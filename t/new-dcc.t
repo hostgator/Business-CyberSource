@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 use Test::More;
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 
 my $dto
-	= new_ok( use_module('Business::CyberSource::Request::DCC') => [{
+	= new_ok( load_class('Business::CyberSource::Request::DCC') => [{
 		reference_code => 'notarealcode',
 		card => {
 			account_number => '4111-1111-1111-1111',

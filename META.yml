@@ -7,7 +7,6 @@ build_requires:
   File::Find: 0
   File::Temp: 0
   FindBin: 0
-  Module::Runtime: 0
   Test::Fatal: 0
   Test::Moose: 0
   Test::More: 0.88
@@ -29,169 +28,169 @@ no_index:
 provides:
   Business::CyberSource:
     file: lib/Business/CyberSource.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Client:
     file: lib/Business/CyberSource/Client.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Factory:
     file: lib/Business/CyberSource/Factory.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Factory::Request:
     file: lib/Business/CyberSource/Factory/Request.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Factory::Response:
     file: lib/Business/CyberSource/Factory/Response.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Factory::Rule:
     file: lib/Business/CyberSource/Factory/Rule.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Message:
     file: lib/Business/CyberSource/Message.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::MessagePart:
     file: lib/Business/CyberSource/MessagePart.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request:
     file: lib/Business/CyberSource/Request.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::AuthReversal:
     file: lib/Business/CyberSource/Request/AuthReversal.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Authorization:
     file: lib/Business/CyberSource/Request/Authorization.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Capture:
     file: lib/Business/CyberSource/Request/Capture.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Credit:
     file: lib/Business/CyberSource/Request/Credit.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::DCC:
     file: lib/Business/CyberSource/Request/DCC.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::FollowOnCredit:
     file: lib/Business/CyberSource/Request/FollowOnCredit.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Role::BillingInfo:
     file: lib/Business/CyberSource/Request/Role/BillingInfo.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Role::CreditCardInfo:
     file: lib/Business/CyberSource/Request/Role/CreditCardInfo.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Role::DCC:
     file: lib/Business/CyberSource/Request/Role/DCC.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Role::TaxService:
     file: lib/Business/CyberSource/Request/Role/TaxService.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::Sale:
     file: lib/Business/CyberSource/Request/Sale.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Request::StandAloneCredit:
     file: lib/Business/CyberSource/Request/StandAloneCredit.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::BillTo:
     file: lib/Business/CyberSource/RequestPart/BillTo.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::BusinessRules:
     file: lib/Business/CyberSource/RequestPart/BusinessRules.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Card:
     file: lib/Business/CyberSource/RequestPart/Card.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Item:
     file: lib/Business/CyberSource/RequestPart/Item.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::PurchaseTotals:
     file: lib/Business/CyberSource/RequestPart/PurchaseTotals.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Service:
     file: lib/Business/CyberSource/RequestPart/Service.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Service::AuthReversal:
     file: lib/Business/CyberSource/RequestPart/Service/AuthReversal.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Service::Capture:
     file: lib/Business/CyberSource/RequestPart/Service/Capture.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Service::Credit:
     file: lib/Business/CyberSource/RequestPart/Service/Credit.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::RequestPart::Service::Tax:
     file: lib/Business/CyberSource/RequestPart/Service/Tax.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response:
     file: lib/Business/CyberSource/Response.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::AVS:
     file: lib/Business/CyberSource/Response/Role/AVS.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::Accept:
     file: lib/Business/CyberSource/Response/Role/Accept.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::Amount:
     file: lib/Business/CyberSource/Response/Role/Amount.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::Authorization:
     file: lib/Business/CyberSource/Response/Role/Authorization.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::CVN:
     file: lib/Business/CyberSource/Response/Role/CVN.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::DCC:
     file: lib/Business/CyberSource/Response/Role/DCC.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::ProcessorResponse:
     file: lib/Business/CyberSource/Response/Role/ProcessorResponse.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::ReasonCode:
     file: lib/Business/CyberSource/Response/Role/ReasonCode.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::ReconciliationID:
     file: lib/Business/CyberSource/Response/Role/ReconciliationID.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Response::Role::RequestDateTime:
     file: lib/Business/CyberSource/Response/Role/RequestDateTime.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::AuthReply:
     file: lib/Business/CyberSource/ResponsePart/AuthReply.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::DCCReply:
     file: lib/Business/CyberSource/ResponsePart/DCCReply.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::PurchaseTotals:
     file: lib/Business/CyberSource/ResponsePart/PurchaseTotals.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::Reply:
     file: lib/Business/CyberSource/ResponsePart/Reply.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::TaxReply:
     file: lib/Business/CyberSource/ResponsePart/TaxReply.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::ResponsePart::TaxReply::Item:
     file: lib/Business/CyberSource/ResponsePart/TaxReply/Item.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Role::Currency:
     file: lib/Business/CyberSource/Role/Currency.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Role::ForeignCurrency:
     file: lib/Business/CyberSource/Role/ForeignCurrency.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Role::MerchantReferenceCode:
     file: lib/Business/CyberSource/Role/MerchantReferenceCode.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Rule:
     file: lib/Business/CyberSource/Rule.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Rule::ExpiredCard:
     file: lib/Business/CyberSource/Rule/ExpiredCard.pm
-    version: 0.007009
+    version: 0.007010
   Business::CyberSource::Rule::RequestIDisZero:
     file: lib/Business/CyberSource/Rule/RequestIDisZero.pm
-    version: 0.007009
+    version: 0.007010
   MooseX::Types::CyberSource:
     file: lib/MooseX/Types/CyberSource.pm
-    version: 0.007009
+    version: 0.007010
 requires:
   Class::Load: 0.20
   Config: 0
@@ -222,6 +221,7 @@ requires:
   MooseX::Types::Moose: 0
   MooseX::Types::NetAddr::IP: 0
   MooseX::Types::Path::Class: 0
+  MooseX::UndefTolerant: 0
   Try::Tiny: 0
   XML::Compile::SOAP11: 0
   XML::Compile::SOAP::WSS: 1.04
@@ -235,4 +235,4 @@ resources:
   bugtracker: https://github.com/hostgator/business-cybersource/issues
   homepage: https://metacpan.org/release/Business-CyberSource
   repository: git://github.com/hostgator/business-cybersource.git
-version: 0.007009
+version: 0.007010

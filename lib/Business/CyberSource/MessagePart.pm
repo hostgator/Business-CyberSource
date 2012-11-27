@@ -3,13 +3,14 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '0.007009'; # VERSION
+our $VERSION = '0.007010'; # VERSION
 
 use Moose;
 
 use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
 use MooseX::StrictConstructor;
+use MooseX::UndefTolerant;
 use MooseX::ABC 0.06;
 
 __PACKAGE__->meta->make_immutable;
@@ -27,7 +28,7 @@ Business::CyberSource::MessagePart - Things that all portions of a message have 
 
 =head1 VERSION
 
-version 0.007009
+version 0.007010
 
 =head1 BUGS
 

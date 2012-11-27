@@ -4,7 +4,7 @@ use warnings;
 use namespace::autoclean;
 use Module::Load 'load';
 
-our $VERSION = '0.007009'; # VERSION
+our $VERSION = '0.007010'; # VERSION
 
 use Moose;
 extends 'Business::CyberSource::Message';
@@ -350,7 +350,7 @@ Business::CyberSource::Response - Response Object
 
 =head1 VERSION
 
-version 0.007009
+version 0.007010
 
 =head1 SYNOPSIS
 

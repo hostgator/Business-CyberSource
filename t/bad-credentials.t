@@ -3,15 +3,15 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = new_ok( load_class('Test::Business::CyberSource') );
 
 my $req = $t->resolve( service  =>'/request/authorization' );
 
 my $client
-	= new_ok( use_module( 'Business::CyberSource::Client') => [{
+	= new_ok( load_class( 'Business::CyberSource::Client') => [{
 		username   => 'foobar',
 		password   => 'test',
 		production => 0,

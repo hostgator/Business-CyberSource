@@ -18,7 +18,6 @@ my %WriteMakefileArgs = (
     "File::Find" => 0,
     "File::Temp" => 0,
     "FindBin" => 0,
-    "Module::Runtime" => 0,
     "Test::Fatal" => 0,
     "Test::Moose" => 0,
     "Test::More" => "0.88",
@@ -63,6 +62,7 @@ my %WriteMakefileArgs = (
     "MooseX::Types::Moose" => 0,
     "MooseX::Types::NetAddr::IP" => 0,
     "MooseX::Types::Path::Class" => 0,
+    "MooseX::UndefTolerant" => 0,
     "Try::Tiny" => 0,
     "XML::Compile::SOAP11" => 0,
     "XML::Compile::SOAP::WSS" => "1.04",
@@ -72,7 +72,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.007009",
+  "VERSION" => "0.007010",
   "test" => {
     "TESTS" => "t/*.t"
   }

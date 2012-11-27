@@ -6,10 +6,10 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
 );
-use Module::Runtime qw( use_module );
+use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( use_module('Test::Business::CyberSource') );
+my $t = new_ok( load_class('Test::Business::CyberSource') );
 
 my $client = $t->resolve( service => '/client/object' );
 
@@ -25,7 +25,7 @@ my $card = $t->resolve(
 );
 
 my $dcc_req
-	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
+	= new_ok( load_class( 'Business::CyberSource::Request::DCC') => [{
 		reference_code   => 't503',
 		card             => $card,
 		purchase_totals => {
