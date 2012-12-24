@@ -29,47 +29,6 @@ use MooseX::Types::CyberSource qw(
 
 use Moose::Util::TypeConstraints;
 
-our @CARP_NOT = ( qw( Class::MOP::Method::Wrapped ) );
-# DRAGONS! yes evil, but necesary for backwards compat
-our $AUTOLOAD;
-
-sub AUTOLOAD { ## no critic ( ClassHierarchies::ProhibitAutoloading )
-	my $self = shift;
-
-	my $called = $AUTOLOAD;
-	$called =~ s/.*:://; ## no critic ( RegularExpressions::RequireExtendedFormatting )
-
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please call '
-		. $called
-		. ' on the appropriate nested object'
-		;
-
-	my @nested = ( qw(
-		auth
-		capture
-		credit
-		auth_reversal
-		dcc
-		purchase_totals
-	) );
-
-	my $val;
-	foreach my $attr ( @nested ) {
-		my $predicate   = 'has_' . $attr;
-		my $called_pred = 'has_' . $called;
-		if ( $self->$predicate
-				&& $self->$attr->meta->find_method_by_name( $called_pred )
-				&& $self->$attr->$called_pred
-			) {
-			$val = $self->$attr->$called;
-			last if $val;
-		}
-	}
-	confess 'unable to delegate, was not a valid method' unless defined $val;
-	return $val;
-}
-
 has '+reference_code' => ( required => 0 );
 
 ## common
@@ -113,20 +72,6 @@ has auth => (
 	is          => 'ro',
 	predicate   => 'has_auth',
 	coerce      => 1,
-	handles     => [qw(
-		avs_code
-		avs_code_raw
-		auth_code
-		auth_record
-		cv_code
-		cv_code_raw
-		has_avs_code
-		has_avs_code_raw
-		has_auth_code_raw
-		has_auth_record_raw
-		has_cv_code
-		has_cv_code_raw
-	)],
 );
 
 has capture => (
@@ -176,17 +121,6 @@ has reason_text => (
 	lazy     => 1,
 	is       => 'ro',
 	builder  => '_build_reason_text',
-);
-
-has is_success => (
-	isa      => 'Bool',
-	is       => 'ro',
-	lazy     => 1,
-	init_arg => undef,
-	default  => sub {
-		my $self = shift;
-		return $self->decision eq 'ACCEPT' ? 1 : 0;
-	},
 );
 
 has is_accept => (
@@ -309,31 +243,6 @@ sub _build_reason_text {
 
 	return $reason{$reason_code};
 }
-
-before [qw(
-	avs_code
-	avs_code_raw
-	auth_code
-	auth_record
-	cv_code
-	cv_code_raw
-	has_avs_code
-	has_avs_code_raw
-	has_auth_code_raw
-	has_auth_record_raw
-	has_cv_code
-	has_cv_code_raw
-)] => sub {
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please call method'
-		. ' on the ->auth object'
-		;
-};
-
-before is_success => sub {
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please use is_accept and is_reject instead';
-};
 
 __PACKAGE__->meta->make_immutable;
 1;
