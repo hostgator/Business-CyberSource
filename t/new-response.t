@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Fatal;
 use Class::Load qw( load_class );
 
 my $res
@@ -32,11 +31,5 @@ my $res
 	}]);
 
 ok ! $res->can('serialize'), 'can not serialize';
-
-subtest  'can not call nonsense method' => sub {
-	my $e0 = exception { $res->flurble };
-	ok $e0, 'exception exists';
-	like $e0, qr/delegate/, 'matches pattern';
-};
 
 done_testing;
