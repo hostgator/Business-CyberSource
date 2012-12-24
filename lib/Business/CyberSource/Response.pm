@@ -10,9 +10,6 @@ use Moose;
 extends 'Business::CyberSource::Message';
 with qw(
 	Business::CyberSource::Response::Role::ReasonCode
-
-	Business::CyberSource::Response::Role::Authorization
-	Business::CyberSource::Response::Role::Accept
 );
 
 use MooseX::Aliases;
