@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007010  2012-11-26
+	- allow the constructor to treat undefs as unset
+		- add depedency on MooseX::UndefTolerant
+
 0.007009  2012-11-19
 	- Re-up 0.007008 after fixing pause permissions
 	- add Package Metadata
