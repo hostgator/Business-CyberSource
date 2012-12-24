@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Test::Moose;
 
 use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -47,10 +46,6 @@ my $ret1
 		)
 	);
 isa_ok( $ret1, 'Business::CyberSource::Response' );
-
-does_ok( $ret1, 'Business::CyberSource::Response::Role::Authorization' );
-
-does_ok( $ret1, 'Business::CyberSource::Response::Role::AVS'           );
 
 is( $ret1->decision,             'REJECT', 'check decision'       );
 is( $ret1->reason_code,          '200',    'check reason_code'    );
