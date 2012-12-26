@@ -241,6 +241,11 @@ sub _build_reason_text {
 	return $reason{$reason_code};
 }
 
+before [ qw( accepted is_accepted ) ] => sub {
+	load Carp;
+	Carp::cluck 'DEPRECATED: call is_accept instead';
+};
+
 __PACKAGE__->meta->make_immutable;
 1;
 

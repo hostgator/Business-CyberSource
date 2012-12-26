@@ -28,7 +28,7 @@ my $ret0 = $client->run_transaction( $req0 );
 
 isa_ok $ret0, 'Business::CyberSource::Response';
 
-ok( ! $ret0->accepted,              'not accepted'      );
+ok( ! $ret0->is_accept,             'not accepted'      );
 is(   $ret0->decision,   'REJECT',  'check decision'    );
 is(   $ret0->reason_code, 202,      'check reason_code' );
 is(
