@@ -294,7 +294,7 @@ actions with this.
 
 =head1 EXTENDS
 
-L<Business::CyberSource::Message>;
+L<Business::CyberSource::Message>
 
 =head1 WITH
 
