@@ -62,7 +62,7 @@ my $sale_req
 
 my $sale_res = $client->run_transaction( $sale_req );
 
-ok( $sale_res->is_accepted, 'sale accepted' )
+ok( $sale_res->is_accept, 'sale accepted' )
 	or diag $sale_res->reason_text;
 
 done_testing;
