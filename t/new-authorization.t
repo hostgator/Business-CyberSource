@@ -11,7 +11,7 @@ my $t = new_ok( load_class('Test::Business::CyberSource') );
 my @test_pairs = (
 	[ '4111111111111111' => '001' ],
 	[ '5555555555554444' => '002' ],
-	[ '3566111111111113' => '007' ],
+	[ '3566111111111113' => '004' ],
 );
 
 foreach ( @test_pairs ) {
