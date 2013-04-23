@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Fatal;
+use Test::Method;
 use Class::Load qw( load_class );
 use DateTime;
 
@@ -55,6 +56,6 @@ my $card2
 		},
 	}]);
 
-is( $card2->type, 'JCB', 'JCB' );
+method_ok $card2, 'type', [], 'DISCOVER';
 
 done_testing;

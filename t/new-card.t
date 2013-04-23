@@ -12,7 +12,7 @@ my $card_c = load_class('Business::CyberSource::RequestPart::Card');
 my @test_pairs = (
 	[ qw( 4111111111111111 001 VISA       ) ],
 	[ qw( 5555555555554444 002 MASTERCARD ) ],
-	[ qw( 3566111111111113 007 JCB        ) ],
+	[ qw( 3566111111111113 004 DISCOVER   ) ],
 );
 
 my $dt0 = DateTime->new( year => 2025, month => 4, day => 30 );
