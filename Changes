@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007011  2013-05-17
+	- JCB Cards now identify as discover in Business::CreditCard 0.32
+	- update synopsis example to be more novice friendly with try/catch syntax
+
 0.007010  2012-11-26
 	- allow the constructor to treat undefs as unset
 		- add depedency on MooseX::UndefTolerant
