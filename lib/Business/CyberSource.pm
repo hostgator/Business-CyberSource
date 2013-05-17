@@ -81,11 +81,15 @@ A test credit card number provided by your your credit card processor
 	my $client = Business::CyberSource::Client->new({
 		username   => 'Merchant ID',
 		password   => 'API Key',
-		production => 1,
+		production => 0,
+		debug      => 1, # do not set in production as it prints sensative
+                         # information
 	});
 
-	my $auth_request = try {
-			Business::CyberSource::Request::Authorization->new({
+	my $auth_request;
+	try {
+		$auth_request
+			= Business::CyberSource::Request::Authorization->new({
 				reference_code => '42',
 				bill_to => {
 					first_name  => 'Caleb',
@@ -109,25 +113,20 @@ A test credit card number provided by your your credit card processor
 					},
 				},
 			});
-		}
-		catch {
-			carp $_;
-		};
+	}
+	catch {
+		carp $_;
+	};
+	return unless $auth_request;
 
-	my $auth_response = try {
-			$client->run_transaction( $auth_request );
-		}
-		catch {
-			carp $_;
-
-			if ( $auth_request->has_trace ) {
-				carp 'REQUEST: '
-				. $auth_request->trace->request->as_string
-				. 'RESPONSE: '
-				. $auth_request->trace->response->as_string
-				;
-			}
-		};
+	my $auth_response;
+	try {
+		$auth_response = $client->run_transaction( $auth_request );
+	}
+	catch {
+		carp $_;
+	};
+	return unless $auth_response;
 
 	unless( $auth_response->is_accept ) {
 		carp $auth_response->reason_text;
@@ -145,20 +144,14 @@ A test credit card number provided by your your credit card processor
 				},
 			});
 
-		my $capture_response = try {
-			$client->run_transaction( $capture_request );
+		my $capture_response;
+		try {
+			$capture_response = $client->run_transaction( $capture_request );
 		}
 		catch {
 			carp $_;
-
-			if ( $capture_request->has_trace ) {
-				carp 'REQUEST: '
-				. $capture_request->trace->request->as_string
-				. 'RESPONSE: '
-				. $capture_request->trace->response->as_string
-				;
-			}
 		};
+		return unless $capture_response;
 
 		if ( $capture_response->is_accept ) {
 			# you probably want to record this
