@@ -347,15 +347,15 @@ C<PERL_BUSINESS_CYBERSOURCE_DEBUG>.
 
 =over
 
-=item 0
+=item value 0
 
 no output (default)
 
-=item 1
+=item value 1
 
 request/response hashref
 
-=item 2
+=item value 2
 
 1 plus actual HTTP and XML
 
