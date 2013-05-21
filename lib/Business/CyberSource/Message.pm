@@ -11,8 +11,6 @@ with qw(
 	Business::CyberSource::Role::MerchantReferenceCode
 );
 
-use MooseX::ABC 0.06;
-
 has trace => (
 	isa       => 'XML::Compile::SOAP::Trace',
 	predicate => 'has_trace',

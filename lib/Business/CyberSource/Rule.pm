@@ -7,12 +7,8 @@ use namespace::autoclean;
 
 use Moose;
 use MooseX::StrictConstructor;
-use MooseX::ABC 0.06;
 
 use Class::Load qw( load_class );
-
-requires 'run';
-
 
 sub debug {
 	my ( $self, $message ) = shift;

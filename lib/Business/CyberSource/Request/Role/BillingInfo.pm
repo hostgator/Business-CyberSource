@@ -2,6 +2,7 @@ package Business::CyberSource::Request::Role::BillingInfo;
 use strict;
 use warnings;
 use namespace::autoclean;
+use Module::Load 'load';
 
 # VERSION
 
@@ -18,6 +19,11 @@ has bill_to => (
 	required    => 1,
 	coerce      => 1,
 );
+
+before billing_info => sub {
+	load Carp;
+	Carp::cluck 'DEPRECATED: call is_accept instead';
+};
 
 1;
 

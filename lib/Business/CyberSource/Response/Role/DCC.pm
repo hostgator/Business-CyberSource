@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose::Role;
 with qw(
 	Business::CyberSource::Role::ForeignCurrency
-	Business::CyberSource::Response::Role::Accept
 );
 
 has dcc_supported => (

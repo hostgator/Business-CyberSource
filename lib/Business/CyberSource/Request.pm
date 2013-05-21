@@ -12,8 +12,6 @@ with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 );
 
-use MooseX::ABC;
-
 use MooseX::Types::Moose       qw( ArrayRef );
 use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
 

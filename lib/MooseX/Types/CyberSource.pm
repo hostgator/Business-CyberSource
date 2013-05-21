@@ -13,7 +13,6 @@ use MooseX::Types -declare => [ qw(
 	CvIndicator
 	CvResults
 	DCCIndicator
-	DCCSupported
 
 	Decision
 	Items
@@ -54,7 +53,7 @@ use MooseX::Types -declare => [ qw(
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
 use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
-use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef Bool       );
+use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime        qw(                                         );
 use MooseX::Types::DateTime::W3C   qw( DateTimeW3C                             );
@@ -153,11 +152,8 @@ coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_
 subtype CountryCode,     as Alpha2Country;
 subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
 subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
-subtype DCCSupported,    as Bool;
 subtype TaxReplyItems,   as ArrayRef[TaxReplyItem];
 subtype Items,           as ArrayRef[Item];
-
-coerce DCCSupported, from Str, via  { return $_ eq 'TRUE' ? 1 : 0 };
 
 coerce CountryCode,
 	from Alpha3Country,

@@ -68,7 +68,7 @@ my $auth_req
 
 my $auth_res = $client->run_transaction( $auth_req );
 
-ok $auth_res->is_accepted, 'card authorized'
+ok $auth_res->is_accept, 'card authorized'
 	or diag $auth_res->reason_text;
 
 
@@ -96,7 +96,7 @@ my $cred_req
 
 my $cred_res = $client->run_transaction( $cred_req );
 
-is( $cred_res->is_accepted, 1, 'check that credit decicion is ACCEPT')
+is( $cred_res->is_accept, 1, 'check that credit decicion is ACCEPT')
 	or diag $cred_res->reason_text;
 
 is( $cred_res->credit->amount, '1.00', 'check that credit amount is 1.00' );

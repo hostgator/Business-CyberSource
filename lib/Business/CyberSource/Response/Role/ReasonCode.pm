@@ -18,25 +18,5 @@ has reason_code => (
 	predicate   => 'has_reason_code',
 );
 
-sub has_request_specific_reason_code {
-	my $self = shift;
-
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please call has_reason_code';
-
-	return $self->has_reason_code
-}
-
-sub request_specific_reason_code {
-	my $self = shift;
-
-	load 'Carp';
-	Carp::carp 'DEPRECATED: please call reason_code';
-
-	return $self->reason_code
-}
-
 1;
 # ABSTRACT: Role for ReasonCode
-
-=for Pod::Coverage request_specific_reason_code has_request_specific_reason_code

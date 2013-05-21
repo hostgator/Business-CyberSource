@@ -11,7 +11,6 @@ use MooseX::RemoteHelper;
 use MooseX::SetOnce 0.200001;
 use MooseX::StrictConstructor;
 use MooseX::UndefTolerant;
-use MooseX::ABC 0.06;
 
 __PACKAGE__->meta->make_immutable;
 1;
