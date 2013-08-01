@@ -7,6 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
+with 'MooseY::RemoteHelper::Role::Client';
 
 use Moose::Util::TypeConstraints;
 
@@ -25,7 +26,50 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
+around BUILDARGS => sub {
+    my $orig  = shift;
+    my $class = shift;
+
+	my $args = $class->$orig( @_ );
+
+	if ( exists $args->{username} ) {
+		warnings::warnif('deprecated',
+			'`username` is deprecated, use `user` instead'
+		);
+
+		$args->{user} = delete $args->{username};
+	}
+
+	if ( exists $args->{password} ) {
+		warnings::warnif('deprecated',
+			'`password` is deprecated, use `pass` instead'
+		);
+
+		$args->{pass} = delete $args->{password};
+	}
+
+	if ( exists $args->{production} ) {
+		warnings::warnif('deprecated',
+			'`production` is deprecated, use `test` instead'
+		);
+
+		$args->{test} = delete( $args->{production} ) ? 0 : 1;
+	}
+
+	return $args;
+};
+
 sub run_transaction {
+	my ( $self, $request ) = @_;
+
+	warnings::warnif('deprecated',
+		'run_transaction is deprecated, use submit instead'
+	);
+
+	return $self->submit( $request );
+}
+
+sub submit {
 	my ( $self, $request ) = @_;
 
 	confess 'request undefined'         unless defined $request;
@@ -44,7 +88,7 @@ sub run_transaction {
 	}
 
 	my %request = (
-		merchantID            => $self->_username,
+		merchantID            => $self->user,
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
 		clientLibraryVersion  => $self->version,
@@ -91,8 +135,8 @@ sub _build_soap_client {
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
 	$wss->basicAuth(
-		username => $self->_username,
-		password => $self->_password,
+		username => $self->user,
+		password => $self->pass,
 	);
 
 	my $call = $wsdl->compileClient('runTransaction');
@@ -103,7 +147,7 @@ sub _build_soap_client {
 sub _build_cybs_wsdl {
 	my $self = shift;
 
-	my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
 	return load_class('Path::Class::File')->new(
@@ -121,7 +165,7 @@ sub _build_cybs_wsdl {
 sub _build_cybs_xsd {
 	my $self = shift;
 
-	my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
 	return load_class('Path::Class::File')->new(
@@ -197,42 +241,12 @@ has _rules => (
 	traits     => ['Array'],
 );
 
-has debug => (
-	isa     => 'Int',
-	is      => 'ro',
-	lazy    => 1,
-	default => sub {
-		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} // 0;
-	},
-);
-
 has _dumper_package => (
 	isa      => NonEmptySimpleStr,
 	is       => 'ro',
 	lazy     => 1,
 	init_arg => 'dumper_package',
 	default  => sub { return 'Data::Dumper'; },
-);
-
-has production => (
-	isa      => 'Bool',
-	reader   => '_production',
-	is       => 'ro',
-	required => 1,
-);
-
-has username => (
-	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	reader   => '_username',
-	is       => 'ro',
-	required => 1,
-);
-
-has password => (
-	isa      => NonEmptyStr,
-	reader   => '_password',
-	is       => 'ro',
-	required => 1,
 );
 
 has version => (
@@ -307,9 +321,9 @@ __PACKAGE__->meta->make_immutable;
 	my $request = 'Some Business::CyberSource::Request Object';
 
 	my $client = Business::CyberSource::Request->new({
-		username   => 'Merchant ID',
-		password   => 'API KEY',
-		production => 0,
+		user => 'Merchant ID',
+		pass => 'API KEY',
+		test => 1,
 	});
 
 	my $response = $client->run_transaction( $request );
