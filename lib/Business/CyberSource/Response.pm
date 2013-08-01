@@ -12,7 +12,6 @@ with qw(
 	Business::CyberSource::Response::Role::ReasonCode
 );
 
-use MooseX::Aliases;
 use MooseX::Types::Common::String 0.001005 qw( NonEmptySimpleStr );
 use MooseX::Types::CyberSource qw(
 	Decision
@@ -50,8 +49,6 @@ has request_token => (
 	required    => 1,
 	is          => 'ro',
 );
-
-# accepted
 
 has purchase_totals => (
 	isa         => ResPurchaseTotals,
@@ -125,7 +122,6 @@ has is_accept => (
 	is       => 'ro',
 	lazy     => 1,
 	init_arg => undef,
-	alias    => [ qw( accepted is_accepted ) ],
 	default  => sub {
 		my $self = shift;
 		return $self->decision eq 'ACCEPT' ? 1 : 0;
@@ -240,11 +236,6 @@ sub _build_reason_text {
 
 	return $reason{$reason_code};
 }
-
-before [ qw( accepted is_accepted ) ] => sub {
-	load Carp;
-	Carp::cluck 'DEPRECATED: call is_accept instead';
-};
 
 __PACKAGE__->meta->make_immutable;
 1;
