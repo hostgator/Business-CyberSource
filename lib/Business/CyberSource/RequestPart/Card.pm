@@ -53,7 +53,7 @@ sub _build_expired {
 	return $self->_compare_date_against_expiration( DateTime->now );
 }
 
-sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalReturn)
+sub _compare_date_against_expiration {
 	my ( $self, $date ) = @_;
 
 	my $exp = $self->expiration->clone;
@@ -64,17 +64,16 @@ sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalRe
 	load_class('DateTime');
 	my $cmp = DateTime->compare( $date, $exp );
 
-	given ( $cmp ) {
-		when ( -1 ) { # current date is before than the expiration date
-			return 0;
-		}
-		when ( 0 ) { # expiration equal to current date
-			return 0;
-		}
-		when ( 1 ) { # current date is past the expiration date
-			return 1;
-		}
+	if    ( $cmp == -1 ) { # current date is before than the expiration date
+		return 0;
 	}
+	elsif ( $cmp ==  0 ) { # expiration equal to current date
+		return 0;
+	}
+	elsif ( $cmp ==  1 ) { # current date is past the expiration date
+		return 1;
+	}
+	return; # da F*? should never hit this
 }
 
 sub _build_card_type_code {
