@@ -32,13 +32,15 @@ and some are currently undocumented.
 
 =head1 ENVIRONMENT
 
-all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
+=head2 Debugging
 
-=head2 DEBUG
-
-causes all requests to be C<carp>ed to STDERR
+Supports L<MooseY::RemoteHelper::Role::Client>s C<REMOTE_CLIENT_DEBUG>
+variable. This can be set to either C<0>, C<1>, C<2>, for varying levels of
+verbosity.
 
 =head2 Testing
+
+all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
 
 =head3 Credentials
 
@@ -79,10 +81,10 @@ A test credit card number provided by your your credit card processor
 	use Business::CyberSource::Request::Capture;
 
 	my $client = Business::CyberSource::Client->new({
-		username   => 'Merchant ID',
-		password   => 'API Key',
-		production => 0,
-		debug      => 1, # do not set in production as it prints sensative
+		user  => 'Merchant ID',
+		pass  => 'API Key',
+		test  => 1,
+		debug => 1, # do not set in production as it prints sensative
                          # information
 	});
 
@@ -121,7 +123,7 @@ A test credit card number provided by your your credit card processor
 
 	my $auth_response;
 	try {
-		$auth_response = $client->run_transaction( $auth_request );
+		$auth_response = $client->submit( $auth_request );
 	}
 	catch {
 		carp $_;
@@ -146,7 +148,7 @@ A test credit card number provided by your your credit card processor
 
 		my $capture_response;
 		try {
-			$capture_response = $client->run_transaction( $capture_request );
+			$capture_response = $client->submit( $capture_request );
 		}
 		catch {
 			carp $_;

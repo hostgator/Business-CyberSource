@@ -333,31 +333,38 @@ __PACKAGE__->meta->make_immutable;
 A service object that is meant to provide a way to run the requested
 transactions.
 
-=method run_transaction
+=head1 WITH
 
-	my $response = $client->run_transaction( $request );
+L<MooseY::RemoteHelper::Role::Client>
+
+=method submit
+
+	my $response = $client->submit( $request );
 
 Takes a L<Business::CyberSource::Request> subclass as a parameter and returns
 a L<Business::CyberSource::Response>
 
-=attr username
+=method run_transaction
+
+DEPRECATED, use L</submit>
+
+=attr user
 
 CyberSource Merchant ID
 
-=attr password
+=attr pass
 
 CyberSource API KEY
 
-=attr production
+=attr test
 
-Boolean value when true your requests will go to the production server, when
-false they will go to the testing server
+Boolean value when false your requests will go to the live server, when
+true they will go to the testing server.
 
 =attr debug
 
 Integer value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
-C<PERL_BUSINESS_CYBERSOURCE_DEBUG>.
 
 =over
 
