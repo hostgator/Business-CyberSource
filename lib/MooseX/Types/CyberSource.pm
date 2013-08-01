@@ -43,6 +43,8 @@ use MooseX::Types -declare => [ qw(
 
 	DateTimeFromW3C
 
+	Client
+
 	_VarcharOne
 	_VarcharSeven
 	_VarcharTen
@@ -114,6 +116,8 @@ my $res_dc_c = $res . 'DCCReply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
+my $client = 'Business::CyberSource::Client';
+
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
 class_type Service,             { class => $svc };
@@ -132,6 +136,8 @@ class_type DCCReply,            { class => $res_dc_c };
 class_type TaxReply,            { class => $res_tr_c };
 class_type TaxReplyItem,        { class => $res_ti_c };
 
+class_type Client,              { class => $client   };
+
 coerce Item,                from HashRef, via { load_class( $itc      )->new( $_ ) };
 coerce PurchaseTotals,      from HashRef, via { load_class( $ptc      )->new( $_ ) };
 coerce Service,             from HashRef, via { load_class( $svc      )->new( $_ ) };
@@ -148,12 +154,14 @@ coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_
 coerce DCCReply,            from HashRef, via { load_class( $res_dc_c )->new( $_ ) };
 coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
 coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_ ) };
+coerce Client,              from HashRef, via { load_class( $client   )->new( $_ ) };
 
 subtype CountryCode,     as Alpha2Country;
 subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
 subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
 subtype TaxReplyItems,   as ArrayRef[TaxReplyItem];
 subtype Items,           as ArrayRef[Item];
+
 
 coerce CountryCode,
 	from Alpha3Country,
@@ -291,6 +299,10 @@ This module provides CyberSource specific Moose Types.
 =head1 TYPES
 
 =over
+
+=item * C<Client>
+
+L<Business::CyberSource::Client>
 
 =item * C<Decision>
 
