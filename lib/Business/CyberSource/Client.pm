@@ -26,6 +26,8 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
+our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;
