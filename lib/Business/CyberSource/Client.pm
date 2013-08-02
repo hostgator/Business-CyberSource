@@ -99,7 +99,7 @@ sub submit {
 
 	if ( $self->debug >= 1 ) {
 		load 'Carp';
-		load $self->_dumper_package, 'Dumper';
+		load 'Data::Printer', alias => 'Dumper';
 
 		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
 	}
@@ -118,9 +118,6 @@ sub submit {
 	}
 
 	if ( $self->debug >= 1 ) {
-		load 'Carp';
-		load $self->_dumper_package, 'Dumper';
-
 		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer->{result} ) );
 	}
 
@@ -241,14 +238,6 @@ has _rules => (
 	is         => 'ro',
 	lazy_build => 1,
 	traits     => ['Array'],
-);
-
-has _dumper_package => (
-	isa      => NonEmptySimpleStr,
-	is       => 'ro',
-	lazy     => 1,
-	init_arg => 'dumper_package',
-	default  => sub { return 'Data::Dumper'; },
 );
 
 has version => (
