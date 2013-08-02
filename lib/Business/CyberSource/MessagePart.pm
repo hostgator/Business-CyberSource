@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Moose;
 extends 'MooseY::RemoteHelper::MessagePart';
 use MooseX::SetOnce 0.200001;
-use MooseX::StrictConstructor;
 
 __PACKAGE__->meta->make_immutable;
 1;
