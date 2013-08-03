@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 
 use Class::Load qw( load_class );
 use FindBin; use lib "$FindBin::Bin/lib";
@@ -24,11 +25,11 @@ my %expected = (
 		lastName    => 'Cushing',
 		country     => 'US',
 		ipAddress   => '192.168.100.2',
-		street1     => 'somewhere',
+		street1     => '2104 E Anderson Ln',
 		state       => 'TX',
 		email       => 'xenoterracide@gmail.com',
-		city        => 'Houston',
-		postalCode => '77064',
+		city        => 'Austin',
+		postalCode => '78752',
 	},
 	card => {
 		accountNumber   => '4111111111111111',
@@ -49,6 +50,6 @@ my %expected = (
 	merchantReferenceCode => 'notarealcode',
 );
 
-is_deeply $dto->serialize, \%expected, 'serialize';
+method_ok $dto, serialize => [], \%expected;
 
 done_testing;
