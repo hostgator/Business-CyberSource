@@ -54,7 +54,7 @@ use MooseX::Types -declare => [ qw(
 ) ];
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
-use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr SimpleStr             );
 use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime        qw(                                         );
@@ -90,7 +90,7 @@ enum CardTypeCode, [ qw(
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
-enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
+enum CvResults, [ qw( D I M N P S U X 1 2 3 ),'' ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
 
@@ -238,7 +238,7 @@ subtype _VarcharSeven,
 	;
 
 subtype _VarcharTen,
-	as NonEmptySimpleStr,
+	as SimpleStr,
 	where { length $_ <= 10 },
 	message { $varchar_message . '10' }
 	;

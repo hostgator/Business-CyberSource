@@ -9,6 +9,7 @@ use Class::Load 0.20 qw( load_class );
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 with qw(
+	Business::CyberSource::Response::Role::AuthCode
 	Business::CyberSource::Response::Role::ReconciliationID
 	Business::CyberSource::Response::Role::ReasonCode
 	Business::CyberSource::Response::Role::Amount
@@ -16,19 +17,12 @@ with qw(
 );
 
 use MooseX::Types::CyberSource   qw(
-	_VarcharSeven
 	_VarcharTen
 	AVSResult
 	CvResults
 	DateTimeFromW3C
 );
 
-has auth_code => (
-	isa         => _VarcharSeven,
-	remote_name => 'authorizationCode',
-	predicate   => 'has_auth_code',
-	is          => 'ro',
-);
 
 has auth_record => (
 	isa         => 'Str',
