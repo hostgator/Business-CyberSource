@@ -9,6 +9,8 @@ use warnings;
 
 # ABSTRACT: Perl interface to the CyberSource Simple Order SOAP API
 
+=encoding utf8
+
 =head1 DESCRIPTION
 
 This library is a Perl interface to the CyberSource Simple Order SOAP API built
@@ -176,6 +178,14 @@ development, you can easily just use the L<DEBUG Environment variable|/"DEBUG">
 =item * Mark Overmeer
 
 for the help with getting L<XML::Compile::SOAP::WSS> working.
+
+=item * L<HostGator|http://hostgator.com>
+
+funding initial development.
+
+=item * L<GüdTech|http://gudtech.com>
+
+funding further development.
 
 =back
 
