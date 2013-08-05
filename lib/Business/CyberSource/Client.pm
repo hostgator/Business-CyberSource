@@ -382,11 +382,6 @@ L<Business::CyberSource::Rule::RequestIDisZero> are included. If you decide to
 add more rules remember to add C<qw( ExpiredCard RequestIDisZero )> to the
 new ArrayRef ( if you want them ).
 
-=attr dumper_package
-
-Package name for dumping the request hash if doing a L<debug|/"debug">. Package
-must have a C<Dumper> function.
-
 =attr name
 
 Client Name defaults to L<Business::CyberSource>
