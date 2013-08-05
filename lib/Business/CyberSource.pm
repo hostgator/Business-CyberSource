@@ -169,7 +169,8 @@ L<Sale|Business::CyberSource::Request::Sale>. Most common Reasons for
 Exceptions would be bad input into the request object (which validates things)
 or CyberSource just randomly throwing an ERROR, in which case you can usually
 just retry later. You don't have to print the response on error during
-development, you can easily just use the L<DEBUG Environment variable|/"DEBUG">
+development, you can easily just use the C<REMOTE_CLIENT_DEBUG> Environment
+variable.
 
 =head1 ACKNOWLEDGMENTS
 
