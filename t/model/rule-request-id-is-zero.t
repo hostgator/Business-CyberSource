@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 
 use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/lib";
+use FindBin; use lib "$FindBin::Bin/../lib";
 
 my $t = use_module('Test::Business::CyberSource')->new;
 
@@ -13,9 +13,6 @@ my $cc
 		service    => '/helper/card',
 		parameters => { expiration => { month => 5, year => 2010 }, },
 	);
-
-is( $cc->expiration->year, 2010, 'expiration year' );
-ok( $cc->is_expired, 'card expired' );
 
 my $req0
 	= $t->resolve(
@@ -31,20 +28,22 @@ my $req0
 
 my $ret0 = $client->run_transaction( $req0 );
 
-isa_ok( $ret0, 'Business::CyberSource::Response' );
+my $req1
+	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
+		reference_code => $req0->reference_code,
+		service => { request_id => $ret0->request_id },
+		purchase_totals => {
+			total          => 3000.00,
+			currency       => $req0->purchase_totals->currency,
+		}
+	}])
+	;
 
-ok ! $ret0->has_trace, 'does not have trace';
+my $ret1 = $client->run_transaction( $req1 );
 
-is( $ret0->is_accept,           0,       'success'            );
-is( $ret0->decision,           'REJECT', 'decision'           );
-is( $ret0->reason_code,         202,     'reason_code'        );
-
-is(
-	$ret0->reason_text,
-	'Expired card. You might also receive this if the expiration date you '
-		. 'provided does not match the date the issuing bank has on file'
-		,
-	'reason_text',
-);
+ok ! $ret1->has_trace,  'trace not set';
+is   $ret1->decision,   'REJECT', 'decision';
+is   $ret1->reason_code, 241,     'reason_code';
+like $ret1->reason_text, qr/The request ID is invalid/i, 'reason_text';
 
 done_testing;

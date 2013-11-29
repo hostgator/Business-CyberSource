@@ -4,7 +4,6 @@ use Test::More;
 use Test::Fatal;
 
 use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/lib";
 
 my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
