@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 use Test::Method;
 use Class::Load qw( load_class );
-use FindBin; use lib "$FindBin::Bin/lib";
+use FindBin; use lib "$FindBin::Bin/../lib";
 
 my $dtc = load_class('Business::CyberSource::Request::Authorization');
 

@@ -3,14 +3,14 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Class::Load qw( load_class );
-use FindBin; use lib "$FindBin::Bin/lib";
+use Module::Runtime 'use_module';
+use FindBin; use lib "$FindBin::Bin/../lib";
 
-my $t = new_ok( load_class('Test::Business::CyberSource') );
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
-my $authc = load_class('Business::CyberSource::Request::Authorization');
+my $authc = use_module('Business::CyberSource::Request::Authorization');
 
-my $ptc = load_class('Business::CyberSource::RequestPart::PurchaseTotals');
+my $ptc = use_module('Business::CyberSource::RequestPart::PurchaseTotals');
 
 my $ptotals = new_ok( $ptc => [{ currency => 'USD' }]);
 
