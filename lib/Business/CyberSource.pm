@@ -50,8 +50,8 @@ all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
 
 =head4 PASSWORD
 
-set's the L<username|Busines::CyberSource::Client/"username"> and
-L<password|Busines::CyberSource::Client/"password"> in the client for running
+set's the L<username|Busines::CyberSource::Client/"user"> and
+L<password|Busines::CyberSource::Client/"pass"> in the client for running
 tests.
 
 =head3 Direct Currency Conversion

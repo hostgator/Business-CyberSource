@@ -7,9 +7,9 @@ my $class = 'Business::CyberSource::Client';
 
 my $client
 	= new_ok( $class => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME} || 'test',
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD} || 'test',
-		production => 0,
+		user => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME} || 'test',
+		pass => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD} || 'test',
+		test => 1,
 	}]);
 
 can_ok  $client, 'run_transaction';
@@ -25,9 +25,9 @@ is ref $soap_client, 'CODE', 'XML client is a code ref';
 
 my $client1
 	= new_ok( $class => [{
-		username   => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME} || 'test',
-		password   => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD} || 'test',
-		production => 0,
+		user => $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME} || 'test',
+		pass => $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD} || 'test',
+		test => 1,
 	}]);
 
 my $soap_client1 = $client1->_soap_client;

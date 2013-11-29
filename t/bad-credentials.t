@@ -12,9 +12,9 @@ my $req = $t->resolve( service  =>'/request/authorization' );
 
 my $client
 	= new_ok( use_module( 'Business::CyberSource::Client') => [{
-		username   => 'foobar',
-		password   => 'test',
-		production => 0,
+		user => 'foobar',
+		pass => 'test',
+		test => 1,
 	}]);
 
 my $exception = exception { $client->run_transaction( $req ) };
