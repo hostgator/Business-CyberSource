@@ -2,6 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.009001  2013-11-29
+	- remove dependency on Class::Load, this is being removed from Moose, use
+	  Module::Runtime instead
+	- reorganize tests
+	- fix documentation
+
 0.009000  2013-08-05
 	[NEWS]
 	- fix bug with different processor where exceptions were thrown on
