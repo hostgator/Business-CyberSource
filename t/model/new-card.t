@@ -4,10 +4,10 @@ use Test::More;
 use Test::Moose;
 use Test::Fatal;
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use DateTime;
 
-my $card_c = load_class('Business::CyberSource::RequestPart::Card');
+my $card_c = use_module('Business::CyberSource::RequestPart::Card');
 
 my @test_pairs = (
 	[ qw( 4111111111111111 001 VISA       ) ],

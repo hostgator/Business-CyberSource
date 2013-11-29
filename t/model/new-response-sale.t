@@ -2,12 +2,12 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Fatal;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 # this test uses a response from a sale
 
 my $res
-	= new_ok( load_class('Business::CyberSource::Response') => [{
+	= new_ok( use_module('Business::CyberSource::Response') => [{
 		'ccAuthReply' => {
 			'processorResponse' => '00',
 			'authorizedDateTime' => '2012-10-30T00:25:38Z',
@@ -16,7 +16,7 @@ my $res
 				'amount' => '3000.01',
 				authRecord => '0110322000000E10003840979308471907091389487900270'
 					. '728165933335487401834987091873407037490173409710734104400'
-					. '103208349839749037947073094710974070173405303730333830323'
+					. '18349839749037947073094710974070173405303730333830323'
 					. '03934734070970137490713904709',
 				'avsCodeRaw' => 'Y',
 				'avsCode' => 'Y',

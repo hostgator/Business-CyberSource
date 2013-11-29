@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = load_class('Test::Business::CyberSource')->new;
+my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client = $t->resolve( service => '/client/object'    );
 my $res
@@ -16,7 +16,7 @@ my $res
 isa_ok( $res, 'Business::CyberSource::Response' );
 
 my $capture
-	= new_ok( load_class('Business::CyberSource::Request::Capture') => [{
+	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
 		reference_code => $res->reference_code,
 		service => {
 			request_id => $res->request_id,

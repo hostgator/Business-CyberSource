@@ -3,9 +3,9 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Class::Load 'load_class';
+use Module::Runtime 'use_module';
 
-my $billto_c = load_class('Business::CyberSource::RequestPart::BillTo');
+my $billto_c = use_module('Business::CyberSource::RequestPart::BillTo');
 
 my $exception0
 	= exception { $billto_c->new({

@@ -2,14 +2,14 @@ use strict;
 use warnings;
 use Test::More;
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = load_class('Test::Business::CyberSource')->new;
+my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client = $t->resolve( service => '/client/object'    );
 
-my $brc = load_class('Business::CyberSource::RequestPart::BusinessRules');
+my $brc = use_module('Business::CyberSource::RequestPart::BusinessRules');
 
 my $req0
 	= $t->resolve(

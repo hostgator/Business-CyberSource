@@ -29,12 +29,12 @@ use Exception::Base (
 	ignore_package => [ __PACKAGE__ ],
 );
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 sub _build_type {
 	my $self = shift;
 
-	load_class('Business::CreditCard');
+	use_module('Business::CreditCard');
 	my $ct = Business::CreditCard::cardtype( $self->account_number );
 
 	Exception::Base->throw( message => $ct )
@@ -48,7 +48,7 @@ sub _build_type {
 
 sub _build_expired {
 	my $self = shift;
-	load_class('DateTime');
+	use_module('DateTime');
 
 	return $self->_compare_date_against_expiration( DateTime->now );
 }
@@ -61,7 +61,7 @@ sub _compare_date_against_expiration {
 	# the card could be expired at UTC but not the issuer
 	$exp->add( days => 1 );
 
-	load_class('DateTime');
+	use_module('DateTime');
 	my $cmp = DateTime->compare( $date, $exp );
 
 	if    ( $cmp == -1 ) { # current date is before than the expiration date

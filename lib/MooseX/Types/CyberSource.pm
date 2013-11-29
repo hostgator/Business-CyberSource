@@ -1,7 +1,7 @@
 package MooseX::Types::CyberSource;
 use strict;
 use warnings;
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 # VERSION
@@ -138,23 +138,23 @@ class_type TaxReplyItem,        { class => $res_ti_c };
 
 class_type Client,              { class => $client   };
 
-coerce Item,                from HashRef, via { load_class( $itc      )->new( $_ ) };
-coerce PurchaseTotals,      from HashRef, via { load_class( $ptc      )->new( $_ ) };
-coerce Service,             from HashRef, via { load_class( $svc      )->new( $_ ) };
-coerce AuthReversalService, from HashRef, via { load_class( $ars      )->new( $_ ) };
-coerce CaptureService,      from HashRef, via { load_class( $cps      )->new( $_ ) };
-coerce CreditService,       from HashRef, via { load_class( $cds      )->new( $_ ) };
-coerce TaxService,          from HashRef, via { load_class( $txs      )->new( $_ ) };
-coerce Card,                from HashRef, via { load_class( $cdc      )->new( $_ ) };
-coerce BillTo,              from HashRef, via { load_class( $btc      )->new( $_ ) };
-coerce BusinessRules,       from HashRef, via { load_class( $brc      )->new( $_ ) };
-coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_ ) };
-coerce AuthReply,           from HashRef, via { load_class( $res_ar_c )->new( $_ ) };
-coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_ ) };
-coerce DCCReply,            from HashRef, via { load_class( $res_dc_c )->new( $_ ) };
-coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
-coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_ ) };
-coerce Client,              from HashRef, via { load_class( $client   )->new( $_ ) };
+coerce Item,                from HashRef, via { use_module( $itc      )->new( $_ ) };
+coerce PurchaseTotals,      from HashRef, via { use_module( $ptc      )->new( $_ ) };
+coerce Service,             from HashRef, via { use_module( $svc      )->new( $_ ) };
+coerce AuthReversalService, from HashRef, via { use_module( $ars      )->new( $_ ) };
+coerce CaptureService,      from HashRef, via { use_module( $cps      )->new( $_ ) };
+coerce CreditService,       from HashRef, via { use_module( $cds      )->new( $_ ) };
+coerce TaxService,          from HashRef, via { use_module( $txs      )->new( $_ ) };
+coerce Card,                from HashRef, via { use_module( $cdc      )->new( $_ ) };
+coerce BillTo,              from HashRef, via { use_module( $btc      )->new( $_ ) };
+coerce BusinessRules,       from HashRef, via { use_module( $brc      )->new( $_ ) };
+coerce ResPurchaseTotals,   from HashRef, via { use_module( $res_pt_c )->new( $_ ) };
+coerce AuthReply,           from HashRef, via { use_module( $res_ar_c )->new( $_ ) };
+coerce TaxReply,            from HashRef, via { use_module( $res_tr_c )->new( $_ ) };
+coerce DCCReply,            from HashRef, via { use_module( $res_dc_c )->new( $_ ) };
+coerce TaxReplyItem,        from HashRef, via { use_module( $res_ti_c )->new( $_ ) };
+coerce Reply,               from HashRef, via { use_module( $res_re_c )->new( $_ ) };
+coerce Client,              from HashRef, via { use_module( $client   )->new( $_ ) };
 
 subtype CountryCode,     as Alpha2Country;
 subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
@@ -166,7 +166,7 @@ subtype Items,           as ArrayRef[Item];
 coerce CountryCode,
 	from Alpha3Country,
 	via {
-		load_class('Locale::Code');
+		use_module('Locale::Code');
 
 		return uc Locale::Code::country_code2code( $_ ,
 			Locale::Code::LOCALE_CODE_ALPHA_3(),
@@ -178,7 +178,7 @@ coerce CountryCode,
 coerce CountryCode,
 	from CountryName,
 	via {
-		load_class('Locale::Code');
+		use_module('Locale::Code');
 		return uc Locale::Code::country_code2code( $_ ,
 			Locale::Code::LOCALE_CODE_ALPHA_2(),
 		);
@@ -204,7 +204,7 @@ coerce TaxReplyItems,
 	via {
 		my $items = $_;
 
-		my @items = map { load_class( $res_ti_c )->new( $_ ) } @{ $items };
+		my @items = map { use_module( $res_ti_c )->new( $_ ) } @{ $items };
 		return \@items;
 	};
 
@@ -213,7 +213,7 @@ coerce Items,
 	via {
 		my $items = $_;
 
-		my @items = map { load_class($itc)->new( $_ ) } @{ $items };
+		my @items = map { use_module($itc)->new( $_ ) } @{ $items };
 		return \@items;
 	};
 
@@ -221,7 +221,7 @@ coerce Items,
 coerce DateTimeFromW3C,
 	from DateTimeW3C,
 	via {
-		return load_class('DateTime::Format::W3CDTF')
+		return use_module('DateTime::Format::W3CDTF')
 			->new->parse_datetime( $_ );
 	};
 

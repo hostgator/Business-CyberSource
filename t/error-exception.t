@@ -3,10 +3,10 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $factory = new_ok( load_class('Business::CyberSource::Factory::Response') );
+my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
 can_ok( $factory, 'create' );
 

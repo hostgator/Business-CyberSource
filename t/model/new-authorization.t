@@ -2,12 +2,12 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Method;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/../lib";
 
-my $dtc = load_class('Business::CyberSource::Request::Authorization');
+my $dtc = use_module('Business::CyberSource::Request::Authorization');
 
-my $t = new_ok( load_class('Test::Business::CyberSource') );
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my @test_pairs = (
 	[ '4111111111111111' => '001' ],

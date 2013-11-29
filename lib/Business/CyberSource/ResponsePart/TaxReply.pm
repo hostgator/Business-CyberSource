@@ -2,7 +2,7 @@ package Business::CyberSource::ResponsePart::TaxReply;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime  qw( use_module );
 
 # VERSION
 

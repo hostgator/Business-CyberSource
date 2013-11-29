@@ -9,7 +9,7 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Factory';
 
-use Class::Load  qw( load_class );
+use Module::Runtime  qw( use_module );
 use Try::Tiny;
 
 use Exception::Base (
@@ -48,7 +48,7 @@ sub create {
 
 	my $response
 		= try {
-			load_class('Business::CyberSource::Response')->new( $result );
+			use_module('Business::CyberSource::Response')->new( $result );
 		}
 		catch {
 			my %exception = (
@@ -62,7 +62,7 @@ sub create {
 			);
 
 			$exception{reason_text}
-				= load_class('Business::CyberSource::Response')
+				= use_module('Business::CyberSource::Response')
 				->_build_reason_text( $result->{reasonCode} )
 				;
 

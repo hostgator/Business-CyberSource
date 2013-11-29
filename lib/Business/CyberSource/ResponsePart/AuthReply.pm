@@ -2,7 +2,7 @@ package Business::CyberSource::ResponsePart::AuthReply;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime  qw( use_module );
 
 # VERSION
 

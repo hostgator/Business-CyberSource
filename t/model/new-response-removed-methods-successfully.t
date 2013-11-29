@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 use Test::More;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 my $res
-	= new_ok( load_class('Business::CyberSource::Response') => [{
+	= new_ok( use_module('Business::CyberSource::Response') => [{
 		request_id    => '42',
 		decision      => 'ACCEPT',
 		reason_code   => 100,

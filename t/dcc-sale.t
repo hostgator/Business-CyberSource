@@ -6,10 +6,10 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
 );
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = new_ok( load_class('Test::Business::CyberSource') );
+my $t = new_ok( use_module('Test::Business::CyberSource') );
 
 my $card = $t->resolve(
 		service => '/helper/card',
@@ -23,7 +23,7 @@ my $card = $t->resolve(
 );
 
 my $dcc_req
-	= new_ok( load_class( 'Business::CyberSource::Request::DCC') => [{
+	= new_ok( use_module( 'Business::CyberSource::Request::DCC') => [{
 		reference_code   => 'test-dcc-authorization-' . time,
 		card             => $card,
 		purchase_totals => {
@@ -45,7 +45,7 @@ is( $dcc->purchase_totals->exchange_rate, 116.4344, 'check exchange rate' );
 is( $dcc->purchase_totals->exchange_rate_timestamp, '20090101 00:00', 'check exchange timestamp' );
 
 my $sale_req
-	= new_ok( load_class( 'Business::CyberSource::Request::Sale') => [{
+	= new_ok( use_module( 'Business::CyberSource::Request::Sale') => [{
 		reference_code   => $dcc->reference_code,
 		bill_to          => $t->resolve( service => '/helper/bill_to' ),
 		card             => $card,

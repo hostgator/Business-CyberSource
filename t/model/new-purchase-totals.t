@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Moose;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 my $ptotal
-	= new_ok( load_class('Business::CyberSource::RequestPart::PurchaseTotals') => [{
+	= new_ok( use_module('Business::CyberSource::RequestPart::PurchaseTotals') => [{
 		total    => 5.00,
 		currency => 'USD',
 	}]);

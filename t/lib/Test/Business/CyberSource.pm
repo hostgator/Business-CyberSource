@@ -2,7 +2,7 @@ package Test::Business::CyberSource;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 use Test::Requires 'Bread::Board';
 use Test::More;
@@ -44,7 +44,7 @@ sub BUILD {
 					}
 
 					my $client
-						= load_class('Business::CyberSource::Client')
+						= use_module('Business::CyberSource::Client')
 						->new({
 							user => $svc->param('user'),
 							pass => $svc->param('pass'),

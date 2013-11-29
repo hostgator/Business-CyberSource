@@ -2,10 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = load_class('Test::Business::CyberSource')->new;
+my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client   = $t->resolve( service => '/client/object'    );
 
@@ -14,7 +14,7 @@ my $auth_res
 		$t->resolve( service => '/request/authorization' )
 	);
 
-my $authrevc = load_class('Business::CyberSource::Request::AuthReversal');
+my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
 my $rev_req
 	= new_ok( $authrevc => [{

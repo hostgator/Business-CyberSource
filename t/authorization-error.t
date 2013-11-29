@@ -3,10 +3,10 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime  qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = load_class('Test::Business::CyberSource')->new;
+my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client = $t->resolve( service => '/client/object'    );
 

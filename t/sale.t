@@ -2,16 +2,16 @@ use strict;
 use warnings;
 use Test::More;
 
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime  qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
-my $t = load_class('Test::Business::CyberSource')->new;
+my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client      = $t->resolve( service => '/client/object'      );
 my $credit_card = $t->resolve( service => '/helper/card'      );
 my $billto      = $t->resolve( service => '/helper/bill_to'   );
 
-my $salec = load_class('Business::CyberSource::Request::Sale');
+my $salec = use_module('Business::CyberSource::Request::Sale');
 
 my $req
 	= new_ok( $salec => [{

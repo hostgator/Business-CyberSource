@@ -3,10 +3,10 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 use Test::Method;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 use DateTime;
 
-my $card_c = load_class('Business::CyberSource::RequestPart::Card');
+my $card_c = use_module('Business::CyberSource::RequestPart::Card');
 
 my $card0
 	= new_ok( $card_c => [{
