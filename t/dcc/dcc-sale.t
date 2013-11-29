@@ -7,7 +7,7 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_VISA
 );
 use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/lib";
+use FindBin; use lib "$FindBin::Bin/../lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
