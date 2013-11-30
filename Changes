@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.009002  2013-11-29
+	- update encoding
+	- use Test::Requires for NetAddr::IP tests
+
 0.009001  2013-11-29
 	- remove dependency on Class::Load, this is being removed from Moose, use
 	  Module::Runtime instead
