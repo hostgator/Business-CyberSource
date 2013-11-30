@@ -3,6 +3,7 @@ use warnings;
 use Test::More;
 use Test::Moose;
 use Module::Runtime qw( use_module );
+use Test::Requires  qw( NetAddr::IP );
 
 my $billto
 	= new_ok( use_module('Business::CyberSource::RequestPart::BillTo') => [{
