@@ -2,8 +2,10 @@ use strict;
 use warnings;
 use Test::More;
 
-use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/../lib";
+use FindBin;
+use Module::Runtime qw( use_module    );
+use Test::Requires  qw( Path::FindDev );
+use lib Path::FindDev::find_dev( $FindBin::Bin )->child('t', 'lib' )->stringify;
 
 my $t = use_module('Test::Business::CyberSource')->new;
 

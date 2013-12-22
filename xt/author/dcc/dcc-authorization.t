@@ -6,8 +6,10 @@ use Test::Requires::Env qw(
 	PERL_BUSINESS_CYBERSOURCE_DCC_CC_YYYY
 	PERL_BUSINESS_CYBERSOURCE_DCC_MASTERCARD
 );
-use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/../lib";
+use FindBin;
+use Module::Runtime qw( use_module    );
+use Test::Requires  qw( Path::FindDev );
+use lib Path::FindDev::find_dev( $FindBin::Bin )->child('t', 'lib' )->stringify;
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
