@@ -14,10 +14,10 @@ with qw(
 
 use MooseX::Types::CyberSource qw( BillTo Card CreditService);
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 sub _build_service {
-	load_class('Business::CyberSource::RequestPart::Service::Credit');
+	use_module('Business::CyberSource::RequestPart::Service::Credit');
 	return Business::CyberSource::RequestPart::Service::Credit->new;
 }
 

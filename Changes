@@ -2,6 +2,46 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.009002  2013-11-29
+	- update encoding
+	- use Test::Requires for NetAddr::IP tests
+
+0.009001  2013-11-29
+	- remove dependency on Class::Load, this is being removed from Moose, use
+	  Module::Runtime instead
+	- reorganize tests
+	- fix documentation
+
+0.009000  2013-08-05
+	[NEWS]
+	- fix bug with different processor where exceptions were thrown on
+	  response
+		- remove MooseX::StrictConstructor ( may be readded later )
+	[DEPRECATIONS]
+	- username, password, production, run_transaction have all been migrated
+	  to the MooseY::RemoteHelper::Role::Client user, pass, test, submit
+	[REMOVAL]
+	- Client->dumper_package, insufficient, hardcode until suitable replacment
+	  written
+	- previous deprecations
+		- billing_info ( use bill_to )
+		- accepted is_accepted ( use is_accept )
+	[NOTES]
+	- due to changes in processor live tests are failing for me, this release
+	  fixes the exceptions but I haven't had the time to improve the live test
+	  suite to fix false positives.
+
+0.008000  2013-05-21
+	[NEWS]
+	- API's deprecated in 0.007006 and older have been removed
+	[DEPRECATIONS]
+	- billing_info ( use bill_to )
+	- accepted is_accepted ( use is_accept )
+
+0.007011  2013-05-17
+	- JCB Cards now identify as discover in Business::CreditCard 0.32
+	- update synopsis example to be more novice friendly with try/catch syntax
+
 0.007010  2012-11-26
 	- allow the constructor to treat undefs as unset
 		- add depedency on MooseX::UndefTolerant

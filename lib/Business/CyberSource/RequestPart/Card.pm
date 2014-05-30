@@ -29,12 +29,12 @@ use Exception::Base (
 	ignore_package => [ __PACKAGE__ ],
 );
 
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 sub _build_type {
 	my $self = shift;
 
-	load_class('Business::CreditCard');
+	use_module('Business::CreditCard');
 	my $ct = Business::CreditCard::cardtype( $self->account_number );
 
 	Exception::Base->throw( message => $ct )
@@ -48,12 +48,12 @@ sub _build_type {
 
 sub _build_expired {
 	my $self = shift;
-	load_class('DateTime');
+	use_module('DateTime');
 
 	return $self->_compare_date_against_expiration( DateTime->now );
 }
 
-sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalReturn)
+sub _compare_date_against_expiration {
 	my ( $self, $date ) = @_;
 
 	my $exp = $self->expiration->clone;
@@ -61,20 +61,19 @@ sub _compare_date_against_expiration { ## no critic (Subroutines::RequireFinalRe
 	# the card could be expired at UTC but not the issuer
 	$exp->add( days => 1 );
 
-	load_class('DateTime');
+	use_module('DateTime');
 	my $cmp = DateTime->compare( $date, $exp );
 
-	given ( $cmp ) {
-		when ( -1 ) { # current date is before than the expiration date
-			return 0;
-		}
-		when ( 0 ) { # expiration equal to current date
-			return 0;
-		}
-		when ( 1 ) { # current date is past the expiration date
-			return 1;
-		}
+	if    ( $cmp == -1 ) { # current date is before than the expiration date
+		return 0;
 	}
+	elsif ( $cmp ==  0 ) { # expiration equal to current date
+		return 0;
+	}
+	elsif ( $cmp ==  1 ) { # current date is past the expiration date
+		return 1;
+	}
+	return; # da F*? should never hit this
 }
 
 sub _build_card_type_code {

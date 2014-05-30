@@ -7,9 +7,6 @@ use namespace::autoclean;
 
 use Moose;
 use MooseX::StrictConstructor;
-use MooseX::ABC 0.06;
-
-#requires 'create';
 
 __PACKAGE__->meta->make_immutable;
 1;

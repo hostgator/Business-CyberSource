@@ -8,6 +8,7 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 with qw(
+	Business::CyberSource::Response::Role::AuthCode
 	Business::CyberSource::Response::Role::ReasonCode
 	Business::CyberSource::Response::Role::ReconciliationID
 	Business::CyberSource::Response::Role::Amount

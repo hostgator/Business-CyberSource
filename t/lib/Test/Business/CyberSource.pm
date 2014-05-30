@@ -2,7 +2,7 @@ package Test::Business::CyberSource;
 use strict;
 use warnings;
 use namespace::autoclean;
-use Class::Load qw( load_class );
+use Module::Runtime qw( use_module );
 
 use Test::Requires 'Bread::Board';
 use Test::More;
@@ -15,23 +15,23 @@ sub BUILD {
 	my $self = shift;
 	return container $self => as {
 		container client => as {
-			service 'username'
+			service 'user'
 					=> $ENV{PERL_BUSINESS_CYBERSOURCE_USERNAME}
 					||'test'
 					;
-			service 'password'
+			service 'pass'
 					=> $ENV{PERL_BUSINESS_CYBERSOURCE_PASSWORD}
 					|| 'test'
 					;
-			service production => 0;
+			service test => 1;
 			service object     => (
 				class        => 'Business::CyberSource::Client',
 				lifecycle    => 'Singleton',
 				block        => sub {
 					my $svc = shift;
 
-					if ( $svc->param('username') eq 'test'
-						|| $svc->param('password') eq 'test'
+					if ( $svc->param('user') eq 'test'
+						|| $svc->param('pass') eq 'test'
 					) {
 						plan skip_all => 'Unable to send with fake '
 							. 'credentials. Set both '
@@ -44,20 +44,20 @@ sub BUILD {
 					}
 
 					my $client
-						= load_class('Business::CyberSource::Client')
+						= use_module('Business::CyberSource::Client')
 						->new({
-							username   => $svc->param('username'),
-							password   => $svc->param('password'),
-							production => $svc->param('production'),
+							user => $svc->param('user'),
+							pass => $svc->param('pass'),
+							test => $svc->param('test'),
 						});
 
 
 					return $client;
 				},
 				dependencies => {
-					username   => depends_on('username'),
-					password   => depends_on('password'),
-					production => depends_on('production'),
+					user => depends_on('user'),
+					pass => depends_on('pass'),
+					test => depends_on('test'),
 				},
 			);
 		};
@@ -91,11 +91,11 @@ sub BUILD {
 			container services => as {
 				service first_name    => 'Caleb';
 				service last_name     => 'Cushing';
-				service street        => 'somewhere';
-				service city          => 'Houston';
+				service street        => '2104 E Anderson Ln';
+				service city          => 'Austin';
 				service state         => 'TX';
 				service country       => 'US';
-				service postal_code   => '77064';
+				service postal_code   => '78752';
 				service email         => 'xenoterracide@gmail.com';
 				service ip            => '192.168.100.2';
 				service currency      => 'USD';

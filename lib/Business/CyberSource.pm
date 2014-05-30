@@ -9,6 +9,8 @@ use warnings;
 
 # ABSTRACT: Perl interface to the CyberSource Simple Order SOAP API
 
+=encoding utf8
+
 =head1 DESCRIPTION
 
 This library is a Perl interface to the CyberSource Simple Order SOAP API built
@@ -32,13 +34,15 @@ and some are currently undocumented.
 
 =head1 ENVIRONMENT
 
-all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
+=head2 Debugging
 
-=head2 DEBUG
-
-causes all requests to be C<carp>ed to STDERR
+Supports L<MooseY::RemoteHelper::Role::Client>s C<REMOTE_CLIENT_DEBUG>
+variable. This can be set to either C<0>, C<1>, C<2>, for varying levels of
+verbosity.
 
 =head2 Testing
+
+all environment variables are prefixed with C<PERL_BUSINESS_CYBERSOURCE_>
 
 =head3 Credentials
 
@@ -46,8 +50,8 @@ causes all requests to be C<carp>ed to STDERR
 
 =head4 PASSWORD
 
-set's the L<username|Busines::CyberSource::Client/"username"> and
-L<password|Busines::CyberSource::Client/"password"> in the client for running
+set's the L<username|Busines::CyberSource::Client/"user"> and
+L<password|Busines::CyberSource::Client/"pass"> in the client for running
 tests.
 
 =head3 Direct Currency Conversion
@@ -79,13 +83,17 @@ A test credit card number provided by your your credit card processor
 	use Business::CyberSource::Request::Capture;
 
 	my $client = Business::CyberSource::Client->new({
-		username   => 'Merchant ID',
-		password   => 'API Key',
-		production => 1,
+		user  => 'Merchant ID',
+		pass  => 'API Key',
+		test  => 1,
+		debug => 1, # do not set in production as it prints sensative
+                         # information
 	});
 
-	my $auth_request = try {
-			Business::CyberSource::Request::Authorization->new({
+	my $auth_request;
+	try {
+		$auth_request
+			= Business::CyberSource::Request::Authorization->new({
 				reference_code => '42',
 				bill_to => {
 					first_name  => 'Caleb',
@@ -109,25 +117,20 @@ A test credit card number provided by your your credit card processor
 					},
 				},
 			});
-		}
-		catch {
-			carp $_;
-		};
+	}
+	catch {
+		carp $_;
+	};
+	return unless $auth_request;
 
-	my $auth_response = try {
-			$client->run_transaction( $auth_request );
-		}
-		catch {
-			carp $_;
-
-			if ( $auth_request->has_trace ) {
-				carp 'REQUEST: '
-				. $auth_request->trace->request->as_string
-				. 'RESPONSE: '
-				. $auth_request->trace->response->as_string
-				;
-			}
-		};
+	my $auth_response;
+	try {
+		$auth_response = $client->submit( $auth_request );
+	}
+	catch {
+		carp $_;
+	};
+	return unless $auth_response;
 
 	unless( $auth_response->is_accept ) {
 		carp $auth_response->reason_text;
@@ -145,20 +148,14 @@ A test credit card number provided by your your credit card processor
 				},
 			});
 
-		my $capture_response = try {
-			$client->run_transaction( $capture_request );
+		my $capture_response;
+		try {
+			$capture_response = $client->submit( $capture_request );
 		}
 		catch {
 			carp $_;
-
-			if ( $capture_request->has_trace ) {
-				carp 'REQUEST: '
-				. $capture_request->trace->request->as_string
-				. 'RESPONSE: '
-				. $capture_request->trace->response->as_string
-				;
-			}
 		};
+		return unless $capture_response;
 
 		if ( $capture_response->is_accept ) {
 			# you probably want to record this
@@ -172,7 +169,8 @@ L<Sale|Business::CyberSource::Request::Sale>. Most common Reasons for
 Exceptions would be bad input into the request object (which validates things)
 or CyberSource just randomly throwing an ERROR, in which case you can usually
 just retry later. You don't have to print the response on error during
-development, you can easily just use the L<DEBUG Environment variable|/"DEBUG">
+development, you can easily just use the C<REMOTE_CLIENT_DEBUG> Environment
+variable.
 
 =head1 ACKNOWLEDGMENTS
 
@@ -181,6 +179,14 @@ development, you can easily just use the L<DEBUG Environment variable|/"DEBUG">
 =item * Mark Overmeer
 
 for the help with getting L<XML::Compile::SOAP::WSS> working.
+
+=item * L<HostGator|http://hostgator.com>
+
+funding initial development.
+
+=item * L<GüdTech|http://gudtech.com>
+
+funding further development.
 
 =back
 

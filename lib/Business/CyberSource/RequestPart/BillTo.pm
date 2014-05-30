@@ -10,7 +10,6 @@ extends 'Business::CyberSource::MessagePart';
 with    'MooseX::RemoteHelper::CompositeSerialization';
 
 use MooseX::Aliases;
-
 use MooseX::Types::Common::String qw( NonEmptySimpleStr );
 use MooseX::Types::Email          qw( EmailAddress      );
 use MooseX::Types::NetAddr::IP    qw( NetAddrIPv4       );

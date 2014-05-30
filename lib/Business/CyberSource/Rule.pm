@@ -7,17 +7,13 @@ use namespace::autoclean;
 
 use Moose;
 use MooseX::StrictConstructor;
-use MooseX::ABC 0.06;
 
-use Class::Load qw( load_class );
-
-requires 'run';
-
+use Module::Runtime qw( use_module );
 
 sub debug {
 	my ( $self, $message ) = shift;
 
-	load_class 'Carp';
+	use_module 'Carp';
 	our @CARP_NOT = ( __PACKAGE__, blessed( $self->client ) );
 
 	$message //= blessed( $self ) . ' matched';

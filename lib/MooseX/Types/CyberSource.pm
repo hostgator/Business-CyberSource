@@ -1,7 +1,7 @@
 package MooseX::Types::CyberSource;
 use strict;
 use warnings;
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 # VERSION
@@ -13,7 +13,6 @@ use MooseX::Types -declare => [ qw(
 	CvIndicator
 	CvResults
 	DCCIndicator
-	DCCSupported
 
 	Decision
 	Items
@@ -44,6 +43,8 @@ use MooseX::Types -declare => [ qw(
 
 	DateTimeFromW3C
 
+	Client
+
 	_VarcharOne
 	_VarcharSeven
 	_VarcharTen
@@ -53,8 +54,8 @@ use MooseX::Types -declare => [ qw(
 ) ];
 
 use MooseX::Types::Common::Numeric qw( PositiveOrZeroNum                       );
-use MooseX::Types::Common::String  qw( NonEmptySimpleStr                       );
-use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef Bool       );
+use MooseX::Types::Common::String  qw( NonEmptySimpleStr SimpleStr             );
+use MooseX::Types::Moose           qw( Int Num Str HashRef ArrayRef            );
 use MooseX::Types::Locale::Country qw( Alpha2Country Alpha3Country CountryName );
 use MooseX::Types::DateTime        qw(                                         );
 use MooseX::Types::DateTime::W3C   qw( DateTimeW3C                             );
@@ -89,7 +90,7 @@ enum CardTypeCode, [ qw(
 
 enum CvIndicator, [ qw( 0 1 2 9 ) ];
 
-enum CvResults, [ qw( D I M N P S U X 1 2 3 ) ];
+enum CvResults, [ qw( D I M N P S U X 1 2 3 ),'' ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
 
@@ -115,6 +116,8 @@ my $res_dc_c = $res . 'DCCReply';
 my $res_tr_c = $res . 'TaxReply';
 my $res_ti_c = $res . 'TaxReply::Item';
 
+my $client = 'Business::CyberSource::Client';
+
 class_type Item,                { class => $itc };
 class_type PurchaseTotals,      { class => $ptc };
 class_type Service,             { class => $svc };
@@ -133,36 +136,37 @@ class_type DCCReply,            { class => $res_dc_c };
 class_type TaxReply,            { class => $res_tr_c };
 class_type TaxReplyItem,        { class => $res_ti_c };
 
-coerce Item,                from HashRef, via { load_class( $itc      )->new( $_ ) };
-coerce PurchaseTotals,      from HashRef, via { load_class( $ptc      )->new( $_ ) };
-coerce Service,             from HashRef, via { load_class( $svc      )->new( $_ ) };
-coerce AuthReversalService, from HashRef, via { load_class( $ars      )->new( $_ ) };
-coerce CaptureService,      from HashRef, via { load_class( $cps      )->new( $_ ) };
-coerce CreditService,       from HashRef, via { load_class( $cds      )->new( $_ ) };
-coerce TaxService,          from HashRef, via { load_class( $txs      )->new( $_ ) };
-coerce Card,                from HashRef, via { load_class( $cdc      )->new( $_ ) };
-coerce BillTo,              from HashRef, via { load_class( $btc      )->new( $_ ) };
-coerce BusinessRules,       from HashRef, via { load_class( $brc      )->new( $_ ) };
-coerce ResPurchaseTotals,   from HashRef, via { load_class( $res_pt_c )->new( $_ ) };
-coerce AuthReply,           from HashRef, via { load_class( $res_ar_c )->new( $_ ) };
-coerce TaxReply,            from HashRef, via { load_class( $res_tr_c )->new( $_ ) };
-coerce DCCReply,            from HashRef, via { load_class( $res_dc_c )->new( $_ ) };
-coerce TaxReplyItem,        from HashRef, via { load_class( $res_ti_c )->new( $_ ) };
-coerce Reply,               from HashRef, via { load_class( $res_re_c )->new( $_ ) };
+class_type Client,              { class => $client   };
+
+coerce Item,                from HashRef, via { use_module( $itc      )->new( $_ ) };
+coerce PurchaseTotals,      from HashRef, via { use_module( $ptc      )->new( $_ ) };
+coerce Service,             from HashRef, via { use_module( $svc      )->new( $_ ) };
+coerce AuthReversalService, from HashRef, via { use_module( $ars      )->new( $_ ) };
+coerce CaptureService,      from HashRef, via { use_module( $cps      )->new( $_ ) };
+coerce CreditService,       from HashRef, via { use_module( $cds      )->new( $_ ) };
+coerce TaxService,          from HashRef, via { use_module( $txs      )->new( $_ ) };
+coerce Card,                from HashRef, via { use_module( $cdc      )->new( $_ ) };
+coerce BillTo,              from HashRef, via { use_module( $btc      )->new( $_ ) };
+coerce BusinessRules,       from HashRef, via { use_module( $brc      )->new( $_ ) };
+coerce ResPurchaseTotals,   from HashRef, via { use_module( $res_pt_c )->new( $_ ) };
+coerce AuthReply,           from HashRef, via { use_module( $res_ar_c )->new( $_ ) };
+coerce TaxReply,            from HashRef, via { use_module( $res_tr_c )->new( $_ ) };
+coerce DCCReply,            from HashRef, via { use_module( $res_dc_c )->new( $_ ) };
+coerce TaxReplyItem,        from HashRef, via { use_module( $res_ti_c )->new( $_ ) };
+coerce Reply,               from HashRef, via { use_module( $res_re_c )->new( $_ ) };
+coerce Client,              from HashRef, via { use_module( $client   )->new( $_ ) };
 
 subtype CountryCode,     as Alpha2Country;
 subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
 subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
-subtype DCCSupported,    as Bool;
 subtype TaxReplyItems,   as ArrayRef[TaxReplyItem];
 subtype Items,           as ArrayRef[Item];
 
-coerce DCCSupported, from Str, via  { return $_ eq 'TRUE' ? 1 : 0 };
 
 coerce CountryCode,
 	from Alpha3Country,
 	via {
-		load_class('Locale::Code');
+		use_module('Locale::Code');
 
 		return uc Locale::Code::country_code2code( $_ ,
 			Locale::Code::LOCALE_CODE_ALPHA_3(),
@@ -174,7 +178,7 @@ coerce CountryCode,
 coerce CountryCode,
 	from CountryName,
 	via {
-		load_class('Locale::Code');
+		use_module('Locale::Code');
 		return uc Locale::Code::country_code2code( $_ ,
 			Locale::Code::LOCALE_CODE_ALPHA_2(),
 		);
@@ -200,7 +204,7 @@ coerce TaxReplyItems,
 	via {
 		my $items = $_;
 
-		my @items = map { load_class( $res_ti_c )->new( $_ ) } @{ $items };
+		my @items = map { use_module( $res_ti_c )->new( $_ ) } @{ $items };
 		return \@items;
 	};
 
@@ -209,7 +213,7 @@ coerce Items,
 	via {
 		my $items = $_;
 
-		my @items = map { load_class($itc)->new( $_ ) } @{ $items };
+		my @items = map { use_module($itc)->new( $_ ) } @{ $items };
 		return \@items;
 	};
 
@@ -217,7 +221,7 @@ coerce Items,
 coerce DateTimeFromW3C,
 	from DateTimeW3C,
 	via {
-		return load_class('DateTime::Format::W3CDTF')
+		return use_module('DateTime::Format::W3CDTF')
 			->new->parse_datetime( $_ );
 	};
 
@@ -234,7 +238,7 @@ subtype _VarcharSeven,
 	;
 
 subtype _VarcharTen,
-	as NonEmptySimpleStr,
+	as SimpleStr,
 	where { length $_ <= 10 },
 	message { $varchar_message . '10' }
 	;
@@ -295,6 +299,10 @@ This module provides CyberSource specific Moose Types.
 =head1 TYPES
 
 =over
+
+=item * C<Client>
+
+L<Business::CyberSource::Client>
 
 =item * C<Decision>
 

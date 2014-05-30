@@ -7,6 +7,7 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
+with 'MooseY::RemoteHelper::Role::Client';
 
 use Moose::Util::TypeConstraints;
 
@@ -17,7 +18,7 @@ use MooseX::Types::Path::Class qw( File Dir );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
-use Class::Load 0.20 qw( load_class );
+use Module::Runtime  qw( use_module );
 use Module::Load     qw( load       );
 
 use XML::Compile::SOAP::WSS 1.04;
@@ -25,7 +26,52 @@ use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
 
+our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
+
+around BUILDARGS => sub {
+    my $orig  = shift;
+    my $class = shift;
+
+	my $args = $class->$orig( @_ );
+
+	if ( exists $args->{username} ) {
+		warnings::warnif('deprecated',
+			'`username` is deprecated, use `user` instead'
+		);
+
+		$args->{user} = delete $args->{username};
+	}
+
+	if ( exists $args->{password} ) {
+		warnings::warnif('deprecated',
+			'`password` is deprecated, use `pass` instead'
+		);
+
+		$args->{pass} = delete $args->{password};
+	}
+
+	if ( exists $args->{production} ) {
+		warnings::warnif('deprecated',
+			'`production` is deprecated, use `test` instead'
+		);
+
+		$args->{test} = delete( $args->{production} ) ? 0 : 1;
+	}
+
+	return $args;
+};
+
 sub run_transaction {
+	my ( $self, $request ) = @_;
+
+	warnings::warnif('deprecated',
+		'run_transaction is deprecated, use submit instead'
+	);
+
+	return $self->submit( $request );
+}
+
+sub submit {
 	my ( $self, $request ) = @_;
 
 	confess 'request undefined'         unless defined $request;
@@ -44,7 +90,7 @@ sub run_transaction {
 	}
 
 	my %request = (
-		merchantID            => $self->_username,
+		merchantID            => $self->user,
 		clientEnvironment     => $self->env,
 		clientLibrary         => $self->name,
 		clientLibraryVersion  => $self->version,
@@ -53,7 +99,7 @@ sub run_transaction {
 
 	if ( $self->debug >= 1 ) {
 		load 'Carp';
-		load $self->_dumper_package, 'Dumper';
+		load 'Data::Printer', alias => 'Dumper';
 
 		Carp::carp( 'REQUEST HASH: ' . Dumper( \%request ) );
 	}
@@ -72,9 +118,6 @@ sub run_transaction {
 	}
 
 	if ( $self->debug >= 1 ) {
-		load 'Carp';
-		load $self->_dumper_package, 'Dumper';
-
 		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer->{result} ) );
 	}
 
@@ -91,8 +134,8 @@ sub _build_soap_client {
 	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
 
 	$wss->basicAuth(
-		username => $self->_username,
-		password => $self->_password,
+		username => $self->user,
+		password => $self->pass,
 	);
 
 	my $call = $wsdl->compileClient('runTransaction');
@@ -103,10 +146,10 @@ sub _build_soap_client {
 sub _build_cybs_wsdl {
 	my $self = shift;
 
-	my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
-	return load_class('Path::Class::File')->new(
+	return use_module('Path::Class::File')->new(
 			dist_file(
 				'Business-CyberSource',
 				$dir
@@ -121,10 +164,10 @@ sub _build_cybs_wsdl {
 sub _build_cybs_xsd {
 	my $self = shift;
 
-	my $dir = $self->_production ? 'production' : 'test';
+	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
-	return load_class('Path::Class::File')->new(
+	return use_module('Path::Class::File')->new(
 			dist_file(
 				'Business-CyberSource',
 				$dir
@@ -163,7 +206,7 @@ has _response_factory => (
 	lazy     => 1,
 	default  => sub {
 		return
-			load_class('Business::CyberSource::Factory::Response')
+			use_module('Business::CyberSource::Factory::Response')
 			->new;
 	},
 );
@@ -173,7 +216,7 @@ has _rule_factory => (
 	is       => 'ro',
 	lazy     => 1,
 	default  => sub {
-		return load_class('Business::CyberSource::Factory::Rule')->new;
+		return use_module('Business::CyberSource::Factory::Rule')->new;
 	},
 );
 
@@ -195,44 +238,6 @@ has _rules => (
 	is         => 'ro',
 	lazy_build => 1,
 	traits     => ['Array'],
-);
-
-has debug => (
-	isa     => 'Int',
-	is      => 'ro',
-	lazy    => 1,
-	default => sub {
-		return $ENV{PERL_BUSINESS_CYBERSOURCE_DEBUG} // 0;
-	},
-);
-
-has _dumper_package => (
-	isa      => NonEmptySimpleStr,
-	is       => 'ro',
-	lazy     => 1,
-	init_arg => 'dumper_package',
-	default  => sub { return 'Data::Dumper'; },
-);
-
-has production => (
-	isa      => 'Bool',
-	reader   => '_production',
-	is       => 'ro',
-	required => 1,
-);
-
-has username => (
-	isa      => subtype( NonEmptySimpleStr, where { length $_ <= 30 }),
-	reader   => '_username',
-	is       => 'ro',
-	required => 1,
-);
-
-has password => (
-	isa      => NonEmptyStr,
-	reader   => '_password',
-	is       => 'ro',
-	required => 1,
 );
 
 has version => (
@@ -307,9 +312,9 @@ __PACKAGE__->meta->make_immutable;
 	my $request = 'Some Business::CyberSource::Request Object';
 
 	my $client = Business::CyberSource::Request->new({
-		username   => 'Merchant ID',
-		password   => 'API KEY',
-		production => 0,
+		user => 'Merchant ID',
+		pass => 'API KEY',
+		test => 1,
 	});
 
 	my $response = $client->run_transaction( $request );
@@ -319,43 +324,50 @@ __PACKAGE__->meta->make_immutable;
 A service object that is meant to provide a way to run the requested
 transactions.
 
-=method run_transaction
+=head1 WITH
 
-	my $response = $client->run_transaction( $request );
+L<MooseY::RemoteHelper::Role::Client>
+
+=method submit
+
+	my $response = $client->submit( $request );
 
 Takes a L<Business::CyberSource::Request> subclass as a parameter and returns
 a L<Business::CyberSource::Response>
 
-=attr username
+=method run_transaction
+
+DEPRECATED, use L</submit>
+
+=attr user
 
 CyberSource Merchant ID
 
-=attr password
+=attr pass
 
 CyberSource API KEY
 
-=attr production
+=attr test
 
-Boolean value when true your requests will go to the production server, when
-false they will go to the testing server
+Boolean value when false your requests will go to the live server, when
+true they will go to the testing server.
 
 =attr debug
 
 Integer value that causes the HTTP request/response to be output to STDOUT
 when a transaction is run. defaults to value of the environment variable
-C<PERL_BUSINESS_CYBERSOURCE_DEBUG>.
 
 =over
 
-=item 0
+=item value 0
 
 no output (default)
 
-=item 1
+=item value 1
 
 request/response hashref
 
-=item 2
+=item value 2
 
 1 plus actual HTTP and XML
 
@@ -369,11 +381,6 @@ L<Business::CyberSource::Rule::ExpiredCard> and
 L<Business::CyberSource::Rule::RequestIDisZero> are included. If you decide to
 add more rules remember to add C<qw( ExpiredCard RequestIDisZero )> to the
 new ArrayRef ( if you want them ).
-
-=attr dumper_package
-
-Package name for dumping the request hash if doing a L<debug|/"debug">. Package
-must have a C<Dumper> function.
 
 =attr name
 
