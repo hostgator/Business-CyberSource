@@ -8,6 +8,7 @@ use namespace::autoclean;
 
 use MooseX::Types -declare => [ qw(
 	AVSResult
+    ElectronicVerificationResult
 	CardTypeCode
 	CountryCode
 	CvIndicator
@@ -93,6 +94,8 @@ enum CvIndicator, [ qw( 0 1 2 9 ) ];
 enum CvResults, [ qw( D I M N P S U X 1 2 3 ),'' ];
 
 enum AVSResult, [ qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 ) ];
+
+enum ElectronicVerificationResult, [ qw( N P R S U Y 2) ];
 
 my $prefix = 'Business::CyberSource::';
 my $req    =  $prefix . 'RequestPart::';
