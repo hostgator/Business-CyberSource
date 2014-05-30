@@ -124,6 +124,90 @@ sub BUILD {
 				},
 			);
 
+            service card_amex => (
+				class        => 'Business::CyberSource::RequestPart::Card',
+				dependencies => {
+					security_code  => depends_on('services/security_code'),
+					holder         => depends_on('services/holder'),
+				},
+				parameters => {
+					account_number => {
+						isa     => 'Str',
+						default => '378282246310005',
+					},
+					expiration => {
+						isa => 'HashRef',
+						default => {
+							month => 5,
+							year  => 2025,
+						},
+					},
+				},
+			);
+
+            service card_visa => (
+				class        => 'Business::CyberSource::RequestPart::Card',
+				dependencies => {
+					security_code  => depends_on('services/security_code'),
+					holder         => depends_on('services/holder'),
+				},
+				parameters => {
+					account_number => {
+						isa     => 'Str',
+						default => '4111111111111111',
+					},
+					expiration => {
+						isa => 'HashRef',
+						default => {
+							month => 5,
+							year  => 2025,
+						},
+					},
+				},
+			);
+
+            service card_mastercard => (
+				class        => 'Business::CyberSource::RequestPart::Card',
+				dependencies => {
+					security_code  => depends_on('services/security_code'),
+					holder         => depends_on('services/holder'),
+				},
+				parameters => {
+					account_number => {
+						isa     => 'Str',
+						default => '5555555555554444',
+					},
+					expiration => {
+						isa => 'HashRef',
+						default => {
+							month => 5,
+							year  => 2025,
+						},
+					},
+				},
+			);
+
+            service card_discover => (
+				class        => 'Business::CyberSource::RequestPart::Card',
+				dependencies => {
+					security_code  => depends_on('services/security_code'),
+					holder         => depends_on('services/holder'),
+				},
+				parameters => {
+					account_number => {
+						isa     => 'Str',
+						default => '6011111111111117',
+					},
+					expiration => {
+						isa => 'HashRef',
+						default => {
+							month => 5,
+							year  => 2025,
+						},
+					},
+				},
+			);
+
 			service bill_to => (
 				class        => 'Business::CyberSource::RequestPart::BillTo',
 				dependencies => {
