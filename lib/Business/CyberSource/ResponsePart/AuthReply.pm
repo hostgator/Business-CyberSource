@@ -14,6 +14,7 @@ with qw(
 	Business::CyberSource::Response::Role::ReasonCode
 	Business::CyberSource::Response::Role::Amount
 	Business::CyberSource::Response::Role::ProcessorResponse
+    Business::CyberSource::Response::Role::ElectronicVerification
 );
 
 use MooseX::Types::CyberSource   qw(
