@@ -24,7 +24,7 @@ my $req
 		},
 	);
 
-my $ret = $client->run_transaction( $req );
+my $ret = $client->submit( $req );
 
 isa_ok $ret, 'Business::CyberSource::Response';
 

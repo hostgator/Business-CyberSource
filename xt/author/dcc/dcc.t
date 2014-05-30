@@ -37,7 +37,7 @@ my $dcc_req
 		},
 	}]);
 
-my $dcc = $client->run_transaction( $dcc_req );
+my $dcc = $client->submit( $dcc_req );
 
 isa_ok $dcc, 'Business::CyberSource::Response';
 

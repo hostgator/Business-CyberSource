@@ -11,7 +11,7 @@ my $t = use_module('Test::Business::CyberSource')->new;
 my $client   = $t->resolve( service => '/client/object'    );
 
 my $auth_res
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve( service => '/request/authorization' )
 	);
 
@@ -29,7 +29,7 @@ my $rev_req
 		},
 	}]);
 
-my $rev_res = $client->run_transaction( $rev_req );
+my $rev_res = $client->submit( $rev_req );
 
 is( $rev_res->decision, 'REJECT', 'check decision' );
 is( $rev_res->reason_code, 102, 'check reason_code' );

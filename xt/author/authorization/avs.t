@@ -12,7 +12,7 @@ my $t = use_module('Test::Business::CyberSource')->new;
 my $client = $t->resolve( service => '/client/object' );
 
 my $ret0
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve(
 			service    => '/request/authorization',
 			parameters => {
@@ -34,7 +34,7 @@ is( $ret0->auth->avs_code_raw, 'X',      'check avs_code_raw'   );
 
 
 my $ret1
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve(
 			service    => '/request/authorization',
 			parameters => {

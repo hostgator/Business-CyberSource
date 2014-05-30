@@ -10,7 +10,7 @@ my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client   = $t->resolve( service => '/client/object'    );
 my $auth_res
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve( service => '/request/authorization' )
 	);
 
@@ -30,7 +30,7 @@ my $capture_req
 	}])
 	;
 
-my $capture_res = $client->run_transaction( $capture_req );
+my $capture_res = $client->submit( $capture_req );
 
 isa_ok( $capture_res, 'Business::CyberSource::Response' );
 
@@ -48,7 +48,7 @@ my $credit_req
 		},
 	}]);
 
-my $credit_res = $client->run_transaction( $credit_req  );
+my $credit_res = $client->submit( $credit_req  );
 
 isa_ok( $credit_res, 'Business::CyberSource::Response'  );
 

@@ -25,7 +25,7 @@ my $req
 		},
 	}]);
 
-my $ret = $client->run_transaction( $req );
+my $ret = $client->submit( $req );
 
 is( $ret->decision,             'ACCEPT', 'check decision'       );
 is( $ret->reason_code,           100,     'check reason_code'    );

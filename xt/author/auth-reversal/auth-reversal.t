@@ -13,7 +13,7 @@ my $client = $t->resolve( service => '/client/object'    );
 my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
 my $res
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve( service => '/request/authorization' )
 	);
 
@@ -29,7 +29,7 @@ my $rev_req
 		},
 	}]);
 
-my $rev = $client->run_transaction( $rev_req );
+my $rev = $client->submit( $rev_req );
 
 isa_ok( $rev, 'Business::CyberSource::Response' );
 

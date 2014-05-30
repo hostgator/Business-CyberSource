@@ -25,7 +25,7 @@ my $req0
 		},
 	}]);
 
-my $ret0 = $client->run_transaction( $req0 );
+my $ret0 = $client->submit( $req0 );
 
 isa_ok $ret0, 'Business::CyberSource::Response';
 
@@ -55,7 +55,7 @@ my $req1
 		},
 	}]);
 
-my $ret1 = $client->run_transaction( $req1 );
+my $ret1 = $client->submit( $req1 );
 
 is( $ret1->decision,       'REJECT', 'check decision'       );
 is( $ret1->reason_code,     201,     'check reason_code'    );

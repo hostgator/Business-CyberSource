@@ -13,7 +13,7 @@ my $t = use_module('Test::Business::CyberSource')->new;
 my $client = $t->resolve( service => '/client/object'    );
 
 my $ret
-	= $client->run_transaction(
+	= $client->submit(
 		$t->resolve( service => '/request/authorization' )
 	);
 

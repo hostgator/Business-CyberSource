@@ -25,7 +25,7 @@ my $req0
 		},
 	);
 
-my $ret0 = $client->run_transaction( $req0 );
+my $ret0 = $client->submit( $req0 );
 
 isa_ok $ret0, 'Business::CyberSource::Response';
 
@@ -56,7 +56,7 @@ my $req1
 		},
 	);
 
-my $ret1 = $client->run_transaction( $req1 );
+my $ret1 = $client->submit( $req1 );
 
 isa_ok $ret1, 'Business::CyberSource::Response';
 
@@ -89,7 +89,7 @@ my $req2
 		},
 	);
 
-my $ret2 = $client->run_transaction( $req2 );
+my $ret2 = $client->submit( $req2 );
 
 isa_ok $ret2, 'Business::CyberSource::Response';
 
