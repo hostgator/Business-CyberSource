@@ -17,7 +17,7 @@ my $client
 		test => 1,
 	}]);
 
-my $exception = exception { $client->run_transaction( $req ) };
+my $exception = exception { $client->submit( $req ) };
 like $exception, qr/SOAP Fault/, 'run_transaction threw exception';
 
 done_testing;

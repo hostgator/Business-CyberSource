@@ -26,7 +26,7 @@ my $req0
 		},
 	);
 
-my $ret0 = $client->run_transaction( $req0 );
+my $ret0 = $client->submit( $req0 );
 
 my $req1
 	= new_ok( use_module('Business::CyberSource::Request::Capture') => [{
@@ -39,7 +39,7 @@ my $req1
 	}])
 	;
 
-my $ret1 = $client->run_transaction( $req1 );
+my $ret1 = $client->submit( $req1 );
 
 ok ! $ret1->has_trace,  'trace not set';
 is   $ret1->decision,   'REJECT', 'decision';
