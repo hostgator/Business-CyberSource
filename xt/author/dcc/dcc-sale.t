@@ -37,7 +37,7 @@ my $dcc_req
 
 my $client = $t->resolve( service => '/client/object' );
 
-my $dcc = $client->run_transaction( $dcc_req );
+my $dcc = $client->submit( $dcc_req );
 
 is( $dcc->purchase_totals->foreign_currency, 'JPY', 'check foreign currency' );
 is( $dcc->purchase_totals->foreign_amount, 116, 'check foreign amount' );
@@ -62,7 +62,7 @@ my $sale_req
 		dcc_indicator    => 1,
 		}]);
 
-my $sale_res = $client->run_transaction( $sale_req );
+my $sale_res = $client->submit( $sale_req );
 
 ok( $sale_res->is_accept, 'sale accepted' )
 	or diag $sale_res->reason_text;

@@ -45,7 +45,7 @@ foreach my $item ( @items ) {
 	$req->add_item( $item );
 }
 
-my $ret = $client->run_transaction( $req );
+my $ret = $client->submit( $req );
 
 isa_ok $ret, 'Business::CyberSource::Response';
 

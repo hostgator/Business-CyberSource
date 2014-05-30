@@ -1,6 +1,10 @@
+#!/usr/bin/env perl
+
 use strict;
 use warnings;
+
 use Test::More;
+use MooseX::Params::Validate;
 
 use FindBin;
 use Module::Runtime qw( use_module    );
@@ -11,66 +15,114 @@ my $t = use_module('Test::Business::CyberSource')->new;
 
 my $client = $t->resolve( service => '/client/object' );
 
-my $ret0
-	= $client->run_transaction(
-		$t->resolve(
-			service    => '/request/authorization',
-			parameters => {
-				purchase_totals => $t->resolve(
-					service    => '/helper/purchase_totals',
-					parameters => {
-						total => 3000.37, # magic make me expired
-					},
-				),
-			},
-		)
-	);
+subtest "American Express" => sub {
+    test_declined_authorization({ card_type => 'amex' });
+    test_expired_card({ card_type => 'amex' });
+};
 
-isa_ok( $ret0, 'Business::CyberSource::Response' );
+subtest "Visa" => sub {
+    test_declined_authorization({ card_type => 'visa' });
+    test_expired_card({ card_type => 'visa' });
+};
 
-is( $ret0->is_accept,                 0,       'success'            );
-is( $ret0->decision,                 'REJECT', 'decision'           );
-is( $ret0->reason_code,               202,     'reason_code'        );
-is( $ret0->auth->processor_response, '54',     'processor response' );
+subtest "MasterCard" => sub {
+    test_declined_authorization({ card_type => 'mastercard' });
+    test_expired_card({ card_type => 'mastercard' });
+};
 
-ok( $ret0->request_id,               'request_id exists'            );
-ok( $ret0->request_token,            'request_token exists'         );
-
-is(
-	$ret0->reason_text,
-	'Expired card. You might also receive this if the expiration date you '
-		. 'provided does not match the date the issuing bank has on file'
-		,
-	'reason_text',
-);
-
-my $ret1
-	= $client->run_transaction(
-		$t->resolve(
-			service    => '/request/authorization',
-			parameters => {
-				purchase_totals => $t->resolve(
-					service    => '/helper/purchase_totals',
-					parameters => {
-						total => 3000.04, # magic 201
-					},
-				),
-			},
-		)
-	);
-
-isa_ok( $ret1, 'Business::CyberSource::Response' );
-
-
-is( $ret1->decision,       'REJECT', 'decision'       );
-is( $ret1->reason_code,     201,     'reason_code'    );
-is(
-	$ret1->reason_text,
-	'The issuing bank has questions about the request. You do not '
-	. 'receive an authorization code programmatically, but you might '
-	. 'receive one verbally by calling the processor'
-	,
-	'reason_text',
-);
+subtest "Discover" => sub {
+    test_declined_authorization({ card_type => 'discover' });
+    test_expired_card({ card_type => 'discover' });
+};
 
 done_testing;
+
+sub test_expired_card {
+    my (%args) = validated_hash(
+        \@_,
+        card_type => { isa => 'Str' },
+    );
+
+    subtest "Test Expired Card" => sub {
+        my $ret
+            = $client->submit(
+                $t->resolve(
+                    service    => '/request/authorization',
+                    parameters => {
+                        card            => $t->resolve(
+                            service => '/helper/card_' . $args{card_type}
+                        ),
+                        purchase_totals => $t->resolve(
+                            service    => '/helper/purchase_totals',
+                            parameters => {
+                                total => 3000.37, # magic make me expired
+                            },
+                        ),
+                    },
+                )
+            );
+
+        isa_ok( $ret, 'Business::CyberSource::Response' );
+
+        is( $ret->is_accept,                 0,       'success'            );
+        is( $ret->decision,                 'REJECT', 'decision'           );
+        is( $ret->reason_code,               202,     'reason_code'        );
+        is( $ret->auth->processor_response, '54',     'processor response' );
+
+        ok( $ret->request_id,               'request_id exists'            );
+        ok( $ret->request_token,            'request_token exists'         );
+
+        is(
+            $ret->reason_text,
+            'Expired card. You might also receive this if the expiration date you '
+                . 'provided does not match the date the issuing bank has on file'
+                ,
+            'reason_text',
+        );
+    };
+
+    return;
+};
+
+sub test_declined_authorization {
+    my (%args) = validated_hash(
+        \@_,
+        card_type => { isa => 'Str' },
+    );
+
+    subtest "Test Declined Authorization" => sub {
+        my $ret
+            = $client->submit(
+                $t->resolve(
+                    service    => '/request/authorization',
+                    parameters => {
+                        card            => $t->resolve(
+                            service => '/helper/card_' . $args{card_type}
+                        ),
+                        purchase_totals => $t->resolve(
+                            service    => '/helper/purchase_totals',
+                            parameters => {
+                                total => 3000.04, # magic 201
+                            },
+                        ),
+                    },
+                )
+            );
+
+        isa_ok( $ret, 'Business::CyberSource::Response' );
+
+
+        is( $ret->decision,       'REJECT', 'decision'       );
+        is( $ret->reason_code,     201,     'reason_code'    );
+        is(
+            $ret->reason_text,
+            'The issuing bank has questions about the request. You do not '
+            . 'receive an authorization code programmatically, but you might '
+            . 'receive one verbally by calling the processor'
+            ,
+            'reason_text',
+        );
+    };
+
+    return;
+}

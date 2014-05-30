@@ -40,7 +40,7 @@ my $dcc_req
 
 my $client = $t->resolve( service => '/client/object' );
 
-my $res = $client->run_transaction( $dcc_req );
+my $res = $client->submit( $dcc_req );
 
 my $dcc = $res->dcc;
 my $ptotals = $res->purchase_totals;
@@ -68,7 +68,7 @@ my $auth_req
 		},
 	}]);
 
-my $auth_res = $client->run_transaction( $auth_req );
+my $auth_res = $client->submit( $auth_req );
 
 ok $auth_res->is_accept, 'card authorized'
 	or diag $auth_res->reason_text;
@@ -84,7 +84,7 @@ my $cap_req
 		},
 	}]);
 
-my $cap_res = $client->run_transaction( $cap_req );
+my $cap_res = $client->submit( $cap_req );
 
 my $cred_req
 	= new_ok( use_module( 'Business::CyberSource::Request::FollowOnCredit') => [{
@@ -96,7 +96,7 @@ my $cred_req
 		service  => { request_id => $cap_res->request_id },
 	}]);
 
-my $cred_res = $client->run_transaction( $cred_req );
+my $cred_res = $client->submit( $cred_req );
 
 is( $cred_res->is_accept, 1, 'check that credit decicion is ACCEPT')
 	or diag $cred_res->reason_text;

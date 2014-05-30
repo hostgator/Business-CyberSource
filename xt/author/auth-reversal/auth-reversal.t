@@ -1,6 +1,11 @@
+#!/usr/bin/env perl
+
 use strict;
 use warnings;
+
 use Test::More;
+use MooseX::Params::Validate;
+
 use FindBin;
 use Module::Runtime qw( use_module    );
 use Test::Requires  qw( Path::FindDev );
@@ -12,35 +17,93 @@ my $client = $t->resolve( service => '/client/object'    );
 
 my $authrevc = use_module('Business::CyberSource::Request::AuthReversal');
 
-my $res
-	= $client->run_transaction(
-		$t->resolve( service => '/request/authorization' )
-	);
+subtest "Visa" => sub {
+    test_successful_authorization_reversal({ card_type => 'visa' });
+};
 
-my $rev_req
-	= new_ok( $authrevc => [{
-		reference_code => $res->reference_code,
-		service => {
-			request_id => $res->request_id,
-		},
-		purchase_totals => {
-			total    => $res->auth->amount,
-			currency => $res->currency,
-		},
-	}]);
+subtest "MasterCard" => sub {
+    test_successful_authorization_reversal({ card_type => 'mastercard' });
+};
 
-my $rev = $client->run_transaction( $rev_req );
+subtest "Discover" => sub {
+    test_successful_authorization_reversal({ card_type => 'discover' });
+};
 
-isa_ok( $rev, 'Business::CyberSource::Response' );
+subtest "American Express (Does Not Permit Auth Reversals)" => sub {
+    my $res = $client->submit(
+        $t->resolve(
+            service => '/request/authorization',
+            parameters => {
+                card => $t->resolve( service => '/helper/card_amex' ),
+            },
+        )
+    );
 
-ok( $rev, 'reversal response exists' );
+    my $rev_req
+        = new_ok( $authrevc => [{
+            reference_code => $res->reference_code,
+            service => {
+                request_id => $res->request_id,
+            },
+            purchase_totals => {
+                total    => $res->auth->amount,
+                currency => $res->currency,
+            },
+        }]);
 
-is( $rev->decision, 'ACCEPT', 'check decision' );
-is( $rev->reason_code, 100, 'check reason_code' );
-is( $rev->currency, 'USD', 'check currency' );
-is( $rev->auth_reversal->amount, '3000.00', 'check amount' );
-is( $rev->auth_reversal->reason_code , 100, 'check capture_reason_code' );
+    my $rev = $client->submit( $rev_req );
 
-ok( $rev->auth_reversal->datetime, 'datetime exists' );
+    isa_ok( $rev, 'Business::CyberSource::Response' );
+
+    ok( $rev, 'reversal response exists' );
+
+    is( $rev->decision, 'REJECT', 'check decision' );
+    is( $rev->reason_code, 231, 'check reason_code' );
+    is( $rev->auth_reversal->reason_code , 231, 'check capture_reason_code' );
+};
 
 done_testing;
+
+sub test_successful_authorization_reversal {
+    my (%args) = validated_hash(
+        \@_,
+        card_type => { isa => 'Str' },
+    );
+
+    my $res = $client->submit(
+        $t->resolve(
+            service => '/request/authorization',
+            parameters => {
+                card => $t->resolve( service => '/helper/card_' . $args{card_type} ),
+            },
+        )
+    );
+
+    my $rev_req
+        = new_ok( $authrevc => [{
+            reference_code => $res->reference_code,
+            service => {
+                request_id => $res->request_id,
+            },
+            purchase_totals => {
+                total    => $res->auth->amount,
+                currency => $res->currency,
+            },
+        }]);
+
+    my $rev = $client->submit( $rev_req );
+
+    isa_ok( $rev, 'Business::CyberSource::Response' );
+
+    ok( $rev, 'reversal response exists' );
+
+    is( $rev->decision, 'ACCEPT', 'check decision' );
+    is( $rev->reason_code, 100, 'check reason_code' );
+    is( $rev->currency, 'USD', 'check currency' );
+    is( $rev->auth_reversal->amount, '3000.00', 'check amount' );
+    is( $rev->auth_reversal->reason_code , 100, 'check capture_reason_code' );
+
+    ok( $rev->auth_reversal->datetime, 'datetime exists' );
+
+    return;
+};
