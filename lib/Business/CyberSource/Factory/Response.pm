@@ -12,29 +12,6 @@ extends 'Business::CyberSource::Factory';
 use Module::Runtime  qw( use_module );
 use Try::Tiny;
 
-use Exception::Base (
-	'Business::CyberSource::Exception' => {
-		has => [ qw( answer ) ],
-	},
-	'Business::CyberSource::Response::Exception' => {
-		isa => 'Business::CyberSource::Exception',
-		has => [qw(
-			decision
-			reason_text
-			reason_code
-			request_id
-			request_token
-			trace
-			is_error
-			is_accept
-			is_reject
-		)],
-		string_attributes => [ qw( message decision reason_text ) ],
-	},
-	verbosity      => 4,
-	ignore_package => [ __PACKAGE__, 'Business::CyberSource::Client' ],
-);
-
 sub create {
 	my ( $self, $result , $request ) = @_;
 
@@ -54,7 +31,6 @@ sub create {
 			my %exception = (
 				message       => 'BUG! please report: ' . $_,
 				reason_code   => $result->{reasonCode},
-				value         => $result->{reasonCode},
 				decision      => $result->{decision},
 				request_id    => $result->{requestID},
 				request_token => $result->{requestToken},
@@ -66,7 +42,8 @@ sub create {
 				->_build_reason_text( $result->{reasonCode} )
 				;
 
-			Business::CyberSource::Response::Exception->throw( %exception );
+			die ## no critic ( ErrorHandling::RequireCarping )
+				use_module('Business::CyberSource::Exception::Response')->new( %exception );
 		};
 
 	if ( blessed $response && $response->is_error ) {
@@ -74,7 +51,6 @@ sub create {
 			message       => 'message from CyberSource\'s API',
 			reason_text   => $response->reason_text,
 			reason_code   => $response->reason_code,
-			value         => $response->reason_code,
 			decision      => $response->decision,
 			request_id    => $response->request_id,
 			request_token => $response->request_token,
@@ -84,7 +60,8 @@ sub create {
 		);
 		$exception{trace} = $response->trace if $response->has_trace;
 
-		Business::CyberSource::Response::Exception->throw( %exception );
+		die ## no critic ( ErrorHandling::RequireCarping )
+			use_module('Business::CyberSource::Exception::Response')->new( %exception );
 	}
 
 	return $response;

@@ -20,15 +20,6 @@ use MooseX::Types::CreditCard 0.002 qw(
 	CardExpiration
 );
 
-use Exception::Base (
-	'Business::CyberSource::Card::Exception' => {
-		has               => [qw( type )],
-		string_attributes => [qw( type message )],
-	},
-	verbosity => 4,
-	ignore_package => [ __PACKAGE__ ],
-);
-
 use Module::Runtime qw( use_module );
 
 sub _build_type {
@@ -37,7 +28,8 @@ sub _build_type {
 	use_module('Business::CreditCard');
 	my $ct = Business::CreditCard::cardtype( $self->account_number );
 
-	Exception::Base->throw( message => $ct )
+	die ## no critic ( ErrorHandling::RequireCarping )
+		use_module('Business::CyberSource::Exception::NotACreditCard')->new
 		if $ct =~ /not a credit card/ixms
 		;
 
@@ -90,13 +82,10 @@ sub _build_card_type_code {
 		:                                  undef
 		;
 
-	Business::CyberSource::Card::Exception->throw(
-		message => 'card type code was unable to be detected please define it'
-			. ' manually'
-			,
-		type => $self->type,
-	)
-	unless $code;
+	my $exception_ns = 'Business::CyberSource::Exception::';
+	die ## no critic ( ErrorHandling::RequireCarping )
+		use_module( $exception_ns . 'UnableToDetectCardTypeCode')
+		->new( type => $self->type) unless $code;
 
 	return $code;
 }
