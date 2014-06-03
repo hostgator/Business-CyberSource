@@ -155,7 +155,7 @@ sub _build_cybs_wsdl {
 				$dir
 				. '/'
 				. 'CyberSourceTransaction_'
-				. $self->cybs_api_version
+				. $self->_version_for_filename
 				. '.wsdl'
 			)
 		);
@@ -173,7 +173,7 @@ sub _build_cybs_xsd {
 				$dir
 				. '/'
 				. 'CyberSourceTransaction_'
-				. $self->cybs_api_version
+				. $self->_version_for_filename
 				. '.xsd'
 			)
 		);
@@ -190,6 +190,13 @@ sub _build__rules {
 		} $self->list_rules;
 
 	return \@rules;
+}
+
+sub _version_for_filename {
+	my $self = shift;
+	my $version = $self->cybs_api_version;
+	$version =~ s/\./_/xms;
+	return $version;
 }
 
 has _soap_client => (
