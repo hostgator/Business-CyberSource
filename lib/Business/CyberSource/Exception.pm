@@ -8,8 +8,10 @@ use Moose;
 extends 'Moose::Exception';
 
 has trace => (
-    is   => 'ro',
-    isa  => 'XML::Compile::SOAP::Trace',
+    is        => 'ro',
+    isa       => 'Maybe[XML::Compile::SOAP::Trace]',
+    required  => 0,
+    predicate => 'has_trace',
 );
 
 use overload '""' =>
@@ -18,7 +20,7 @@ use overload '""' =>
 
         my $error;
 
-        if(defined $self->trace) {
+        if($self->has_trace && defined $self->trace) {
             $error = "Date: " . $self->trace->date     . "\n"
                 . "Request: "    . $self->trace->request->as_string  . "\n"
                 . "Response: "   . $self->trace->response->as_string . "\n";
