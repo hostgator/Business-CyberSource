@@ -24,7 +24,6 @@ isa_ok( $exception, 'Business::CyberSource::Exception' )
 
 like(  "$exception",         qr/error/i, 'stringify'   );
 is  (   $exception->decision,'ERROR',    'decision'    );
-is  (   $exception+0,        150,        'numerify'    );
 is  (   $exception->value ,  150,        'value'       );
 
 done_testing;

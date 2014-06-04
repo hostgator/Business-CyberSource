@@ -3,8 +3,10 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 
+use FindBin;
+use Test::Requires  qw( Path::FindDev );
+use lib Path::FindDev::find_dev( $FindBin::Bin )->child('t', 'lib' )->stringify;
 use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = new_ok( use_module('Test::Business::CyberSource') );
 
