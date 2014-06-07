@@ -26,7 +26,7 @@ before [qw( trace has_trace ) ] => sub {
 };
 
 1;
-# ABSTACT: provides http_trace
+# ABSTRACT: provides http_trace
 
 =attr http_trace
 
