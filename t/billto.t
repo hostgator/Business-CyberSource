@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 use Test::Moose;
 use Module::Runtime qw( use_module );
 use Test::Requires  qw( NetAddr::IP );
@@ -23,18 +24,18 @@ isa_ok ( $billto->ip,         'NetAddr::IP'                                 );
 does_ok( $billto,             'MooseX::RemoteHelper::CompositeSerialization');
 can_ok ( $billto,             'serialize'                                   );
 
-is( $billto->first_name,      'Caleb',                   '->first_name'     );
-is( $billto->last_name,       'Cushing',                 '->last_name'      );
-is( $billto->street1,         '8100 Cameron Road',       '->street1'        );
-is( $billto->street2,         'Suite B-100',             '->street2'        );
-is( $billto->city,            'Austin',                  '->city'           );
-is( $billto->state,           'TX',                      '->state'          );
-is( $billto->country,         'US',                      '->country'        );
-is( $billto->email,           'xenoterracide@gmail.com', '->email'          );
-is( $billto->postal_code,     '78753',                   '->postal_code'    );
-is( $billto->ip->addr,        '192.168.100.2',           '->ip_address'     );
+method_ok $billto, first_name  => [], 'Caleb';
+method_ok $billto, last_name   => [], 'Cushing';
+method_ok $billto, street1     => [], '8100 Cameron Road';
+method_ok $billto, street2     => [], 'Suite B-100';
+method_ok $billto, city        => [], 'Austin';
+method_ok $billto, state       => [], 'TX';
+method_ok $billto, country     => [], 'US';
+method_ok $billto, email       => [], 'xenoterracide@gmail.com';
+method_ok $billto, postal_code => [], '78753';
+method_ok $billto->ip, addr    => [], '192.168.100.2';
 
-is( ref $billto->serialize,   'HASH',                    'serialize type'   );
+is ref $billto->serialize, 'HASH', 'serialize type';
 
 my %expected_serialized
 	= (
@@ -50,7 +51,7 @@ my %expected_serialized
 		email      => 'xenoterracide@gmail.com',
 	);
 
-is_deeply( $billto->serialize, \%expected_serialized, 'serialized'          );
+method_ok $billto,  serialize => [], \%expected_serialized;
 
 my $billto1 = new_ok( use_module('Business::CyberSource::RequestPart::BillTo') => [{
 	first_name  => 'Caleb',
@@ -65,6 +66,6 @@ my $billto1 = new_ok( use_module('Business::CyberSource::RequestPart::BillTo') =
 	ip          => '192.168.100.2',
 }]);
 
-ok ! $billto1->has_street2, 'street2 unset';
+method_ok $billto1, has_street2 => [], '';
 
 done_testing;
