@@ -13,8 +13,7 @@ use Moose::Util::TypeConstraints;
 
 use MooseX::StrictConstructor;
 
-use MooseX::Types::Moose   qw( HashRef Str );
-use MooseX::Types::Path::Class qw( File Dir );
+use MooseX::Types::Moose          qw( HashRef Str );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
@@ -130,8 +129,8 @@ sub _build_soap_client {
 
 	my $wss = XML::Compile::SOAP::WSS->new( version => '1.1' );
 
-	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl->stringify );
-	$wsdl->importDefinitions( $self->cybs_xsd->stringify );
+	my $wsdl = XML::Compile::WSDL11->new( $self->cybs_wsdl );
+	$wsdl->importDefinitions( $self->cybs_xsd );
 
 	$wss->basicAuth(
 		username => $self->user,
@@ -149,15 +148,13 @@ sub _build_cybs_wsdl {
 	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
-	return use_module('Path::Class::File')->new(
-			dist_file(
-				'Business-CyberSource',
-				$dir
-				. '/'
-				. 'CyberSourceTransaction_'
-				. $self->_version_for_filename
-				. '.wsdl'
-			)
+	return dist_file(
+			'Business-CyberSource',
+			$dir
+			. '/'
+			. 'CyberSourceTransaction_'
+			. $self->_version_for_filename
+			. '.wsdl'
 		);
 }
 
@@ -167,15 +164,13 @@ sub _build_cybs_xsd {
 	my $dir = $self->test ? 'test' : 'production';
 
 	load 'File::ShareDir::ProjectDistDir', 'dist_file';
-	return use_module('Path::Class::File')->new(
-			dist_file(
-				'Business-CyberSource',
-				$dir
-				. '/'
-				. 'CyberSourceTransaction_'
-				. $self->_version_for_filename
-				. '.xsd'
-			)
+	return dist_file(
+			'Business-CyberSource',
+			$dir
+			. '/'
+			. 'CyberSourceTransaction_'
+			. $self->_version_for_filename
+			. '.xsd'
 		);
 }
 
@@ -291,18 +286,16 @@ has cybs_api_version => (
 );
 
 has cybs_wsdl => (
-	required  => 0,
 	lazy      => 1,
 	is        => 'ro',
-	isa       => File,
+	isa       => 'Str',
 	builder   => '_build_cybs_wsdl',
 );
 
 has cybs_xsd => (
-	required => 0,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => File,
+	isa      => 'Str',
 	builder  => '_build_cybs_xsd',
 );
 
