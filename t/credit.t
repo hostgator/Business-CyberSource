@@ -4,7 +4,7 @@ use Test::More;
 use Test::Method;
 
 use Module::Runtime 'use_module';
-use FindBin; use lib "$FindBin::Bin/../lib";
+use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = use_module('Test::Business::CyberSource')->new;
 

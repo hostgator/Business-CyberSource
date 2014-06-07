@@ -3,7 +3,7 @@ use warnings;
 use Test::More;
 
 use Module::Runtime qw( use_module );
-use FindBin; use lib "$FindBin::Bin/../lib";
+use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = use_module('Test::Business::CyberSource')->new;
 
