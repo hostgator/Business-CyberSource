@@ -111,7 +111,7 @@ sub submit {
 		Carp::carp "\n< " . $trace->response->as_string;
 	}
 
-	$request->_trace( $trace ) if $request->can('_trace');
+	$request->_http_trace( $trace );
 
 	if ( $answer->{Fault} ) {
 		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};

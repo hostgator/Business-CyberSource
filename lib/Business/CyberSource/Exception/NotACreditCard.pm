@@ -1,6 +1,7 @@
 package Business::CyberSource::Exception::NotACreditCard;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 

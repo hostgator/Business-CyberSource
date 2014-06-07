@@ -1,12 +1,17 @@
 package Business::CyberSource::Exception::Response;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 
 use Moose;
+use namespace::autoclean;
 use MooseX::Aliases;
 extends 'Business::CyberSource::Exception';
+with qw(
+	Business::CyberSource::Role::Traceable
+);
 
 sub _build_message {
 	my $self = shift;
@@ -26,7 +31,6 @@ has $_ => (
 has reason_code => (
 	isa   => 'Int',
 	is    => 'ro',
-	alias => 'value',
 );
 
 has $_ => (

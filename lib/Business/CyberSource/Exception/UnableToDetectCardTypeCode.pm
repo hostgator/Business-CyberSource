@@ -1,6 +1,7 @@
 package Business::CyberSource::Exception::UnableToDetectCardTypeCode;
 use strict;
 use warnings;
+use namespace::autoclean;
 
 # VERSION
 

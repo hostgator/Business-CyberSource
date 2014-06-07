@@ -107,7 +107,7 @@ has items => (
 	},
 );
 
-has '+trace' => (
+has '+http_trace' => (
 	is        => 'rw',
 	init_arg  => undef
 );

@@ -34,7 +34,7 @@ sub create {
 				decision      => $result->{decision},
 				request_id    => $result->{requestID},
 				request_token => $result->{requestToken},
-				trace         => $result->{trace},
+				http_trace    => $result->{trace},
 			);
 
 			$exception{reason_text}

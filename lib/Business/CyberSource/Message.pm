@@ -8,15 +8,8 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::MessagePart';
 with qw(
+	Business::CyberSource::Role::Traceable
 	Business::CyberSource::Role::MerchantReferenceCode
-);
-
-has trace => (
-	isa       => 'XML::Compile::SOAP::Trace',
-	predicate => 'has_trace',
-	traits    => [ 'SetOnce' ],
-	is        => 'rw',
-	writer    => '_trace',
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -36,9 +29,3 @@ L<Business::CyberSource::MessagePart>
 
 =back
 
-=attr trace
-
-A L<XML::Compile::SOAP::Trace> object which is populated only after the object
-has been submitted to CyberSource by a L<Business::CyberSource::Client>.
-
-=cut
