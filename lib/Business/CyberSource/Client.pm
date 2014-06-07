@@ -27,49 +27,6 @@ use XML::Compile::Transport::SOAPHTTP;
 
 our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 
-around BUILDARGS => sub {
-    my $orig  = shift;
-    my $class = shift;
-
-	my $args = $class->$orig( @_ );
-
-	if ( exists $args->{username} ) {
-		warnings::warnif('deprecated',
-			'`username` is deprecated, use `user` instead'
-		);
-
-		$args->{user} = delete $args->{username};
-	}
-
-	if ( exists $args->{password} ) {
-		warnings::warnif('deprecated',
-			'`password` is deprecated, use `pass` instead'
-		);
-
-		$args->{pass} = delete $args->{password};
-	}
-
-	if ( exists $args->{production} ) {
-		warnings::warnif('deprecated',
-			'`production` is deprecated, use `test` instead'
-		);
-
-		$args->{test} = delete( $args->{production} ) ? 0 : 1;
-	}
-
-	return $args;
-};
-
-sub run_transaction {
-	my ( $self, $request ) = @_;
-
-	warnings::warnif('deprecated',
-		'run_transaction is deprecated, use submit instead'
-	);
-
-	return $self->submit( $request );
-}
-
 sub submit {
 	my ( $self, $request ) = @_;
 
@@ -334,10 +291,6 @@ L<MooseY::RemoteHelper::Role::Client>
 
 Takes a L<Business::CyberSource::Request> subclass as a parameter and returns
 a L<Business::CyberSource::Response>
-
-=method run_transaction
-
-DEPRECATED, use L</submit>
 
 =attr user
 
