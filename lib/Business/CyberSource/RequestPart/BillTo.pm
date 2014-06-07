@@ -154,6 +154,17 @@ has ip => (
 	},
 );
 
+foreach my $attr (qw( street province zip phone ) ) {
+
+	my $deprecated = sub {
+		warnings::warnif('deprecated', # this is due to Moose::Exception conflict
+			"$attr deprecated check the perldoc for the actual attribute"
+		);
+	};
+
+	before( $attr, $deprecated );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -198,7 +209,7 @@ City of the billing address.
 
 =attr state
 
-State or province of the billing address. Use the two-character codes. alias: C<province>
+State or province of the billing address. Use the two-character codes.
 
 =attr country
 
