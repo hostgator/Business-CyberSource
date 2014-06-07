@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Moose;
 
 use Business::CyberSource::Client;
 my $class = 'Business::CyberSource::Client';
@@ -12,8 +13,8 @@ my $client
 		test => 1,
 	}]);
 
-can_ok  $client, 'run_transaction';
 can_ok  $client, qw( name version env );
+does_ok $client, 'MooseY::RemoteHelper::Role::Client';
 
 is $client->name, 'Business::CyberSource', "$class->name";
 
