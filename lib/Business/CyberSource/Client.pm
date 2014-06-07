@@ -12,9 +12,9 @@ with 'MooseY::RemoteHelper::Role::Client';
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose          qw( HashRef Str );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
+use Type::Utils                   qw( duck_type class_type          );
 
 use Config;
-use Type::Utils;
 use Type::Params    qw( compile    );
 use Module::Runtime qw( use_module );
 use Module::Load    qw( load       );
@@ -26,7 +26,7 @@ use XML::Compile::Transport::SOAPHTTP;
 
 our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 
-sub submit {
+sub submit { ## no critic ( Subroutines::RequireArgUnpacking )
 	state $class = class_type { class => __PACKAGE__ };
 	state $check = compile( $class, duck_type(['serialize']));
 	my ( $self, $request ) = $check->( @_ );
