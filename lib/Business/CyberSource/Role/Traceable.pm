@@ -34,3 +34,11 @@ A L<XML::Compile::SOAP::Trace> object which is populated only after the object
 has been submitted to CyberSource by a L<Business::CyberSource::Client>.
 
 =cut
+
+=method trace
+
+aliased to L</http_trace>
+
+=method has_trace
+
+aliased to L</has_http_trace>
