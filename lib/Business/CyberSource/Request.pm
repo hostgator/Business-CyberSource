@@ -12,7 +12,6 @@ with qw(
 	MooseX::RemoteHelper::CompositeSerialization
 );
 
-use MooseX::Types::Moose       qw( ArrayRef );
 use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
 
 use Module::Runtime  qw( use_module );
@@ -23,7 +22,8 @@ before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
 	my $self = shift;
 
 	if ( ! $self->has_total && ( ! $self->has_items || $self->items_is_empty ) ) {
-		confess 'you must define either items or total';
+		die ## no critic ( ErrorHandling::RequireCarping )
+			use_module('Business::CyberSource::Exception::ItemsOrTotal')->new;
 	}
 };
 
