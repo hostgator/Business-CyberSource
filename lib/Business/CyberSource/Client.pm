@@ -17,6 +17,7 @@ use MooseX::Types::Moose          qw( HashRef Str );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
+use Safe::Isa;
 use Module::Runtime  qw( use_module );
 use Module::Load     qw( load       );
 
@@ -30,9 +31,7 @@ our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 sub submit {
 	my ( $self, $request ) = @_;
 
-	confess 'request undefined'         unless defined $request;
-	confess 'request not an object'     unless blessed $request;
-	confess 'request can not serialize' unless $request->can('serialize');
+	confess 'request can not serialize' unless $request->$_can('serialize');
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
 		my $result;
