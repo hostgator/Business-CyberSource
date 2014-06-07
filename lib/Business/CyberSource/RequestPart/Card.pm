@@ -180,6 +180,21 @@ has _expiration_year => (
 	default     => sub { $_[0]->expiration->year },
 );
 
+foreach my $attr ( qw(
+	credit_card_number
+	card_number
+	cvn cvv cvv2
+	cvc2 cid name
+	full_name
+	card_holder ) ) {
+	my $deprecated = sub {
+		warnings::warnif('deprecated', # this is due to Moose::Exception conflict
+			"$attr deprecated check the perldoc for the actual attribute"
+		);
+	};
+
+	before( $attr, $deprecated );
+}
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Credit Card Helper Class
