@@ -67,7 +67,9 @@ sub submit { ## no critic ( Subroutines::RequireArgUnpacking )
 	$request->_http_trace( $trace );
 
 	if ( $answer->{Fault} ) {
-		confess 'SOAP Fault: ' . $answer->{Fault}->{faultstring};
+		die ## no critic ( ErrorHandling::RequireCarping )
+			use_module('Business::CyberSource::Exception::SOAPFault')
+			->new( $answer->{Fault} );
 	}
 
 	if ( $self->debug >= 1 ) {

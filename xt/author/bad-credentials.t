@@ -20,6 +20,7 @@ my $client
 	}]);
 
 my $exception = exception { $client->submit( $req ) };
-like $exception, qr/SOAP Fault/, 'run_transaction threw exception';
+
+isa_ok $exception, 'Business::CyberSource::Exception::SOAPFault';
 
 done_testing;
