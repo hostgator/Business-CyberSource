@@ -15,9 +15,9 @@ has value => (
 	default => 0,
 );
 
-around value => sub {
+before value => sub {
 		warnings::warnif('deprecated',
-			'value is deprecated as Exception::Base is no longer in use'
+			'method `value` is deprecated as Exception::Base is no longer in use'
 		);
 };
 

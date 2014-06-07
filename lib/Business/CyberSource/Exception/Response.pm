@@ -9,9 +9,9 @@ use Moose;
 use namespace::autoclean;
 use MooseX::Aliases;
 extends 'Business::CyberSource::Exception';
-with qw(
-	Business::CyberSource::Role::Traceable
-);
+with 'Business::CyberSource::Role::Traceable' => {
+	-excludes => [qw( trace )]
+};
 
 sub _build_message {
 	my $self = shift;

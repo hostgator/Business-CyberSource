@@ -11,6 +11,7 @@ extends 'Business::CyberSource::Factory';
 
 use Module::Runtime  qw( use_module );
 use Try::Tiny;
+use Safe::Isa;
 
 sub create {
 	my ( $self, $result , $request ) = @_;
@@ -31,6 +32,7 @@ sub create {
 			my %exception = (
 				message       => 'BUG! please report: ' . $_,
 				reason_code   => $result->{reasonCode},
+				value         => $result->{reasonCode},
 				decision      => $result->{decision},
 				request_id    => $result->{requestID},
 				request_token => $result->{requestToken},
@@ -46,11 +48,12 @@ sub create {
 				use_module('Business::CyberSource::Exception::Response')->new( %exception );
 		};
 
-	if ( blessed $response && $response->is_error ) {
+	if ( $response->$_call_if_object('is_error') ) {
 		my %exception = (
 			message       => 'message from CyberSource\'s API',
 			reason_text   => $response->reason_text,
 			reason_code   => $response->reason_code,
+			value         => $response->reason_code,
 			decision      => $response->decision,
 			request_id    => $response->request_id,
 			request_token => $response->request_token,
