@@ -10,9 +10,13 @@ extends 'Business::CyberSource::Request::Credit';
 
 sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	my $self = shift;
-	confess 'a Follow On Credit should set a request_id'
-		unless $self->service->has_request_id
-		;
+	die ## no critic ( ErrorHandling::RequireCarping )
+		use_module('Business::CyberSource::Exception::AttributeIsRequiredNotToBeSet')
+		->new(
+			attribute_name => 'request_id',
+			class_name     => __PACKAGE__,
+			message        => 'a Follow On Credit should set a request_id',
+		) unless $self->service->has_request_id;
 };
 
 __PACKAGE__->meta->make_immutable;
