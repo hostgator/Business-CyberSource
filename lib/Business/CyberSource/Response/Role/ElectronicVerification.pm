@@ -91,7 +91,7 @@ has ev_street_raw => (
 
 1;
 
-# ABSTRACT: Eletronic Verification Information
+# ABSTRACT: Electronic Verification Information
 
 =head1 DESCRIPTION
 
@@ -104,7 +104,7 @@ L<http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_SO_API/Cr
 
 There are two types of attributes, B<raw> are values specified by your payment processor while
 all other attributes are mapped by CyberSource from values specified by the payment processor.
-It is strongly recommened that you avoid the raw values if possible to account for differences
+It is strongly recommended that you avoid the raw values if possible to account for differences
 in payment processors.
 
 The possible values for the mapped fields include (shamelessly taken from CyberSource's Documentation):
