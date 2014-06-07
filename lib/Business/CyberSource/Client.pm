@@ -14,9 +14,10 @@ use MooseX::Types::Moose          qw( HashRef Str );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 
 use Config;
-use Safe::Isa;
-use Module::Runtime  qw( use_module );
-use Module::Load     qw( load       );
+use Type::Utils;
+use Type::Params    qw( compile    );
+use Module::Runtime qw( use_module );
+use Module::Load    qw( load       );
 
 use XML::Compile::SOAP::WSS 1.04;
 use XML::Compile::WSDL11;
@@ -26,9 +27,9 @@ use XML::Compile::Transport::SOAPHTTP;
 our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 
 sub submit {
-	my ( $self, $request ) = @_;
-
-	confess 'request can not serialize' unless $request->$_can('serialize');
+	state $class = class_type { class => __PACKAGE__ };
+	state $check = compile( $class, duck_type(['serialize']));
+	my ( $self, $request ) = $check->( @_ );
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
 		my $result;

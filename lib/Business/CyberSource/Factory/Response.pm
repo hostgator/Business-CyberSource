@@ -9,7 +9,6 @@ use namespace::autoclean;
 use Moose;
 use Module::Runtime  qw( use_module );
 use Try::Tiny;
-use Safe::Isa;
 
 sub create {
 	my ( $self, $result , $request ) = @_;
@@ -46,7 +45,7 @@ sub create {
 				use_module('Business::CyberSource::Exception::Response')->new( %exception );
 		};
 
-	if ( $response->$_call_if_object('is_error') ) {
+	if ( blessed $response && $response->is_error ) {
 		my %exception = (
 			message       => 'message from CyberSource\'s API',
 			reason_text   => $response->reason_text,
