@@ -10,9 +10,6 @@ use Moose;
 with 'MooseY::RemoteHelper::Role::Client';
 
 use Moose::Util::TypeConstraints;
-
-use MooseX::StrictConstructor;
-
 use MooseX::Types::Moose          qw( HashRef Str );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
 

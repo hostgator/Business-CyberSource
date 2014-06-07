@@ -6,8 +6,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use MooseX::StrictConstructor;
-
 use Module::Runtime qw( use_module );
 
 sub debug {

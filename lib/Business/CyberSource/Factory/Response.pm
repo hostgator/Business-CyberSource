@@ -7,8 +7,6 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-extends 'Business::CyberSource::Factory';
-
 use Module::Runtime  qw( use_module );
 use Try::Tiny;
 use Safe::Isa;
