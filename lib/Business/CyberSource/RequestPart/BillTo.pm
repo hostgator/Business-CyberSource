@@ -22,16 +22,27 @@ use MooseX::Types::CyberSource qw(
 	_VarcharSixty
 );
 
+use Moose::Util 'throw_exception';
 use Moose::Util::TypeConstraints;
 
 sub BUILD { ## no critic ( Subroutines::RequireFinalReturn )
 	my $self = shift;
 	if ( $self->country eq 'US' or $self->country eq 'CA' ) {
-		confess 'postal_code is required for US or Canada'
-			unless $self->has_postal_code;
+		throw_exception(AttributeIsRequired =>
+			attribute_name => 'postal_code',
+			class_name     => __PACKAGE__,
+			message        => 'Attribute ('
+				. 'postal_code'
+				. ') is required for US or Canada',
+		) unless $self->has_postal_code;
 
-		confess 'state is required for US or Canada'
-			unless $self->has_state;
+		throw_exception(AttributeIsRequired =>
+			attribute_name => 'state',
+			class_name     => __PACKAGE__,
+			message        => 'Attribute ('
+				. 'state'
+				. ') is required for US or Canada',
+		) unless $self->has_state;
 	}
 }
 

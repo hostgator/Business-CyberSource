@@ -33,9 +33,9 @@ my $exception1
 		email          => 'xenoterracide@gmail.com',
 	});
 };
-
-like $exception1, qr/postal_code is required for US or Canada/,
-	'us/ca require a zip code';
+isa_ok $exception1, 'Moose::Exception::AttributeIsRequired';
+like $exception1, qr/postal_code/, 'us/ca require a postal_code';
+like $exception1, qr/US or Canada/, 'us/ca require a postal_code';
 
 my $exception2
 	= exception { $billto_c->new({
@@ -49,7 +49,8 @@ my $exception2
 	});
 };
 
-like $exception2, qr/state is required for US or Canada/,
-	'us/ca require a state';
+isa_ok $exception2, 'Moose::Exception::AttributeIsRequired';
+like $exception2, qr/state/, 'us/ca require a postal_code';
+like $exception2, qr/US or Canada/, 'us/ca require a postal_code';
 
 done_testing;
