@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 
@@ -40,7 +41,7 @@ my $test
 
 can_ok $test, 'serialize';
 
-my %expected_serialized = (
+my %expected = (
 	item => [
 		{
 			id        => 0,
@@ -55,6 +56,6 @@ my %expected_serialized = (
 	],
 );
 
-is_deeply( $test->serialize, \%expected_serialized, 'serialize' );
+method_ok $test, serialize => [], \%expected;
 
 done_testing;

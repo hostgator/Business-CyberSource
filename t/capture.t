@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 
@@ -30,6 +31,6 @@ my %expected = (
 	},
 );
 
-is_deeply $capture->serialize, \%expected, 'serialize';
+method_ok $capture, serialize => [], \%expected;
 
 done_testing;

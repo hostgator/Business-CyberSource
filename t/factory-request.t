@@ -7,6 +7,6 @@ use Module::Runtime qw( use_module );
 
 my $factory = new_ok( use_module('Business::CyberSource::Factory::Request') );
 
-can_ok( $factory, 'create' );
+can_ok $factory, 'create';
 
 done_testing;

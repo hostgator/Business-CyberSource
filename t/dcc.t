@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 use Module::Runtime qw( use_module );
 
 my $dto
@@ -39,6 +40,6 @@ my %expected = (
 	merchantReferenceCode => 'notarealcode',
 );
 
-is_deeply $dto->serialize, \%expected, 'serialize';
+method_ok $dto, serialize => [], \%expected;
 
 done_testing;
