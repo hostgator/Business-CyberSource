@@ -20,9 +20,9 @@ my $billto
 		ip          => '192.168.100.2',
 	}]);
 
-isa_ok ( $billto->ip,         'NetAddr::IP'                                 );
-does_ok( $billto,             'MooseX::RemoteHelper::CompositeSerialization');
-can_ok ( $billto,             'serialize'                                   );
+isa_ok  $billto->ip, 'NetAddr::IP';
+does_ok $billto,     'MooseX::RemoteHelper::CompositeSerialization';
+can_ok  $billto,     'serialize';
 
 method_ok $billto, first_name  => [], 'Caleb';
 method_ok $billto, last_name   => [], 'Cushing';
