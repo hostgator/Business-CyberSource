@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 
@@ -32,6 +33,6 @@ my %expected = (
 	},
 );
 
-is_deeply( $dto->serialize, \%expected, 'serialize' );
+method_ok $dto, serialize => [], \%expected;
 
 done_testing;

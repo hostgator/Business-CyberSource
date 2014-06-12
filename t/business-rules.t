@@ -1,11 +1,12 @@
 use strict;
 use warnings;
 use Test::More;
-
+use Test::Deep;
+use Test::Method;
 use Test::Moose;
 use Module::Runtime qw( use_module );
 
-my $br
+my $dto
 	= new_ok( use_module('Business::CyberSource::RequestPart::BusinessRules') => [{
 		ignore_avs_result => 1,
 		ignore_cv_result  => 1,
@@ -13,13 +14,12 @@ my $br
 		decline_avs_flags => [qw( Y N )],
 	}]);
 
-ok $br->ignore_avs_result,    '->ignore_avs_result';
-ok $br->ignore_cv_result,     '->ignore_cv_result';
-is $br->score_threshold,   8, '->score_threshold';
+method_ok $dto, ignore_avs_result => [], bool(1);
+method_ok $dto, ignore_cv_result  => [], bool(1);
+method_ok $dto, score_threshold   => [], 8;
+method_ok $dto, decline_avs_flags => [], [qw( Y N )];
 
-is_deeply $br->decline_avs_flags, [qw( Y N ) ], '->decline_avs_flags';
-
-my %expected_serialized
+my %expected
 	= (
 		ignoreAVSResult => 'true',
 		ignoreCVResult  => 'true',
@@ -27,6 +27,6 @@ my %expected_serialized
 		declineAVSFlags => 'Y N',
 	);
 
-is_deeply( $br->serialize, \%expected_serialized, 'serialized'          );
+method_ok $dto, serialize => [], \%expected;
 
 done_testing;
