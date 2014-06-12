@@ -3,6 +3,8 @@ use warnings;
 use Test::More;
 use Test::Moose;
 use Test::Fatal;
+use Test::Deep;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 use DateTime;
@@ -33,27 +35,6 @@ foreach ( @test_pairs ) {
 			},
 	}]);
 
-	does_ok $card, 'MooseX::RemoteHelper::CompositeSerialization';
-	can_ok  $card, 'serialize';
-
-	is $card->type          , $type,      'Type: '      . $type;
-	is $card->card_type_code, $type_code, 'Type Code: ' . $type_code;
-	is $card->security_code,  1111,       'security code';
-
-	isa_ok $card->expiration, 'DateTime', 'expiration object';
-
-	is $card->expiration->month, 4,       'expiration month';
-	is $card->expiration->year,  2025,    'expiration year';
-	is $card->expiration->day,   30,      'expiration day';
-	is $card->is_expired,        0,       'card0 not expired';
-
-	is $card->_compare_date_against_expiration( $dt0 ), 0, 'april not expired';
-	is $card->_compare_date_against_expiration( $dt1 ), 0, 'may 1 not expired';
-	is $card->_compare_date_against_expiration( $dt2 ), 1, 'may 2 expired';
-	is $card->_compare_date_against_expiration( $dt3 ), 1, 'june expired';
-
-	is ref $card->serialize, 'HASH', 'serialize returns hashref';
-
 	my $expected_card = {
 		accountNumber   => $acct_num,
 		cardType        => $type_code,
@@ -63,7 +44,23 @@ foreach ( @test_pairs ) {
 		cvNumber        => 1111,
 	};
 
-	is_deeply $card->serialize, $expected_card, 'serialization';
+	isa_ok  $card->expiration, 'DateTime';
+	does_ok $card, 'MooseX::RemoteHelper::CompositeSerialization';
+	can_ok  $card, 'serialize';
+
+	method_ok $card, type              => [], $type;
+	method_ok $card, card_type_code    => [], $type_code;
+	method_ok $card, security_code     => [],  1111;
+	method_ok $card, is_expired        => [], bool(0);
+	method_ok $card->expiration, month => [], 4;
+	method_ok $card->expiration, year  => [], 2025;
+	method_ok $card->expiration, day   => [], 30;
+	method_ok $card, serialize         => [], $expected_card;
+
+	method_ok $card, _compare_date_against_expiration => [$dt0], bool(0);
+	method_ok $card, _compare_date_against_expiration => [$dt1], bool(0);
+	method_ok $card, _compare_date_against_expiration => [$dt2], bool(1);
+	method_ok $card, _compare_date_against_expiration => [$dt3], bool(1);
 }
 
 done_testing;

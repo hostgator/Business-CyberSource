@@ -36,8 +36,6 @@ method_ok $billto, email       => [], 'xenoterracide@gmail.com';
 method_ok $billto, postal_code => [], '78753';
 method_ok $billto->ip, addr    => [], '192.168.100.2';
 
-is ref $billto->serialize, 'HASH', 'serialize type';
-
 my %expected_serialized
 	= (
 		firstName  => 'Caleb',
