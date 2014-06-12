@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Deep;
 use Test::Method;
 use Test::Moose;
 use Module::Runtime qw( use_module );
@@ -66,6 +67,6 @@ my $billto1 = new_ok( use_module('Business::CyberSource::RequestPart::BillTo') =
 	ip          => '192.168.100.2',
 }]);
 
-method_ok $billto1, has_street2 => [], '';
+method_ok $billto1, has_street2 => [], bool(0);
 
 done_testing;
