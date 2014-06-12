@@ -52,15 +52,16 @@ foreach ( @test_pairs ) {
 	method_ok $card, card_type_code    => [], $type_code;
 	method_ok $card, security_code     => [],  1111;
 	method_ok $card, is_expired        => [], bool(0);
-	method_ok $card->expiration, month => [], 4;
-	method_ok $card->expiration, year  => [], 2025;
-	method_ok $card->expiration, day   => [], 30;
+	method_ok $card->expiration, month => [], 4,    'expiraton';
+	method_ok $card->expiration, year  => [], 2025, 'expiraton';
+	method_ok $card->expiration, day   => [], 30,   'expiraton';
 	method_ok $card, serialize         => [], $expected_card;
 
-	method_ok $card, _compare_date_against_expiration => [$dt0], bool(0);
-	method_ok $card, _compare_date_against_expiration => [$dt1], bool(0);
-	method_ok $card, _compare_date_against_expiration => [$dt2], bool(1);
-	method_ok $card, _compare_date_against_expiration => [$dt3], bool(1);
+	# if $dt was $now then card would be
+	method_ok $card, _compare_date_against_expiration => [$dt0], bool(0), '4/30 isnt expired';
+	method_ok $card, _compare_date_against_expiration => [$dt1], bool(0), '5/1 isnt expired';
+	method_ok $card, _compare_date_against_expiration => [$dt2], bool(1), '5/2 is expired';
+	method_ok $card, _compare_date_against_expiration => [$dt3], bool(1), '6/1 is expired';
 }
 
 done_testing;
