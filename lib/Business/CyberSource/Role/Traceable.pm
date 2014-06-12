@@ -7,6 +7,8 @@ use warnings;
 use Moose::Role;
 use MooseX::SetOnce;
 
+our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
+
 has http_trace => (
 	isa       => 'XML::Compile::SOAP::Trace',
 	predicate => 'has_http_trace',
@@ -15,8 +17,8 @@ has http_trace => (
 	writer    => '_http_trace',
 );
 
-sub trace { $_[0]->http_trace } ## no critic ( RequireArgUnpacking RequireFinalReturn )
-sub has_trace { $_[0]->has_http_trace } ## no critic ( RequireArgUnpacking RequireFinalReturn )
+sub trace { return $_[0]->http_trace } ## no critic ( RequireArgUnpacking RequireFinalReturn )
+sub has_trace { return $_[0]->has_http_trace } ## no critic ( RequireArgUnpacking RequireFinalReturn )
 
 before [qw( trace has_trace ) ] => sub {
 	my $self = shift;

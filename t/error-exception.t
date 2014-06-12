@@ -2,12 +2,13 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Fatal;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 
 my $factory = new_ok( use_module('Business::CyberSource::Factory::Response') );
 
-can_ok( $factory, 'create' );
+can_ok $factory, 'create';
 
 my $result = {
 	decision     => 'ERROR',
@@ -16,14 +17,14 @@ my $result = {
 	requestToken => 'AhhRbwSRbSV2sdn3CQDYD6QQqAAaSZV0ekrReBEA5lFa',
 };
 
-my $exception = exception { $factory->create( $result ) };
+my $exception = exception { $factory->create( $result , undef ) };
 
 isa_ok( $exception, 'Business::CyberSource::Exception' )
 	or diag "$exception"
 	;
 
-like(  "$exception",         qr/error/i, 'stringify'   );
-is  (   $exception->decision,'ERROR',    'decision'    );
-is  (   $exception->value ,  150,        'value'       );
+like     "$exception", qr/error/i, 'stringify';
+method_ok $exception, decision    => [], 'ERROR';
+method_ok $exception, reason_code => [],  150;
 
 done_testing;

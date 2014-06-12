@@ -61,9 +61,10 @@ sub test_successful_authorization {
         );
 
     isa_ok $ret,                 'Business::CyberSource::Response';
-    isa_ok $ret->trace,          'XML::Compile::SOAP::Trace';
     isa_ok $ret->auth->datetime, 'DateTime';
+    isa_ok $ret->trace,          'XML::Compile::SOAP::Trace';
 
+    method_ok $ret,       has_trace     => [], bool(1);
     method_ok $ret,       is_accept     => [], 1;
     method_ok $ret,       decision      => [], 'ACCEPT';
     method_ok $ret,       reason_code   => [], 100;
@@ -71,7 +72,6 @@ sub test_successful_authorization {
     method_ok $ret,       reason_text   => [], 'Successful transaction';
     method_ok $ret,       request_id    => [], re('\d+');
     method_ok $ret,       request_token => [], re('[[:xdigit:]]+');
-    method_ok $ret,       has_trace     => [], bool(1);
     method_ok $ret->auth, amount        => [], '3000.00';
     method_ok $ret->auth, auth_code     => [], '831000';
     method_ok $ret->auth, auth_record   => [], re('[[:xdigit:]]+');

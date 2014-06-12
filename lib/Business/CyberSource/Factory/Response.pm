@@ -7,19 +7,21 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use Module::Runtime  qw( use_module );
 use Try::Tiny;
+use Module::Runtime  qw( use_module );
+use Type::Params     qw( compile    );
+use Types::Standard  qw( HashRef Optional );
+use Type::Utils      qw( class_type role_type );
 
-sub create {
-	my ( $self, $result , $request ) = @_;
+sub create { ## no critic ( RequireArgUnpacking )
+	state $class     = class_type { class => __PACKAGE__ };
+	state $traceable = role_type 'Business::CyberSource::Role::Traceable';
+	state $check     = compile( $class, HashRef, Optional[$traceable]);
+	my ( $self, $result , $request ) = $check->( @_ );
 
-	$result->{trace} = $request->trace
-		if defined $request
-		&& blessed $request
-		&& $request->can('has_trace')
-		&& $request->can('trace')
-		&& $request->has_trace
-		;
+	$result->{http_trace}
+		= $request->http_trace
+		if $request && $request->has_http_trace;
 
 	my $response
 		= try {
