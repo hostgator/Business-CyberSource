@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Fatal;
+use Test::Deep;
+use Test::Method;
 use Module::Runtime qw( use_module );
 
 # this test uses a response from a sale
@@ -14,10 +16,10 @@ my $res
 				'reasonCode' => '100',
 				'authorizationCode' => '841000',
 				'amount' => '3000.01',
-				authRecord => '0110322000000E10003840979308471907091389487900270'
-					. '728165933335487401834987091873407037490173409710734104400'
-					. '18349839749037947073094710974070173405303730333830323'
-					. '03934734070970137490713904709',
+				authRecord => my $auth_record = '0110322000000E10003840979308471'
+					. '907091389487900270728165933335487401834987091873407037490'
+					. '173409710734104400183498397490379470730947109740701734053'
+					. '0373033383032303934734070970137490713904709',
 				'avsCodeRaw' => 'Y',
 				'avsCode' => 'Y',
 				'reconciliationID' => 'Y37080808BUW'
@@ -34,8 +36,8 @@ my $res
 		'decision' => 'ACCEPT',
 		'reasonCode' => '100',
 		'requestID' => '3515567380160176056470',
-		requestToken => 'Ahj/7omgletsmakesurethisissecurebychangingitsguts'
-			. '/Imnotgivingyouarealcode/Icanthearyouu2AAAA/QAO',
+		requestToken => my $token = 'Ahj/7omgletsmakesurethisissecurebychangi'
+			. 'ngitsguts/Imnotgivingyouarealcode/Icanthearyouu2AAAA/QAO',
 		merchantReferenceCode => 'test-1349678423',
 	}]);
 
@@ -52,15 +54,14 @@ can_ok $res, qw(
 		reference_code
 	);
 
-is $res->decision,           'ACCEPT',          '->decision';
-is $res->reason_code,        '100',             '->reason_code';
-is $res->request_id, '3515567380160176056470',  '->request_id';
-ok $res->is_accept,                             '->is_accept';
-ok $res->request_token,                         '->request_token';
-is $res->reference_code, 'test-1349678423',     '->reference_code';
-
-ok ! $res->is_reject,                           '->is_reject';
-ok ! $res->is_error,                            '->is_error';
+method_ok $res, decision       => [], 'ACCEPT';
+method_ok $res, reason_code    => [], '100';
+method_ok $res, request_id     => [], '3515567380160176056470';
+method_ok $res, request_token  => [], $token;
+method_ok $res, reference_code => [], 'test-1349678423';
+method_ok $res, is_accept      => [], bool(1);
+method_ok $res, is_reject      => [], bool(0);
+method_ok $res, is_error       => [], bool(0);
 
 isa_ok my $auth = $res->auth, 'Business::CyberSource::ResponsePart::AuthReply';
 isa_ok my $capt = $res->capture, 'Business::CyberSource::ResponsePart::Reply';
@@ -79,19 +80,19 @@ can_ok $auth, qw(
 	reconciliation_id
 );
 
-is $auth->processor_response, '00',       '->processor_response';
-is $auth->reason_code,        '100',      '->reason_code';
-is $auth->amount,             '3000.01',  '->amount';
-ok $auth->auth_record,                    '->auth_record';
-is $auth->auth_code,          '841000',   '->auth_code';
-is $capt->reason_code,        '100',      '->reason_code';
-is $capt->amount,             '3000.01',  '->amount';
-is $capt->reconciliation_id,  '51142857', '->reconciliation_id';
+method_ok $auth, processor_response => [], '00';
+method_ok $auth, reason_code        => [], 100;
+method_ok $auth, amount             => [], 3000.01;
+method_ok $auth, auth_record        => [], $auth_record;
+method_ok $auth, auth_code          => [], 841000;
+method_ok $auth, reason_code        => [], 100;
+method_ok $capt, amount             => [], 3000.01;
+method_ok $capt, reconciliation_id  => [], 51142857;
 
 isa_ok $auth->datetime, 'DateTime';
 isa_ok $capt->datetime, 'DateTime';
 
-is $auth->datetime->year, '2012', 'auth year';
-is $capt->datetime->year, '2012', 'capt year';
+method_ok $auth->datetime, year => [], '2012', 'auth';
+method_ok $capt->datetime, year => [], '2012', 'capt';
 
 done_testing;

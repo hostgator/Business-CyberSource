@@ -1,13 +1,14 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Method;
 
 use Module::Runtime qw( use_module );
 use FindBin; use lib "$FindBin::Bin/lib";
 
 my $t = use_module('Test::Business::CyberSource')->new;
 
-my $client = $t->resolve( service => '/client/object'    );
+my $client = $t->resolve( service => '/client/object' );
 my $cc
 	= $t->resolve(
 		service    => '/helper/card',
@@ -31,20 +32,16 @@ my $req0
 
 my $ret0 = $client->submit( $req0 );
 
-isa_ok( $ret0, 'Business::CyberSource::Response' );
+isa_ok $ret0, 'Business::CyberSource::Response';
 
 ok ! $ret0->has_trace, 'does not have trace';
 
-is( $ret0->is_accept,           0,       'success'            );
-is( $ret0->decision,           'REJECT', 'decision'           );
-is( $ret0->reason_code,         202,     'reason_code'        );
-
-is(
-	$ret0->reason_text,
+method_ok $ret0, is_accept   => [], bool(0);
+method_ok $ret0, decision    => [], 'REJECT';
+method_ok $ret0, reason_code => [], '202';
+method_ok $ret0, reason_text => [],
 	'Expired card. You might also receive this if the expiration date you '
-		. 'provided does not match the date the issuing bank has on file'
-		,
-	'reason_text',
-);
+	. 'provided does not match the date the issuing bank has on file'
+	;
 
 done_testing;
