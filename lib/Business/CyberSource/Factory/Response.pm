@@ -60,7 +60,7 @@ sub create { ## no critic ( RequireArgUnpacking )
 			is_accept     => $response->is_accept,
 			is_reject     => $response->is_reject,
 		);
-		$exception{trace} = $response->trace if $response->has_trace;
+		$exception{http_trace} = $response->trace if $response->has_http_trace;
 
 		die ## no critic ( ErrorHandling::RequireCarping )
 			use_module('Business::CyberSource::Exception::Response')->new( %exception );
