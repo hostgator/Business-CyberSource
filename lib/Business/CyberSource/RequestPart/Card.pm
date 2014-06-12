@@ -22,6 +22,8 @@ use MooseX::Types::CreditCard 0.002 qw(
 
 use Module::Runtime qw( use_module );
 
+our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
+
 sub _build_type {
 	my $self = shift;
 

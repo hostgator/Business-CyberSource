@@ -8,6 +8,8 @@ use namespace::autoclean;
 use Moose;
 extends 'Moose::Exception';
 
+our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
+
 has value => (
 	isa     => 'Int',
 	is      => 'ro',
