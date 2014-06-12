@@ -19,7 +19,7 @@ foreach ( @test_pairs ) {
 	my ( $acct_num, $type_code ) = @{ $_ };
 
 	my $dto = new_ok( $dtc => [{
-		reference_code  => my $code = $dtc . '->new',
+		reference_code  => 12345,
 		purchase_totals => $t->resolve( service => '/helper/purchase_totals'),
 		bill_to         => $t->resolve( service  => '/helper/bill_to'),
 		card            => $t->resolve(
@@ -30,7 +30,7 @@ foreach ( @test_pairs ) {
 		),
 	}]);
 
-	can_ok( $dto, 'serialize' );
+	can_ok $dto, 'serialize';
 
 	isa_ok $dto->bill_to,         'Business::CyberSource::RequestPart::BillTo';
 	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
@@ -64,11 +64,11 @@ foreach ( @test_pairs ) {
 			currency         => 'USD',
 			grandTotalAmount => 3000.00,
 		},
-		merchantReferenceCode => $code,
+		merchantReferenceCode => 12345,
 	);
 
 	method_ok $dto, serialize      => [], \%expected;
-	method_ok $dto, reference_code => [], $code;
+	method_ok $dto, reference_code => [], 12345;
 }
 
 done_testing;
