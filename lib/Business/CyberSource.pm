@@ -74,13 +74,22 @@ A test credit card number provided by your your credit card processor
 
 =head1 EXAMPLE
 
+In the example, C<carp> means you should log something C<Dumper> means you should
+log it with lots of detail. L<Safe::Isa> is used because you should either use
+it or check for C<blessed> it is always possible that somewhere in the stack
+someone is using C<die> on a string.
+
 	use 5.010;
 	use Carp;
 	use Try::Tiny;
+	use Safe::Isa;
+	use Data::Printer alias => 'Dumper';
 
 	use Business::CyberSource::Client;
 	use Business::CyberSource::Request::Authorization;
 	use Business::CyberSource::Request::Capture;
+	# exception namepsace
+	my $e_ns = 'Business::CyberSource::Exception';
 
 	my $client = Business::CyberSource::Client->new({
 		user  => 'Merchant ID',
@@ -119,7 +128,22 @@ A test credit card number provided by your your credit card processor
 			});
 	}
 	catch {
-		carp $_;
+		my $e = $_;
+		if ( $e->$_isa( $e_ns . '::Response') ) {
+			carp $e->reason_code . $e->reason_text;
+		}
+		elsif ( $e->$_isa( $e_ns . '::SOAPFault'  ) ) {
+			carp $e->faultcode . $e->faultstring;
+		}
+		elsif ( $e->$_isa( $e_ns ) || $e->$_isa( 'Moose::Exception' ) ) {
+			Dumper( $e );
+			## probably your payload was bad, check type more
+			## specifically and feed good error messages to your
+			## customer
+		}
+		else { # probably a coding error
+			Dumper( $e );
+		}
 	};
 	return unless $auth_request;
 
@@ -153,7 +177,22 @@ A test credit card number provided by your your credit card processor
 			$capture_response = $client->submit( $capture_request );
 		}
 		catch {
-			carp $_;
+			my $e = $_;
+			if ( $e->$_isa( $e_ns . '::Response') ) {
+				carp $e->reason_code . $e->reason_text;
+			}
+			elsif ( $e->$_isa( $e_ns . '::SOAPFault'  ) ) {
+				carp $e->faultcode . $e->faultstring;
+			}
+			elsif ( $e->$_isa( $e_ns ) || $e->$_isa( 'Moose::Exception' ) ) {
+				Dumper( $e );
+				## probably your payload was bad, check type more
+				## specifically and feed good error messages to your
+				## customer
+			}
+			else { # probably a coding error
+				Dumper( $e );
+			}
 		};
 		return unless $capture_response;
 
