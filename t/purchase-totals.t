@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Moose;
+use Test::Method;
 use Module::Runtime qw( use_module );
 
 my $dto
