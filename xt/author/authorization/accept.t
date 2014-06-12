@@ -1,12 +1,14 @@
 #!/usr/bin/env perl
 
+use 5.010;
 use strict;
 use warnings;
 
 use Test::More;
 use Test::Deep;
 use Test::Method;
-use MooseX::Params::Validate;
+use Type::Params    qw( compile     );
+use Types::Standard qw( HashRef Str );
 
 use FindBin;
 use Module::Runtime qw( use_module    );
@@ -45,17 +47,15 @@ subtest "Discover" => sub {
 done_testing;
 
 sub test_successful_authorization {
-    my (%args) = validated_hash(
-        \@_,
-        card_type => { isa => 'Str' },
-    );
+    state $check = compile( HashRef[Str] );
+    my ( $args ) = $check->( @_ );
 
     my $ret
         = $client->submit(
             $t->resolve(
                 service => '/request/authorization',
                 parameters => {
-                    card => $t->resolve( service => '/helper/card_' . $args{card_type} ),
+                    card => $t->resolve( service => '/helper/card_' . $args->{card_type} ),
                 }
             )
         );
@@ -64,24 +64,24 @@ sub test_successful_authorization {
     isa_ok $ret->trace,          'XML::Compile::SOAP::Trace';
     isa_ok $ret->auth->datetime, 'DateTime';
 
-    method_ok( $ret,       is_accept     => [], 1                       );
-    method_ok( $ret,       decision      => [], 'ACCEPT'                );
-    method_ok( $ret,       reason_code   => [], 100                     );
-    method_ok( $ret,       currency      => [], 'USD'                   );
-    method_ok( $ret,       reason_text   => [], 'Successful transaction');
-    method_ok( $ret,       request_id    => [], re('\d+')               );
-    method_ok( $ret,       request_token => [], re('[[:xdigit:]]+')     );
-    method_ok( $ret,       has_trace     => [], bool(1)                 );
-    method_ok( $ret->auth, amount        => [], '3000.00'               );
-    method_ok( $ret->auth, auth_code     => [], '831000'                );
-    method_ok( $ret->auth, auth_record   => [], re('[[:xdigit:]]+')     );
-    method_ok( $ret->auth, processor_response => [], '00'               );
-    method_ok( $ret->auth, avs_code      => [], ($args{card_type} eq "discover") ? 'A' : 'Y' );
-    method_ok( $ret->auth, avs_code_raw  => [], 'Y'                     );
+    method_ok $ret,       is_accept     => [], 1;
+    method_ok $ret,       decision      => [], 'ACCEPT';
+    method_ok $ret,       reason_code   => [], 100;
+    method_ok $ret,       currency      => [], 'USD';
+    method_ok $ret,       reason_text   => [], 'Successful transaction';
+    method_ok $ret,       request_id    => [], re('\d+');
+    method_ok $ret,       request_token => [], re('[[:xdigit:]]+');
+    method_ok $ret,       has_trace     => [], bool(1);
+    method_ok $ret->auth, amount        => [], '3000.00';
+    method_ok $ret->auth, auth_code     => [], '831000';
+    method_ok $ret->auth, auth_record   => [], re('[[:xdigit:]]+');
+    method_ok $ret->auth, processor_response => [], '00';
+    method_ok $ret->auth, avs_code      => [], ($args->{card_type} eq "discover") ? 'A' : 'Y';
+    method_ok $ret->auth, avs_code_raw  => [], 'Y';
 
     ok ! ref $ret->request_id, 'request_id is not a reference';
 
-    if($args{card_type} eq "amex") {
+    if($args->{card_type} eq "amex") {
         method_ok($ret->auth, ev_email            => [], 'Y' );
         method_ok($ret->auth, ev_phone_number     => [], 'Y' );
         method_ok($ret->auth, ev_postal_code      => [], 'Y' );
@@ -94,16 +94,16 @@ sub test_successful_authorization {
         method_ok($ret->auth, ev_street_raw       => [], 'Y' );
     }
     else {
-        method_ok($ret->auth, has_ev_email            => [], '' );
-        method_ok($ret->auth, has_ev_phone_number     => [], '' );
-        method_ok($ret->auth, has_ev_postal_code      => [], '' );
-        method_ok($ret->auth, has_ev_name             => [], '' );
-        method_ok($ret->auth, has_ev_street           => [], '' );
-        method_ok($ret->auth, has_ev_email_raw        => [], '' );
-        method_ok($ret->auth, has_ev_phone_number_raw => [], '' );
-        method_ok($ret->auth, has_ev_postal_code_raw  => [], '' );
-        method_ok($ret->auth, has_ev_name_raw         => [], '' );
-        method_ok($ret->auth, has_ev_street_raw       => [], '' );
+        method_ok $ret->auth, has_ev_email            => [], bool(0);
+        method_ok $ret->auth, has_ev_phone_number     => [], bool(0);
+        method_ok $ret->auth, has_ev_postal_code      => [], bool(0);
+        method_ok $ret->auth, has_ev_name             => [], bool(0);
+        method_ok $ret->auth, has_ev_street           => [], bool(0);
+        method_ok $ret->auth, has_ev_email_raw        => [], bool(0);
+        method_ok $ret->auth, has_ev_phone_number_raw => [], bool(0);
+        method_ok $ret->auth, has_ev_postal_code_raw  => [], bool(0);
+        method_ok $ret->auth, has_ev_name_raw         => [], bool(0);
+        method_ok $ret->auth, has_ev_street_raw       => [], bool(0);
     }
 
     return;
