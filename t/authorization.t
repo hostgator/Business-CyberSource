@@ -67,10 +67,8 @@ foreach ( @test_pairs ) {
 		merchantReferenceCode => $code,
 	);
 
-	method_ok $dto, serialize => [], \%expected;
-
-	is( ref( $dto->serialize ), 'HASH', 'serialize returns a hashref'     );
-	is( $dto->reference_code, $code,       $dtc .'->reference_code'       );
+	method_ok $dto, serialize      => [], \%expected;
+	method_ok $dto, reference_code => [], $code;
 }
 
 done_testing;
