@@ -23,4 +23,15 @@ has $_ => (
 
 __PACKAGE__->meta->make_immutable;
 1;
-# ABSTRACT: Card number is not a valid credit card
+# ABSTRACT: CyberSource API threw a SOAP Fault
+
+=head1 DESCRIPTION
+
+This usually means a credentials problem or something is wrong on
+CyberSource's end
+
+=attr faultstring
+
+description of error
+
+=attr faultcode
