@@ -21,11 +21,6 @@ qw(
 	Business::CyberSource::Response::Role::ReasonCode
 );
 
-sub _build_message {
-	my $self = shift;
-	return $self->decison . ' ' . $self->reason_text;
-}
-
 ## common
 has request_id => (
 	isa         => RequestID,
@@ -178,3 +173,5 @@ sub _build_reason_text {
 }
 
 1;
+
+# ABSTRACT: common to normal and exception (ERROR) responses
