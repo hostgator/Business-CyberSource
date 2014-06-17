@@ -3,6 +3,7 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 use Test::Method;
+use Test::Moose;
 
 use Module::Runtime qw( use_module );
 
@@ -19,9 +20,8 @@ my $result = {
 
 my $exception = exception { $factory->create( $result , undef ) };
 
-isa_ok( $exception, 'Business::CyberSource::Exception' )
-	or diag "$exception"
-	;
+isa_ok  $exception, 'Business::CyberSource::Exception' or diag $exception;
+does_ok $exception, 'Business::CyberSource::Response::Role::Base';
 
 like     "$exception", qr/error/i, 'stringify';
 method_ok $exception, decision    => [], 'ERROR';

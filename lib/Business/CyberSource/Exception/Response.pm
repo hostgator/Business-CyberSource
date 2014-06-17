@@ -9,16 +9,19 @@ use Moose;
 use namespace::autoclean;
 use MooseX::Aliases;
 extends 'Business::CyberSource::Exception';
-with 'Business::CyberSource::Role::Traceable' => {
+with 'Business::CyberSource::Response::Role::Base',
+	'Business::CyberSource::Role::Traceable' => {
 	-excludes => [qw( trace )]
-}, qw(
-	Business::CyberSource::Response::Role::Base
-);
+};
 
 sub _build_message {
 	my $self = shift;
-	return $self->decison . ' ' . $self->reason_text;
+	return $self->decision . ' ' . $self->reason_text;
 }
+
+has '+value' => (
+	default => sub { return $_[0]->reason_code },
+);
 
 __PACKAGE__->meta->make_immutable;
 1;
