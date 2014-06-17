@@ -11,7 +11,6 @@ use Module::Runtime  qw( use_module );
 use Type::Params     qw( compile    );
 use Types::Standard  qw( HashRef Optional );
 use Type::Utils      qw( class_type role_type );
-use Carp;
 
 sub create { ## no critic ( RequireArgUnpacking )
 	state $class     = class_type { class => __PACKAGE__ };
