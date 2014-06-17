@@ -1,8 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-
-0.010000  2014-06-17
+	- fix SOAPFault documentation
 
 0.010000  2014-06-17
 	[NEWS]
