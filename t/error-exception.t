@@ -18,7 +18,7 @@ my $result = {
 	requestToken => 'AhhRbwSRbSV2sdn3CQDYD6QQqAAaSZV0ekrReBEA5lFa',
 };
 
-my $exception = exception { $factory->create( $result , undef ) };
+my $exception = exception { $factory->create( $result ) };
 
 isa_ok  $exception, 'Business::CyberSource::Exception' or diag $exception;
 does_ok $exception, 'Business::CyberSource::Response::Role::Base';
