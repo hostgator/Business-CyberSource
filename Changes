@@ -9,15 +9,15 @@ Revision history for {{$dist->name}}
 	  - IMPORTANT read the removal section
 	  - NEVER ever check for ->isa('Moose::Exception') because that's an
 	    implementation detail and the superclass may change in the future,
-		check final classes or roles as documented instead (MST)
+	    check final classes or roles as documented instead (MST)
 	  - read the updated example in Business::CyberSource
 	- Added support for American Express Electronic Verification information
 	[REMOVAL]
 	- Exception::Base - Some exception objects were renamed
 	  - CHECK YOUR EXCEPTION HANDLING, it's probably wrong now, sorry. This
 	    shouldn't change again, having external classes means supporting new
-		classes will be easier, existing namespaces were awkward for external
-		classes
+	    classes will be easier, existing namespaces were awkward for external
+	    classes
 	- MooseX::StrictConstructor
 	- Path::Class
 	[DEPRECATIONS]
