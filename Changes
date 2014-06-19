@@ -1,6 +1,11 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.010001  2014-06-18
+
+0.010001  2014-06-18
+	- fix tests for perl 5.20 to not trip on Types::Tiny bug
 	- fix SOAPFault documentation
 
 0.010000  2014-06-17
