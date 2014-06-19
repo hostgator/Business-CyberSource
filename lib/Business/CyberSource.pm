@@ -107,7 +107,7 @@ someone is using C<die> on a string.
 				bill_to => {
 					first_name  => 'Caleb',
 					last_name   => 'Cushing',
-					street      => '100 somewhere st',
+					street1     => '100 somewhere st',
 					city        => 'Houston',
 					state       => 'TX',
 					postal_code => '77064',
