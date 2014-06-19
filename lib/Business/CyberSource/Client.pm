@@ -22,6 +22,7 @@ use XML::Compile::SOAP::WSS 1.04;
 use XML::Compile::WSDL11;
 use XML::Compile::SOAP11;
 use XML::Compile::Transport::SOAPHTTP;
+use File::ShareDir::ProjectDistDir dist_file => defaults => {  strict => 1 };
 
 our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 
@@ -101,7 +102,6 @@ sub _build_cybs_wsdl {
 
 	my $dir = $self->test ? 'test' : 'production';
 
-	load 'File::ShareDir::ProjectDistDir', 'dist_file';
 	return dist_file(
 			'Business-CyberSource',
 			$dir
@@ -117,7 +117,6 @@ sub _build_cybs_xsd {
 
 	my $dir = $self->test ? 'test' : 'production';
 
-	load 'File::ShareDir::ProjectDistDir', 'dist_file';
 	return dist_file(
 			'Business-CyberSource',
 			$dir
