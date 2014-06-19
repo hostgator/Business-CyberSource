@@ -2,7 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
-0.010001  2014-06-18
+0.010002  2014-06-18
+
+0.010002  2014-06-18
+	- fix Type::Tiny code to use Invocant
 
 0.010001  2014-06-18
 	- fix tests for perl 5.20 to not trip on Types::Tiny bug
