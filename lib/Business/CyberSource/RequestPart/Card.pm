@@ -182,13 +182,33 @@ has _expiration_year => (
 	default     => sub { $_[0]->expiration->year },
 );
 
-foreach my $attr ( qw(
+my @deprecated = ( qw(
 	credit_card_number
 	card_number
 	cvn cvv cvv2
 	cvc2 cid name
 	full_name
-	card_holder ) ) {
+	card_holder
+));
+
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
+
+	my $args = $self->$orig( @_ );
+
+	foreach my $attr (@deprecated ) {
+		if ( exists $args->{$attr} ) {
+			warnings::warnif('deprecated', # this is due to Moose::Exception conflict
+				"$attr deprecated check the perldoc for the actual attribute"
+			);
+		}
+	}
+
+	return $args;
+};
+
+foreach my $attr ( @deprecated ) {
 	my $deprecated = sub {
 		warnings::warnif('deprecated', # this is due to Moose::Exception conflict
 			"$attr deprecated check the perldoc for the actual attribute"

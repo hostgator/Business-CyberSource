@@ -154,8 +154,25 @@ has ip => (
 	},
 );
 
-foreach my $attr (qw( street province zip phone ) ) {
+my @deprecated = ( qw( street province zip phone ) );
+around BUILDARGS => sub {
+	my $orig = shift;
+	my $self = shift;
 
+	my $args = $self->$orig( @_ );
+
+	foreach my $attr (@deprecated ) {
+		if ( exists $args->{$attr} ) {
+			warnings::warnif('deprecated', # this is due to Moose::Exception conflict
+				"$attr deprecated check the perldoc for the actual attribute"
+			);
+		}
+	}
+
+	return $args;
+};
+
+foreach my $attr (@deprecated ) {
 	my $deprecated = sub {
 		warnings::warnif('deprecated', # this is due to Moose::Exception conflict
 			"$attr deprecated check the perldoc for the actual attribute"
