@@ -2,7 +2,13 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
-0.010002  2014-06-18
+0.010003  2014-06-19
+	- use strict mode for ::ProjectDistDir
+		- fixes isolated bugs in certain deployments, if you haven't had
+		  problems with ::Client locating the wsdl/xsd this hasn't impacted you
+	[DEPRECATIONS]
+	- added deprecation warnings around alias inializers
+	  - these will be removed as if they were put in 0.01000
 
 0.010002  2014-06-18
 	- fix Type::Tiny code to use Invocant
