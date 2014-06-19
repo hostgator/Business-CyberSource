@@ -7,15 +7,14 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use Module::Runtime  qw( use_module );
-use Type::Params     qw( compile    );
+use Module::Runtime  qw( use_module       );
+use Type::Params     qw( compile Invocant );
 use Types::Standard  qw( HashRef Optional );
-use Type::Utils      qw( class_type role_type );
+use Type::Utils      qw( role_type        );
 
 sub create { ## no critic ( RequireArgUnpacking )
-	state $class     = class_type { class => __PACKAGE__ };
 	state $traceable = role_type 'Business::CyberSource::Role::Traceable';
-	state $check     = compile( $class, HashRef, Optional[$traceable]);
+	state $check     = compile( Invocant, HashRef, Optional[$traceable]);
 	my ( $self, $result , $request ) = $check->( @_ );
 
 	$result->{http_trace}

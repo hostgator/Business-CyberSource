@@ -10,12 +10,11 @@ use Moose;
 with 'MooseY::RemoteHelper::Role::Client';
 
 use Moose::Util::TypeConstraints;
-use MooseX::Types::Moose          qw( HashRef Str );
+use Type::Utils                   qw( duck_type      );
+use Type::Params                  qw( compile Invocant );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
-use Type::Utils                   qw( duck_type class_type          );
 
 use Config;
-use Type::Params    qw( compile    );
 use Module::Runtime qw( use_module );
 use Module::Load    qw( load       );
 
@@ -27,8 +26,7 @@ use XML::Compile::Transport::SOAPHTTP;
 our @CARP_NOT = ( __PACKAGE__, qw( Class::MOP::Method::Wrapped ) );
 
 sub submit { ## no critic ( Subroutines::RequireArgUnpacking )
-	state $class = class_type { class => __PACKAGE__ };
-	state $check = compile( $class, duck_type(['serialize']));
+	state $check = compile( Invocant, duck_type(['serialize']));
 	my ( $self, $request ) = $check->( @_ );
 
 	if ( $self->has_rules && ! $self->rules_is_empty ) {
@@ -203,7 +201,7 @@ has version => (
 	lazy     => 1,
 	init_arg => undef,
 	is       => 'ro',
-	isa      => Str,
+	isa      => 'Str',
 	default  => sub {
 		my $version
 			= $Business::CyberSource::VERSION ? $Business::CyberSource::VERSION
@@ -218,7 +216,7 @@ has name => (
 	lazy     => 1,
 	init_arg => undef,
 	is       => 'ro',
-	isa      => Str,
+	isa      => 'Str',
 	default  => sub { return 'Business::CyberSource' },
 );
 
@@ -227,7 +225,7 @@ has env => (
 	lazy     => 1,
 	init_arg => undef,
 	is       => 'ro',
-	isa      => Str,
+	isa      => 'Str',
 	default  => sub {
 		return "Perl $Config{version} $Config{osname} $Config{osvers} $Config{archname}";
 	},
@@ -237,7 +235,7 @@ has cybs_api_version => (
 	required => 0,
 	lazy     => 1,
 	is       => 'ro',
-	isa      => Str,
+	isa      => 'Str',
 	default  => '1.71',
 );
 
