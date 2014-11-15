@@ -9,7 +9,6 @@ use namespace::autoclean;
 use Moose;
 with 'MooseY::RemoteHelper::Role::Client';
 
-use Moose::Util::TypeConstraints;
 use Type::Utils                   qw( duck_type      );
 use Type::Params                  qw( compile Invocant );
 use MooseX::Types::Common::String qw( NonEmptyStr NonEmptySimpleStr );
