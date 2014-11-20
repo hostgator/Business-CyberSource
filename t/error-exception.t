@@ -20,6 +20,8 @@ my $result = {
 
 my $exception = exception { $factory->create( $result ) };
 
+BAIL_OUT( "no exception" ) unless $exception;
+
 isa_ok  $exception, 'Business::CyberSource::Exception' or diag $exception;
 does_ok $exception, 'Business::CyberSource::Response::Role::Base';
 
