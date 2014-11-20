@@ -7,10 +7,10 @@ use namespace::autoclean;
 # VERSION
 
 use Moose;
-use Module::Runtime  qw( use_module       );
-use Type::Params     qw( compile Invocant );
-use Types::Standard  qw( HashRef Optional );
-use Type::Utils      qw( role_type        );
+use Module::Runtime   qw( use_module       );
+use Type::Params      qw( compile Invocant );
+use Types::Standard   qw( HashRef Optional );
+use Type::Utils 0.040 qw( role_type        );
 
 sub create { ## no critic ( RequireArgUnpacking )
 	state $traceable = role_type 'Business::CyberSource::Role::Traceable';
