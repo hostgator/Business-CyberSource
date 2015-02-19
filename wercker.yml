@@ -2,6 +2,5 @@ box: xenoterracide/perlbrew
 build:
   steps:
     - xenoterracide/perlbrew:
-        - exec:
-            - cpanm:
-                Dist::Zilla 
+        exec:
+            cpanm: Dist::Zilla
