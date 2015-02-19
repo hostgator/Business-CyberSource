@@ -129,7 +129,7 @@ someone is using C<die> on a string.
 	}
 	catch {
 		my $e = $_;
-		sif ( $e->$_does('Business::CyberSource::Response::Role::Base') )
+		if ( $e->$_does('Business::CyberSource::Response::Role::Base')) {
 			carp $e->reason_code . $e->reason_text;
 		}
 		elsif ( $e->$_isa( $e_ns . '::SOAPFault'  ) ) {
