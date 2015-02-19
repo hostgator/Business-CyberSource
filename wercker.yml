@@ -3,3 +3,4 @@ build:
   steps:
     - xenoterracide/perlbrew:
         cpanm: Dist::Zilla
+        exec: "dzil authordeps --missing | cpanm --quiet --notest"
