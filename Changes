@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.010006  2015-02-19
+	- Fixed filename for production CyberSource Transaction WSDL
+
 0.010005  2014-11-19
 	- require Type::Utils version 0.040 for failing cpan test
 
