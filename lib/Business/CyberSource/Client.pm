@@ -72,7 +72,7 @@ sub submit { ## no critic ( Subroutines::RequireArgUnpacking )
 	}
 
 	if ( $self->debug >= 1 ) {
-		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer->{result} ) );
+		Carp::carp( 'RESPONSE HASH: ' . Dumper( $answer ) );
 	}
 
 	return $self->_response_factory->create( $answer->{result}, $request );
