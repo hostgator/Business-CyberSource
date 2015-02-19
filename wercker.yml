@@ -1,4 +1,4 @@
-box: xenoterracide/perlbrew
+box: xenoterracide/perlbrew@0.0.2
 build:
   steps:
     - xenoterracide/perlbrew:
