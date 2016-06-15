@@ -16,12 +16,14 @@ use MooseX::Types -declare => [ qw(
 	DCCIndicator
 
 	Decision
+    CommerceIndicator
 	Items
 
 	Item
 	Card
 	PurchaseTotals
 	Service
+    AuthService
 	AuthReversalService
 	CaptureService
 	CreditService
@@ -65,6 +67,26 @@ my $varchar_message = 'string is empty or longer than ';
 
 enum Decision, [ qw( ACCEPT REJECT ERROR REVIEW ) ];
 
+enum CommerceIndicator, [ qw(
+    aesk
+    aesk_attempted
+    install
+    install_internet
+    internet
+    js
+    js_attempted
+    moto
+    moto_cc
+    recurring
+    recurring_internet
+    retail
+    spa
+    spa_failure
+    vbv
+    vbv_attempted
+    vbv_failure
+) ];
+
 # can't find a standard on this, so I assume these are a cybersource thing
 enum CardTypeCode, [ qw(
 	001
@@ -107,6 +129,7 @@ my $svc = $req . 'Service';
 my $cdc = $req . 'Card';
 my $btc = $req . 'BillTo';
 my $brc = $req . 'BusinessRules';
+my $azs = $req . 'Service::Auth';
 my $ars = $req . 'Service::AuthReversal';
 my $cps = $req . 'Service::Capture';
 my $cds = $req . 'Service::Credit';
@@ -127,6 +150,7 @@ class_type Service,             { class => $svc };
 class_type Card,                { class => $cdc };
 class_type BillTo,              { class => $btc };
 class_type BusinessRules,       { class => $brc };
+class_type AuthService,         { class => $azs };
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
 class_type CreditService,       { class => $cds };
@@ -144,6 +168,7 @@ class_type Client,              { class => $client   };
 coerce Item,                from HashRef, via { use_module( $itc      )->new( $_ ) };
 coerce PurchaseTotals,      from HashRef, via { use_module( $ptc      )->new( $_ ) };
 coerce Service,             from HashRef, via { use_module( $svc      )->new( $_ ) };
+coerce AuthService,         from HashRef, via { use_module( $azs      )->new( $_ ) };
 coerce AuthReversalService, from HashRef, via { use_module( $ars      )->new( $_ ) };
 coerce CaptureService,      from HashRef, via { use_module( $cps      )->new( $_ ) };
 coerce CreditService,       from HashRef, via { use_module( $cds      )->new( $_ ) };
@@ -319,6 +344,12 @@ Base Type: C<enum>
 
 Numeric codes that specify Card types. Codes denoted with an asterisk* are
 automatically detected when using
+
+=item * C<CommerceIndicator>
+
+Base Type: C<enum>
+
+Valid strings for for use in in the commerceIndicator field.
 
 =item * C<CvResults>
 
