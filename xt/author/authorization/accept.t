@@ -23,10 +23,16 @@ subtest "American Express" => sub {
     test_successful_authorization({
         card_type => 'amex',
     });
+    test_commerce_indicator({
+        card_type => 'amex',
+    });
 };
 
 subtest "Visa" => sub {
     test_successful_authorization({
+        card_type => 'visa',
+    });
+    test_commerce_indicator({
         card_type => 'visa',
     });
 };
@@ -35,16 +41,45 @@ subtest "MasterCard" => sub {
     test_successful_authorization({
         card_type => 'mastercard',
     });
+    test_commerce_indicator({
+        card_type => 'mastercard',
+    });
 };
 
 subtest "Discover" => sub {
     test_successful_authorization({
         card_type => 'discover',
     });
+    test_commerce_indicator({
+        card_type => 'discover',
+    });
 };
 
 
 done_testing;
+
+sub test_commerce_indicator {
+    state $check = compile( HashRef[Str] );
+    my ( $args ) = $check->( @_ );
+
+    my $card_type = $args->{card_type};
+
+    my $auth_req = $t->resolve(
+        service    => '/request/authorization',
+        parameters => {
+            card =>
+              $t->resolve( service => '/helper/card_' . $args->{card_type} ),
+        }
+    );
+
+    $auth_req->service->commerce_indicator('recurring');
+
+    ok( $client->submit($auth_req)->is_accept,
+        "commerce_indicator 'recurring' accepted for card_type => $card_type"
+    );
+
+    return;
+}
 
 sub test_successful_authorization {
     state $check = compile( HashRef[Str] );

@@ -14,9 +14,20 @@ with qw(
 	Business::CyberSource::Request::Role::TaxService
 );
 
-use MooseX::Types::CyberSource qw( BusinessRules );
+use MooseX::Types::CyberSource qw( BusinessRules AuthService );
 
-has '+service' => ( remote_name => 'ccAuthService' );
+use Module::Runtime qw( use_module );
+
+has '+service' => (
+    remote_name => 'ccAuthService',
+    isa         => AuthService,
+    lazy_build  => 0,
+);
+
+sub _build_service {
+	use_module('Business::CyberSource::RequestPart::Service::Auth');
+	return Business::CyberSource::RequestPart::Service::Auth->new;
+}
 
 has business_rules => (
 	isa         => BusinessRules,
