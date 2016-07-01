@@ -42,7 +42,7 @@ isa_ok $ret, 'Business::CyberSource::Response';
 is( $ret->decision,             'ACCEPT', 'check decision'       );
 is( $ret->reason_code,           100,     'check reason_code'    );
 is( $ret->currency,             'USD',    'check currency'       );
-is( $ret->auth->amount,         '10.83',    'check amount'     );
+is( $ret->auth->amount,         '10.03',    'check amount'     );
 is( $ret->auth->avs_code,       'Y',       'check avs_code'      );
 is( $ret->auth->avs_code_raw,   'Y',       'check avs_code_raw'  );
 is( $ret->auth->processor_response, '00',  'check processor_response');

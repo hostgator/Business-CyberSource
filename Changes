@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
   - Added support for sending CommerceIndicator in Auth requests
+  - Fixed author tests that were failing based on different CyberSource
+    sandbox behaviour rather than due to bugs in the library
 
 0.010006  2015-02-19
 	- Fixed filename for production CyberSource Transaction WSDL
