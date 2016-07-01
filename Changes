@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.010007  2016-07-01
   - Added support for sending CommerceIndicator in Auth requests
   - Fixed author tests that were failing based on different CyberSource
     sandbox behaviour rather than due to bugs in the library
