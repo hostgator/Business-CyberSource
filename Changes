@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Added support for sending CommerceIndicator in Auth requests
 
 0.010006  2015-02-19
 	- Fixed filename for production CyberSource Transaction WSDL
