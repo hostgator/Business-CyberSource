@@ -111,7 +111,7 @@ sub test_successful_authorization {
     method_ok $ret->auth, auth_code     => [], '831000';
     method_ok $ret->auth, auth_record   => [], re('[[:xdigit:]]+');
     method_ok $ret->auth, processor_response => [], '00';
-    method_ok $ret->auth, avs_code      => [], ($args->{card_type} eq "discover") ? 'A' : 'Y';
+    method_ok $ret->auth, avs_code      => [], 'Y';
     method_ok $ret->auth, avs_code_raw  => [], 'Y';
 
     ok ! ref $ret->request_id, 'request_id is not a reference';
