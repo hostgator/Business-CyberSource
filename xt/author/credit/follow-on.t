@@ -27,6 +27,9 @@ my $capture_req
 			total    => $auth_res->auth->amount,
 			currency => $auth_res->currency,
 		},
+        invoice_header => {
+            $t->resolve( service => '/helper/invoice_header' ),
+        },
 	}])
 	;
 
@@ -46,6 +49,9 @@ my $credit_req
 		service => {
 			request_id => $capture_res->request_id,
 		},
+        invoice_header => {
+            $t->resolve( service => '/helper/invoice_header' ),
+        },
 	}]);
 
 my $credit_res = $client->submit( $credit_req  );

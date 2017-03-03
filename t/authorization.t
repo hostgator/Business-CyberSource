@@ -28,6 +28,7 @@ foreach ( @test_pairs ) {
 				account_number => $acct_num,
 			},
 		),
+        invoice_header => $t->resolve( service => '/helper/invoice_header' ),
 	}]);
 
 	can_ok $dto, 'serialize';
@@ -35,6 +36,7 @@ foreach ( @test_pairs ) {
 	isa_ok $dto->bill_to,         'Business::CyberSource::RequestPart::BillTo';
 	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
 	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
+    isa_ok $dto->invoice_header,  'Business::CyberSource::RequestPart::InvoiceHeader';
 
 	my %expected = (
 		billTo => {
@@ -65,6 +67,11 @@ foreach ( @test_pairs ) {
 			grandTotalAmount => 3000.00,
 		},
 		merchantReferenceCode => 12345,
+        invoiceHeader => {
+            purchaserVATRegistrationNumber => 'ATU99999999',
+            userPO => '123456',
+            vatInvoiceReferenceNumber => '1234',
+        },
 	);
 
 	method_ok $dto, serialize      => [], \%expected;

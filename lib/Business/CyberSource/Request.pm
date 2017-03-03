@@ -9,107 +9,113 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Message';
 with qw(
-	MooseX::RemoteHelper::CompositeSerialization
+  MooseX::RemoteHelper::CompositeSerialization
 );
 
-use MooseX::Types::CyberSource qw( PurchaseTotals Service Items );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service Items InvoiceHeader );
 
-use Module::Runtime  qw( use_module );
+use Module::Runtime qw( use_module );
 
 our @CARP_NOT = ( 'Class::MOP::Method::Wrapped', __PACKAGE__ );
 
-before serialize => sub { ## no critic qw( Subroutines::RequireFinalReturn )
-	my $self = shift;
+before serialize => sub {    ## no critic qw( Subroutines::RequireFinalReturn )
+    my $self = shift;
 
-	if ( ! $self->has_total && ( ! $self->has_items || $self->items_is_empty ) ) {
-		die ## no critic ( ErrorHandling::RequireCarping )
-			use_module('Business::CyberSource::Exception::ItemsOrTotal')->new;
-	}
+    if ( !$self->has_total && ( !$self->has_items || $self->items_is_empty ) ) {
+        die                  ## no critic ( ErrorHandling::RequireCarping )
+          use_module('Business::CyberSource::Exception::ItemsOrTotal')->new;
+    }
 };
 
 sub add_item {
-	my ( $self, $args ) = @_;
+    my ( $self, $args ) = @_;
 
-	my $item;
-	unless ( blessed $args
-			&& $args->isa( 'Business::CyberSource::RequestPart::Item' )
-		) {
-		$item
-			= use_module('Business::CyberSource::RequestPart::Item')
-			->new( $args )
-			;
-	}
-	else {
-		$item = $args;
-	}
-	$self->items( [ ] ) if ! $self->has_items;
+    my $item;
+    unless ( blessed $args
+        && $args->isa('Business::CyberSource::RequestPart::Item') )
+    {
+        $item =
+          use_module('Business::CyberSource::RequestPart::Item')->new($args);
+    }
+    else {
+        $item = $args;
+    }
+    $self->items( [] ) if !$self->has_items;
 
-	return $self->_push_item( $item );
+    return $self->_push_item($item);
 }
 
 sub _build_service {
-	return use_module('Business::CyberSource::RequestPart::Service')->new;
+    return use_module('Business::CyberSource::RequestPart::Service')->new;
 }
 
 has comments => (
-	remote_name => 'comments',
-	isa         => 'Str',
-	traits      => ['SetOnce'],
-	is          => 'rw',
+    remote_name => 'comments',
+    isa         => 'Str',
+    traits      => ['SetOnce'],
+    is          => 'rw',
 );
 
 has service => (
-	isa        => Service,
-	is         => 'ro',
-	lazy_build => 1,
-	required   => 1,
-	coerce     => 1,
-	reader     => undef,
+    isa        => Service,
+    is         => 'ro',
+    lazy_build => 1,
+    required   => 1,
+    coerce     => 1,
+    reader     => undef,
 );
 
 has purchase_totals => (
-	isa         => PurchaseTotals,
-	remote_name => 'purchaseTotals',
-	is          => 'ro',
-	required    => 1,
-	coerce      => 1,
-	handles     => [qw( total has_total )],
+    isa         => PurchaseTotals,
+    remote_name => 'purchaseTotals',
+    is          => 'ro',
+    required    => 1,
+    coerce      => 1,
+    handles     => [qw( total has_total )],
 );
 
 has items => (
-	isa         => Items,
-	remote_name => 'item',
-	predicate   => 'has_items',
-	is          => 'rw',
-	traits      => ['Array'],
-	coerce      => 1,
-	handles     => {
-		items_is_empty => 'is_empty',
-		next_item      => [ natatime => 1 ],
-		list_items     => 'elements',
-		_push_item     => 'push',
-	},
-	serializer => sub {
-		my ( $attr, $instance ) = @_;
+    isa         => Items,
+    remote_name => 'item',
+    predicate   => 'has_items',
+    is          => 'rw',
+    traits      => ['Array'],
+    coerce      => 1,
+    handles     => {
+        items_is_empty => 'is_empty',
+        next_item      => [ natatime => 1 ],
+        list_items     => 'elements',
+        _push_item     => 'push',
+    },
+    serializer => sub {
+        my ( $attr, $instance ) = @_;
 
-		my $items = $attr->get_value( $instance );
+        my $items = $attr->get_value($instance);
 
-		my $i = 0;
-		my @serialized
-			= map { ## no critic ( BuiltinFunctions::ProhibitComplexMappings )
-				my $item = $_->serialize;
-				$item->{id} = $i;
-				$i++;
-				$item
-			} @{ $items };
+        my $i = 0;
+        my @serialized =
+          map {    ## no critic ( BuiltinFunctions::ProhibitComplexMappings )
+            my $item = $_->serialize;
+            $item->{id} = $i;
+            $i++;
+            $item
+          } @{$items};
 
-		return \@serialized;
-	},
+        return \@serialized;
+    },
 );
 
 has '+http_trace' => (
-	is        => 'rw',
-	init_arg  => undef
+    is       => 'rw',
+    init_arg => undef
+);
+
+has 'invoice_header' => (
+    isa         => InvoiceHeader,
+    remote_name => 'invoiceHeader',
+    is          => 'ro',
+    required    => 0,
+    coerce      => 1
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -185,6 +191,10 @@ L<Business::CyberSource::RequestPart::PurchaseTotals>
 =attr items
 
 An array of L<Business::CyberSource::RequestPart::Item>
+
+=attr invoice_header
+
+L<Business::CyberSource::RequestPart::InvoiceHeader>
 
 =attr comments
 

@@ -8,16 +8,16 @@ use namespace::autoclean;
 use Moose;
 extends 'Business::CyberSource::Request';
 with qw(
-	Business::CyberSource::Request::Role::DCC
-	Business::CyberSource::Request::Role::TaxService
+  Business::CyberSource::Request::Role::DCC
+  Business::CyberSource::Request::Role::TaxService
 );
 
 use MooseX::Types::CyberSource qw( CaptureService );
 
 has '+service' => (
-	isa         => CaptureService,
-	remote_name => 'ccCaptureService',
-	lazy_build  => 0,
+    isa         => CaptureService,
+    remote_name => 'ccCaptureService',
+    lazy_build  => 0,
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -38,6 +38,11 @@ __PACKAGE__->meta->make_immutable;
 			total    => 5.01,  # same amount as in authorization
 			currency => 'USD', # same currency as in authorization
 		},
+        invoice_header => {
+            purchaser_vat_registration_number => 'ATU99999999',
+            user_po => '123456',
+            vat_invoice_reference_number => '1234',
+        },
 	});
 
 =head1 DESCRIPTION

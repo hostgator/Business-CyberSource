@@ -21,6 +21,8 @@ my $req
 			$t->resolve( service => '/helper/purchase_totals'),
 		card =>
 			$t->resolve( service => '/helper/card' ),
+        invoice_header =>
+            $t->resolve( service => '/helper/invoice_header' ),
 	}]);
 
 isa_ok $req, $creditc;

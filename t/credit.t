@@ -17,6 +17,7 @@ my $dto
 			$t->resolve( service => '/helper/purchase_totals'),
 		card =>
 			$t->resolve( service => '/helper/card' ),
+        invoice_header => $t->resolve( service => '/helper/invoice_header' ),
 	}]);
 
 my %expected = (
@@ -48,6 +49,11 @@ my %expected = (
 		grandTotalAmount => 3000.00,
 	},
 	merchantReferenceCode => 'notarealcode',
+    invoiceHeader => {
+        purchaserVATRegistrationNumber => 'ATU99999999',
+        userPO                         => '123456',
+        vatInvoiceReferenceNumber      => '1234',
+    },
 );
 
 method_ok $dto, serialize => [], \%expected;
