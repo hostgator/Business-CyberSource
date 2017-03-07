@@ -99,6 +99,10 @@ sub BUILD {
                 service purchaser_vat_registration_number => 'ATU99999999';
                 service user_po                           => '123456';
                 service vat_invoice_reference_number      => '1234';
+                service alternate_tax_amount              => '0.10';
+                service alternate_tax_indicator           => 1;
+                service vat_tax_amount                    => '0.10';
+                service vat_tax_rate                      => '0.10';
             };
 
             service card => (
@@ -229,6 +233,18 @@ sub BUILD {
                     user_po => depends_on('services/user_po'),
                     vat_invoice_reference_number =>
                       depends_on('services/vat_invoice_reference_number'),
+                },
+            );
+
+            service other_tax => (
+                class        => 'Business::CyberSource::RequestPart::OtherTax',
+                dependencies => {
+                    alternate_tax_amount =>
+                      depends_on('services/alternate_tax_amount'),
+                    alternate_tax_indicator =>
+                      depends_on('services/alternate_tax_indicator'),
+                    vat_tax_amount => depends_on('services/vat_tax_amount'),
+                    vat_tax_rate   => depends_on('services/vat_tax_rate'),
                 },
             );
 

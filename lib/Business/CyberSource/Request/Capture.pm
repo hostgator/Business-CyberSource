@@ -43,6 +43,12 @@ __PACKAGE__->meta->make_immutable;
             user_po => '123456',
             vat_invoice_reference_number => '1234',
         },
+        other_tax => {
+            alternate_tax_amount => '00.10',
+            alternate_tax_indicator => 1,
+            vat_tax_amount => '0.10',
+            vat_tax_rate => '0.10',
+        },
 	});
 
 =head1 DESCRIPTION

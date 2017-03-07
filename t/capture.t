@@ -21,6 +21,12 @@ my $capture = new_ok(
                 user_po                           => '123456',
                 vat_invoice_reference_number      => '1234',
             },
+            other_tax => {
+                alternate_tax_amount    => '1',
+                alternate_tax_indicator => 1,
+                vat_tax_amount          => '1',
+                vat_tax_rate            => '0.04',
+            },
         }
     ]
 );
@@ -41,6 +47,12 @@ my %expected = (
         purchaserVATRegistrationNumber => 'ATU99999999',
         userPO                         => '123456',
         vatInvoiceReferenceNumber      => '1234',
+    },
+    otherTax => {
+        alternateTaxAmount    => '1',
+        alternateTaxIndicator => 1,
+        vatTaxAmount          => '1',
+        vatTaxRate            => '0.04'
     },
 );
 

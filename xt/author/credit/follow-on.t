@@ -30,6 +30,8 @@ my $capture_req
         invoice_header => {
             $t->resolve( service => '/helper/invoice_header' ),
         },
+        other_tax =>
+            $t->resolve( service => '/helper/other_tax' ),
 	}])
 	;
 
@@ -52,6 +54,8 @@ my $credit_req
         invoice_header => {
             $t->resolve( service => '/helper/invoice_header' ),
         },
+        other_tax =>
+            $t->resolve( service => '/helper/other_tax' ),
 	}]);
 
 my $credit_res = $client->submit( $credit_req  );

@@ -23,6 +23,8 @@ my $req
 			$t->resolve( service => '/helper/card' ),
         invoice_header =>
             $t->resolve( service => '/helper/invoice_header' ),
+        other_tax =>
+            $t->resolve( service => '/helper/other_tax' ),
 	}]);
 
 isa_ok $req, $creditc;

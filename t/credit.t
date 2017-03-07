@@ -18,6 +18,7 @@ my $dto
 		card =>
 			$t->resolve( service => '/helper/card' ),
         invoice_header => $t->resolve( service => '/helper/invoice_header' ),
+        other_tax => $t->resolve( service => '/helper/other_tax' ),
 	}]);
 
 my %expected = (
@@ -53,6 +54,12 @@ my %expected = (
         purchaserVATRegistrationNumber => 'ATU99999999',
         userPO                         => '123456',
         vatInvoiceReferenceNumber      => '1234',
+    },
+    otherTax => {
+        alternateTaxAmount => '0.10',
+        alternateTaxIndicator => 1,
+        vatTaxAmount => '0.10',
+        vatTaxRate => '0.10',
     },
 );
 

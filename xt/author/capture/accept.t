@@ -61,6 +61,8 @@ sub test_successful_capture {
                 },
                 invoice_header =>
                   $t->resolve( service => '/helper/invoice_header' ),
+                other_tax =>
+                  $t->resolve( service => '/helper/other_tax' ),
             }
         ]
     );

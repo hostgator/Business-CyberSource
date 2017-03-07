@@ -32,6 +32,7 @@ use MooseX::Types -declare => [
       BillTo
       BusinessRules
       InvoiceHeader
+      OtherTax
 
       ResPurchaseTotals
       AuthReply
@@ -69,6 +70,7 @@ use MooseX::Types::DateTime qw(                                         );
 use MooseX::Types::DateTime::W3C qw( DateTimeW3C                             );
 
 my $varchar_message = 'string is empty or longer than ';
+my $num_message = 'value is non Num, empty or longer than ';
 
 enum Decision, [qw( ACCEPT REJECT ERROR REVIEW )];
 
@@ -138,6 +140,7 @@ my $cdc = $req . 'Card';
 my $btc = $req . 'BillTo';
 my $brc = $req . 'BusinessRules';
 my $ihc = $req . 'InvoiceHeader';
+my $otc = $req . 'OtherTax';
 my $svc = $req . 'Service';
 
 my $azs = $svc . '::Auth';
@@ -162,6 +165,7 @@ class_type Card,                { class => $cdc };
 class_type BillTo,              { class => $btc };
 class_type BusinessRules,       { class => $brc };
 class_type InvoiceHeader,       { class => $ihc };
+class_type OtherTax,            { class => $otc };
 class_type AuthService,         { class => $azs };
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
@@ -189,6 +193,7 @@ coerce Card,                from HashRef, via { use_module($cdc)->new($_) };
 coerce BillTo,              from HashRef, via { use_module($btc)->new($_) };
 coerce BusinessRules,       from HashRef, via { use_module($brc)->new($_) };
 coerce InvoiceHeader,       from HashRef, via { use_module($ihc)->new($_) };
+coerce OtherTax,            from HashRef, via { use_module($otc)->new($_) };
 coerce ResPurchaseTotals, from HashRef, via { use_module($res_pt_c)->new($_) };
 coerce AuthReply,         from HashRef, via { use_module($res_ar_c)->new($_) };
 coerce TaxReply,          from HashRef, via { use_module($res_tr_c)->new($_) };
@@ -272,6 +277,7 @@ subtype _VarcharFifty, as NonEmptySimpleStr,
 subtype _VarcharSixty, as NonEmptySimpleStr,
   where { length $_ <= 60 },
   message { $varchar_message . '60' };
+
 1;
 
 # ABSTRACT: Moose Types specific to CyberSource

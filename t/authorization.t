@@ -29,6 +29,7 @@ foreach ( @test_pairs ) {
 			},
 		),
         invoice_header => $t->resolve( service => '/helper/invoice_header' ),
+        other_tax => $t->resolve( service => '/helper/other_tax' ),
 	}]);
 
 	can_ok $dto, 'serialize';
@@ -37,6 +38,7 @@ foreach ( @test_pairs ) {
 	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
 	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
     isa_ok $dto->invoice_header,  'Business::CyberSource::RequestPart::InvoiceHeader';
+    isa_ok $dto->other_tax,       'Business::CyberSource::RequestPart::OtherTax';
 
 	my %expected = (
 		billTo => {
@@ -71,6 +73,12 @@ foreach ( @test_pairs ) {
             purchaserVATRegistrationNumber => 'ATU99999999',
             userPO => '123456',
             vatInvoiceReferenceNumber => '1234',
+        },
+        otherTax => {
+            alternateTaxAmount    => '0.10',
+            alternateTaxIndicator => 1,
+            vatTaxAmount          => '0.10',
+            vatTaxRate            => '0.10',
         },
 	);
 
