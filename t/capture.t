@@ -14,6 +14,8 @@ my $capture = new_ok(
             },
             purchase_totals => {
                 total    => 2018.00,
+                discount => 5.00,
+                duty     => 1.00,
                 currency => 'USD',
             },
             invoice_header => {
@@ -37,6 +39,8 @@ my %expected = (
     merchantReferenceCode => 'not sending',
     purchaseTotals        => {
         grandTotalAmount => 2018.00,
+        discountAmount   => 5.00,
+        dutyAmount       => 1.00,
         currency         => 'USD',
     },
     ccCaptureService => {

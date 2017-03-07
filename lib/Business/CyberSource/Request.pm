@@ -71,7 +71,7 @@ has purchase_totals => (
     is          => 'ro',
     required    => 1,
     coerce      => 1,
-    handles     => [qw( total has_total )],
+    handles     => [qw( total has_total discount has_discount duty has_duty )],
 );
 
 has items => (

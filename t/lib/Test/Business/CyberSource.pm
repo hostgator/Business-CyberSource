@@ -236,6 +236,27 @@ sub BUILD {
                 },
             );
 
+            service purchase_totals => (
+                class => 'Business::CyberSource::RequestPart::PurchaseTotals',
+                dependencies => {
+                    currency => depends_on('services/currency'),
+                },
+                parameters => {
+                    total => {
+                        isa     => 'Num',
+                        default => 3000.00,
+                    },
+                    discount => {
+                        isa     => 'Num',
+                        default => 50.00,
+                    },
+                    duty => {
+                        isa     => 'Num',
+                        default => 10.00,
+                    },
+                },
+            );
+
             service other_tax => (
                 class        => 'Business::CyberSource::RequestPart::OtherTax',
                 dependencies => {
@@ -248,18 +269,6 @@ sub BUILD {
                 },
             );
 
-            service purchase_totals => (
-                class => 'Business::CyberSource::RequestPart::PurchaseTotals',
-                dependencies => {
-                    currency => depends_on('services/currency'),
-                },
-                parameters => {
-                    total => {
-                        isa     => 'Num',
-                        default => 3000.00,
-                    },
-                },
-            );
         };
 
         container request => as {

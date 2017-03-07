@@ -25,6 +25,24 @@ has total => (
 
 );
 
+has discount => (
+    isa         => PositiveOrZeroNum,
+    remote_name => 'discountAmount',
+    traits      => ['SetOnce'],
+    is          => 'rw',
+    predicate   => 'has_discount',
+
+);
+
+has duty => (
+    isa         => PositiveOrZeroNum,
+    remote_name => 'dutyAmount',
+    traits      => ['SetOnce'],
+    is          => 'rw',
+    predicate   => 'has_duty',
+
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 # ABSTRACT: Purchase Totals
@@ -48,5 +66,18 @@ L<Business::CyberSource::MessagePart>
 Grand total for the order. You must include either this field or
 L<Item unit price|Business::CyberSource::RequestPart::Item/"unit_price"> in your
 request.
+
+=attr discount
+
+Total discount applied to the order. This is level II or level III data related
+information depending on the payment processor. For more information see
+http://apps.cybersource.com/library/documentation/dev_guides/Level_2_3_SO_API/Level_II_III_SO_API.pdf
+
+=attr duty
+
+Total charges for any import or export duties included in the order. This is
+level II or level III data related information depending on the payment
+processor.  For more information see
+http://apps.cybersource.com/library/documentation/dev_guides/Level_2_3_SO_API/Level_II_III_SO_API.pdf
 
 =cut

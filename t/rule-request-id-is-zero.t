@@ -20,7 +20,11 @@ my $req0
 		parameters => {
 			purchase_totals => $t->resolve(
 				service    => '/helper/purchase_totals',
-				parameters => { total => 3000.00 }, # magic ACCEPT
+                                parameters => {
+                                    total    => 3000.00,
+                                    discount => 50.00,
+                                    duty     => 10.00
+                                },    # magic ACCEPT
 			),
 			card  => $cc,
 		},
@@ -34,6 +38,8 @@ my $req1
 		service => { request_id => $ret0->request_id },
 		purchase_totals => {
 			total          => 3000.00,
+			discount       => 50.00,
+			duty           => 10.00,
 			currency       => $req0->purchase_totals->currency,
 		}
 	}])

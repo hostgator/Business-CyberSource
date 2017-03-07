@@ -32,6 +32,8 @@ __PACKAGE__->meta->make_immutable;
 			reference_code => 'merchant reference code',
 			purchase_totals => {
 				total    => 5.00,
+				discount => 0.05,
+				duty     => 0.01,
 				currency => 'USD',
 			},
 			service => {

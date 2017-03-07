@@ -67,6 +67,8 @@ foreach ( @test_pairs ) {
 		purchaseTotals => {
 			currency         => 'USD',
 			grandTotalAmount => 3000.00,
+			discountAmount   => 50.00,
+			dutyAmount       => 10.00,
 		},
 		merchantReferenceCode => 12345,
         invoiceHeader => {

@@ -37,6 +37,8 @@ __PACKAGE__->meta->make_immutable;
 		purchase_totals => {
 			total    => 5.01,  # same amount as in authorization
 			currency => 'USD', # same currency as in authorization
+                        discount => 0.50,  # optional
+                        duty     => 0.07,  # optional
 		},
         invoice_header => {
             purchaser_vat_registration_number => 'ATU99999999',

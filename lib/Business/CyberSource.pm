@@ -117,6 +117,8 @@ someone is using C<die> on a string.
 				purchase_totals => {
 					currency => 'USD',
 					total    => 5.00,
+					discount => 0.03, # optional and may depend on processor
+					duty     => 0.01, # optional and may depend on processor
 				},
 				card => {
 					account_number => '4111111111111111',
@@ -168,6 +170,8 @@ someone is using C<die> on a string.
 				},
 				purchase_totals => {
 					total    => $auth_response->auth->amount,
+					discount => '0.05', # optional and may depend on processor
+					duty     => '0.01', # optional and may depend on processor
 					currency => $auth_response->purchase_totals->currency,
 				},
 			});

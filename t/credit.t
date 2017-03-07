@@ -48,6 +48,8 @@ my %expected = (
 	purchaseTotals => {
 		currency         => 'USD',
 		grandTotalAmount => 3000.00,
+                discountAmount   => 50.00,
+                dutyAmount       => 10.00,
 	},
 	merchantReferenceCode => 'notarealcode',
     invoiceHeader => {

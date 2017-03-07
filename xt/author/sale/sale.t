@@ -49,6 +49,8 @@ sub test_successful_sale {
             bill_to         => $billto,
             purchase_totals => {
                 total    => 3000.01,
+                discount => 15.00,
+                duty     => 7.00,
                 currency => 'USD',
             },
         }]);

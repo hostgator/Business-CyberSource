@@ -34,6 +34,8 @@ __PACKAGE__->meta->make_immutable;
 			purchase_totals => {
 				currency => 'USD',
 				total    => 5.00,
+				discount => 0.10, # optional
+				duty     => 0.03, # optional
 			},
 			card => {
 				account_number => '4111111111111111',

@@ -13,9 +13,10 @@ my $auth_res
 	= $client->submit(
 		$t->resolve( service => '/request/authorization' )
 	);
+my $purchaset =	$t->resolve( service => '/helper/purchase_totals' );
 
-my $capturec = use_module('Business::CyberSource::Request::Capture');
-my $creditc  = use_module('Business::CyberSource::Request::Credit');
+my $capturec  = use_module('Business::CyberSource::Request::Capture');
+my $creditc   = use_module('Business::CyberSource::Request::Credit');
 
 my $capture_req
 	= new_ok( $capturec => [{
@@ -24,8 +25,10 @@ my $capture_req
 			request_id => $auth_res->request_id,
 		},
 		purchase_totals => {
-			total    => $auth_res->auth->amount,
-			currency => $auth_res->currency,
+			total    => $purchaset->total,
+			discount => $purchaset->discount,
+			duty     => $purchaset->duty,
+			currency => $purchaset->currency,
 		},
         invoice_header => {
             $t->resolve( service => '/helper/invoice_header' ),
@@ -46,6 +49,8 @@ my $credit_req
 		reference_code => $auth_res->reference_code,
 		purchase_totals => {
 			total    => 3000.00,
+			discount => 50.00,
+			duty     => 10.00,
 			currency => 'USD',
 		},
 		service => {

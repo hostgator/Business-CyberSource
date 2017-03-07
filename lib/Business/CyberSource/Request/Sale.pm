@@ -45,6 +45,8 @@ __PACKAGE__->meta->make_immutable;
 			},
 			purchase_totals => {
 				total    => 3000.00,
+				discount => 50.00, # optional
+				duty     => 10.00, # optional
 				currency => 'USD',
 			},
 			card => {

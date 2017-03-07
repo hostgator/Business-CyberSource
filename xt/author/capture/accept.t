@@ -57,6 +57,8 @@ sub test_successful_capture {
                 },
                 purchase_totals => {
                     total    => $res->auth->amount,
+                    discount => '50.00',              # optional
+                    duty     => '10.00',              # optional
                     currency => $res->currency,
                 },
                 invoice_header =>
