@@ -26,6 +26,7 @@ my @items = (
 	{
 		unit_price => '0.01',
 		quantity   => 1,
+        invoice_number => '1234',
 	},
 	{
 		unit_price => 1000.00,
@@ -34,10 +35,12 @@ my @items = (
 		product_code => 't108-code',
 		product_sku  => '123456',
 		tax_amount   => '0.01',
+        invoice_number => '5678',
 	},
 	{
 		unit_price => 1000.00,
 		quantity   => 1,
+        invoice_number => '9012',
 	}
 );
 

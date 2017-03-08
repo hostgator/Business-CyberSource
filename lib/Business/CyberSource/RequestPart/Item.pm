@@ -76,6 +76,13 @@ has national_tax => (
 	is          => 'rw',
 );
 
+has invoice_number => (
+    isa => NonEmptySimpleStr,
+    remote_name => 'invoiceNumber',
+    is => 'ro',
+    required => 0,
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -136,5 +143,7 @@ The total amount authorized will be 32.40, not 30.00 with 2.40 of tax included.
 =attr tax_rate
 
 =attr national_tax
+
+=attr invoice_number
 
 =cut
