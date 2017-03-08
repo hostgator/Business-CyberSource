@@ -29,6 +29,9 @@ my $capture = new_ok(
                 vat_tax_amount          => '1',
                 vat_tax_rate            => '0.04',
             },
+            ship_from => {
+                postal_code => '78752',
+            },
         }
     ]
 );
@@ -57,6 +60,9 @@ my %expected = (
         alternateTaxIndicator => 1,
         vatTaxAmount          => '1',
         vatTaxRate            => '0.04'
+    },
+    shipFrom => {
+        postalCode => '78752',
     },
 );
 

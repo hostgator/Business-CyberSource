@@ -66,6 +66,7 @@ sub test_double_capture_auth {
                     invoice_header =>
                       $t->resolve( service => '/helper/invoice_header' ),
                     other_tax => $t->resolve( service => '/helper/other_tax' ),
+                    ship_from => $t->resolve( service => '/helper/ship_from' ),
                 }
             ]
         );
@@ -88,6 +89,7 @@ sub test_double_capture_auth {
                     invoice_header =>
                       $t->resolve( service => '/helper/invoice_header' ),
                     other_tax => $t->resolve( service => '/helper/other_tax' ),
+                    ship_from => $t->resolve( service => '/helper/ship_from' ),
                 }
             ]
         );

@@ -12,7 +12,7 @@ with qw(
   MooseX::RemoteHelper::CompositeSerialization
 );
 
-use MooseX::Types::CyberSource qw( PurchaseTotals Service Items InvoiceHeader OtherTax );
+use MooseX::Types::CyberSource qw( PurchaseTotals Service Items InvoiceHeader OtherTax ShipFrom );
 
 use Module::Runtime qw( use_module );
 
@@ -126,6 +126,14 @@ has 'other_tax' => (
     coerce      => 1,
 );
 
+has 'ship_from' => (
+    isa         => ShipFrom,
+    remote_name => 'shipFrom',
+    is          => 'ro',
+    required    => 0,
+    coerce      => 1,
+);
+
 __PACKAGE__->meta->make_immutable;
 1;
 
@@ -207,6 +215,10 @@ L<Business::CyberSource::RequestPart::InvoiceHeader>
 =attr other_tax 
 
 L<Business::CyberSource::RequestPart::OtherTax>
+
+=attr ship_from 
+
+L<Business::CyberSource::RequestPart::ShipFrom>
 
 =attr comments
 

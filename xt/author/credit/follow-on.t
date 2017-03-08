@@ -30,11 +30,12 @@ my $capture_req
 			duty     => $purchaset->duty,
 			currency => $purchaset->currency,
 		},
-        invoice_header => {
+        invoice_header =>
             $t->resolve( service => '/helper/invoice_header' ),
-        },
         other_tax =>
             $t->resolve( service => '/helper/other_tax' ),
+        ship_from =>
+            $t->resolve( service => '/helper/ship_from' ),
 	}])
 	;
 
@@ -56,11 +57,12 @@ my $credit_req
 		service => {
 			request_id => $capture_res->request_id,
 		},
-        invoice_header => {
+        invoice_header =>
             $t->resolve( service => '/helper/invoice_header' ),
-        },
         other_tax =>
             $t->resolve( service => '/helper/other_tax' ),
+        ship_from =>
+            $t->resolve( service => '/helper/ship_from' ),
 	}]);
 
 my $credit_res = $client->submit( $credit_req  );

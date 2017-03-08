@@ -25,6 +25,8 @@ my $req
             $t->resolve( service => '/helper/invoice_header' ),
         other_tax =>
             $t->resolve( service => '/helper/other_tax' ),
+        ship_from =>
+            $t->resolve( service => '/helper/ship_from' ),
 	}]);
 
 isa_ok $req, $creditc;

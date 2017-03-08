@@ -33,6 +33,7 @@ use MooseX::Types -declare => [
       BusinessRules
       InvoiceHeader
       OtherTax
+      ShipFrom
 
       ResPurchaseTotals
       AuthReply
@@ -141,6 +142,7 @@ my $btc = $req . 'BillTo';
 my $brc = $req . 'BusinessRules';
 my $ihc = $req . 'InvoiceHeader';
 my $otc = $req . 'OtherTax';
+my $sfc = $req . 'ShipFrom';
 my $svc = $req . 'Service';
 
 my $azs = $svc . '::Auth';
@@ -166,6 +168,7 @@ class_type BillTo,              { class => $btc };
 class_type BusinessRules,       { class => $brc };
 class_type InvoiceHeader,       { class => $ihc };
 class_type OtherTax,            { class => $otc };
+class_type ShipFrom,            { class => $sfc };
 class_type AuthService,         { class => $azs };
 class_type AuthReversalService, { class => $ars };
 class_type CaptureService,      { class => $cps };
@@ -194,6 +197,7 @@ coerce BillTo,              from HashRef, via { use_module($btc)->new($_) };
 coerce BusinessRules,       from HashRef, via { use_module($brc)->new($_) };
 coerce InvoiceHeader,       from HashRef, via { use_module($ihc)->new($_) };
 coerce OtherTax,            from HashRef, via { use_module($otc)->new($_) };
+coerce ShipFrom,            from HashRef, via { use_module($sfc)->new($_) };
 coerce ResPurchaseTotals, from HashRef, via { use_module($res_pt_c)->new($_) };
 coerce AuthReply,         from HashRef, via { use_module($res_ar_c)->new($_) };
 coerce TaxReply,          from HashRef, via { use_module($res_tr_c)->new($_) };

@@ -19,6 +19,7 @@ my $dto
 			$t->resolve( service => '/helper/card' ),
         invoice_header => $t->resolve( service => '/helper/invoice_header' ),
         other_tax => $t->resolve( service => '/helper/other_tax' ),
+        ship_from => $t->resolve( service => '/helper/ship_from' ),
 	}]);
 
 my %expected = (
@@ -62,6 +63,9 @@ my %expected = (
         alternateTaxIndicator => 1,
         vatTaxAmount => '0.10',
         vatTaxRate => '0.10',
+    },
+    shipFrom => {
+        postalCode => '78752',
     },
 );
 

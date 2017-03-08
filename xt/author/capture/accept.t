@@ -65,6 +65,8 @@ sub test_successful_capture {
                   $t->resolve( service => '/helper/invoice_header' ),
                 other_tax =>
                   $t->resolve( service => '/helper/other_tax' ),
+                ship_form => 
+                  $t->resolve( service => '/helper/ship_from' ),
             }
         ]
     );

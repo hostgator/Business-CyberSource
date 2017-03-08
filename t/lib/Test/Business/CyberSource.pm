@@ -269,6 +269,13 @@ sub BUILD {
                 },
             );
 
+            service ship_from => (
+                class        => 'Business::CyberSource::RequestPart::ShipFrom',
+                dependencies => {
+                    postal_code => depends_on('services/postal_code'),
+                },
+            );
+
         };
 
         container request => as {
@@ -282,6 +289,8 @@ sub BUILD {
                     purchase_totals => depends_on('/helper/purchase_totals'),
                     bill_to         => depends_on('/helper/bill_to'),
                     invoice_header  => depends_on('/helper/invoice_header'),
+                    other_tax       => depends_on('/helper/other_tax'),
+                    ship_from       => depends_on('/helper/ship_from'),
                 },
                 parameters => {
                     card => {
@@ -300,7 +309,17 @@ sub BUILD {
                     },
                     invoice_header => {
                         isa =>
-                            'Business::CyberSource::RequestPart::BusinessRules',
+                            'Business::CyberSource::RequestPart::InvoiceHeader',
+                            optional => 1,
+                    },
+                    other_tax => {
+                        isa =>
+                            'Business::CyberSource::RequestPart::OtherTax',
+                            optional => 1,
+                    },
+                    ship_from => {
+                        isa =>
+                            'Business::CyberSource::RequestPart::ShipFrom',
                             optional => 1,
                     },
                 },

@@ -30,6 +30,7 @@ foreach ( @test_pairs ) {
 		),
         invoice_header => $t->resolve( service => '/helper/invoice_header' ),
         other_tax => $t->resolve( service => '/helper/other_tax' ),
+        ship_from => $t->resolve( service => '/helper/ship_from' ),
 	}]);
 
 	can_ok $dto, 'serialize';
@@ -39,6 +40,7 @@ foreach ( @test_pairs ) {
 	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
     isa_ok $dto->invoice_header,  'Business::CyberSource::RequestPart::InvoiceHeader';
     isa_ok $dto->other_tax,       'Business::CyberSource::RequestPart::OtherTax';
+    isa_ok $dto->ship_from,       'Business::CyberSource::RequestPart::ShipFrom';
 
 	my %expected = (
 		billTo => {
@@ -82,6 +84,9 @@ foreach ( @test_pairs ) {
             vatTaxAmount          => '0.10',
             vatTaxRate            => '0.10',
         },
+        shipFrom => {
+            postalCode => '78752'
+        }
 	);
 
 	method_ok $dto, serialize      => [], \%expected;
