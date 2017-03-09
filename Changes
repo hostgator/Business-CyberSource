@@ -1,6 +1,26 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Show correct home repository on Metacpan
+  - Show the up-to-date repo, now maintained by Hostgator
+  - Added ShipTo and associated tests
+  - Introduced new ShippingMethod type as enum
+  - Added invoiceNumber to RequestPart Item
+  - Added ShipFrom RequestPart
+  - Added ShipFrom to Request base class
+  - Added ShipFrom to unit and author tests
+  - Added level 2 / level 3 data fields in purchase totals
+  - Added test coverage for level II / level III fields in purchase totals
+  - Added OtherTax RequestPart
+  - Added OtherTax to Request base class
+  - Added OtherTax helper service to breadboard
+  - Added tests for OtherTax
+  - Added InvoiceHeader RequestPart
+  - Added InvoiceHeader helper service to breadboard
+  - Added test for InvoiceHeader
+  - Modified capture test for InvoiceHeader
+  - Added InvoiceHeader credit tests
+  - Added InvoiceHeader to Authorization test
 
 0.010007  2016-07-01
   - Added support for sending CommerceIndicator in Auth requests
