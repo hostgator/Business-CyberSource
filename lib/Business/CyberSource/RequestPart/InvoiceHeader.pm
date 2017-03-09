@@ -43,11 +43,11 @@ L<Business::CyberSource::MessagePart>
 Identification number assigned to the purchasing company by the tax
 authorities .
 
-=attr user_po 
+=attr user_po
 
-Value used by your customer to identify the order. This value is typically a purchase order number. 
+Value used by your customer to identify the order. This value is typically a purchase order number.
 
-=attr vat_invoice_reference_number 
+=attr vat_invoice_reference_number
 
 VAT invoice number associated with the transaction.
 

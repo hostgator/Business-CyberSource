@@ -26,7 +26,7 @@ has postal_code => (
 
 L<Business::CyberSource::MessagePart>
 
-=attr postal_code 
+=attr postal_code
 
 =for Pod::Coverage BUILD
 

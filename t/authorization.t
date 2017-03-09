@@ -66,7 +66,7 @@ foreach ( @test_pairs ) {
 			lastName       => 'Cushing',
 			street2        => 'N/A',
 			phoneNumber    => '+1-512-555-0180',
-			shippingMethod => 'none',	
+			shippingMethod => 'none',
         },
 		card => {
 			accountNumber   => $acct_num,

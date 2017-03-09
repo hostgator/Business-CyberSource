@@ -51,6 +51,8 @@ sub BUILD {
               . ') is required for US or Canada',
         ) unless $self->has_state;
     }
+
+    return;
 }
 
 has first_name => (
@@ -128,44 +130,26 @@ __PACKAGE__->meta->make_immutable;
 
 L<Business::CyberSource::MessagePart>
 
-=head1 WITH FOLLOWING ATTRIBUTES:
+=attr first_name
 
-=head2 REQUIRED:
+=attr last_name
 
-=over 2
+=attr city
 
-=item country
+=attr state
 
-=item street1
+=attr postal_code
 
-=back
+=attr street1
 
-=head2 OPTIONAL:
+=attr street2
 
-=over 2
+=attr country
 
-=item first_name
+=attr phone_number
 
-=item last_name
+=attr shipping_method
 
-=item city
+=for Pod::Coverage BUILD
 
-=item state
-
-=item postal_code
-
-=item street2
-
-=item phone_number
-
-=item shipping_method
-
-=back
-
-=head1 NOTES:
-
-=over 2
-
-=item if the country USA or Canada, then city, postal_code and state become required
-
-=back
+=cut

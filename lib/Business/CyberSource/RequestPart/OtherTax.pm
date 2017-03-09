@@ -51,11 +51,11 @@ L<Business::CyberSource::MessagePart>
 
 =attr alternate_tax_amount
 
-Amount of all taxes, excluding the local tax and national tax 
+Amount of all taxes, excluding the local tax and national tax
 
-=attr alternate_tax_indicator 
+=attr alternate_tax_indicator
 
-Flag that indicates whether the alternate tax amount is included in the request. 
+Flag that indicates whether the alternate tax amount is included in the request.
 
 =attr vat_tax_amount
 

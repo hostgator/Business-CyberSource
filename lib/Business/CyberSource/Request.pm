@@ -223,11 +223,11 @@ L<Business::CyberSource::RequestPart::InvoiceHeader>
 
 L<Business::CyberSource::RequestPart::ShipTo>
 
-=attr other_tax 
+=attr other_tax
 
 L<Business::CyberSource::RequestPart::OtherTax>
 
-=attr ship_from 
+=attr ship_from
 
 L<Business::CyberSource::RequestPart::ShipFrom>
 
