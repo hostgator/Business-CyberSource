@@ -51,6 +51,7 @@ sub BUILD {
               . ') is required for US or Canada',
         ) unless $self->has_state;
     }
+    return;
 }
 
 has first_name => (
