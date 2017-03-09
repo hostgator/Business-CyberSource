@@ -30,6 +30,7 @@ use MooseX::Types -declare => [
       CreditService
       TaxService
       BillTo
+      ShipTo
       BusinessRules
       InvoiceHeader
       OtherTax
@@ -52,9 +53,12 @@ use MooseX::Types -declare => [
 
       Client
 
+      ShippingMethod
+
       _VarcharOne
       _VarcharSeven
       _VarcharTen
+      _VarcharFifteen
       _VarcharTwenty
       _VarcharFifty
       _VarcharSixty
@@ -131,6 +135,9 @@ enum AVSResult, [qw( A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 1 2 )];
 
 enum ElectronicVerificationResult, [qw( N P R S U Y 2)];
 
+enum ShippingMethod,
+  [qw(lowcost sameday oneday twoday threeday pickup other none)];
+
 my $prefix = 'Business::CyberSource::';
 my $req    = $prefix . 'RequestPart::';
 my $res    = $prefix . 'ResponsePart::';
@@ -139,6 +146,7 @@ my $itc = $req . 'Item';
 my $ptc = $req . 'PurchaseTotals';
 my $cdc = $req . 'Card';
 my $btc = $req . 'BillTo';
+my $stc = $req . 'ShipTo';
 my $brc = $req . 'BusinessRules';
 my $ihc = $req . 'InvoiceHeader';
 my $otc = $req . 'OtherTax';
@@ -165,6 +173,7 @@ class_type PurchaseTotals,      { class => $ptc };
 class_type Service,             { class => $svc };
 class_type Card,                { class => $cdc };
 class_type BillTo,              { class => $btc };
+class_type ShipTo,              { class => $stc };
 class_type BusinessRules,       { class => $brc };
 class_type InvoiceHeader,       { class => $ihc };
 class_type OtherTax,            { class => $otc };
@@ -194,6 +203,7 @@ coerce CreditService,       from HashRef, via { use_module($cds)->new($_) };
 coerce TaxService,          from HashRef, via { use_module($txs)->new($_) };
 coerce Card,                from HashRef, via { use_module($cdc)->new($_) };
 coerce BillTo,              from HashRef, via { use_module($btc)->new($_) };
+coerce ShipTo,              from HashRef, via { use_module($stc)->new( $_ ) };
 coerce BusinessRules,       from HashRef, via { use_module($brc)->new($_) };
 coerce InvoiceHeader,       from HashRef, via { use_module($ihc)->new($_) };
 coerce OtherTax,            from HashRef, via { use_module($otc)->new($_) };
@@ -209,6 +219,7 @@ coerce Client,            from HashRef, via { use_module($client)->new($_) };
 subtype CountryCode,     as Alpha2Country;
 subtype ExpirationDate,  as MooseX::Types::DateTime::DateTime;
 subtype DateTimeFromW3C, as MooseX::Types::DateTime::DateTime;
+
 subtype TaxReplyItems,   as ArrayRef [TaxReplyItem];
 subtype Items,           as ArrayRef [Item];
 
@@ -269,6 +280,10 @@ subtype _VarcharSeven, as NonEmptySimpleStr,
 subtype _VarcharTen, as SimpleStr,
   where { length $_ <= 10 },
   message { $varchar_message . '10' };
+
+subtype _VarcharFifteen, as SimpleStr,
+	where { length $_ <= 15 },
+	message { $varchar_message . '15' };
 
 subtype _VarcharTwenty, as NonEmptySimpleStr,
   where { length $_ <= 20 },

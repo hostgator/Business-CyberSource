@@ -21,6 +21,8 @@ my $req
 			$t->resolve( service => '/helper/purchase_totals'),
 		card =>
 			$t->resolve( service => '/helper/card' ),
+		ship_to =>
+			$t->resolve( service => '/helper/ship_to' ),
         invoice_header =>
             $t->resolve( service => '/helper/invoice_header' ),
         other_tax =>

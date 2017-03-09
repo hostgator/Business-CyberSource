@@ -17,6 +17,8 @@ my $dto
 			$t->resolve( service => '/helper/purchase_totals'),
 		card =>
 			$t->resolve( service => '/helper/card' ),
+		ship_to =>
+			$t->resolve( service => '/helper/ship_to' ),
         invoice_header => $t->resolve( service => '/helper/invoice_header' ),
         other_tax => $t->resolve( service => '/helper/other_tax' ),
         ship_from => $t->resolve( service => '/helper/ship_from' ),
@@ -53,6 +55,18 @@ my %expected = (
                 dutyAmount       => 10.00,
 	},
 	merchantReferenceCode => 'notarealcode',
+	shipTo => {
+		country     => 'US',
+		street1     => '2104 E Anderson Ln',
+		state       => 'TX',
+		city        => 'Austin',
+		postalCode  => '78752',
+		firstName      => 'Caleb',
+		lastName       => 'Cushing',
+		street2        => 'N/A',
+		phoneNumber    => '+1-512-555-0180',
+		shippingMethod => 'none',
+	},
     invoiceHeader => {
         purchaserVATRegistrationNumber => 'ATU99999999',
         userPO                         => '123456',

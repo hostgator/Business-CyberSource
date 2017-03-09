@@ -61,6 +61,7 @@ sub test_successful_capture {
                     duty     => '10.00',              # optional
                     currency => $res->currency,
                 },
+                ship_to => $t->resolve( service => '/helper/ship_to' ),
                 invoice_header =>
                   $t->resolve( service => '/helper/invoice_header' ),
                 other_tax =>

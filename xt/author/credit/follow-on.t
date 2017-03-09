@@ -57,6 +57,8 @@ my $credit_req
 		service => {
 			request_id => $capture_res->request_id,
 		},
+		ship_to =>
+			$t->resolve( service => '/helper/ship_to' ),
         invoice_header =>
             $t->resolve( service => '/helper/invoice_header' ),
         other_tax =>

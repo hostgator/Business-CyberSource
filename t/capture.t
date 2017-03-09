@@ -23,6 +23,14 @@ my $capture = new_ok(
                 user_po                           => '123456',
                 vat_invoice_reference_number      => '1234',
             },
+            ship_to => {
+                country     => 'US',
+                postal_code => '78701',
+                city        => 'Austin',
+                state       => 'TX',
+                street1     => '306 E 6th',
+                street2     => 'Dizzy Rooster',
+            },
             other_tax => {
                 alternate_tax_amount    => '1',
                 alternate_tax_indicator => 1,
@@ -55,6 +63,14 @@ my %expected = (
         userPO                         => '123456',
         vatInvoiceReferenceNumber      => '1234',
     },
+	shipTo => {
+		country    => 'US',
+		postalCode => '78701',
+		city       => 'Austin',
+		state      => 'TX',
+		street1    => '306 E 6th',
+		street2    => 'Dizzy Rooster',
+	},
     otherTax => {
         alternateTaxAmount    => '1',
         alternateTaxIndicator => 1,

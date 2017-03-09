@@ -22,6 +22,7 @@ foreach ( @test_pairs ) {
 		reference_code  => 12345,
 		purchase_totals => $t->resolve( service => '/helper/purchase_totals'),
 		bill_to         => $t->resolve( service  => '/helper/bill_to'),
+		ship_to         => $t->resolve( service => '/helper/ship_to' ),
 		card            => $t->resolve(
 			service    => '/helper/card',
 			parameters => {
@@ -36,6 +37,7 @@ foreach ( @test_pairs ) {
 	can_ok $dto, 'serialize';
 
 	isa_ok $dto->bill_to,         'Business::CyberSource::RequestPart::BillTo';
+	isa_ok $dto->ship_to,         'Business::CyberSource::RequestPart::ShipTo';
 	isa_ok $dto->purchase_totals, 'Business::CyberSource::RequestPart::PurchaseTotals';
 	isa_ok $dto->card,            'Business::CyberSource::RequestPart::Card';
     isa_ok $dto->invoice_header,  'Business::CyberSource::RequestPart::InvoiceHeader';
@@ -54,6 +56,18 @@ foreach ( @test_pairs ) {
 			city        => 'Austin',
 			postalCode  => '78752',
 		},
+        shipTo => {
+			country     => 'US',
+			street1     => '2104 E Anderson Ln',
+			state       => 'TX',
+			city        => 'Austin',
+			postalCode  => '78752',
+			firstName      => 'Caleb',
+			lastName       => 'Cushing',
+			street2        => 'N/A',
+			phoneNumber    => '+1-512-555-0180',
+			shippingMethod => 'none',	
+        },
 		card => {
 			accountNumber   => $acct_num,
 			cardType        => $type_code,

@@ -103,6 +103,9 @@ sub BUILD {
                 service alternate_tax_indicator           => 1;
                 service vat_tax_amount                    => '0.10';
                 service vat_tax_rate                      => '0.10';
+                service street2         => 'N/A';
+                service shipping_method => 'none';
+                service phone_number    => '+1-512-555-0180';
             };
 
             service card => (
@@ -236,6 +239,23 @@ sub BUILD {
                 },
             );
 
+            service ship_to => (
+                class        => 'Business::CyberSource::RequestPart::ShipTo',
+                dependencies => {
+                    street1     => depends_on('services/street'),
+                    country     => depends_on('services/country'),
+                    postal_code => depends_on('services/postal_code'),
+                    state       => depends_on('services/state'),
+                    city        => depends_on('services/city'),
+                    # optional fields to check sandbox
+                    first_name      => depends_on('services/first_name'), 
+                    last_name       => depends_on('services/last_name'),
+                    street2         => depends_on('services/street2'),
+                    phone_number    => depends_on('services/phone_number'),
+                    shipping_method => depends_on('services/shipping_method'),
+                },
+            );
+
             service purchase_totals => (
                 class => 'Business::CyberSource::RequestPart::PurchaseTotals',
                 dependencies => {
@@ -322,6 +342,10 @@ sub BUILD {
                             'Business::CyberSource::RequestPart::ShipFrom',
                             optional => 1,
                     },
+					ship_to => {
+						isa => 'Business::CyberSource::RequestPart::ShipTo',
+						optional => 1,
+					},
                 },
             );
         };

@@ -90,7 +90,8 @@ sub test_successful_authorization {
             $t->resolve(
                 service => '/request/authorization',
                 parameters => {
-                    card => $t->resolve( service => '/helper/card_' . $args->{card_type} ),
+                    card    => $t->resolve( service => '/helper/card_' . $args->{card_type} ),
+                    ship_to => $t->resolve( service => '/helper/ship_to' ),
                 }
             )
         );

@@ -58,6 +58,7 @@ sub test_expired_card {
                                 total => 3000.37, # magic make me expired
                             },
                         ),
+                        ship_to => $t->resolve( service => '/helper/ship_to' ),
                     },
                 )
             );
@@ -105,6 +106,7 @@ sub test_declined_authorization {
                                 total => 3000.04, # magic 201
                             },
                         ),
+                        ship_to => $t->resolve( service => '/helper/ship_to' ),
                     },
                 )
             );

@@ -71,6 +71,15 @@ __PACKAGE__->meta->make_immutable;
 				year  => 2025,
 			},
 		},
+		# optional:
+		ship_to => {
+			country     => 'US',
+			postal_code => '78701',
+			city        => 'Austin',
+			state       => 'TX',
+			street1     => '306 E 6th',
+			street2     => 'Dizzy Rooster',
+		},
 	});
 
 =head1 DESCRIPTION
@@ -109,6 +118,10 @@ Merchant Reference Code
 =attr bill_to
 
 L<Business::CyberSource::RequestPart::BillTo>
+
+=attr ship_to
+
+L<Business::CyberSource::RequestPart::ShipTo>
 
 =attr purchase_totals
 

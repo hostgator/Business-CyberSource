@@ -40,6 +40,15 @@ __PACKAGE__->meta->make_immutable;
                         discount => 0.50,  # optional
                         duty     => 0.07,  # optional
 		},
+		# optional:
+		ship_to => {
+			country     => 'US',
+			postal_code => '78701',
+			city        => 'Austin',
+			state       => 'TX',
+			street1     => '306 E 6th',
+			street2     => 'Dizzy Rooster',
+		},
         invoice_header => {
             purchaser_vat_registration_number => 'ATU99999999',
             user_po => '123456',

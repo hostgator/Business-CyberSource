@@ -63,6 +63,7 @@ sub test_double_capture_auth {
                         total    => $res->auth->amount,
                         currency => $res->currency,
                     },
+                    ship_to => $t->resolve( service => '/helper/ship_to' ),
                     invoice_header =>
                       $t->resolve( service => '/helper/invoice_header' ),
                     other_tax => $t->resolve( service => '/helper/other_tax' ),
@@ -86,6 +87,7 @@ sub test_double_capture_auth {
                         total    => $res->auth->amount,
                         currency => $res->currency,
                     },
+                    ship_to => $t->resolve( service => '/helper/ship_to' ),
                     invoice_header =>
                       $t->resolve( service => '/helper/invoice_header' ),
                     other_tax => $t->resolve( service => '/helper/other_tax' ),
@@ -141,6 +143,7 @@ sub test_capture_declined_auth {
                         total    => 3000.04,
                         currency => 'USD',
                     },
+                    ship_to => $t->resolve( service => '/helper/ship_to' ),
                     invoice_header =>
                       $t->resolve( service => '/helper/invoice_header' ),
                     other_tax => $t->resolve( service => '/helper/other_tax' ),

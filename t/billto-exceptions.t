@@ -50,7 +50,7 @@ my $exception2
 };
 
 isa_ok $exception2, 'Moose::Exception::AttributeIsRequired';
-like $exception2, qr/state/, 'us/ca require a postal_code';
-like $exception2, qr/US or Canada/, 'us/ca require a postal_code';
+like $exception2, qr/state/, 'us/ca require a state';
+like $exception2, qr/US or Canada/, 'us/ca require a state';
 
 done_testing;
